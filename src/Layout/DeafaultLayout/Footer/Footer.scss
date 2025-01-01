@@ -1,0 +1,245 @@
+.container {
+  width: 980px;
+  margin: 0 auto
+}
+
+#newFooter {
+  background: #22376f url("../../../../public/newBgFooter.jpg") no-repeat top center;
+  padding: 20px;
+  // display: flex;
+}
+
+.Question {
+  width: 160px;
+  margin-right: 15px
+}
+
+.aboutUs {
+  width: 132px;
+  margin-right: 15px
+}
+
+.Dathang {
+  width: 125px;
+  margin-right: 15px
+}
+
+.headU {
+  background: url("../../../../public/abayIcon.png") no-repeat top left;
+  padding: 9px 0 0 25px
+}
+
+.listFAQ {
+  margin: 5px 0 5px 25px;
+  list-style: none
+}
+
+.listFAQ li {
+  white-space: nowrap
+}
+
+.listFAQ li a {
+  background: url("../../../../public/listItem-3.png") no-repeat center left;
+  font-size: 11px;
+  color: #fff;
+  text-decoration: none;
+  padding-left: 10px;
+  line-height: 18px
+}
+
+.listFAQ li a:hover {
+  text-decoration: underline
+}
+
+.contactUs {
+  width: 250px;
+  padding-bottom: 10px;
+  margin-top: 5px;
+  margin-right: 15px;
+  background: #fff;
+  border-radius: 5px
+}
+.imgSocial {
+  width: 23px;
+  height: 23px
+}
+
+.contactUs .headContact {
+  line-height: 40px;
+  height: 40px;
+  padding: 0 15px;
+  background: #ebebeb;
+  font-size: 18px;
+  font-weight: bold;
+  color: #123272;
+  border-radius: 5px
+}
+
+.contentContactUs {
+  background: #fff
+}
+
+.line4 {
+  // background: url(/images/abayv2/line4.png) no-repeat;
+  height: 1px;
+  margin: 1px 0
+}
+
+.contactUs img {
+  margin: 5px 0 10px 0;
+  float: left
+}
+
+.contactUs p {
+  margin-top: 5px
+}
+
+.red-font {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 25px;
+  color: #900
+}
+
+.textEKM {
+  width: 110px;
+  height: 20px;
+  border: none;
+  margin: 5px 0;
+  float: left;
+  font-size: 10px;
+  color: #666;
+  line-height: 20px;
+  padding: 0 5px
+}
+
+.submitEmail {
+  // background: url(/_Web/_File/Images/Layout/bgMenu-hover.jpg) repeat-x !important;
+  height: 20px !important;
+  margin: 5px 0;
+  border: none;
+  margin-left: 5px;
+  cursor: pointer;
+  color: #fff;
+  line-height: 20px;
+  font-size: 11px;
+  padding: 0 5px !important
+}
+
+.likeUsonFB {
+  width: 66px;
+  height: 24px;
+  background: url("../../../../public/Facebook.png") no-repeat;
+  border: none;
+  float: left;
+  cursor: pointer;
+  margin-top: 6px;
+  margin-right: 5px
+}
+
+.connectFB {
+  background: url("../../../../public/Facebook.png") no-repeat;
+  width: 120px;
+  height: 41px;
+  float: left;
+  border: none
+}
+
+.mainFooter {
+  margin-top: 25px;
+  margin-left: 30px
+}
+
+.mainFooter img {
+  float: left;
+  margin-right: 6px;
+  padding: 1px;
+  border: solid 1px #b7b7b7;
+  width: 90px
+}
+.floatL{
+  float: left;
+}
+.floatR{
+  float: right;
+}
+.bold-font-white {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #fff
+}
+
+.clr {
+  clear: both
+}
+.mainFooter .hanoiFooter p {
+  float: left;
+  font-size: 11px;
+  color: #fff;
+  margin-right: 15px;
+  line-height: 15px
+}
+
+.link {
+  color: #c7eafb
+}
+
+.hanoiFooter {
+  width: 423px;
+  margin-right: 10px
+}
+
+.copyright {
+  margin-top: 25px;
+  text-align: right;
+  font-size: 11px;
+  color: #fff
+}
+
+.link {
+  color: #c7eafb;
+  text-decoration: none
+}
+
+.subMenu {
+  background: url("../../../../public/BoCongThuong.png") repeat-x;
+  height: 29px
+}
+
+.subMenu ul {
+  list-style: none;
+  float: right;
+  width: 340px;
+  padding: 5px 0;
+  text-align: right
+}
+
+.subMenu ul li {
+  float: left;
+  margin-right: 15px
+}
+
+.subMenu ul li img {
+  margin-right: 5px
+}
+
+.subMenu ul li.lastItem {
+  margin-right: 0;
+  padding-right: 0
+}
+
+.slTopHeader {
+  font-size: 11px;
+  color: #8f8f8f;
+  line-height: 25px;
+  float: left;
+  margin-left: 10px;
+  white-space: nowrap
+}
+
+.NavFooter {
+  background-color: #fff !important;
+  padding-top: 20px;
+  clear: both
+}
