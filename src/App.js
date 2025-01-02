@@ -1,38 +1,43 @@
-import React, { Fragment } from 'react';
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import { publicRoutes } from './router';
+import React, { Fragment } from 'react'
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
+import { publicRoutes } from './router'
 import { DefaultLayout } from './Layout/DeafaultLayout'
+import { AdminLayout } from './Layout/AdminLayout'
+import ToastProvider from './components/useToast/ToastContext'
 
-function App() {
+function App () {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          {publicRoutes.map((route, index) => {
-            let Layout = DefaultLayout;
-            const Page = route.component;
+    <ToastProvider>
+      <Router>
+        <div className='App'>
+          <Routes>
+            {publicRoutes.map((route, index) => {
+              let Layout = DefaultLayout
+              const Page = route.component
 
-            // Nếu route có layout được set là null
-            if (route.layout === null) {
-              Layout = Fragment;
-            }
-
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Page />
-                  </Layout>
-                }
-              />
-            );
-          })}
-        </Routes>
-      </div>
-    </Router>
-  );
+              if (route.layout === null) {
+                Layout = Fragment
+              }
+              if (route.layout === 'admin') {
+                Layout = AdminLayout
+              }
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    <Layout>
+                      <Page />
+                    </Layout>
+                  }
+                />
+              )
+            })}
+          </Routes>
+        </div>
+      </Router>
+    </ToastProvider>
+  )
 }
 
-export default App;
+export default App

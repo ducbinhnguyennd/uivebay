@@ -1,0 +1,67 @@
+.add-vung {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+
+    h3 {
+        text-align: center;
+        width: 100%;
+    }
+
+    .bodyaddvung {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgb(209, 209, 209);
+        padding: 10px;
+
+        input {
+            padding: 10px;
+            border: 1px solid rgb(209, 209, 209);
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+    }
+
+    .footeraddvung {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        width: 100%;
+        .btnfoot {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .btnaddvung{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 10px;
+                background-color: rgb(16, 147, 255);
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgb(10, 110, 175);
+                }
+            }
+            .btnhuyvung{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 10px;
+                background-color: rgb(199, 199, 199);
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover{
+                    background-color: rgb(145, 145, 145);
+                }
+            }
+        }
+    }
+}

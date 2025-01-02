@@ -1,0 +1,1 @@
+export {default as EditThanhPho} from './EditThanhPho'
