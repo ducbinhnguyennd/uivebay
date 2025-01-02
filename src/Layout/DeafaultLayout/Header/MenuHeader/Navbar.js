@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import './Navbar.scss';
 
@@ -6,7 +7,7 @@ const Navbar = () => {
     <div className="navbar">
       <ul className="navbar-menu">
       <li class="homeIco2"><a class="nonedoted homeIco2" href="/"> <img src="/homeIcon.png" alt="Vé máy bay Abay - Trang chủ" class="homeIcon"/></a></li>
-        <li><a href="/trang-chu">Trang chủ</a></li>
+        <li><a href="/">Trang chủ</a></li>
         <li><a href="/ve-noi-dia">Vé nội địa</a></li>
         <li><a href="/ve-quoc-te">Vé quốc tế</a></li>
         <li className="dropdown">
