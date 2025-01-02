@@ -1,0 +1,297 @@
+.service-method {
+    background: #fff;
+    padding: 10px 0 20px;
+    margin: 10px 12px 0 12px;
+    border-top: solid 1px #c8c8c8
+}
+.payment-method {
+    width: 465px !important;
+    height: 510px !important;
+    float: left !important;
+    padding: 5px 15px 10px 0 !important;
+    border-right: solid 1px #e7e7e7 !important;
+    margin-left: 10px !important;
+    background: none !important
+}
+.big-font-normal {
+    font-size: 18px;
+    line-height: 24px;
+    color: #0b1e6f;
+    font-weight: normal;
+    margin: 0;
+}
+
+.big-font-none-bold-none-margin {
+    font-size: 22px;
+    color: #070757;
+    font-weight: normal;
+    line-height: 30px
+}
+.big-font-header {
+    font-size: 26px;
+    line-height: 24px;
+    font-weight: bold;
+    letter-spacing: -2px
+}
+.line7 {
+    border-bottom: dotted 1px #cdcdcd;
+    height: 1px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.blank10 {
+    height: 10px
+}
+
+.mainNoneBG {
+    background: none !important
+}
+
+.payment-method ul {
+    margin: 10px 0;
+    list-style: none;
+
+}
+
+.payment-method ul li {
+    padding: 3px 0 5px 0 !important
+}
+
+.number {
+    float: left
+}
+
+.number2 {
+    float: left;
+}
+
+.number3 {
+    float: left;
+    padding-bottom: 30px
+}
+
+.number4 {
+    float: left;
+    padding-bottom: 30px
+}
+
+.insideLi {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #0b1e6f !important;
+    line-height: 24px !important;
+    display: block !important;
+    margin-top: 7px !important
+}
+
+.payment-method ul li span {
+    margin-right: 10px
+}
+
+.payment-method ul li img {
+    margin-top: 5px !important;
+    margin-right: 8px !important
+}
+
+.viewoffice {
+    font-size: 12px;
+    margin-left: 30px;
+    background: url("../../../../public/hand.png") no-repeat center left;
+    display: block;
+    padding-left: 20px;
+    line-height: 20px;
+    color: #666
+}
+div.chatList {
+    margin: 0;
+    width: 410px;
+    display: inline-block
+}
+
+div.chatList a {
+    display: inline-block;
+    margin-left: 5.9%;
+    width: 14%
+}
+
+div.chatList a img {
+    width: 48px;
+    height: 48px
+}
+
+div.chatList a:first-child {
+    margin: 0
+}
+
+img.number,img.number2,img.number3,img.number4 {
+    width: 20px;
+    height: 20px
+}
+
+.imgbank {
+    margin-top: 5px;
+    width: 355px;
+    height: 113px
+}
+
+.imgBanDo,.imgBanDo {
+    width: 217px;
+    height: 147px
+}
+.bold-font-cyan {
+    font-size: 13px;
+    color: #011059;
+    font-weight: bold
+}
+
+.txtTongDai {
+    margin-top: 12px;
+    float: left
+}
+.txtTongDai .telTD {
+    color: #ee5a24;
+    text-decoration: none
+}
+
+#addVP {
+    position: relative !important;
+    width: 412px !important;
+    height: 146px !important;
+    margin-left: 27px !important;
+    margin-top: 0 !important;
+    padding: 1px !important
+}
+
+#addVP .AddHN {
+    display: block !important;
+    width: 220px !important;
+    height: 160px !important;
+    z-index: 10 !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    text-decoration: none !important
+}
+
+#addVP img {
+    margin: 0 !important
+}
+
+#addVP .AddSG {
+    display: block !important;
+    width: 220px !important;
+    height: 160px !important;
+    z-index: 12 !important;
+    position: absolute !important;
+    right: 15px !important;
+    top: 0 !important;
+    text-decoration: none !important
+}
+.clr {
+    clear: both
+}
+.service {
+    width: 435px !important;
+    height: 525px !important;
+    float: right !important;
+    padding-top: 5px !important;
+    padding-left: 10px !important;
+    padding-right: 12px !important;
+    background: none !important
+}
+
+.service ul {
+    height: 215px !important;
+    padding: 2px 0 0 0 !important;
+    list-style: none;
+    background: none !important
+}
+
+.Pttt ul.wPttt li div.imgPttt {
+    float: left;
+    margin-right: 5px;
+    width: 58px;
+    height: 40px
+}
+.Pttt ul.wPttt li p{
+    margin: 0;
+}
+.service ul li img.thumb {
+    float: left;
+    margin-right: 5px;
+    max-width: 56px;
+    max-height: 67px
+}
+.service ul li{
+    display: flex;
+    align-items: center; 
+}
+.saying {
+    margin: 15px 15px 0 0 !important;
+    float: left !important;
+    display: block !important;
+    background-color: #fafad2;
+    padding: 10px;
+    padding-right: 0;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px
+}
+
+.saying li img {
+    float: left;
+    margin-right: 18px;
+    margin-top: 5px
+}
+
+.saying .nameKH {
+    font-size: 11px
+}
+
+.saying ul li {
+    margin-top: 0 !important;
+    padding-top: 13px !important;
+    font-style: italic
+}
+
+.saying p {
+    float: left !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    color: #000 !important;
+    display: block !important;
+    width: 400px !important
+}
+
+.Question {
+    width: 160px;
+    margin-right: 10px
+}
+.Pttt {
+    float: left;
+    width: 430px;
+    margin-left: 5px
+}
+.Pttt ul.wPttt li p {
+    float: left;
+    display: block;
+    font-size: 12px;
+    width: 340px
+}
+
+.Pttt ul.wPttt li p b {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #000
+}
+
+.Pttt ul.wPttt li p span {
+    line-height: 17px;
+    color: #575757
+}
+.imgCk {
+    text-align: center;
+    width: 100%;
+    float: left;
+    height: 150px
+}

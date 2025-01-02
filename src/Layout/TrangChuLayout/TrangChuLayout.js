@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import "./TrangChuLayout.scss";
 import Loading from "../../components/Loading/Loading";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { Link,useLocation } from "react-router-dom";
-import { Helmet } from "react-helmet";
-
+import { Link, useLocation } from "react-router-dom";
+import FlightBookingForm from "../../components/FlyBookingForm/FlyBookingForm";
+import HinhThuc from "./HinhThuc/HinhThuc";
+import CauHoiThuongGap from "./CauHoiThuongGap/CauHoiThuongGap";
 function TrangChuLayout() {
   const [data, setdata] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const location = useLocation();
 
   const fetchdata = async () => {
     try {
@@ -28,20 +27,7 @@ function TrangChuLayout() {
   useEffect(() => {
     fetchdata();
   }, []);
-  const convertToSlug = (str) => {
-    const slug = str
-      .toLowerCase()
-      .normalize("NFD") // Chuyển đổi sang dạng ký tự cơ bản
-      .replace(/[\u0300-\u036f]/g, "") // Loại bỏ dấu
-      .replace(/\s+/g, "-") // Thay khoảng trắng bằng dấu '-'
-      .replace(/[^\w\-]+/g, "") // Loại bỏ các ký tự không phải chữ và số
-      .replace(/\-\-+/g, "-") // Loại bỏ dấu '-' thừa
-      .replace(/^-+/, "") // Loại bỏ dấu '-' ở đầu chuỗi
-      .replace(/-+$/, ""); // Loại bỏ dấu '-' ở cuối chuỗi
 
-    // Chuyển chữ cái đầu tiên thành hoa
-    return slug.charAt(0).toUpperCase() + slug.slice(1);
-  };
   const handleAddToCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, product];
@@ -51,17 +37,34 @@ function TrangChuLayout() {
 
   return (
     <div>
-      <Helmet>
-        <title>{"Đồ Thờ Đồ Gỗ Công Hương - Ý Yên Nam Định"}</title>
-        <meta name="description" content={"Đồ Thờ Đồ Gỗ Công Hương tọa lạc tại Ngã 3 Cát Đằng, xã Yên Tiến, huyện Ý Yên, tỉnh Nam Định, nơi nổi tiếng với các sản phẩm đồ thờ và đồ gỗ mỹ nghệ cao cấp. Với truyền thống lâu đời của làng nghề Ý Yên, Nam Định, nơi đây được biết đến như một trung tâm chế tác đồ thờ, đồ gỗ với sự khéo léo, tinh tế trong từng sản phẩm."} />
-        <meta name="keywords" content={"Đồ Thờ Công Hương, Làng nghề Cát Đằng, Yên Tiến, Ý Yên, Nam Định, Làm Mộc, Tạc Tượng, Tu Sửa Đình Chùa, Nhà Thờ"} />
-      </Helmet>
       {isLoading && <Loading />}
       {!isLoading && (
         <div>
+          <div className="working-hours-container">
+            <div className="icon-container">
+              <img
+                src="/10h20icon-18dec18.png"
+                alt="clock icon"
+                className="icon"
+              />
+            </div>
+            <div className="text-container">
+              <p className="working-hours-text">
+                <span className="highlight">Giờ làm việc:</span> từ 0h-24h, liên
+                tục không nghỉ, kể cả chủ nhật, các ngày lễ tết
+              </p>
+              <p className="contact-text">
+                Quý khách có bất kì thắc mắc hoặc cần trợ giúp, vui lòng gọi
+                tổng đài <span className="highlight">1900 6091</span>
+              </p>
+            </div>
+          </div>
+          <FlightBookingForm />
+          
+          <HinhThuc/>
+
+          <CauHoiThuongGap/>
          
-          
-          
         </div>
       )}
     </div>

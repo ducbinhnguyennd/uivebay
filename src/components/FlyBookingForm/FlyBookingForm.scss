@@ -1,0 +1,179 @@
+.booking-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .plane-icon {
+    float: left;
+    margin-top: 7px;
+    margin-right: 10px
+}
+
+  .flight-form {
+    flex: 1; 
+    background: #104282 url("../../../public/bgSearchForm.jpg") repeat-x top;
+    border-radius: 8px;
+    padding: 5px 10px 20px 20px;
+  
+    h2 {
+        margin: 0;
+        color: #fff;
+        height: 40px;
+        line-height: 50px;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 8px 0;
+        text-transform: uppercase !important;
+        text-shadow: #011123 1px 1px !important;
+    }
+  
+    .line7 {
+      border-bottom: dotted 1px #cdcdcd;
+      height: 1px;
+      margin-bottom: 10px;
+    }
+  
+    .form-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+  
+      .form-group {
+        flex: 1;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 14px;
+        }
+  
+        input,
+        select {
+          width: 100%;
+          padding: 5px;
+          border-radius: 5px;
+          border: 1px solid #ddd;
+        }
+      }
+    }
+  .form-row-people{
+    .form-group {
+        display: flex;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 14px;
+        }
+  
+        input,
+        select {
+          width: 30%;
+          padding: 5px;
+          border-radius: 5px;
+          border: 1px solid #ddd;
+        }
+      }
+  }
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      .help-link {
+        color: #ffdd00;
+        font-size: 14px;
+        text-decoration: none;
+      }
+  
+      .search {
+        display: flex;
+        align-items: center; /* Đảm bảo hình ảnh và văn bản thẳng hàng theo chiều dọc */
+        cursor: pointer;
+        border: none !important;
+        font-size: 19px !important;
+        height: 52px !important;
+        width: 225px !important;
+        margin-top: 10px !important;
+        color: #fff !important;
+        font-weight: normal !important;
+        text-align: right !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        text-shadow: 1px 1px #b87929 !important;
+        text-transform: uppercase;
+        background-color: #e84e0f !important;
+        background-position-x: 10px !important;
+        border-radius: 8px;
+    }
+    
+    .search p {
+        margin: 0; /* Loại bỏ margin mặc định của p */
+    }
+    
+    .plane-icon {
+        margin-left: 10px;
+        height: 30px;
+        width: 30px;
+    }
+    
+    }
+  }
+  .diemdi {
+    background: url("../../../public/up.png") no-repeat center right;
+    font-size: 14px;
+    color: #fff;
+    font-weight: normal;
+    width: 210px;
+    display: block
+}
+
+.diemden {
+    background: url("../../../public/down.png") no-repeat center right;
+    font-size: 14px;
+    color: #fff;
+    font-weight: normal;
+    width: 210px;
+    display: block
+}
+  .promo-banner {
+    flex: 1; 
+    text-align: center;
+  
+    .promo-image {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+  
+    .promo-content {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+  
+      h3 {
+        font-size: 18px;
+        color: #104282;
+        margin-bottom: 10px;
+      }
+  
+      .flight-prices {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          font-size: 14px;
+          margin-bottom: 5px;
+  
+          b {
+            color: #e84e0f;
+          }
+  
+          span {
+            color: #555;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,213 @@
+.review-faq{
+display: flex;
+  margin-bottom: 20px;
+//   position: absolute;
+
+}
+.saying {
+    flex: 1;
+    margin: 15px 15px 0 0 !important;
+    float: left !important;
+    background-color: #fafad2;
+    padding: 10px;
+    padding-right: 0;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px
+}
+
+.saying li img {
+    float: left;
+    margin-right: 18px;
+    margin-top: 5px
+}
+
+.saying .nameKH {
+    font-size: 11px
+}
+.saying ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.saying ul li {
+    display: flex;
+    margin-top: 0 !important;
+    padding-top: 13px !important;
+    font-style: italic;
+    padding: 0;
+}
+.saying ul li img{
+    width: 45px;
+    height: 45px;
+}
+.saying p {
+    margin: 0;
+    float: left !important;
+    font-size: 12px !important;
+    line-height: 20px !important;
+    color: #000 !important;
+    display: block !important;
+    width: 400px !important
+}
+
+.Question {
+    width: 160px;
+    margin-right: 10px
+}
+.CustSay {
+    font-size: 24px;
+    font-weight: bold;
+    color: #04438d;
+    text-decoration: none;
+    line-height: 40px;
+    letter-spacing: -1px
+}
+
+.nameKH {
+    line-height: 25px;
+    color: #9c9c9c;
+    font-size: 11px
+}
+
+.quickComent {
+    float: left;
+    margin-left: 45px;
+    width: 290px
+}
+
+.quickComent h5 {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: #04438d
+}
+
+.quickComent h5 {
+    margin: 10px 0
+}
+
+.quickComent label {
+    font-size: 11px;
+    color: #155095;
+    line-height: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block
+}
+
+.inputName {
+    border: solid 1px #e4e4e4;
+    height: 24px;
+    background: #fff;
+    width: 290px;
+    margin-bottom: 10px
+}
+
+.messageKH {
+    width: 290px;
+    height: 65px;
+    border: solid 1px #e4e4e4;
+    font-size: 12px;
+    font-family: Arial,Helvetica,sans-serif
+}
+
+.btn {
+    overflow: hidden;
+    display: block;
+    margin-top: 10px
+}
+
+.clr {
+    clear: both
+}
+.Viewmoree {
+    background: url("../../../../public/bgMenu-hover.jpg") repeat-x;
+    display: block;
+    float: right;
+    padding: 3px 8px 3px 8px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 16px
+}
+.QuestionU {
+    flex: 1;
+    background: url("../../../../public/bg_Question2.png") no-repeat top center;
+    width: 430px;
+    height: 535px;
+    margin-top: 10px;
+    float: left;
+    margin-right: 10px
+}
+
+.QuestionU h4 {
+    line-height: 35px;
+    color: #04438d;
+    padding: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    margin-left: 40px;
+    margin-top: 10px;
+
+
+}
+.QuestionU h3 {
+    line-height: 35px;
+    color: #04438d;
+    padding: 0px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    margin-right: 20px;
+
+}
+.qtQuestion li {
+    margin: 8px 0
+}
+
+.qtQuestion li a {
+    color: #04438d;
+    line-height: 14px;
+    text-decoration: none;
+    font-size: 12px
+}
+
+a.xemchitietQt {
+    margin-right: 10px;
+    font-size: 12px;
+    color: #143a83;
+    background: url("../../../../public/DetailNextIcon.png") no-repeat center right;
+    padding-right: 30px;
+    display: inline-block;
+    float: right;
+    line-height: 25px;
+    height: 25px;
+    text-decoration: underline
+}
+.faq-items {
+    height: 435px;
+    overflow-y: auto
+}
+.qtQuestion .faq-items ul{
+    list-style: none;
+}
+.faq-item {
+    margin: 10px 0 !important
+}
+
+.faq-item .question {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 16px;
+    padding: 0;
+    cursor: pointer
+}
+
+.faq-item .answer {
+    font-size: 12px;
+    margin: 10px
+}
