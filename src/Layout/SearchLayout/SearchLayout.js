@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./SearchLayout.scss";
-import FilterComponent from "../../components/SideBar/Filter";
+import { useToast } from "../../components/useToast/ToastContext";
 
 function SearchLayout() {
+    const {cityfrom,cityto,searchData} =useToast()
+    console.log(searchData)
   const [activeDate, setActiveDate] = useState("Thứ Bảy");
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null); // Trạng thái cho nút "Chi tiết"
 
@@ -54,9 +56,9 @@ function SearchLayout() {
       <div className="flight-booking">
       <div className="booking-header">
         <div className="route-info">
-          <span className="city">TP HỒ CHÍ MINH</span>&nbsp;
+          <span className="city">{cityfrom}</span>&nbsp;
           <img src="./plane1.png" alt="plane" style={{ width: "15px" }} />&nbsp;
-          <span className="city">HÀ NỘI</span>
+          <span className="city">{cityto}</span>
           <br />
           <div className="date-info">
             <span className="selected-date">Thứ Bảy 04/01/2025</span>, tức ngày

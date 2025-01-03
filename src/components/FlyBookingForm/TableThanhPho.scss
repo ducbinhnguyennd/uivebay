@@ -1,0 +1,133 @@
+.destination-selector {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    background-color: #fcfbbb !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1000;
+    width: 950px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        padding: 10px;
+        background: #f6a828 50% 50% repeat-x;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.search-box {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.divinputsearch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
+
+    input {
+        font-size: 13px;
+        width: 80% !important;
+        margin: 0;
+    }
+
+    button {
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #fff;
+        line-height: 29px;
+        border: none !important;
+        padding: 0 18px;
+        height: 29px;
+        font-weight: bold;
+        background: url('../../../public/submit-bg.png') repeat-x;
+    }
+
+}
+
+.regions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    gap: 10px;
+}
+
+.region {
+    min-width: 150px;
+}
+
+.region h3 {
+    font-size: 13px;
+    color: #ff6600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.region ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.destination-item {
+    padding: 5px 0px;
+    cursor: pointer;
+    color: #333;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.destination-item:hover {
+    background-color: #ffe6cc;
+    color: #000;
+    border-radius: 4px;
+}
+
+.suggestion-box {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% - 20px);
+    z-index: 1001;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.suggestion-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestion-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+    color: #000;
+}
