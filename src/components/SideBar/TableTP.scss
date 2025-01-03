@@ -1,0 +1,140 @@
+.destination-selector1 {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    background-color: #fcfbbb !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1000;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h4 {
+        padding: 10px;
+        background: #f6a828 50% 50% repeat-x;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.destination-list1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.search-box1 {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.divinputsearch1 {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
+    width: 50%;
+
+    input {
+        font-size: 13px;
+        width: 80% !important;
+        margin: 0;
+    }
+
+    button {
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #fff;
+        line-height: 29px;
+        border: none !important;
+        padding: 0 18px;
+        height: 29px;
+        font-weight: bold;
+        background: url('../../../public/submit-bg.png') repeat-x;
+    }
+
+}
+
+.regions1 {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.region1 {
+    min-width: 100px;
+}
+
+.region1 h3 {
+    font-size: 13px;
+    color: #ff6600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.region1 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.destination-item1 {
+    padding: 5px 0px;
+    cursor: pointer;
+    color: #333;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.destination-item1:hover {
+    background-color: #ffe6cc;
+    color: #000;
+    border-radius: 4px;
+}
+
+.suggestion-box1 {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1001;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    top: 135px;
+    right: 0;
+    width: 55%;
+}
+
+.suggestion-box1 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestion-item1 {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestion-item1:hover {
+    background-color: #f1f1f1;
+    color: #000;
+}

@@ -22,7 +22,7 @@
       margin: 0 15px;
       position: relative;
       float: left;
-      
+
       a {
         font-size: 12px !important;
         color: #fff !important;
@@ -30,20 +30,24 @@
         text-decoration: none !important;
         font-weight: bold !important;
         white-space: nowrap;
-       
+
       }
 
       &:hover {
-        background-color: #fff !important; /* Nền màu trắng khi hover */
+        background-color: #fff !important;
+
+        /* Nền màu trắng khi hover */
         a {
-          color: #143a83 !important; /* Chữ đổi sang màu xanh đậm khi hover */
+          color: #143a83 !important;
+          /* Chữ đổi sang màu xanh đậm khi hover */
         }
       }
 
       &.active {
-        background-color: #fff !important; 
+        background-color: #fff !important;
+
         a {
-          color: #fff ; 
+          color: #fff;
         }
       }
 
@@ -60,12 +64,26 @@
           background-color: #003366;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           list-style: none;
-          padding: 10px 0;
-
-          li {      
+          li {
             white-space: nowrap;
+            margin: 0;
+            padding: 10px;
+            width: 100%;
+
+            &:hover {
+              background-color: #fff !important;
+
+              /* Nền màu trắng khi hover */
+              a {
+                color: #143a83 !important;
+                /* Chữ đổi sang màu xanh đậm khi hover */
+              }
+            }
+
             a {
               text-decoration: none;
+              color: white !important;
+
               &:hover {
                 text-decoration: underline;
               }
