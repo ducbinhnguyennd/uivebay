@@ -1,9 +1,14 @@
 import { iconsImgs, personsImgs } from '../../../utils/images'
 
 export const navigationLinks = [
-  { id: 1, title: 'Home', image: iconsImgs.home },
-  { id: 2, title: 'Budget', image: iconsImgs.budget },
-  { id: 3, title: 'Transactions', image: iconsImgs.plane },
+  { id: 1, title: 'Home', image: iconsImgs.home, link: '/' },
+  {
+    id: 2,
+    title: 'Hãng máy bay',
+    image: iconsImgs.budget,
+    link: '/hangmaybay'
+  },
+  { id: 3, title: 'Thành phố', image: iconsImgs.plane, link: '/vung' },
   { id: 4, title: 'Subscriptions', image: iconsImgs.wallet },
   { id: 5, title: 'Loans', image: iconsImgs.bills },
   { id: 6, title: 'Reports', image: iconsImgs.report },
