@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+  }
+  .booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .route-info {
+    font-size: 18px;
+    color: #ff4500;
+    font-weight: bold;
+  }
+  
+  .arrow {
+    font-size: 20px;
+    color: #555;
+  }
+  
+  .city {
+    font-size: 16px;
+  }
+  
+  .date-info {
+    font-size: 14px;
+    color: #003366;
+    text-align: center;
+  }
+  
+  .price-info {
+    font-size: 16px;
+    text-align: right;
+    color: #555;
+  }
+  
+  .note {
+    font-size: 16px;
+    color: #888;
+  }
+  
+  .flight-booking {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .date-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .date {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .date:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  .date.active {
+    background: #ff8c00;
+    color: #fff;
+    border-color: #ff8c00;
+  }
+  
+  .date:hover {
+    background: #ffe4b3;
+  }
+  
+  .flight-options {
+    margin-top: 20px;
+  }
+  
+  .flight-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .flight-info {
+    flex: 1;
+  }
+  
+  .flight-code {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .flight-time {
+    color: #555;
+  }
+  
+  .flight-price {
+    font-weight: bold;
+    color: #ff8c00;
+    margin-right: 10px;
+  }
+  
+  .flight-details {
+    background: none;
+    border: none;
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .select-flight {
+    padding: 5px 10px;
+    background: #ff8c00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .select-flight:hover {
+    background: #e67e00;
+  }
+  .flight-detail-content {
+    background: #f5f5f5;
+    padding: 10px;
+    border-left: 2px solid #ff8c00;
+    margin-top: 5px; /* Giúp nó nằm sát dưới dòng tương ứng */
+    margin-bottom: 10px;
+  }
+  
+  .flight-detail-content ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  
+  .flight-detail-content li {
+    margin-bottom: 5px;
+  }
+  
