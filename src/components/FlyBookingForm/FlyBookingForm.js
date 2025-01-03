@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import './FlyBookingForm.scss'
+import { useToast } from '../useToast/ToastContext'
+import { useNavigate } from 'react-router-dom'
 
 function FlightBookingForm () {
+  const navigate = useNavigate()
+
+  const { setSearchData, setcityto, setcityfrom } = useToast()
+
   const [departure, setDeparture] = useState('Tp Hồ Chí Minh')
   const [arrival, setArrival] = useState('Hà Nội')
   const [departureDate, setDepartureDate] = useState('2025-01-03')
@@ -11,33 +17,36 @@ function FlightBookingForm () {
   const [infants, setInfants] = useState(0)
 
   const formatDate = isoDate => {
-  const [year, month, day] = isoDate.split('-')
-  return `${day}/${month}/${year}`
-}
+    const [year, month, day] = isoDate.split('-')
+    return `${day}/${month}/${year}`
+  }
 
   const handelSearch = async () => {
     try {
       const response = await fetch(
-        'https://wooordersystem.store/order-woo/api/getInfoFlights',
+        `https://wooordersystem.store/order-woo/api/getInfoFlights`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             departure,
             arrival,
-            date:formatDate(departureDate),
+            date: formatDate(departureDate),
+            returnDate: formatDate(returnDate),
             adults,
             children,
             infants
           })
         }
       )
+      const data = await response.json()
       if (response.ok) {
-        const data = await response.json()
-        console.log(data)
+        setSearchData(data)
+
+        navigate('/search')
       }
     } catch (error) {
-      console.error(error)
+      console.error('Error fetching flight data:', error)
     }
   }
 
