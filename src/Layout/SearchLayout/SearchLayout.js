@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./SearchLayout.scss";
+import FilterComponent from "../../components/SideBar/Filter";
 
 function SearchLayout() {
   const [activeDate, setActiveDate] = useState("Thứ Bảy");
@@ -49,7 +50,8 @@ function SearchLayout() {
   };
 
   return (
-    <div className="flight-booking">
+    <div className="search-layout">
+      <div className="flight-booking">
       <div className="booking-header">
         <div className="route-info">
           <span className="city">TP HỒ CHÍ MINH</span>&nbsp;
@@ -117,6 +119,8 @@ function SearchLayout() {
             </div>
           ))}
       </div>
+    </div>
+    <FilterComponent/>
     </div>
   );
 }
