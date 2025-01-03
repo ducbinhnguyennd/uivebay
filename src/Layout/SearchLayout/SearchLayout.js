@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react'
-import './SearchLayout.scss'
-import { useToast } from '../../components/useToast/ToastContext'
-
-function SearchLayout () {
-  const { cityfrom, cityto, searchData } = useToast()
+import { useState,useEffect } from "react";
+import "./SearchLayout.scss";
+import { useToast } from "../../components/useToast/ToastContext";
+import FilterComponent from "../../components/SideBar/Filter";
+import SearchSidebar from "../../components/SideBar/SearchSideBar";
+function SearchLayout() {
+  const { cityfrom, cityto, searchData } = useToast();
+  console.log(searchData);
+  const [activeDate, setActiveDate] = useState("Thứ Bảy");
+  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
   const [hangmaybay, sethangmaybay] = useState([])
-  const [activeDate, setActiveDate] = useState('Thứ Bảy')
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
-
   const fetchhang = async () => {
     try {
       const response = await fetch('http://localhost:8080/gethangmaybay')
@@ -23,32 +24,59 @@ function SearchLayout () {
   useEffect(() => {
     fetchhang()
   }, [])
-
   const dates = [
-    { day: 'Thứ Hai', date: '06/01', price: '868,000đ' },
-    { day: 'Thứ Ba', date: '06/01', price: '868,000đ' },
-    { day: 'Thứ Tư', date: '01/01', price: '' },
-    { day: 'Thứ Năm', date: '02/01', price: '' },
-    { day: 'Thứ Sáu', date: '03/01', price: '1,010,000đ' },
-    { day: 'Thứ Bảy', date: '04/01', price: '868,000đ' },
-    { day: 'Chủ Nhật', date: '05/01', price: '1,008,000đ' }
-  ]
+    { day: "Thứ Hai", date: "06/01", price: "868,000đ" },
+    { day: "Thứ Ba", date: "06/01", price: "868,000đ" },
+    { day: "Thứ Tư", date: "01/01", price: "" },
+    { day: "Thứ Năm", date: "02/01", price: "" },
+    { day: "Thứ Sáu", date: "03/01", price: "1,010,000đ" },
+    { day: "Thứ Bảy", date: "04/01", price: "868,000đ" },
+    { day: "Chủ Nhật", date: "05/01", price: "1,008,000đ" },
+  ];
 
-  const handleDateClick = day => {
-    setActiveDate(day)
-  }
+  const flights = [
+    {
+      code: "VU750",
+      time: "05:45 - 07:55",
+      price: "868,000đ",
+      details: [
+        "Thời gian bay: 2 giờ 10 phút",
+        "Hãng hàng không: Vietravel Airlines",
+        "Loại vé: Economy",
+        "Số ghế: 12A",
+      ],
+    },
+    {
+      code: "VU794",
+      time: "20:45 - 22:55",
+      price: "868,000đ",
+      details: [
+        "Thời gian bay: 2 giờ 10 phút",
+        "Hãng hàng không: Vietravel Airlines",
+        "Loại vé: Economy",
+        "Số ghế: 15C",
+      ],
+    },
+  ];
 
-  const toggleDetails = index => {
-    setVisibleDetailIndex(visibleDetailIndex === index ? null : index)
-  }
+  const handleDateClick = (day) => {
+    setActiveDate(day);
+  };
+
+  const toggleDetails = (index) => {
+    setVisibleDetailIndex(visibleDetailIndex === index ? null : index);
+  };
   const getAirlineImage = airlineCode => {
-  const airline = hangmaybay.find(h => h.mahangmaybay === airlineCode)
-  return airline ? airline.image : ''
-}
-
-
+    const airline = hangmaybay.find(h => h.mahangmaybay === airlineCode)
+    return airline ? airline.image : ''
+  }
+  
   return (
-    <div className='flight-booking'>
+    <div className="search-layout">
+      <div className="content-wrapper">
+        {/* Phần bên trái */}
+        <div className="main-content">
+        <div className='flight-booking'>
       <div className='booking-header'>
         <div className='route-info'>
           <span className='city'>{cityfrom}</span>&nbsp;
@@ -114,7 +142,7 @@ function SearchLayout () {
                 <div className='flight-detail-content'>
                   <p>Chi tiết chuyến bay:</p>
                   <ul>
-                    {flight.details.map((detail, i) => (
+                    {flights.map((detail, i) => (
                       <li key={i}>{detail}</li>
                     ))}
                   </ul>
@@ -124,7 +152,16 @@ function SearchLayout () {
           ))}
       </div>
     </div>
-  )
+        </div>
+
+        {/* Phần bên phải */}
+        <div className="filter-sidebar">
+          <FilterComponent />
+          <SearchSidebar/>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default SearchLayout
+export default SearchLayout;
