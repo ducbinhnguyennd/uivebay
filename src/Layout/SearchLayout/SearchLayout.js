@@ -1,8 +1,8 @@
 import { useToast } from '../../components/useToast/ToastContext'
 
 function SearchLayout () {
-  const { searchData } = useToast()
-  console.log(searchData)
+  const { searchData,cityfrom,cityto } = useToast()
+  console.log(cityto)
 
   return (
     <div className='search-container'>

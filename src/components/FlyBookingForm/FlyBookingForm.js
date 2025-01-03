@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useRef,useEffect } from 'react'
 import './FlyBookingForm.scss'
 import { useToast } from '../useToast/ToastContext'
 import { useNavigate } from 'react-router-dom'
+import TableThanhPho from './TableThanhPho'
 
 function FlightBookingForm () {
   const navigate = useNavigate()
+  const dropdownRef = useRef(null)
 
   const { setSearchData, setcityto, setcityfrom } = useToast()
 
   const [departure, setDeparture] = useState('Tp Hồ Chí Minh')
+  const [madepature, setmadepature] = useState('')
   const [arrival, setArrival] = useState('Hà Nội')
+  const [maarrival, setmaarrival] = useState('')
+
+  const [dropdownOpen, setDropdownOpen] = useState(null)
   const [departureDate, setDepartureDate] = useState('2025-01-03')
   const [returnDate, setReturnDate] = useState('')
   const [adults, setAdults] = useState(1)
@@ -21,6 +27,20 @@ function FlightBookingForm () {
     return `${day}/${month}/${year}`
   }
 
+  useEffect(() => {
+  const handleClickOutside = event => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(null)
+    }
+  }
+
+  document.addEventListener('mousedown', handleClickOutside)
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside)
+  }
+}, [])
+
+
   const handelSearch = async () => {
     try {
       const response = await fetch(
@@ -29,8 +49,8 @@ function FlightBookingForm () {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            departure,
-            arrival,
+            departure: madepature,
+            arrival: maarrival,
             date: formatDate(departureDate),
             returnDate: formatDate(returnDate),
             adults,
@@ -58,27 +78,53 @@ function FlightBookingForm () {
           VÉ MÁY BAY GIÁ RẺ
         </h2>
         <div className='line7'></div>
-        <div className='form-row'>
+        <div className='form-row' ref={dropdownRef}>
           <div className='form-group'>
-            <label class='diemdi' title='Chọn điểm đi'>
+            <label className='diemdi' title='Chọn điểm đi'>
               Điểm đi
             </label>
             <input
               type='text'
               value={departure}
+              onClick={() => setDropdownOpen('departure')}
               onChange={e => setDeparture(e.target.value)}
+              readOnly
             />
+            {dropdownOpen === 'departure' && (
+              <TableThanhPho
+                title='Chọn điểm đi'
+                onSelect={(value, ma) => {
+                  setDeparture(value)
+                  setcityfrom(value)
+                  setmadepature(ma)
+                  setDropdownOpen(null)
+                }}
+              />
+            )}
           </div>
           <div>⇌</div>
           <div className='form-group'>
-            <label class='diemden' title='Chọn điểm đến'>
+            <label className='diemden' title='Chọn điểm đến'>
               Điểm đến
             </label>
             <input
               type='text'
               value={arrival}
+              onClick={() => setDropdownOpen('arrival')}
               onChange={e => setArrival(e.target.value)}
+              readOnly
             />
+            {dropdownOpen === 'arrival' && (
+              <TableThanhPho
+                title='Chọn điểm đến'
+                onSelect={(value, ma) => {
+                  setArrival(value)
+                  setcityto(value)
+                  setmaarrival(ma)
+                  setDropdownOpen(null)
+                }}
+              />
+            )}
           </div>
         </div>
         <div className='form-row'>
