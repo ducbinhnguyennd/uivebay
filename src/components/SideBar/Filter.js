@@ -95,7 +95,7 @@ const FilterComponent = () => {
                       <td>Hãng hàng không</td>
                       <td>
                         <a className="remove-filter" type="airline" href="#">
-                          Hiển thị tất cả
+                          Xem tất cả
                         </a>
                       </td>
                     </tr>
