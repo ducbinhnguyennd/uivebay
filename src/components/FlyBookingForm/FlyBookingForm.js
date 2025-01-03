@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './FlyBookingForm.scss'
 import { useToast } from '../useToast/ToastContext'
 import { useNavigate } from 'react-router-dom'
@@ -17,7 +17,7 @@ function FlightBookingForm () {
 
   const [dropdownOpen, setDropdownOpen] = useState(null)
   const [departureDate, setDepartureDate] = useState('2025-01-03')
-  const [returnDate, setReturnDate] = useState('')
+  const [returnDate, setReturnDate] = useState(null)
   const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
   const [infants, setInfants] = useState(0)
@@ -28,41 +28,45 @@ function FlightBookingForm () {
   }
 
   useEffect(() => {
-  const handleClickOutside = event => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setDropdownOpen(null)
+    const handleClickOutside = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(null)
+      }
     }
-  }
 
-  document.addEventListener('mousedown', handleClickOutside)
-  return () => {
-    document.removeEventListener('mousedown', handleClickOutside)
-  }
-}, [])
-
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handelSearch = async () => {
     try {
+      const requestData = {
+        departure: madepature,
+        arrival: maarrival,
+        date: formatDate(departureDate),
+        adults,
+        children,
+        infants
+      }
+
+      if (returnDate) {
+        requestData.returnDate = formatDate(returnDate)
+      }
+
       const response = await fetch(
         `https://wooordersystem.store/order-woo/api/getInfoFlights`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            departure: madepature,
-            arrival: maarrival,
-            date: formatDate(departureDate),
-            returnDate: formatDate(returnDate),
-            adults,
-            children,
-            infants
-          })
+          body: JSON.stringify(requestData)
         }
       )
+
       const data = await response.json()
       if (response.ok) {
         setSearchData(data)
-
         navigate('/search')
       }
     } catch (error) {
