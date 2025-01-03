@@ -1,11 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './SearchLayout.scss'
 import { useToast } from '../../components/useToast/ToastContext'
 
 function SearchLayout () {
   const { cityfrom, cityto, searchData } = useToast()
+  const [hangmaybay, sethangmaybay] = useState([])
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null) // Trạng thái cho nút "Chi tiết"
+  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
+
+  const fetchhang = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/gethangmaybay')
+      const data = await response.json()
+      if (response.ok) {
+        sethangmaybay(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchhang()
+  }, [])
 
   const dates = [
     { day: 'Thứ Hai', date: '06/01', price: '868,000đ' },
@@ -24,6 +41,11 @@ function SearchLayout () {
   const toggleDetails = index => {
     setVisibleDetailIndex(visibleDetailIndex === index ? null : index)
   }
+  const getAirlineImage = airlineCode => {
+  const airline = hangmaybay.find(h => h.mahangmaybay === airlineCode)
+  return airline ? airline.image : ''
+}
+
 
   return (
     <div className='flight-booking'>
@@ -71,6 +93,9 @@ function SearchLayout () {
             <div key={index}>
               <div className='flight-row'>
                 <div className='flight-info'>
+                    <span>
+                        <img src={getAirlineImage(flight.airlineCode)} alt="" />
+                    </span>
                   <span className='flight-code'>{flight.flightNumber}</span>
                   <span className='flight-time'>
                     {flight.departureTime} - {flight.arrivalTime}
