@@ -7,10 +7,15 @@ const ToastContext = createContext()
 export const useToast = () => useContext(ToastContext)
 
 const ToastProvider = ({ children }) => {
-  const [searchData, setSearchData] = useState([])
+  const [searchData, setSearchData] = useState(() => {
+    const savedData = localStorage.getItem('searchData')
+    return savedData ? JSON.parse(savedData) : []
+  })
+
   const [cityfrom, setcityfrom] = useState(() => {
     return localStorage.getItem('cityfrom') || ''
   })
+
   const [cityto, setcityto] = useState(() => {
     return localStorage.getItem('cityto') || ''
   })
@@ -22,6 +27,10 @@ const ToastProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('cityto', cityto)
   }, [cityto])
+
+  useEffect(() => {
+    localStorage.setItem('searchData', JSON.stringify(searchData))
+  }, [searchData])
 
   const showToast = (message, type = 'success') => {
     toast[type](message)

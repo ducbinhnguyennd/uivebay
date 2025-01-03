@@ -34,7 +34,7 @@ const Sidebar = () => {
           {navigationLinks.map(navigationLink => (
             <li className='nav-item' key={navigationLink.id}>
               <a
-                href='#'
+                href='/vung'
                 className={`nav-link ${
                   navigationLink.id === activeLinkIdx ? 'active' : null
                 }`}
