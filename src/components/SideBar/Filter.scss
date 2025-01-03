@@ -1,0 +1,200 @@
+#filter table {
+    padding-bottom: 0;
+    border-spacing: 0
+}
+
+.SearchSidebar table {
+    padding: 0 !important;
+    width: 100%
+}
+
+.sub-form-search table {
+    background: none
+}
+
+.sub-form-search .input-submit input {
+    float: none
+}
+
+.sub-form-search input.text-input {
+    border: 1px solid #909090;
+    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x;
+    border-radius: 3px;
+    height: 26px;
+    padding-left: 5px;
+    width: 205px
+}
+
+.sub-form-search input[type="text"],.i-txt {
+    background-color: #FFFFFF !important;
+    border: 1px solid #909090 !important;
+    height: 26px !important;
+    padding-left: 5px
+}
+
+.sub-form-search input.date-input {
+    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x !important;
+    border: 1px solid #909090;
+    height: 26px;
+    padding-left: 5px;
+    width: 98px;
+    border-radius: 3px
+}
+
+#form-search .focus-input,.sub-form-search .focus-input {
+    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x !important;
+    border: 1px solid #E78F08 !important;
+    box-shadow: 0 0 3px #E78F08
+}
+
+.sub-form-search select {
+    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x !important;
+    border: 1px solid #C7C7C7;
+    height: 26px;
+    width: 95%
+}
+
+.sub-form-search .input-submit input {
+    background: url(/_Web/_File/Images/SearchForm/btn3.png) no-repeat center center;
+    border: none;
+    font-size: 14px;
+    height: 55px;
+    width: 155px;
+    color: #fff;
+    font-weight: bold;
+    text-align: right;
+    font-family: Arial,Helvetica,sans-serif;
+    text-shadow: 1px 1px #b87929;
+    padding-right: 5px;
+    cursor: pointer
+}
+
+#filter {
+    border: solid 1px #dfdbdb;
+    padding: 5px;
+    margin: 12px 0;
+    background: #f9f9f9
+}
+
+.locTimkiem {
+    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x;
+    height: 40px;
+    line-height: 40px;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+    margin: -5px -6px;
+    padding-bottom: 5px
+}
+
+.titleSort td span {
+    font-size: 12px;
+    color: #143a83;
+    line-height: 20px;
+    font-weight: bold;
+    background: url(/_Web/_File/Images/Layout/img_tt_filter.png) no-repeat center left;
+    padding-left: 18px
+}
+
+.borderSort {
+    border: solid 1px #dfdbdb;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    background: #fff
+}
+
+.borderSortlastItem {
+    margin-bottom: 0;
+    border: solid 1px #dfdbdb;
+    border-radius: 5px;
+    padding: 6px 0 10px 5px;
+    background: #fff
+}
+
+.SearchSidebar {
+    background: #104382 url(/_Web/_File/Images/Layout/search1408.jpg) repeat-x;
+    border-radius: 5px;
+    padding: 8px
+}
+
+.titleSearchS td h6 {
+    background: url(/images/Plane.png) no-repeat center left;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 32px;
+    padding-left: 50px;
+    text-shadow: #000 0.1em 0.1em 0.2em
+}
+
+.remove-date {
+    color: #ba1c1d;
+    background: url(/_Web/_File/Images/HomePageD/clear.png) no-repeat;
+    font-size: 11px;
+    cursor: pointer;
+    display: none;
+    padding-left: 18px;
+    margin-right: 20px;
+    float: right
+}
+
+#ui-datepicker-div {
+    font-size: 14px;
+    background: white !important
+}
+
+#ui-datepicker-div .ui-datepicker-calendar th.ui-datepicker-t7,#ui-datepicker-div .ui-datepicker-calendar .ui-datepicker-t7 .ui-datepicker-day {
+    color: #173580
+}
+
+#ui-datepicker-div .ui-datepicker-calendar th.ui-datepicker-cn,#ui-datepicker-div .ui-datepicker-calendar .ui-datepicker-cn .ui-datepicker-day {
+    color: #c04413
+}
+
+#ui-datepicker-div .ui-widget-header {
+    border: 1px solid #0D6DB9;
+    background: #0D6DB9
+}
+
+#ui-datepicker-div .ui-datepicker-lunar {
+    font-size: 0.8em;
+    font-family: inherit !important;
+    color: black;
+    opacity: 0.55
+}
+
+#ui-datepicker-div .ui-datepicker-lunar.dp-price {
+    text-align: center !important
+}
+
+#ui-datepicker-div .ui-datepicker-day {
+    font-size: 0.95em;
+    font-family: inherit !important;
+    color: black;
+    padding: 5% 0;
+    text-align: center !important;
+    font-weight: normal !important
+}
+
+#ui-datepicker-div .ui-state-default {
+    background: #f3f3f3;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    border: solid 1px #FFFFFF;
+    margin: 1%
+}
+
+#ui-datepicker-div .ui-state-default.ui-state-active {
+    background: yellow;
+    border: 1px solid yellow
+}
+
+#ui-datepicker-div .ui-state-default.ui-state-highlight {
+}
+
+#ui-datepicker-div .ui-state-default .dp-best-price {
+    color: green
+}
