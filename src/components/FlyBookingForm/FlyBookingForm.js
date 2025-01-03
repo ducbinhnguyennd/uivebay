@@ -7,12 +7,13 @@ import TableThanhPho from './TableThanhPho'
 function FlightBookingForm () {
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
+  const { showToast } = useToast()
 
   const { setSearchData, setcityto, setcityfrom } = useToast()
 
-  const [departure, setDeparture] = useState('Tp Hồ Chí Minh')
+  const [departure, setDeparture] = useState('Chọn điểm đi')
   const [madepature, setmadepature] = useState('')
-  const [arrival, setArrival] = useState('Hà Nội')
+  const [arrival, setArrival] = useState('Chọn điểm đến')
   const [maarrival, setmaarrival] = useState('')
 
   const [dropdownOpen, setDropdownOpen] = useState(null)
@@ -25,6 +26,23 @@ function FlightBookingForm () {
   const formatDate = isoDate => {
     const [year, month, day] = isoDate.split('-')
     return `${day}/${month}/${year}`
+  }
+  const validate = () => {
+    let valid = true
+    if (madepature) {
+      valid = true
+    } else {
+      valid = false
+      showToast('Bạn chưa chọn điểm đi', 'warning')
+    }
+
+    if (maarrival) {
+      valid = true
+    } else {
+      valid = false
+      showToast('Bạn chưa chọn điểm đến', 'warning')
+    }
+    return valid
   }
 
   useEffect(() => {
@@ -41,6 +59,7 @@ function FlightBookingForm () {
   }, [])
 
   const handelSearch = async () => {
+    if (!validate()) return
     try {
       const requestData = {
         departure: madepature,
