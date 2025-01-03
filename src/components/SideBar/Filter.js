@@ -105,7 +105,7 @@ const FilterComponent = () => {
                         <label htmlFor="rblAirline_VN">&nbsp;Vietnam Airlines</label>
                       </td>
                       <td>
-                        <img src="/_Web/_File/Images/AirlineLogo/smVN.gif" alt="Vietnam Airlines Logo" />
+                        <img src="/smVN.gif" alt="Vietnam Airlines Logo" />
                       </td>
                     </tr>
                     <tr>
@@ -114,7 +114,7 @@ const FilterComponent = () => {
                         <label htmlFor="rblAirline_QH">&nbsp;BamBoo Airways</label>
                       </td>
                       <td>
-                        <img src="/_Web/_File/Images/AirlineLogo/smQH.gif" alt="BamBoo Airways Logo" />
+                        <img src="/smQH.gif" alt="BamBoo Airways Logo" />
                       </td>
                     </tr>
                     <tr>
@@ -123,7 +123,7 @@ const FilterComponent = () => {
                         <label htmlFor="rblAirline_VJ">&nbsp;VietjetAir</label>
                       </td>
                       <td>
-                        <img src="/_Web/_File/Images/AirlineLogo/smVJ.gif" alt="VietjetAir Logo" />
+                        <img src="/smVJ.gif" alt="VietjetAir Logo" />
                       </td>
                     </tr>
                     <tr>
@@ -132,7 +132,7 @@ const FilterComponent = () => {
                         <label htmlFor="rblAirline_VU">&nbsp;Vietravel Airlines</label>
                       </td>
                       <td>
-                        <img src="/_Web/_File/Images/AirlineLogo/smVU.gif" alt="Vietravel Airlines Logo" />
+                        <img src="/smVU.gif" alt="Vietravel Airlines Logo" />
                       </td>
                     </tr>
                   </tbody>

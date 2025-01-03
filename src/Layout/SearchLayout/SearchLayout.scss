@@ -12,7 +12,26 @@ body {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
   }
+  .search-layout {
+    display: flex;
+    justify-content: center;
   
+    .content-wrapper {
+      display: flex;
+      width: 100%;
+    }
+  
+    .main-content {
+      flex: 8;
+      padding: 5px;
+      background-color: #f9f9f9;
+    }
+  
+    .filter-sidebar {
+    //   flex: 2;
+      padding: 5px;
+    }
+  }
   .route-info {
     font-size: 18px;
     color: #ff4500;

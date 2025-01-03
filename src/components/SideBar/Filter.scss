@@ -18,7 +18,7 @@
 
 .sub-form-search input.text-input {
     border: 1px solid #909090;
-    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x;
+    background: url("../../../public/bgDate_07.jpg") repeat-x;
     border-radius: 3px;
     height: 26px;
     padding-left: 5px;
@@ -33,7 +33,7 @@
 }
 
 .sub-form-search input.date-input {
-    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x !important;
+    background: url("../../../public/bgDate_07.jpg") repeat-x !important;
     border: 1px solid #909090;
     height: 26px;
     padding-left: 5px;
@@ -42,20 +42,20 @@
 }
 
 #form-search .focus-input,.sub-form-search .focus-input {
-    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x !important;
+    background: url("../../../public/bgDate_07.jpg") repeat-x !important;
     border: 1px solid #E78F08 !important;
     box-shadow: 0 0 3px #E78F08
 }
 
 .sub-form-search select {
-    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x !important;
+    background: url("../../../public/bgDate_07.jpg") repeat-x !important;
     border: 1px solid #C7C7C7;
     height: 26px;
     width: 95%
 }
 
 .sub-form-search .input-submit input {
-    background: url(/_Web/_File/Images/SearchForm/btn3.png) no-repeat center center;
+    // background: url(/_Web/_File/Images/SearchForm/btn3.png) no-repeat center center;
     border: none;
     font-size: 14px;
     height: 55px;
@@ -75,9 +75,14 @@
     margin: 12px 0;
     background: #f9f9f9
 }
-
+#filter label{
+    padding-left: 5px;
+}
+#filter td {
+    padding-bottom: 5px;
+}
 .locTimkiem {
-    background: url(/_Web/_File/Images/Layout/bgDate_07.jpg) repeat-x;
+    background: url("../../../public/bgDate_07.jpg") repeat-x;
     height: 40px;
     line-height: 40px;
     color: #333;
@@ -93,7 +98,7 @@
     color: #143a83;
     line-height: 20px;
     font-weight: bold;
-    background: url(/_Web/_File/Images/Layout/img_tt_filter.png) no-repeat center left;
+    background: url("../../../public/img_tt_filter.png") no-repeat center left;
     padding-left: 18px
 }
 
@@ -114,13 +119,13 @@
 }
 
 .SearchSidebar {
-    background: #104382 url(/_Web/_File/Images/Layout/search1408.jpg) repeat-x;
+    // background: #104382 url(/_Web/_File/Images/Layout/search1408.jpg) repeat-x;
     border-radius: 5px;
     padding: 8px
 }
 
 .titleSearchS td h6 {
-    background: url(/images/Plane.png) no-repeat center left;
+    background: url("../../../public/Plane.png") no-repeat center left;
     color: #fff;
     font-size: 18px;
     font-weight: bold;
@@ -131,7 +136,7 @@
 
 .remove-date {
     color: #ba1c1d;
-    background: url(/_Web/_File/Images/HomePageD/clear.png) no-repeat;
+    // background: url(/_Web/_File/Images/HomePageD/clear.png) no-repeat;
     font-size: 11px;
     cursor: pointer;
     display: none;
@@ -177,7 +182,6 @@
     text-align: center !important;
     font-weight: normal !important
 }
-
 #ui-datepicker-div .ui-state-default {
     background: #f3f3f3;
     border-radius: 4px;
@@ -192,7 +196,21 @@
     border: 1px solid yellow
 }
 
-#ui-datepicker-div .ui-state-default.ui-state-highlight {
+.theo-hang-bay td img {
+    float: right;
+    height: 20px
+}
+.theo-hang-bay td {
+    padding: 3px 0
+}
+
+.theo-hang-bay .sub-title td {
+    font-weight: bold
+}
+
+.theo-hang-bay .sub-title td a {
+    font-weight: normal;
+    float: right
 }
 
 #ui-datepicker-div .ui-state-default .dp-best-price {
