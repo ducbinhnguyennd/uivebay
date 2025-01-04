@@ -10,7 +10,7 @@ function SearchLayout () {
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
   const [filters, setFilters] = useState({
-    sortBy: 'airline',
+    sortBy: 'abay-suggest',
     airlines: []
   })
 
