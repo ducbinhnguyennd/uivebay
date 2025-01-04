@@ -5,10 +5,10 @@ import FilterComponent from '../../components/SideBar/Filter'
 import SearchSidebar from '../../components/SideBar/SearchSideBar'
 function SearchLayout () {
   const { cityfrom, cityto, searchData } = useToast()
-  console.log(searchData)
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
+  const [phantrams, setphantram] = useState([])
   const [filters, setFilters] = useState({
     sortBy: 'abay-suggest',
     airlines: []
@@ -26,9 +26,24 @@ function SearchLayout () {
     }
   }
 
+  const fetchphantram = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/getphantram')
+      const data = await response.json()
+      console.log(data)
+      if (response.ok) {
+        setphantram(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     fetchhang()
+    fetchphantram()
   }, [])
+
   const dates = [
     { day: 'Thứ Hai', date: '06/01', price: '868,000đ' },
     { day: 'Thứ Ba', date: '06/01', price: '868,000đ' },
@@ -191,7 +206,16 @@ function SearchLayout () {
                           {flight.departureTime} - {flight.arrivalTime}
                         </span>
                       </div>
-                      <div className='flight-price'>{flight.price}</div>
+
+                      <div className='flight-price'>
+                        {phantrams.length > 0
+                          ? (
+                              (parseInt(flight.price.replace(/,/g, ''), 10) *
+                                phantrams[0].phantram) /
+                              100
+                            ).toLocaleString()
+                          : 'Đang tải...'}
+                      </div>
                       <button
                         className='flight-details'
                         onClick={() => toggleDetails(index)}
