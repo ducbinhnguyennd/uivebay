@@ -1,51 +1,61 @@
-import React, { useState } from "react";
-import "./GioiThieu.scss";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useState } from 'react'
+import './GioiThieu.scss'
 const GioiThieu = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(0)
 
-  // Hàm thay đổi tab khi bấm nút
-  const showTab = (tabIndex) => {
-    setActiveTab(tabIndex);
-  };
+  const showTab = (tabIndex, height) => {
+    setActiveTab(tabIndex)
+    const container = document.getElementById('stcontainer')
+    container.style.height = height
+    const tab = document.getElementById(`tabs-${tabIndex + 1}`)
+    tab.style.top = '0px'
+  }
+  
   return (
-    <div className="g">
-      <img src="https://www.abay.vn/_WEB/_File/Images/GioiThieuAbay/Banner.jpg"></img>
-      <div className="contentGioithieu">
-        <div id="tabs" className="stMain">
-          <ul className="tabAnchor">
-            <li className="tab1" onClick={() => showTab(0)}>
-              <a href="#tabs-1" className="sel">
-                <span className="imgtab1"></span>
+    <div className='g'>
+      <img src='https://www.abay.vn/_WEB/_File/Images/GioiThieuAbay/Banner.jpg'></img>
+      <div className='contentGioithieu'>
+        <div id='tabs' className='stMain'>
+          <ul className='tabAnchor'>
+            <li className='tab1' onClick={() => showTab(0, '3232px')}>
+              <a href='#tabs-1' className='sel'>
+                <span className='imgtab1'></span>
                 Công ty
                 <br /> Vé máy bay ABAY
               </a>
             </li>
-            <li className="tab2" onClick={() => showTab(1)}>
-              <a href="#tabs-2">
+            <li className='tab2' onClick={() => showTab(1, '1647px')}>
+              <a href='#tabs-2'>
                 Hệ thống
                 <br /> ABAY.vn
               </a>
             </li>
-            <li className="tab3" onClick={() => showTab(2)}>
-              <a href="#tabs-3">Gia ĐÌnh abay</a>
+            <li className='tab3' onClick={() => showTab(2, '4582px')}>
+              <a href='#tabs-3'>Gia ĐÌnh abay</a>
             </li>
-            <li className="tab4" onClick={() => showTab(3)}>
-              <a href="#tabs-4">Đối tác</a>
+            <li className='tab4' onClick={() => showTab(3, '420px')}>
+              <a href='#tabs-4'>Đối tác</a>
             </li>
           </ul>
 
-          <div className="stContainer" style={{ height: "3392px" }}>
-            <div className={activeTab === 0 ? "show" : "hide"}>
-              <div id="tabs-1" className="tabContent" style={{ top: "0px" }}>
+          <div
+            className='stContainer'
+            style={{ height: '3232px' }}
+            id='stcontainer'
+          >
+            <div className={activeTab === 0 ? 'show' : 'hide'}>
+              <div id='tabs-1' className='tabContent' style={{ top: '0px' }}>
                 <p>
-                  ABAY là công ty hoạt động trong lĩnh vực thương mại điện tử –{" "}
+                  ABAY là công ty hoạt động trong lĩnh vực thương mại điện tử –{' '}
                   <b>chuyên cung cấp dịch vụ vé máy bay trực tuyến</b> của các
                   hãng hàng không nội địa và quốc tế. ABAY có hệ thống Đặt Vé
-                  Máy Bay Trực Tuyến tại website{" "}
-                  <a href="/">
+                  Máy Bay Trực Tuyến tại website{' '}
+                  <a href='/'>
                     <b>www.ABAY.vn</b>
-                  </a>{" "}
-                  với các chức năng:{" "}
+                  </a>{' '}
+                  với các chức năng:{' '}
                   <i>
                     Tìm kiếm hành trình bay, So sánh giá vé của các hãng hàng
                     không, Đặt vé trên website và Thanh toán trực tuyến.
@@ -60,10 +70,10 @@ const GioiThieu = () => {
                   làm thế nào để thực hiện các giao dịch dựa trên các ứng dụng
                   được nhanh chóng, đáng tin cậy, và dễ sử dụng.
                 </p>
-                <p style={{ textAlign: "center" }}>
+                <p style={{ textAlign: 'center' }}>
                   <img
-                    src="https://www.abay.vnhttps://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-1.JPG"
-                    alt=""
+                    src='https://www.abay.vnhttps://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-1.JPG'
+                    alt=''
                   />
                 </p>
                 <p>
@@ -78,7 +88,7 @@ const GioiThieu = () => {
                 </p>
                 <p>
                   Với ABAY, chúng tôi quyết tâm tạo ra website đặt vé máy bay
-                  trực tuyến tốt nhất với ưu tiên hàng đầu là <b>sự tiện lợi</b>{" "}
+                  trực tuyến tốt nhất với ưu tiên hàng đầu là <b>sự tiện lợi</b>{' '}
                   tối đa mà ABAY có thể mang đến cho khách hàng. Từ một nhóm nhỏ
                   với vài thành viên, cho đến nay ABAY đã trở thành công ty dẫn
                   đầu trong lĩnh vực này tại thị trường Việt Nam với hơn 100
@@ -89,10 +99,10 @@ const GioiThieu = () => {
                   khách sạn… để tiến tới mục tiêu trở thành một trong những
                   doanh nghiệp OTA thành công đầu tiên tại Việt Nam.
                 </p>
-                <p style={{ textAlign: "center" }}>
+                <p style={{ textAlign: 'center' }}>
                   <img
-                    src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-2.JPG"
-                    alt=""
+                    src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-2.JPG'
+                    alt=''
                   />
                 </p>
                 <h3>THÀNH TỰU ĐÃ ĐẠT ĐƯỢC</h3>
@@ -112,16 +122,16 @@ const GioiThieu = () => {
                     <li>Giải thưởng Sao vàng của VietJet Air</li>
                     <li>Đối tác vàng của Jetstar năm 2012</li>
                   </ul>
-                  <p style={{ textAlign: "center" }}>
+                  <p style={{ textAlign: 'center' }}>
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-3.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-3.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-4.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-4.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                   </p>
                 </div>
@@ -140,16 +150,16 @@ const GioiThieu = () => {
                       Jetstar
                     </li>
                   </ul>
-                  <p style={{ textAlign: "center" }}>
+                  <p style={{ textAlign: 'center' }}>
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-5.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-5.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-6.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-6.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                   </p>
                 </div>
@@ -164,16 +174,16 @@ const GioiThieu = () => {
                       2014
                     </li>
                   </ul>
-                  <p style={{ textAlign: "center" }}>
+                  <p style={{ textAlign: 'center' }}>
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-7.pnG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-7.pnG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-8.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-8.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                   </p>
                 </div>
@@ -185,16 +195,16 @@ const GioiThieu = () => {
                       2015
                     </li>
                   </ul>
-                  <p style={{ textAlign: "center" }}>
+                  <p style={{ textAlign: 'center' }}>
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-9.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-9.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-10.pnG"
-                      style={{ height: "200px", paddingLeft: "15px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-10.pnG'
+                      style={{ height: '200px', paddingLeft: '15px' }}
+                      alt=''
                     />
                   </p>
                 </div>
@@ -216,11 +226,11 @@ const GioiThieu = () => {
                       năm 2015 của Sabre Vietnam
                     </li>
                   </ul>
-                  <p style={{ textAlign: "center" }}>
+                  <p style={{ textAlign: 'center' }}>
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-2016-sao-khue.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-2016-sao-khue.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                   </p>
                 </div>
@@ -242,20 +252,20 @@ const GioiThieu = () => {
                       của Vietjet Air
                     </li>
                   </ul>
-                  <p style={{ textAlign: "center" }}>
+                  <p style={{ textAlign: 'center' }}>
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-2017-vietjet.JPG"
-                      style={{ height: "200px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-2017-vietjet.JPG'
+                      style={{ height: '200px' }}
+                      alt=''
                     />
                     <img
-                      src="https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-2017-vna.JPG"
-                      style={{ height: "200px", paddingLeft: "15px" }}
-                      alt=""
+                      src='https://www.abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-2017-vna.JPG'
+                      style={{ height: '200px', paddingLeft: '15px' }}
+                      alt=''
                     />
                   </p>
                 </div>
-                <h6 class="nameCty">CÔNG TY TNHH VÉ MÁY BAY TRỰC TUYẾN ABAY</h6>
+                <h6 class='nameCty'>CÔNG TY TNHH VÉ MÁY BAY TRỰC TUYẾN ABAY</h6>
                 <p>
                   Số ĐKKD: 0105795184 - Mã số thuế: 0105795184
                   <br />
@@ -264,15 +274,15 @@ const GioiThieu = () => {
                   Giám đốc: Ông Phạm Tuấn Nam
                   <br />
                   Website chính thức:
-                  <a href="#" class="blueLink">
-                    {" "}
+                  <a href='#' class='blueLink'>
+                    {' '}
                     www.abay.vn
                   </a>
                   <br />
                 </p>
-                <h6 class="nameCty">Địa chỉ:</h6>
+                <h6 class='nameCty'>Địa chỉ:</h6>
                 <p>
-                  <b class="listItemGT">ABAY TẠI HÀ NỘI</b>
+                  <b class='listItemGT'>ABAY TẠI HÀ NỘI</b>
                   <br />
                   324 Phố Huế, Q.Hai Bà Trưng, Hà Nội
                   <br />
@@ -281,7 +291,7 @@ const GioiThieu = () => {
                   Tel: 19006091
                   <br />
                   <br />
-                  <b class="listItemGT">ABAY TẠI TP HỒ CHÍ MINH</b>
+                  <b class='listItemGT'>ABAY TẠI TP HỒ CHÍ MINH</b>
                   <br />
                   52 Huỳnh Khương Ninh, P.Đa Kao, Q1, TP Hồ Chí Minh
                   <br />
@@ -290,28 +300,28 @@ const GioiThieu = () => {
                   Tel: 19006061
                   <br />
                 </p>
-              </div>{" "}
+              </div>
             </div>
-            <div className={activeTab === 1 ? "show" : "hide"}>
-              <div id="tabs-2" className="tabContent" style={{ top: "1657px" }}>
-                <p style={{ textAlign: "center" }}>
+            <div className={activeTab === 1 ? 'show' : 'hide'}>
+              <div id='tabs-2' className='tabContent' style={{ top: '1657px' }}>
+                <p style={{ textAlign: 'center' }}>
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/TrangchuABAY.jpg"
-                    style={{ width: "600px" }}
-                    alt="ABAY Homepage"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/TrangchuABAY.jpg'
+                    style={{ width: '600px' }}
+                    alt='ABAY Homepage'
                   />
                 </p>
 
                 <p>
-                  <a href="/" className="blueLink">
+                  <a href='/' className='blueLink'>
                     www.ABAY.vn
-                  </a>{" "}
+                  </a>{' '}
                   là website Đặt Vé Máy Bay Trực Tuyến thuộc sở hữu của Công ty
                   ABAY. Được thiết kế với giao diện thân thiện, dễ sử dụng.
                   ABAY.vn thực hiện các chức năng sau:
                 </p>
 
-                <div style={{ paddingLeft: "20px" }}>
+                <div style={{ paddingLeft: '20px' }}>
                   <p>
                     <b>
                       1. Tìm kiếm hành trình bay theo yêu cầu của khách hàng
@@ -338,7 +348,7 @@ const GioiThieu = () => {
                   </p>
                   <p>
                     <b>5. Hệ thống thanh toán với nhiều hình thức đa dạng</b>
-                    <span style={{ fontSize: "12px" }}>
+                    <span style={{ fontSize: '12px' }}>
                       : Thanh toán qua chuyển khoản của 12 ngân hàng nội địa,
                       Thanh toán tại văn phòng công ty ABAY (trực tiếp hoặc qua
                       cà thẻ - POS), Thanh toán tại nhà khách hàng và Thanh toán
@@ -354,11 +364,11 @@ const GioiThieu = () => {
                   nhanh chóng mọi lúc, mọi nơi khi muốn.
                 </p>
 
-                <p style={{ textAlign: "center" }}>
+                <p style={{ textAlign: 'center' }}>
                   <img
-                    src="https://abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-11.jpg"
-                    style={{ width: "600px" }}
-                    alt="Giới thiệu ABAY"
+                    src='https://abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-11.jpg'
+                    style={{ width: '600px' }}
+                    alt='Giới thiệu ABAY'
                   />
                 </p>
 
@@ -372,17 +382,17 @@ const GioiThieu = () => {
                 <p>
                   Không chỉ phục vụ nhu cầu đặt vé, Đội Vé Nội Địa và Quốc Tế
                   với nghiệp vụ chuyên môn cao và bề dày kinh nghiệm sẽ tư vấn
-                  cho khách hàng những vấn đề liên quan đến chuyến bay như:{" "}
+                  cho khách hàng những vấn đề liên quan đến chuyến bay như:{' '}
                   <i>các quy định hàng không, giấy tờ thủ tục cần thiết</i> để
                   đảm bảo khách hàng có những chuyến bay suôn sẻ và an toàn
                   nhất.
                 </p>
 
-                <p style={{ textAlign: "center" }}>
+                <p style={{ textAlign: 'center' }}>
                   <img
-                    src="https://abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-12.jpg"
-                    style={{ width: "600px" }}
-                    alt="Giới thiệu ABAY 2"
+                    src='https://abay.vn/_Web/_File/Images/GioithieuAbay2016/gioi-thieu-abay-12.jpg'
+                    style={{ width: '600px' }}
+                    alt='Giới thiệu ABAY 2'
                   />
                 </p>
 
@@ -393,16 +403,16 @@ const GioiThieu = () => {
                 </p>
 
                 <a
-                  href="/tien-ich/huong-dan-su-dung.aspx"
-                  className="blueLink"
-                  style={{ display: "block", margin: "10px 0" }}
+                  href='/tien-ich/huong-dan-su-dung.aspx'
+                  className='blueLink'
+                  style={{ display: 'block', margin: '10px 0' }}
                 >
                   » Hướng dẫn Đặt Vé Máy Bay trên ABAY.vn
                 </a>
-              </div>{" "}
+              </div>
             </div>
-            <div className={activeTab === 2 ? "show" : "hide"}>
-              <div id="tabs-3" className="tabContent" style={{ top: "4592px" }}>
+            <div className={activeTab === 2 ? 'show' : 'hide'}>
+              <div id='tabs-3' className='tabContent' style={{ top: '4592px' }}>
                 <p>
                   Nguồn nhân lực luôn là yếu tố được ABAY đề cao và lấy làm
                   trọng tâm phát triển của công ty bởi hơn ai hết chúng tôi hiểu
@@ -416,10 +426,10 @@ const GioiThieu = () => {
                   như niềm tin mà các thành viên dành cho đại gia đình ABAY
                 </p>
                 <img
-                  src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/cocaunhansu.jpg"
-                  width="600px"
-                  style={{ margin: "10px 0px" }}
-                  alt="Cơ Cấu Nhân Sự"
+                  src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/cocaunhansu.jpg'
+                  width='600px'
+                  style={{ margin: '10px 0px' }}
+                  alt='Cơ Cấu Nhân Sự'
                 />
                 <p>
                   Gia Đình ABAY hiện có hơn 100 thành viên với 4 chi nhánh đặt
@@ -433,18 +443,18 @@ const GioiThieu = () => {
                   viên và xây dựng văn hóa công ty ABAY vững mạnh.
                 </p>
                 {[
-                  "gia-dinh-abay-1.JPG?v=1",
-                  "gia-dinh-abay-2.JPG",
-                  "gia-dinh-abay-3.JPG",
-                  "gia-dinh-abay-4.JPG",
-                  "gia-dinh-abay-5.JPG",
-                  "gia-dinh-abay-6.JPG",
-                  "gia-dinh-abay-7.JPG",
-                  "gia-dinh-abay-8.JPG",
-                  "gia-dinh-abay-9.JPG",
-                  "gia-dinh-abay-10.JPG",
+                  'gia-dinh-abay-1.JPG?v=1',
+                  'gia-dinh-abay-2.JPG',
+                  'gia-dinh-abay-3.JPG',
+                  'gia-dinh-abay-4.JPG',
+                  'gia-dinh-abay-5.JPG',
+                  'gia-dinh-abay-6.JPG',
+                  'gia-dinh-abay-7.JPG',
+                  'gia-dinh-abay-8.JPG',
+                  'gia-dinh-abay-9.JPG',
+                  'gia-dinh-abay-10.JPG'
                 ].map((img, index) => (
-                  <p style={{ textAlign: "center" }} key={index}>
+                  <p style={{ textAlign: 'center' }} key={index}>
                     <img
                       src={`https://abay.vn/_Web/_File/Images/GioithieuAbay2016/${img}`}
                       alt={`Gia Đình Abay ${index + 1}`}
@@ -453,114 +463,110 @@ const GioiThieu = () => {
                 ))}
               </div>
             </div>
-            <div className={activeTab === 3 ? "show" : "hide"}>
-              <div
-                id="tabs-4"
-                className="tabContent"
-                style={{ top: "407px" }}
-              >
-                <div className="doitac">
+            <div className={activeTab === 3 ? 'show' : 'hide'}>
+              <div id='tabs-4' className='tabContent' style={{ top: '407px' }}>
+                <div className='doitac'>
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/logoSenpay.gif"
-                    width="140"
-                    height="70"
-                    alt="Cổng Thanh toán SenPay"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/logoSenpay.gif'
+                    width='140'
+                    height='70'
+                    alt='Cổng Thanh toán SenPay'
                   />
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/sohapay.gif"
-                    width="140"
-                    height="70"
-                    alt="Cổng Thanh toán SohaPay"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/sohapay.gif'
+                    width='140'
+                    height='70'
+                    alt='Cổng Thanh toán SohaPay'
                   />
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/nganluong.gif"
-                    width="140"
-                    height="70"
-                    alt="Cổng Thanh toán Ngân Lượng"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/nganluong.gif'
+                    width='140'
+                    height='70'
+                    alt='Cổng Thanh toán Ngân Lượng'
                   />
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Noibaitaxi.gif"
-                    width="140"
-                    height="70"
-                    alt="Nội Bài Taxi"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Noibaitaxi.gif'
+                    width='140'
+                    height='70'
+                    alt='Nội Bài Taxi'
                   />
                 </div>
-                <div className="doitac2">
+                <div className='doitac2'>
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Jetstar.gif"
-                    width="140"
-                    height="70"
-                    alt="Jetstar Pacific Airlines"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Jetstar.gif'
+                    width='140'
+                    height='70'
+                    alt='Jetstar Pacific Airlines'
                   />
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Vietjetair.gif"
-                    width="140"
-                    height="70"
-                    alt="Vietjet Air"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Vietjetair.gif'
+                    width='140'
+                    height='70'
+                    alt='Vietjet Air'
                   />
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/vna.gif"
-                    width="140"
-                    height="70"
-                    alt="Vietnam Airlines"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/vna.gif'
+                    width='140'
+                    height='70'
+                    alt='Vietnam Airlines'
                   />
                   <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/HuongHaiLogo.gif"
-                    width="140"
-                    height="70"
-                    alt="Hương Hải Sealife Cruise"
-                  />
-                </div>
-                <div className="doitac2">
-                  <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Abacus.gif"
-                    width="140"
-                    height="70"
-                    alt="Abacus"
-                  />
-                  <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/logoTransviet.gif"
-                    width="140"
-                    height="70"
-                    alt="TRansviet"
-                  />
-                  <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Hongngocha.gif"
-                    width="140"
-                    height="70"
-                    alt="Hồng Ngọc Hà"
-                  />
-                  <img
-                    src="https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Enviet.gif"
-                    width="140"
-                    height="70"
-                    alt="Én Việt"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/HuongHaiLogo.gif'
+                    width='140'
+                    height='70'
+                    alt='Hương Hải Sealife Cruise'
                   />
                 </div>
-                <div className="doitac2">
+                <div className='doitac2'>
                   <img
-                    src="https://abay.vn/_Web/_File/Images/GioithieuAbay2016/colormedia.png"
-                    width="140"
-                    height="70"
-                    alt="ColorMedia"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Abacus.gif'
+                    width='140'
+                    height='70'
+                    alt='Abacus'
                   />
                   <img
-                    src="https://abay.vn/_Web/_File/Images/GioithieuAbay2016/kosshop.jpg"
-                    width="140"
-                    height="70"
-                    alt="KosShop"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/logoTransviet.gif'
+                    width='140'
+                    height='70'
+                    alt='TRansviet'
                   />
                   <img
-                    src="https://abay.vn/_Web/_File/Images/GioithieuAbay2016/ononpaylogo.png"
-                    width="140"
-                    height="70"
-                    alt="OnOnPay"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Hongngocha.gif'
+                    width='140'
+                    height='70'
+                    alt='Hồng Ngọc Hà'
                   />
                   <img
-                    src="https://abay.vn/_Web/_File/Images/GioithieuAbay2016/vnglogo.jpg"
-                    width="140"
-                    height="70"
-                    alt="VNG"
+                    src='https://abay.vn/_WEB/_File/Images/GioiThieuAbay/Enviet.gif'
+                    width='140'
+                    height='70'
+                    alt='Én Việt'
+                  />
+                </div>
+                <div className='doitac2'>
+                  <img
+                    src='https://abay.vn/_Web/_File/Images/GioithieuAbay2016/colormedia.png'
+                    width='140'
+                    height='70'
+                    alt='ColorMedia'
+                  />
+                  <img
+                    src='https://abay.vn/_Web/_File/Images/GioithieuAbay2016/kosshop.jpg'
+                    width='140'
+                    height='70'
+                    alt='KosShop'
+                  />
+                  <img
+                    src='https://abay.vn/_Web/_File/Images/GioithieuAbay2016/ononpaylogo.png'
+                    width='140'
+                    height='70'
+                    alt='OnOnPay'
+                  />
+                  <img
+                    src='https://abay.vn/_Web/_File/Images/GioithieuAbay2016/vnglogo.jpg'
+                    width='140'
+                    height='70'
+                    alt='VNG'
                   />
                 </div>
                 <p>
@@ -576,7 +582,7 @@ const GioiThieu = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GioiThieu;
+export default GioiThieu
