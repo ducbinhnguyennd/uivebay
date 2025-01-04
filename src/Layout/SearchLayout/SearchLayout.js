@@ -39,31 +39,6 @@ function SearchLayout () {
     { day: 'Chủ Nhật', date: '05/01', price: '1,008,000đ' }
   ]
 
-  const flights = [
-    {
-      code: 'VU750',
-      time: '05:45 - 07:55',
-      price: '868,000đ',
-      details: [
-        'Thời gian bay: 2 giờ 10 phút',
-        'Hãng hàng không: Vietravel Airlines',
-        'Loại vé: Economy',
-        'Số ghế: 12A'
-      ]
-    },
-    {
-      code: 'VU794',
-      time: '20:45 - 22:55',
-      price: '868,000đ',
-      details: [
-        'Thời gian bay: 2 giờ 10 phút',
-        'Hãng hàng không: Vietravel Airlines',
-        'Loại vé: Economy',
-        'Số ghế: 15C'
-      ]
-    }
-  ]
-
   const handleDateClick = day => {
     setActiveDate(day)
   }
