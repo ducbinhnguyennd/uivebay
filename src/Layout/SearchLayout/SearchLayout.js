@@ -185,7 +185,7 @@ function SearchLayout () {
                       </button>
                     </div>
                     {visibleDetailIndex === index && (
-                      <div className='flight-detail-content'>
+                      <div className='flight-detail-content' onClick={(e) => e.stopPropagation()}>
                         <div>
                           <table width='100%' cellSpacing='0' cellPadding='0'>
                             <tbody className='view-detail-flight'>
