@@ -16,19 +16,19 @@ function SearchLayout () {
 
   const fetchhang = async () => {
     try {
-      const response = await fetch("http://localhost:8080/gethangmaybay");
-      const data = await response.json();
+      const response = await fetch('http://localhost:8080/gethangmaybay')
+      const data = await response.json()
       if (response.ok) {
-        sethangmaybay(data);
+        sethangmaybay(data)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchhang();
-  }, []);
+    fetchhang()
+  }, [])
   const dates = [
     { day: 'Thứ Hai', date: '06/01', price: '868,000đ' },
     { day: 'Thứ Ba', date: '06/01', price: '868,000đ' },
@@ -39,17 +39,82 @@ function SearchLayout () {
     { day: 'Chủ Nhật', date: '05/01', price: '1,008,000đ' }
   ]
 
-  const handleDateClick = (day) => {
-    setActiveDate(day);
-  };
+  const flights = [
+    {
+      code: 'VU750',
+      time: '05:45 - 07:55',
+      price: '868,000đ',
+      details: [
+        'Thời gian bay: 2 giờ 10 phút',
+        'Hãng hàng không: Vietravel Airlines',
+        'Loại vé: Economy',
+        'Số ghế: 12A'
+      ]
+    },
+    {
+      code: 'VU794',
+      time: '20:45 - 22:55',
+      price: '868,000đ',
+      details: [
+        'Thời gian bay: 2 giờ 10 phút',
+        'Hãng hàng không: Vietravel Airlines',
+        'Loại vé: Economy',
+        'Số ghế: 15C'
+      ]
+    }
+  ]
 
-  const toggleDetails = (index) => {
-    setVisibleDetailIndex(visibleDetailIndex === index ? null : index);
-  };
-  const getAirlineImage = (airlineCode) => {
-    const airline = hangmaybay.find((h) => h.mahangmaybay === airlineCode);
-    return airline ? airline.image : "";
-  };
+  const handleDateClick = day => {
+    setActiveDate(day)
+  }
+
+  const toggleDetails = index => {
+    setVisibleDetailIndex(visibleDetailIndex === index ? null : index)
+  }
+  const getAirlineImage = airlineCode => {
+    const airline = hangmaybay.find(h => h.mahangmaybay === airlineCode)
+    return airline ? airline.image : ''
+  }
+
+  const applyFilters = flights => {
+    let filteredFlights = [...flights]
+
+    if (filters.airlines.length > 0) {
+      filteredFlights = filteredFlights.filter(flight =>
+        filters.airlines.includes(flight.airlineCode)
+      )
+    }
+
+    if (filters.sortBy === 'price') {
+      filteredFlights.sort((a, b) => {
+        const priceA = parseInt(a.price.replace(/,/g, ''), 10)
+        const priceB = parseInt(b.price.replace(/,/g, ''), 10)
+        return priceA - priceB
+      })
+    } else if (filters.sortBy === 'time') {
+      filteredFlights.sort((a, b) => {
+        const timeToDate = time => {
+          const [hours, minutes] = time.split(':').map(Number)
+          const date = new Date()
+          date.setHours(hours, minutes, 0, 0)
+          return date
+        }
+
+        return timeToDate(a.departureTime) - timeToDate(b.departureTime)
+      })
+    } else if (filters.sortBy === 'airline') {
+      filteredFlights.sort((a, b) => {
+        const airlineA = a.airlineCode.toLowerCase()
+        const airlineB = b.airlineCode.toLowerCase()
+        if (airlineA < airlineB) return -1
+        if (airlineA > airlineB) return 1
+        return 0
+      })
+    }
+
+    return filteredFlights
+  }
+
   const handleFiltersChange = newFilters => {
     setFilters(newFilters)
   }
@@ -57,46 +122,46 @@ function SearchLayout () {
   const flights1 = applyFilters(searchData.outBound.data.flights)
 
   return (
-    <div className="search-layout">
-      <div className="content-wrapper">
-        <div className="main-content">
-          <div className="flight-booking">
-            <div className="booking-header">
-              <div className="route-info">
-                <span className="city">{cityfrom}</span>&nbsp;
-                <img src="/plane1.png" alt="plane" style={{ width: "15px" }} />
+    <div className='search-layout'>
+      <div className='content-wrapper'>
+        <div className='main-content'>
+          <div className='flight-booking'>
+            <div className='booking-header'>
+              <div className='route-info'>
+                <span className='city'>{cityfrom}</span>&nbsp;
+                <img src='/plane1.png' alt='plane' style={{ width: '15px' }} />
                 &nbsp;
-                <span className="city">{cityto}</span>
+                <span className='city'>{cityto}</span>
                 <br />
-                <div className="date-info">
-                  <span className="selected-date">Thứ Bảy 04/01/2025</span>, tức
+                <div className='date-info'>
+                  <span className='selected-date'>Thứ Bảy 04/01/2025</span>, tức
                   ngày 5 âm lịch
                 </div>
               </div>
-              <div className="price-info">
+              <div className='price-info'>
                 Giá vé chưa gồm thuế và phí
                 <br />
-                <span className="note">
+                <span className='note'>
                   <img
-                    src="./hanhly.png"
-                    alt="baggage"
-                    style={{ width: "18px" }}
+                    src='./hanhly.png'
+                    alt='baggage'
+                    style={{ width: '18px' }}
                   />
                   <img
-                    src="./suatan.jpg"
-                    alt="meal"
-                    style={{ width: "18px" }}
+                    src='./suatan.jpg'
+                    alt='meal'
+                    style={{ width: '18px' }}
                   />
                   giá vé đã bao gồm hành lý và suất ăn
                 </span>
               </div>
             </div>
 
-            <div className="date-selection">
+            <div className='date-selection'>
               {dates.map(({ day, date, price }) => (
                 <div
                   key={day}
-                  className={`date ${activeDate === day ? "active" : ""}`}
+                  className={`date ${activeDate === day ? 'active' : ''}`}
                   onClick={() => handleDateClick(day)}
                 >
                   {day}
@@ -106,36 +171,39 @@ function SearchLayout () {
               ))}
             </div>
 
-            <div className="flight-options">
-              {(activeDate === "Thứ Bảy" || activeDate === "Thứ Hai") &&
+            <div className='flight-options'>
+              {(activeDate === 'Thứ Bảy' || activeDate === 'Thứ Hai') &&
                 Array.isArray(searchData.outBound.data.flights) &&
-                searchData.outBound.data.flights.map((flight, index) => (
+                flights1.map((flight, index) => (
                   <div key={index}>
-                    <div className="flight-row">
-                      <span>
-                        <img
-                          src={getAirlineImage(flight.airlineCode)}
-                          alt="Airline Logo"
-                        />
-                      </span>
-                      <span className="flight-code">{flight.flightNumber}</span>
-                      <span className="flight-time">
-                        {flight.departureTime} - {flight.arrivalTime}
-                      </span>
-                      <div className="flight-price">{flight.price}</div>
-                      <p
-                        className="flight-details"
+                    <div className='flight-row'>
+                      <div className='flight-info'>
+                        <span>
+                          <img
+                            src={getAirlineImage(flight.airlineCode)}
+                            alt=''
+                          />
+                        </span>
+                        <span className='flight-code'>
+                          {flight.flightNumber}
+                        </span>
+                        <span className='flight-time'>
+                          {flight.departureTime} - {flight.arrivalTime}
+                        </span>
+                      </div>
+                      <div className='flight-price'>{flight.price}</div>
+                      <button
+                        className='flight-details'
                         onClick={() => toggleDetails(index)}
                       >
                         {visibleDetailIndex === index
-                          ? "Ẩn chi tiết"
-                          : "Chi tiết"}
-                      </p>
-                      <button className="select-flight">
+                          ? 'Ẩn chi tiết'
+                          : 'Chi tiết'}
+                      </button>
+                      <button className='select-flight'>
                         {flight.chooseText}
                       </button>
                     </div>
-
                     {visibleDetailIndex === index && (
                       <div className="flight-detail-content">
                         <div>
