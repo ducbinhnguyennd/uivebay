@@ -11,6 +11,10 @@ const ToastProvider = ({ children }) => {
     const savedData = localStorage.getItem('searchData')
     return savedData ? JSON.parse(savedData) : []
   })
+  const [mangnguoi, setmangnguoi] = useState(() => {
+    const mangnguoi = localStorage.getItem('mangnguoi')
+    return mangnguoi ? JSON.parse(mangnguoi) : []
+  })
 
   const [cityfrom, setcityfrom] = useState(() => {
     return localStorage.getItem('cityfrom') || ''
@@ -53,6 +57,10 @@ const ToastProvider = ({ children }) => {
   }, [searchData])
 
   useEffect(() => {
+    localStorage.setItem('mangnguoi', JSON.stringify(mangnguoi))
+  }, [mangnguoi])
+
+  useEffect(() => {
     localStorage.setItem('date', date)
   }, [date])
 
@@ -75,7 +83,9 @@ const ToastProvider = ({ children }) => {
         mato,
         setmato,
         date,
-        setdate
+        setdate,
+        mangnguoi,
+        setmangnguoi
       }}
     >
       {children}
