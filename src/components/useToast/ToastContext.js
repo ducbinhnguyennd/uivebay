@@ -20,6 +20,18 @@ const ToastProvider = ({ children }) => {
     return localStorage.getItem('cityto') || ''
   })
 
+  const [mafrom, setmafrom] = useState(() => {
+    return localStorage.getItem('mafrom') || ''
+  })
+
+  const [mato, setmato] = useState(() => {
+    return localStorage.getItem('mato') || ''
+  })
+
+  const [date, setdate] = useState(() => {
+    return localStorage.getItem('date') || ''
+  })
+
   useEffect(() => {
     localStorage.setItem('cityfrom', cityfrom)
   }, [cityfrom])
@@ -29,8 +41,20 @@ const ToastProvider = ({ children }) => {
   }, [cityto])
 
   useEffect(() => {
+    localStorage.setItem('mafrom', mafrom)
+  }, [mafrom])
+
+  useEffect(() => {
+    localStorage.setItem('mato', mato)
+  }, [mato])
+
+  useEffect(() => {
     localStorage.setItem('searchData', JSON.stringify(searchData))
   }, [searchData])
+
+  useEffect(() => {
+    localStorage.setItem('date', date)
+  }, [date])
 
   const showToast = (message, type = 'success') => {
     toast[type](message)
@@ -45,7 +69,13 @@ const ToastProvider = ({ children }) => {
         cityfrom,
         setcityfrom,
         cityto,
-        setcityto
+        setcityto,
+        mafrom,
+        setmafrom,
+        mato,
+        setmato,
+        date,
+        setdate
       }}
     >
       {children}

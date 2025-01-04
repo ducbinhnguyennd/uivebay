@@ -1,20 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import './Filter.scss'
-const FilterComponent = ({ filters, onFiltersChange }) => {
+const FilterComponent = ({ filters, onFiltersChange, setFilters }) => {
   const handleSortChange = e => {
-    onFiltersChange({ ...filters, sortBy: e.target.value })
+    onFiltersChange({ ...filters, sortBy: e.target.value },setFilters)
   }
 
-const handleAirlineChange = e => {
-  const airline = e.target.value
-  const isChecked = e.target.checked
+  const handleAirlineChange = e => {
+    const airline = e.target.value
+    const isChecked = e.target.checked
 
-  const newAirlines = isChecked ? [airline] : [] // Chỉ giữ lại checkbox được chọn
+    const newAirlines = isChecked ? [airline] : []
 
-  onFiltersChange({ ...filters, airlines: newAirlines })
-}
-
+    onFiltersChange({ ...filters, airlines: newAirlines }, setFilters)
+  }
 
   return (
     <div id='filter' style={{ display: 'block' }}>
@@ -161,7 +160,7 @@ const handleAirlineChange = e => {
                     <tr className='sub-title'>
                       <td>Hãng hàng không</td>
                       <td>
-                        <a className="remove-filter" type="airline" href="#">
+                        <a className='remove-filter' type='airline' href='#'>
                           Xem tất cả
                         </a>
                       </td>

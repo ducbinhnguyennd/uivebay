@@ -3,13 +3,15 @@ import './FlyBookingForm.scss'
 import { useToast } from '../useToast/ToastContext'
 import { useNavigate } from 'react-router-dom'
 import TableThanhPho from './TableThanhPho'
+import { formatDate } from '../LunarCalendarFormat/LunarCalendarFormat'
 
 function FlightBookingForm () {
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
   const { showToast } = useToast()
 
-  const { setSearchData, setcityto, setcityfrom } = useToast()
+  const { setSearchData, setcityto, setcityfrom, setmafrom, setmato, setdate } =
+    useToast()
 
   const [departure, setDeparture] = useState('Chọn điểm đi')
   const [madepature, setmadepature] = useState('')
@@ -23,10 +25,7 @@ function FlightBookingForm () {
   const [children, setChildren] = useState(0)
   const [infants, setInfants] = useState(0)
 
-  const formatDate = isoDate => {
-    const [year, month, day] = isoDate.split('-')
-    return `${day}/${month}/${year}`
-  }
+
   const validate = () => {
     let valid = true
     if (madepature) {
@@ -120,6 +119,7 @@ function FlightBookingForm () {
                   setDeparture(value)
                   setcityfrom(value)
                   setmadepature(ma)
+                  setmafrom(ma)
                   setDropdownOpen(null)
                 }}
               />
@@ -144,6 +144,7 @@ function FlightBookingForm () {
                   setArrival(value)
                   setcityto(value)
                   setmaarrival(ma)
+                  setmato(ma)
                   setDropdownOpen(null)
                 }}
               />
@@ -156,7 +157,10 @@ function FlightBookingForm () {
             <input
               type='date'
               value={departureDate}
-              onChange={e => setDepartureDate(e.target.value)}
+              onChange={e => {
+                setDepartureDate(e.target.value)
+                setdate(e.target.value)
+              }}
             />
           </div>
           <div className='form-group'>
