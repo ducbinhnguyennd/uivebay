@@ -23,10 +23,10 @@ const getAirlineName = (airlineCode, hangmaybay) => {
   return airline ? airline.name : ''
 }
 
-const HandelTonggia = (price, phantrams) => {
+const HandelTonggia = (price, phantrams, item) => {
   const gia =
-    (price * phantrams[0].phantram) / 100 +
-    (((price * phantrams[0].phantram) / 100) * 30) / 100
+    ((price * phantrams[0].phantram) / 100) * item.songuoi +
+    ((((price * phantrams[0].phantram) / 100) * 30) / 100) * item.songuoi
   return gia
 }
 

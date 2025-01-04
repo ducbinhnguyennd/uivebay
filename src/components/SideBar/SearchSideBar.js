@@ -7,7 +7,14 @@ import TableTP from './TableTP'
 function SearchSidebar () {
   const navigate = useNavigate()
   const dropdownRef = useRef(null)
-  const { showToast, setSearchData, setcityto, setcityfrom } = useToast()
+  const {
+    showToast,
+    setSearchData,
+    setcityto,
+    setcityfrom,
+    setmangnguoi,
+    setdate
+  } = useToast()
   const [departure, setDeparture] = useState('Chọn điểm đi')
   const [madepature, setmadepature] = useState('')
   const [arrival, setArrival] = useState('Chọn điểm đến')
@@ -82,6 +89,26 @@ function SearchSidebar () {
       const data = await response.json()
       if (response.ok) {
         setSearchData(data)
+        setdate(departureDate)
+        setmangnguoi(() => {
+          const newState = []
+
+          newState.push({
+            name: 'Người lớn',
+            songuoi: adults
+          })
+
+          if (children > 0) {
+            newState.push({ name: 'Trẻ em', songuoi: children })
+          }
+
+          if (infants > 0) {
+            newState.push({ name: 'Trẻ sơ sinh', songuoi: infants })
+          }
+
+          return newState
+        })
+
         navigate('/search')
         window.location.reload()
       }
@@ -179,7 +206,10 @@ function SearchSidebar () {
                           className='date-input txtDateLunar txtDateLunar-departure depDate focus-input'
                           data-type='departure'
                           value={departureDate}
-                          onChange={e => setDepartureDate(e.target.value)}
+                          onChange={e => {
+                            setDepartureDate(e.target.value)
+                            setdate(e.target.value)
+                          }}
                         />
                       </td>
                       <td className='return' colSpan='3'>
@@ -274,6 +304,7 @@ function SearchSidebar () {
                           id='cphSubColumn_ctl01_btnSearchFlight'
                           class='button-text radius-5px btnSearchReCaptcha'
                           onClick={handelSearch}
+                          readOnly
                         />
                       </td>
                     </tr>

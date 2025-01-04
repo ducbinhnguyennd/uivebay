@@ -6,6 +6,7 @@ import GioiThieu from '../Layout/DeafaultLayout/GioiThieu/GioiThieu'
 import { VungLayout } from '../Layout/AdminLayout/VungLayout'
 import { SearchLayout } from '../Layout/SearchLayout'
 import { HangMayBayLayout } from '../Layout/AdminLayout/HangMayBayLayout'
+import { TheLoaiBlog } from '../Layout/AdminLayout/TheLoaiBlogLayout'
 import DatVe from '../Layout/DatVe/DatVe'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
@@ -19,6 +20,7 @@ const publicRoutes = [
   { path: '/gioi-thieu', component: GioiThieu },
   { path: '/vung', component: VungLayout, layout: 'admin' },
   { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
+  { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
   { path: '/datve', component: DatVe },
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },

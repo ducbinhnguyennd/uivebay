@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import { useState, useEffect } from 'react'
 import './SearchLayout.scss'
 import { useToast } from '../../components/useToast/ToastContext'
@@ -21,7 +22,7 @@ import {
   calculateDuration
 } from './SearchLayoutFunction'
 function SearchLayout () {
-  const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate } = useToast()
+  const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate,mangnguoi } = useToast()
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
@@ -49,7 +50,6 @@ function SearchLayout () {
     try {
       const response = await fetch('http://localhost:8080/getphantram')
       const data = await response.json()
-      console.log(data)
       if (response.ok) {
         setphantram(data)
       }
@@ -74,6 +74,19 @@ console.log(returnDate)
   ]
 
   const flights1 = applyFilters(searchData.outBound.data.flights, filters)
+  const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
+
+  const totalPrice = mangnguoi.reduce((total, item) => {
+    if (!selectedFlight || !selectedFlight.price) {
+      return total
+    }
+    const pricePerTicket =
+      (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
+        phantrams[0].phantram) /
+      100
+    const taxAndFee = (pricePerTicket * 30) / 100
+    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
+  }, 0)
 
   return (
     <div className='search-layout'>
@@ -185,7 +198,10 @@ console.log(returnDate)
                       </button>
                     </div>
                     {visibleDetailIndex === index && (
-                      <div className='flight-detail-content' onClick={(e) => e.stopPropagation()}>
+                      <div
+                        className='flight-detail-content'
+                        onClick={e => e.stopPropagation()}
+                      >
                         <div>
                           <table width='100%' cellSpacing='0' cellPadding='0'>
                             <tbody className='view-detail-flight'>
@@ -306,49 +322,68 @@ console.log(returnDate)
                                   Tổng giá
                                 </td>
                               </tr>
-                              <tr>
-                                <td align='center' className='pax'>
-                                  Người lớn
+                              {mangnguoi.map((item, index) => (
+                                <tr key={index}>
+                                  <td align='center' className='pax'>
+                                    {item.name}
+                                  </td>
+                                  <td align='center' className='pax'>
+                                    {item.songuoi}
+                                  </td>
+                                  <td align='center' className='pax'>
+                                    {(
+                                      ((parseInt(
+                                        selectedFlight.price.replace(/,/g, ''),
+                                        10
+                                      ) *
+                                        phantrams[0].phantram) /
+                                        100) *
+                                      item.songuoi
+                                    ).toLocaleString()}
+                                  </td>
+                                  <td align='center' className='pax'>
+                                    {(
+                                      ((((parseInt(
+                                        selectedFlight.price.replace(/,/g, ''),
+                                        10
+                                      ) *
+                                        phantrams[0].phantram) /
+                                        100) *
+                                        30) /
+                                        100) *
+                                      item.songuoi
+                                    ).toLocaleString()}
+                                  </td>
+                                  <td align='center' className='pax'>
+                                    {HandelTonggia(
+                                      parseInt(
+                                        selectedFlight.price.replace(/,/g, ''),
+                                        10
+                                      ),
+                                      phantrams,
+                                      item
+                                    ).toLocaleString()}
+                                  </td>
+                                </tr>
+                              ))}
+                              <tr class='total-b'>
+                                <td align='right' colspan='4' class='footer'>
+                                  <b>
+                                    <t>Tổng giá</t> {totalPeople} người
+                                  </b>
                                 </td>
-                                <td align='center' className='pax'>
-                                  1
-                                </td>
-                                <td align='center' className='pax'>
-                                  {(
-                                    (parseInt(
-                                      selectedFlight.price.replace(/,/g, ''),
-                                      10
-                                    ) *
-                                      phantrams[0].phantram) /
-                                    100
-                                  ).toLocaleString()}
-                                </td>
-                                <td align='center' className='pax'>
-                                  {(
-                                    (((parseInt(
-                                      selectedFlight.price.replace(/,/g, ''),
-                                      10
-                                    ) *
-                                      phantrams[0].phantram) /
-                                      100) *
-                                      30) /
-                                    100
-                                  ).toLocaleString()}
-                                </td>
-                                <td align='center' className='pax'>
-                                  {HandelTonggia(
-                                    parseInt(
-                                      selectedFlight.price.replace(/,/g, ''),
-                                      10
-                                    ),
-                                    phantrams
-                                  ).toLocaleString()}
+                                <td
+                                  colspan={1}
+                                  align='center'
+                                  class='footer pb-price'
+                                >
+                                  {totalPrice.toLocaleString()} VNĐ
                                 </td>
                               </tr>
                             </tbody>
                           </table>
+                          <div></div>
 
-                          {/* Baggage Conditions */}
                           <table
                             cellPadding='0'
                             cellSpacing='0'

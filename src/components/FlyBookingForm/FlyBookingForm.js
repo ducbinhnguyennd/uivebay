@@ -10,8 +10,16 @@ function FlightBookingForm () {
   const dropdownRef = useRef(null)
   const { showToast } = useToast()
 
-  const { setSearchData, setcityto, setcityfrom, setmafrom, setmato, setdate, setreturnDate } =
-    useToast()
+  const {
+    setSearchData,
+    setcityto,
+    setcityfrom,
+    setmafrom,
+    setmato,
+    setdate,
+    setreturnDate,
+    setmangnguoi
+  } = useToast()
 
   const [departure, setDeparture] = useState('Chọn điểm đi')
   const [madepature, setmadepature] = useState('')
@@ -24,7 +32,6 @@ function FlightBookingForm () {
   const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
   const [infants, setInfants] = useState(0)
-
 
   const validate = () => {
     let valid = true
@@ -86,6 +93,26 @@ function FlightBookingForm () {
       const data = await response.json()
       if (response.ok) {
         setSearchData(data)
+        setmangnguoi(() => {
+          const newState = []
+
+          newState.push({
+            name: 'Người lớn',
+            songuoi: adults
+          })
+
+          if (children > 0) {
+            newState.push({ name: 'Trẻ em', songuoi: children })
+          }
+
+          if (infants > 0) {
+            newState.push({ name: 'Trẻ sơ sinh', songuoi: infants })
+          }
+
+          return newState
+        })
+
+        // navigate('/search')
         navigate('/searchkhuhoi')
       }
     } catch (error) {
