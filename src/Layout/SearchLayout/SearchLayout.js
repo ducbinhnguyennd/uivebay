@@ -1,14 +1,19 @@
-import { useState, useEffect } from "react";
-import "./SearchLayout.scss";
-import { useToast } from "../../components/useToast/ToastContext";
-import FilterComponent from "../../components/SideBar/Filter";
-import SearchSidebar from "../../components/SideBar/SearchSideBar";
-function SearchLayout() {
-  const { cityfrom, cityto, searchData } = useToast();
-  console.log(searchData);
-  const [activeDate, setActiveDate] = useState("Thứ Bảy");
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
-  const [hangmaybay, sethangmaybay] = useState([]);
+import { useState, useEffect } from 'react'
+import './SearchLayout.scss'
+import { useToast } from '../../components/useToast/ToastContext'
+import FilterComponent from '../../components/SideBar/Filter'
+import SearchSidebar from '../../components/SideBar/SearchSideBar'
+function SearchLayout () {
+  const { cityfrom, cityto, searchData } = useToast()
+  console.log(searchData)
+  const [activeDate, setActiveDate] = useState('Thứ Bảy')
+  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
+  const [hangmaybay, sethangmaybay] = useState([])
+  const [filters, setFilters] = useState({
+    sortBy: 'airline',
+    airlines: []
+  })
+
   const fetchhang = async () => {
     try {
       const response = await fetch("http://localhost:8080/gethangmaybay");
@@ -25,14 +30,14 @@ function SearchLayout() {
     fetchhang();
   }, []);
   const dates = [
-    { day: "Thứ Hai", date: "06/01", price: "868,000đ" },
-    { day: "Thứ Ba", date: "06/01", price: "868,000đ" },
-    { day: "Thứ Tư", date: "01/01", price: "" },
-    { day: "Thứ Năm", date: "02/01", price: "" },
-    { day: "Thứ Sáu", date: "03/01", price: "1,010,000đ" },
-    { day: "Thứ Bảy", date: "04/01", price: "868,000đ" },
-    { day: "Chủ Nhật", date: "05/01", price: "1,008,000đ" },
-  ];
+    { day: 'Thứ Hai', date: '06/01', price: '868,000đ' },
+    { day: 'Thứ Ba', date: '06/01', price: '868,000đ' },
+    { day: 'Thứ Tư', date: '01/01', price: '' },
+    { day: 'Thứ Năm', date: '02/01', price: '' },
+    { day: 'Thứ Sáu', date: '03/01', price: '1,010,000đ' },
+    { day: 'Thứ Bảy', date: '04/01', price: '868,000đ' },
+    { day: 'Chủ Nhật', date: '05/01', price: '1,008,000đ' }
+  ]
 
   const handleDateClick = (day) => {
     setActiveDate(day);
@@ -45,6 +50,11 @@ function SearchLayout() {
     const airline = hangmaybay.find((h) => h.mahangmaybay === airlineCode);
     return airline ? airline.image : "";
   };
+  const handleFiltersChange = newFilters => {
+    setFilters(newFilters)
+  }
+
+  const flights1 = applyFilters(searchData.outBound.data.flights)
 
   return (
     <div className="search-layout">
@@ -315,14 +325,16 @@ function SearchLayout() {
           </div>
         </div>
 
-        {/* Phần bên phải */}
-        <div className="filter-sidebar">
-          <FilterComponent />
+        <div className='filter-sidebar'>
+          <FilterComponent
+            filters={filters}
+            onFiltersChange={handleFiltersChange}
+          />
           <SearchSidebar />
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default SearchLayout;
+export default SearchLayout
