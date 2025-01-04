@@ -1,57 +1,84 @@
-#lienHe {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  color: #333;
-  line-height: 1.6;
-  }
-
-  #name-contact {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .lienhe-title {
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .contact-info {
-    line-height: 1.2;
-  }
-  .address-lienhe {
-    color: #050000;
-    text-decoration: none;
-    font-weight: bold;
-    &:hover {
-      color: #8c6c3f;
-    }
+table {
+  border-collapse: collapse;
 }
-  .red {
-    color: red;
-    font-weight: bold;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  .description {
-    color: #000;
-    margin-bottom: 10px;
-  }
-  
-  a.red {
-    text-decoration: none;
-    font-weight: bold;
-    color: red;
-  }
-  
-  a.red:hover {
-    text-decoration: underline;
-  }
-  
+.tbl td {
+  width: 380px;
+}
+
+.CompName {
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 30px;
+  border-bottom: dotted 1px #d7d7d7;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.textTT {
+  font-size: 16px;
+  font-weight: 700;
+  color: #444444;
+  line-height: 1.5;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.add {
+  background: transparent url("../../../../public/gpsmap-icon-copy.png") no-repeat 0 7px;
+  line-height: 1.4;
+  font-size: 16px;
+  padding: 8px 0 5px 20px;
+}
+
+.line {
+  height: 1px;
+  border-bottom: dotted 1px #d7d7d7;
+  margin: 10px 0;
+}
+.CompName1 {
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 18px;
+}
+p {
+  font-size: 16px;
+  line-height: 30px;
+}
+.pax-order-related {
+  background-color: #eaeaea;
+  border-radius: 5px;
+  margin: 5px 0 5px 0;
+  padding: 10px;
+  box-shadow: 0 1px 0 #d3d3d3;
+}
+.pax-order-related label {
+  font-size: 16px;
+  line-height: 30px;
+}
+.require {
+  color: red !important;
+}
+.pax-order-related input[type='text'] {
+  width: 97%;
+  border: none;
+}
+
+.pax-order-related input {
+  height: 30px;
+  font-size: 16px;
+}
+.pax-order-related textarea {
+  margin-top: 10px;
+  border-radius: 5px;
+  width: 98%;
+  height: 76px;
+  border: none;
+  font-size: 16px;
+}

@@ -13,7 +13,7 @@ const publicRoutes = [
   { path: '/', component: TrangChuLayout },
   { path: '/lien-he', component: LienHe },
   { path: '/search', component: SearchLayout },
-  { path: '/gioi-thieu-do-tho-y-yen', component: GioiThieu },
+  { path: '/gioi-thieu', component: GioiThieu },
   { path: '/vung', component: VungLayout, layout: 'admin' },
   { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
   { path: '/datve', component: DatVe },

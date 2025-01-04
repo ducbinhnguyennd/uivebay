@@ -1,57 +1,202 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./LienHe.scss";
-import { Helmet } from "react-helmet";
+function LienHe() {
+  const handleHideMessage = () => {
+    // Logic for hiding the message
+    console.log("Hide message");
+  };
 
-const LienHe = () => {
-    
-    return (
-        
-        <div id="lienHe">
-            <Helmet>
-        <title>{"Liên Hệ - Đồ Thờ Đồ Gỗ Công Hương"}</title>
-        <meta name="description" content={"Đồ Thờ Công Hương luôn sẵn sàng lắng nghe và hỗ trợ bạn! Nếu bạn có bất kỳ câu hỏi, yêu cầu hoặc cần tư vấn về các sản phẩm đồ thờ và đồ gỗ mỹ nghệ, hãy liên hệ ngay. Đội ngũ của chúng tôi cam kết mang đến cho bạn dịch vụ tốt nhất. 📍 Địa chỉ: Ngã 3 Cát Đằng, Yên Tiến, Ý Yên, Nam Định 📞 Hotline: 0985963784"} />
-        <meta name="keywords" content={"Đồ Thờ Công Hương, Làng nghề Cát Đằng, Yên Tiến, Ý Yên, Nam Định, Làm Mộc, Tạc Tượng, Tu Sửa Đình Chùa, Nhà Thờ"} />
-      </Helmet>
-            <div className="lienhe-title">Liên hệ</div>
-            <div className="contact-info">
-                <div id="name-contact">
-                    Cơ sở sản xuất đồ thờ - đồ gỗ <span className="red">Đồ thờ Công Hương</span>
-                </div>
+  const handleFileChange = () => {
+    // Logic for handling file changes or form submission
+    console.log("File submitted");
+    return false;
+  };
 
-                <p className="description">
-                    Địa chỉ: <br />
-                    <a href="https://maps.app.goo.gl/z3xmqsCTZzZCacS4A"
-            target="_blank"
-            rel="noopener noreferrer" className="address-lienhe">
-            Cơ sở 1: Ngã 3 Cát Đằng, Xã Yên Tiến, Huyện Ý Yên, Tỉnh Nam Định
-          </a>
-          <br />
-                    <a href="https://maps.app.goo.gl/KZkD3xqo1Mgpsypt8"
-                        target="_blank"
-                        rel="noopener noreferrer" className="address-lienhe">
-                        Cơ sở 2: Ngã 3 Cát Đằng đi về hướng Ninh Bình 300m, Xã Yên Tiến, Huyên Ý Yên, Tỉnh Nam Định
-                    </a>
-                </p>
-                <p className="description">
-                    Hotline: <span className="red">0985.963.784 - 0982.560.805</span>
-                </p>
-                <p className="description">
-                    Tên chủ cơ sở: <span className="bold">Anh Công</span>
-                </p>
-                <p className="description">
-                    Fanpage:{" "}
-                    <a
-                        href="https://www.facebook.com/dothoconghuong/"
-                        className="red">
-                        https://www.facebook.com/dothoconghuong/
-                    </a>
-                </p>
-                <p className="description">
-                    Email: <span className="red">ducbinhnguyennd@gmail.com</span>
-                </p>
-            </div>
+  return (
+    <div
+      style={{
+        paddingBottom: "100px",
+        paddingTop: "20px",
+        textAlign: "center",
+        width: "970px",
+        backgroundColor: "#fff",
+      }}
+    >
+      {/* <div id="pnlMessage">
+        <div className="message-box">
+          <div className="message-title">ABAY.VN</div>
+          <p id="lblMessage" className="message-content"></p>
+          <div className="message-footer">
+            <span
+              className="click"
+              onClick={handleHideMessage}
+              style={{ display: "none" }}
+            >
+              OK
+            </span>
+            <span className="waiting">Vui lòng đợi trong giây lát</span>
+          </div>
         </div>
-    );
-};
+      </div> */}
+
+      <div style={{ width: "800px", margin: "0 auto", textAlign: "left" }}>
+        
+        <table className="tbl">
+          <tbody>
+            <tr>
+              <td style={{ textAlign: "left", paddingRight: "10px" }}>
+                <h5 className="CompName">Công ty vé máy bay trực tuyến ABAY</h5>
+                <h6 className="textTT">Địa chỉ Văn phòng tại Hà Nội</h6>
+                <p className="add">324 Phố Huế, Quận Hai Bà Trưng, Hà Nội</p>
+                <p className="text">
+                  <b>Hotline:</b> 19006091
+                </p>
+                <p className="text">
+                  <b>Email:</b>{" "}
+                  <a href="mailto:contact@abay.vn" style={{ color: "#0c5dd6" }}>contact@abay.vn</a>
+                </p>
+                <div className="line"></div>
+                <h6 className="textTT">
+                  Địa chỉ Văn phòng tại Tp. Hồ Chí Minh
+                </h6>
+                <p className="add">52 Huỳnh Khương Ninh, Q1, Tp Hồ Chí Minh</p>
+                <p className="text">
+                  <b>Hotline:</b> 19006091
+                </p>
+                <p className="text">
+                  <b>Email:</b>{" "}
+                  <a href="mailto:contact@abay.vn" style={{ color: "#0c5dd6" }}>contact@abay.vn</a>
+                </p>
+              </td>
+              <td style={{ textAlign: "left", verticalAlign: "baseline" , paddingLeft: "10px"}}>
+                <h5 className="CompName1">&nbsp;</h5>
+                <h6 className="textTT">Thông tin liên hệ</h6>
+                {[
+                  "Thắc mắc & góp ý",
+                  "Phàn nàn & khiếu nại",
+                  "Liên hệ hóa đơn",
+                  "Liên hệ thanh toán",
+                  "Liên hệ đặt vé nội địa",
+                  "Liên hệ đặt vé quốc tế",
+                  "Liên hệ hợp tác",
+                  "Liên hệ khác",
+                ].map((label, index) => (
+                  <p key={index}>
+                    <label>{label}:</label> <span>19006091</span>
+                  </p>
+                ))}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div className="line"></div>
+              </td>
+              <td>
+                <div className="line"></div>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  textAlign: "left",
+                  verticalAlign: "baseline",
+                  paddingRight: "10px",
+                }}
+              >
+                <div
+                  className="pax-order-related"
+                  style={{ height: "200px" }}
+                >
+                  <div>
+                    <label htmlFor="pax-name">
+                      Tên người gửi <span className="require">( * )</span>
+                    </label>
+                    <br />
+                    <input
+                      name="ctl00$cphMain$ctl00$txtPaxName"
+                      type="text"
+                      id="cphMain_ctl00_txtPaxName"
+                      style={{ padding: "3px 5px" }}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="pax-phone-number">
+                      Số điện thoại <span className="require">( * )</span>
+                    </label>
+                    <br />
+                    <input
+                      name="ctl00$cphMain$ctl00$txtPhone"
+                      type="text"
+                      id="cphMain_ctl00_txtPhone"
+                      style={{ padding: "3px 5px" }}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="pax-email">Email</label>
+                    <br />
+                    <input
+                      name="ctl00$cphMain$ctl00$txtEmail"
+                      type="text"
+                      id="cphMain_ctl00_txtEmail"
+                      style={{ padding: "3px 5px" }}
+                    />
+                  </div>
+                </div>
+              </td>
+              <td style={{ textAlign: "left", verticalAlign: "baseline" }}>
+                <div className="pax-order-related">
+                  <div>
+                    <label htmlFor="pax-order-related-file">Chứng từ</label>
+                    <br />
+                    <input
+                      type="file"
+                      name="ctl00$cphMain$ctl00$fileAttach"
+                      id="cphMain_ctl00_fileAttach"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="pax-order-note">
+                      Nội dung gửi <span className="require">( * )</span>
+                    </label>
+                    <br />
+                    <textarea
+                      name="ctl00$cphMain$ctl00$txtNoiDung"
+                      rows="5"
+                      cols="20"
+                      id="cphMain_ctl00_txtNoiDung"
+                      placeholder="Quý khách vui lòng ghi rõ mã đơn hàng, vd: DH 1234567"
+                      style={{ padding: "5px" }}
+                    ></textarea>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan="2">
+                <div style={{ textAlign: "center" }}>
+                  <input
+                    type="submit"
+                    name="ctl00$cphMain$ctl00$btnGuiLienHe"
+                    value="Gửi nội dung"
+                    onClick={handleFileChange}
+                    id="cphMain_ctl00_btnGuiLienHe"
+                    style={{
+                      padding: "10px 5px",
+                      borderRadius: "5px",
+                      backgroundColor: "orange",
+                      color: "white",
+                      textAlign: "center",
+                      border: "none",
+                    }}
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 
 export default LienHe;

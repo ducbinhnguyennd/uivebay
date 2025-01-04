@@ -1,39 +1,167 @@
-#gioithieu {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+
+
+#side-bar {
+  padding-left: 0;
+  vertical-align: top;
+  width: 245px;
+ float: right; 
+}
+
+.contentGioithieu {border: solid 1px #c8c8c8; padding:20px; margin:70px 0px 20px 0px; border-radius:5px;}
+.listItemGT {background:url("../../../../public/ListItemGioithieu.png") no-repeat center left; line-height:20px; padding-left:15px; font-size:13px; font-weight:bold; margin-top:10px;}
+.AddressAbay {margin:10px 0px; padding-right:10px; font-size:12px; }
+// .AddressAbay h6 {font-size:14px; font-weight:bold; color:#143a83; line-height:32px; background:url(/Images/AddressICon.png) no-repeat center left; padding-left:28px; border-bottom: solid 1px #d7d7d7; padding-top:5px;}
+.AddressAbay p {margin:5px 0px; color:#333; line-height:18px;}
+
+.nameCty {font-size:14px; font-weight:bold; line-height:20px; text-transform:uppercase}
+.imgGT{margin:10px 0px; width:600px; border:solid 1px #d7d7d7;}
+.blueLink{font-weight:bold; color:#143a83; text-decoration:none;}
+
+.doitac {margin:10px auto 10px}
+.doitac2 {margin:0px auto 10px;}
+.doitac2 img{border: solid 1px #d7d7d7; margin:0px 5px 0px 0px;width:23.4%}
+.doitac img{border: solid 1px #d7d7d7; margin:5px 5px 0px 0px;width:23.4%}
+
+
+.stMain {
+  display:block;
+  margin:0;
+  padding:0;
   color: #333;
+  border: 0px solid #CCC;
+  font-family: "Segoe UI",Tahoma,arial,sans-serif;
+  font-size: 13px;
+ text-align:justify;
 }
-
-.gioi-thieu-title {
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
+.stContainer {
+  display:block;
+  margin:0;
+  padding:10px 0px;
+  
+  overflow:hidden;  
+  position: relative;
+  min-height: 500px;
+  text-align:justify;
+  line-height:18px;
 }
-
-.gioithieu-red {
-  color: red;
+.stContainer ul { margin: 5px 0px 5px 25px}
+.stContainer strong,b {font-weight:bold;}
+.stMain div.tabContent { 
+  display:block;
+  position: absolute;
+  margin:0;  
+  padding:10px 0px; 
+  border: 0px solid #D4D4D4;    
+  background-color: #FFF;
+  text-align:justify;
+}
+.stMain div.tabContent > img {display:block;margin:10px auto !important}
+.stMain ul.tabAnchor {
+  display: inline-block;
+  list-style-type: none;
+  position:relative;
+  padding:0;
+  margin:0;    
+ 
+  clear: both;
+ 
+  z-index: 100;
+  margin-top:-70px;
+}
+.stMain ul.tabAnchor li{ 
+  position: relative; 
+  margin: 0;
+  padding: 0;
+  float: left;
+  display:block;
+}
+.stMain ul.tabAnchor li a { 
+  display:block;  
+ 
+  padding:100px 0px 5px 0px;  
+  height:54px;  
+  font-size: 14px;
+  color:#666;
   text-decoration: none;
+  outline-style:none;
+  text-transform:uppercase;    
+  font-weight:bold;
+  letter-spacing:-1px;   
+   margin-top:-100px;
+   
+   line-height:22px;                 
+}
+.stMain ul.tabAnchor li {height:59px; display:block; padding-top:100px; text-align:center; font-size:12px; text-transform:uppercase; width:135px; margin-right:30px;}
+.stMain ul.tabAnchor li:last-child {margin-right:0}
+    .stMain ul.tabAnchor li.tab1 {
+        background: url("../../../../public/tab1.png") no-repeat top center
+    }
+        .stMain ul.tabAnchor li.tab1:hover, .stMain ul.tabAnchor li.tab1 a.sel {
+            background: url("../../../../public/tab1.png") no-repeat bottom center;
+        }
+
+    .stMain ul.tabAnchor li.tab2 {
+        background: url("../../../../public/Tab2.png") no-repeat top center
+    }
+        .stMain ul.tabAnchor li.tab2:hover, .stMain ul.tabAnchor li.tab2 a.sel {
+            background: url("../../../../public/Tab2.png") no-repeat bottom center;
+        }
+
+    .stMain ul.tabAnchor li.tab3 {
+        background: url("../../../../public/tab3.png") no-repeat top center
+    }
+        .stMain ul.tabAnchor li.tab3:hover, .stMain ul.tabAnchor li.tab3 a.sel {
+            background: url("../../../../public/tab3.png") no-repeat bottom center;
+        }
+
+    .stMain ul.tabAnchor li.tab4 {
+        background: url("../../../../public/tab4.png") no-repeat top center
+    }
+        .stMain ul.tabAnchor li.tab4:hover, .stMain ul.tabAnchor li.tab4 a.sel {
+            background: url("../../../../public/tab4.png") no-repeat bottom center;
+        }
+
+.loader{
+  position: absolute;
+  left:48%;
+  top:40%;
+  display:block;
+  margin:0;
+  padding:5px; 
+  padding-top: 35px;
+  font-size: 10px;
+  color:#666;
+  text-decoration: none;
+  outline-style:none;
+  border: 1px solid #D4D4D4;
+  background: #f6f6f6  no-repeat 10px 10px ;
+  // url(/Images/loader.gif)
+}
+a.stLinks { 
+  margin:0;
+  padding:5px;
+  color:#666;
+  text-decoration: none;
+  outline-style:none;
+  border: 1px solid #D4D4D4;
+  background-color: #f6f6f6;
+ }
+a.stLinks:hover {
+  color:#FFF;
+  background-color: #00A7DB;
+}/* CSS Document */
+
+.tabContent > div {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
 }
 
-.gioithieu-red:hover {
-  text-decoration: underline;
-}
-
-.gioithieu-image {
-  text-align: center;
-}
-
-.gioithieu-image .image-gt {
+.tabContent > div.show {
   display: block;
-  margin: 20px auto;
-  max-width: 100%;
-  height: 500px;
+
 }
 
-.gioithieu-image .caption {
-  color: #666;
-  font-style: italic;
+.tabContent > div.hide {
+  display: none;
+
 }
