@@ -20,7 +20,7 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
     if (idtheloai) {
       try {
         const response = await fetch(
-          `http://localhost:8080/getblog/${idtheloai}`
+          `https://webmaybay.vercel.app/getblog/${idtheloai}`
         )
         const data = await response.json()
         if (response.ok) {

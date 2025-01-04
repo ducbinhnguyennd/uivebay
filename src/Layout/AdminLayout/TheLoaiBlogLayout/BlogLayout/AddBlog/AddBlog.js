@@ -50,7 +50,7 @@ function AddBlog ({ isOpen, onClose, fetchdata, idtheloai }) {
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:8080/postblog/${idtheloai}`,
+          `https://webmaybay.vercel.app/postblog/${idtheloai}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

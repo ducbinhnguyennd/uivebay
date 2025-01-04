@@ -25,7 +25,7 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
   const handleadd = async () => {
     if (validateinput()) {
       try {
-        const response = await fetch('http://localhost:8080/posttheloaiblog', {
+        const response = await fetch('https://webmaybay.vercel.app/posttheloaiblog', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: name })

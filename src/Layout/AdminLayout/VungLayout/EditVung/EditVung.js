@@ -32,7 +32,7 @@ function EditVung ({ isOpen, onClose, fetchdata, tenvung, idvung }) {
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:8080/putvung/${idvung}`,
+          `https://webmaybay.vercel.app/putvung/${idvung}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

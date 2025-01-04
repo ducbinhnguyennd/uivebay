@@ -36,7 +36,7 @@ function SearchLayout () {
 
   const fetchhang = async () => {
     try {
-      const response = await fetch('http://localhost:8080/gethangmaybay')
+      const response = await fetch('https://webmaybay.vercel.app/gethangmaybay')
       const data = await response.json()
       if (response.ok) {
         sethangmaybay(data)
@@ -48,7 +48,7 @@ function SearchLayout () {
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getphantram')
+      const response = await fetch('https://webmaybay.vercel.app/getphantram')
       const data = await response.json()
       if (response.ok) {
         setphantram(data)

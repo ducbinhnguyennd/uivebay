@@ -17,7 +17,7 @@ function TableTP ({ title, onSelect }) {
 
   const fetchthanhpho = async () => {
     try {
-      const response = await fetch('http://localhost:8080/getfulltp')
+      const response = await fetch('https://webmaybay.vercel.app/getfulltp')
       const data = await response.json()
       if (response.ok) {
         setdata(data)

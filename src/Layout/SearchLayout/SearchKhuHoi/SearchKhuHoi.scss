@@ -33,115 +33,15 @@ body {
       padding: 5px;
     }
   }
-  .route-info {
-    font-size: 18px;
-    color: #ff4500;
-    font-weight: bold;
-  }
-  
-  .arrow {
-    font-size: 20px;
-    color: #555;
-  }
-  
-  .city {
-    font-size: 16px;
-  }
-  
-  .date-info {
-    font-size: 14px;
-    color: #003366;
-    text-align: center;
-  }
-  
-  .price-info {
-    font-size: 16px;
-    text-align: left;
-    color: #555;
-  }
-  
-  .note {
-    font-size: 16px;
-    color: #888;
-  }
-  
-  .flight-booking {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
 
+  
   .date-selection {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
   }
   
-  .date {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    background: #f9f9f9;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-  }
-  
-  .date:not(:last-child) {
-    margin-right: 10px;
-  }
-  
-  .date.active {
-    background: #ff8c00;
-    color: #fff;
-    border-color: #ff8c00;
-  }
-  
-  .date:hover {
-    background: #ffe4b3;
-  }
-  
-  .flight-options {
-    margin-top: 20px;
-  }
-  
-  .flight-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Chia đều khoảng cách giữa các phần tử */
-    padding: 10px;
-    border-bottom: 1px solid #ccc; /* Đường kẻ ngăn cách giữa các hàng */
-  }
-  
 
-  .flight-info  {
-    flex: 1;
-    width: 100px;
-  }
-  .flight-code {
-    flex: 1; 
-    text-align: center;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .flight-time {
-    flex: 1; 
-    text-align: center;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .flight-price {
-    flex: 1; 
-    text-align: center;
-    font-weight: bold;
-  }
-  
 .select-flight {
   flex: 1; 
   padding: 5px 10px;
@@ -178,11 +78,11 @@ body {
   .flight-list {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
   }
   
   .flight-go, .flight-back {
-    width: 48%;
+    width: 50%;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -206,25 +106,27 @@ body {
   }
   
   .section-header.blue {
-    background-color: #2196f3;
+    background-color: #10559a ;
   }
   
   .tabs {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 15px;
   }
   
   .tab {
     text-align: center;
     cursor: pointer;
-    border-top: 1px solid #e84e12;
     background-color: #f9f9f9;
     transition: background-color 0.3s, color 0.3s;
   }
-  
+
   .tab.active {
     background-color: #e84e12;
+    color: white;
+  }
+  .tab.active1 {
+    background-color: #10559a;
     color: white;
   }
   .tabs p{
@@ -240,13 +142,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 5px;
     border-bottom: 1px solid #f3f3f3;
   }
   
   .flight-name {
     width: 20%;
     font-weight: bold;
+    text-align: center;
     color: #333;
   }
   
@@ -258,22 +161,39 @@ body {
   
   .flight-price {
     width: 30%;
-    text-align: right;
+    text-align: center;
     font-weight: bold;
     color: #e53935;
   }
   
   .select-button {
-    padding: 8px 15px;
+    padding: 8px 10px;
     border: none;
     border-radius: 5px;
-    background-color: #4caf50;
+    background-color: #e84e12;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-left: 5px;
   }
-  
-  .select-button:hover {
-    background-color: #45a049;
+  .select-button1 {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #10559a;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 5px;
   }
-  
+  .view-detail-flight tr td p{
+    padding: 0;
+    margin: 0;
+    // font-size: 10px;
+  }
+  .price-info {
+    font-size: 15px;
+    text-align: left;
+    color: #555;
+    padding: 10px;
+  }

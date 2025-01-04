@@ -48,7 +48,7 @@ function EditThanhPho ({
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:8080/putthanhpho/${idthanhpho}`,
+          `https://webmaybay.vercel.app/putthanhpho/${idthanhpho}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

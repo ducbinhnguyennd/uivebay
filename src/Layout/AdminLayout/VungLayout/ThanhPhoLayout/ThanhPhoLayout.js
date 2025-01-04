@@ -25,7 +25,7 @@ function ThanhPhoLayout ({ isOpen, onClose, idvung }) {
     if (idvung) {
       try {
         const response = await fetch(
-          `http://localhost:8080/getthanhpho/${idvung}`
+          `https://webmaybay.vercel.app/getthanhpho/${idvung}`
         )
         const data = await response.json()
         if (response.ok) {

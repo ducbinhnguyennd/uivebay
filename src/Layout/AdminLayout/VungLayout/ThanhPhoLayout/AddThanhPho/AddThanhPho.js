@@ -35,7 +35,7 @@ function AddThanhPho ({ isOpen, onClose, fetchdata, idvung }) {
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:8080/postthanhpho/${idvung}`,
+          `https://webmaybay.vercel.app/postthanhpho/${idvung}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

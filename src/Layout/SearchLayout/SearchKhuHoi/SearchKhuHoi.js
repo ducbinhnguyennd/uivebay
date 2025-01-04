@@ -21,7 +21,7 @@ import {
   calculateDuration,
 } from "../SearchLayoutFunction";
 function SearchKhuHoi() {
-  const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate } =
+  const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate, mangnguoi } =
     useToast();
   const [activeDate, setActiveDate] = useState("Thứ Bảy");
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
@@ -40,7 +40,7 @@ function SearchKhuHoi() {
   };
   const fetchhang = async () => {
     try {
-      const response = await fetch("http://localhost:8080/gethangmaybay");
+      const response = await fetch("https://webmaybay.vercel.app/gethangmaybay");
       const data = await response.json();
       if (response.ok) {
         sethangmaybay(data);
@@ -52,7 +52,7 @@ function SearchKhuHoi() {
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch("http://localhost:8080/getphantram");
+      const response = await fetch("https://webmaybay.vercel.app/getphantram");
       const data = await response.json();
       console.log(data);
       if (response.ok) {
@@ -79,7 +79,21 @@ function SearchKhuHoi() {
   ];
 
   const flights1 = applyFilters(searchData.outBound.data.flights, filters);
+  const flights2 = applyFilters(searchData.inBound.data.flights, filters);
 
+  const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
+
+  const totalPrice = mangnguoi.reduce((total, item) => {
+    if (!selectedFlight || !selectedFlight.price) {
+      return total
+    }
+    const pricePerTicket =
+      (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
+        phantrams[0].phantram) /
+      100
+    const taxAndFee = (pricePerTicket * 30) / 100
+    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
+  }, 0)
   return (
     <div className="search-layout">
       <div className="content-wrapper">
@@ -113,48 +127,261 @@ function SearchKhuHoi() {
                 ].map((tab) => (
                   <div
                     key={tab.label}
-                    className={`tab ${
-                      selectedTab === tab.label ? "active" : ""
-                    }`}
+                    className={`tab ${selectedTab === tab.label ? "active" : ""
+                      }`}
                     onClick={() => handleTabClick(tab.label)}
                   >
                     <div>{tab.label}</div>
-             
+
                   </div>
                 ))}
               </div>
 
               <div className="flight-table">
-                <div className="flight-row">
-                  <span className="flight-name">VN6071</span>
-                  <span className="flight-time">18:35</span>
-                  <span className="flight-price">1,149,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
-                <div className="flight-row">
-                  <span className="flight-name">VN197</span>
-                  <span className="flight-time">19:10</span>
-                  <span className="flight-price">1,149,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
-                <div className="flight-row">
-                  <span className="flight-name">VN195</span>
-                  <span className="flight-time">18:35</span>
-                  <span className="flight-price">1,299,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
-                <div className="flight-row">
-                  <span className="flight-name">VJ519</span>
-                  <span className="flight-time">22:10</span>
-                  <span className="flight-price">1,720,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
+                {Array.isArray(searchData.outBound.data.flights) &&
+                  flights1.map((flight, index) => (
+                    <div>
+                      <div className="flight-row" key={index}>
+                        <span>
+                          <img
+                            src={getAirlineImage(
+                              flight.airlineCode,
+                              hangmaybay
+                            )}
+                            alt=''
+
+                            style={{
+                              width: "55px"
+                            }}
+                          />
+                        </span>
+                        <span className="flight-name">{flight.flightNumber}</span>
+                        <span className="flight-time">{flight.departureTime}</span>
+                        <span className="flight-price">{phantrams.length > 0
+                          ? (
+                            (parseInt(flight.price.replace(/,/g, ''), 10) *
+                              phantrams[0].phantram) /
+                            100
+                          ).toLocaleString()
+                          : 'Đang tải...'}</span>
+                        <img
+                          src="./collaspe.png"
+                          onClick={e => {
+                            e.stopPropagation()
+                            toggleDetails(
+                              index,
+                              flight,
+                              setVisibleDetailIndex,
+                              setSelectedFlight,
+                              visibleDetailIndex
+                            )
+                          }}
+                        >
+
+                        </img>
+                        <button className="select-button">Chọn</button>
+                      </div>
+                      {visibleDetailIndex === index && (
+                        <div
+                          className='flight-detail-content'
+                          onClick={e => e.stopPropagation()}
+                        >
+
+                          <div>
+                            <table width='100%' cellSpacing='0' cellPadding='0'>
+                              <tbody className='view-detail-flight'>
+                                <tr>
+                                  <td
+                                    valign='top'
+                                    style={{ width: '25%', textAlign: 'right' }}
+                                  >
+                                    <p>
+                                      <b style={{ fontSize: '14px' }}>
+                                        {`${cityfrom}`}
+                                      </b>
+                                    </p>
+                                    <p>
+                                      <b>{selectedFlight.departureTime}</b>,
+                                      {formatDate(date)}
+
+                                    </p>
+                                    <p>{`${cityfrom}`}</p>
+                                  </td>
+                                  <td
+                                    className='duration-info-container'
+                                    style={{
+                                      textAlign: 'center',
+                                      fontSize: '12px',
+                                      width: '20%'
+                                    }}
+                                  >
+                                    <p style={{ paddingRight: '5px' }}>
+                                      {calculateDuration(
+                                        selectedFlight.departureTime,
+                                        selectedFlight.arrivalTime
+                                      )}
+                                    </p>
+                                    <p>
+                                      <img
+                                        src='/01-point.png'
+                                        alt='Flight Path'
+                                      />
+                                    </p>
+                                    <p
+                                      style={{
+                                        paddingRight: '5px',
+                                        marginTop: '-10px'
+                                      }}
+                                    >
+                                      <p style={{ fontSize: "13px" }}>Máy bay: Airbus</p>
+                                    </p>
+                                  </td>
+                                  <td valign='top' style={{ width: '25%' }}>
+                                    <p>
+                                      <b style={{ fontSize: '14px' }}>
+                                        {`${cityto}`}
+                                      </b>
+                                    </p>
+                                    <p>
+                                      <b>{selectedFlight.arrivalTime}</b>,
+                                      {formatDate(date)}
+
+                                    </p>
+                                    <p>{`${cityto}`}</p>
+                                  </td>
+                                  <td style={{ width: '30%' }}>
+                                    <table
+                                      width='100%'
+                                      cellPadding='0'
+                                      cellSpacing='0'
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td style={{ textAlign: 'left' }}>
+                                            <img
+                                              align='absmiddle'
+                                              src={getAirlineImage(
+                                                selectedFlight.airlineCode,
+                                                hangmaybay
+                                              )}
+                                              alt='Airline Logo'
+                                            />
+                                          </td>
+                                          <td
+                                            style={{
+                                              lineHeight: '18px',
+                                              padding: 0
+                                            }}
+                                          >
+                                            {getAirlineName(
+                                              selectedFlight.airlineCode,
+                                              hangmaybay
+                                            )}{' '}
+                                            <br />
+                                            Chuyến bay:
+                                            <b>{selectedFlight.flightNumber}</b>
+                                            <br />
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <table width='100%' className='price-break'>
+                              <tbody>
+                                <tr className='title-b'>
+                                  <td align='center' className='header'>
+                                    Loại
+                                  </td>
+                                  <td align='center' className='header'>
+                                    S.L
+                                  </td>
+                                  <td align='center' className='header'>
+                                    Giá/vé
+                                  </td>
+                                  <td align='center' className='header'>
+                                    Thuế,Phí
+                                  </td>
+                                  <td align='center' className='header'>
+                                    T.Giá
+                                  </td>
+                                </tr>
+                                {mangnguoi.map((item, index) => (
+                                  <tr key={index}>
+                                    <td align='center' className='pax'>
+                                      {item.name}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {item.songuoi}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {(
+                                        ((parseInt(
+                                          selectedFlight.price.replace(/,/g, ''),
+                                          10
+                                        ) *
+                                          phantrams[0].phantram) /
+                                          100) *
+                                        item.songuoi
+                                      ).toLocaleString()}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {(
+                                        ((((parseInt(
+                                          selectedFlight.price.replace(/,/g, ''),
+                                          10
+                                        ) *
+                                          phantrams[0].phantram) /
+                                          100) *
+                                          30) /
+                                          100) *
+                                        item.songuoi
+                                      ).toLocaleString()}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {HandelTonggia(
+                                        parseInt(
+                                          selectedFlight.price.replace(/,/g, ''),
+                                          10
+                                        ),
+                                        phantrams,
+                                        item
+                                      ).toLocaleString()}
+                                    </td>
+                                  </tr>
+                                ))}
+                                <tr class='total-b'>
+                                  <td align='right' colspan='4' class='footer'>
+                                    <b>
+                                      <t>Tổng giá</t> {totalPeople} người
+                                    </b>
+                                  </td>
+                                  <td
+                                    colspan={1}
+                                    align='center'
+                                    class='footer pb-price'
+                                  >
+                                    {totalPrice.toLocaleString()} VNĐ
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
               </div>
             </div>
             <div className="flight-back">
-              <div className="section-header orange">
+              <div className="section-header blue">
                 <h3>
-                  {cityfrom} <img src="./air-plane.png" alt="arrow" /> {cityto}
+                  {cityto} <img src="./air-plane.png" alt="arrow" /> {cityfrom}
                 </h3>
                 <p>Thứ Bảy 04/01/2025, tức ngày 5 âm lịch</p>
               </div>
@@ -169,45 +396,255 @@ function SearchKhuHoi() {
                 ].map((tab) => (
                   <div
                     key={tab.label}
-                    className={`tab ${
-                      selectedTab === tab.label ? "active" : ""
-                    }`}
+                    className={`tab ${selectedTab === tab.label ? "active1" : ""
+                      }`}
                     onClick={() => handleTabClick(tab.label)}
                   >
-                    <p>{tab.label}</p>
-                    <p>{tab.price}</p>
+                    <div>{tab.label}</div>
+
                   </div>
                 ))}
               </div>
 
               <div className="flight-table">
-                <div className="flight-row">
-                  <span className="flight-name">VN6071</span>
-                  <span className="flight-time">18:35</span>
-                  <span className="flight-price">1,149,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
-                <div className="flight-row">
-                  <span className="flight-name">VN197</span>
-                  <span className="flight-time">19:10</span>
-                  <span className="flight-price">1,149,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
-                <div className="flight-row">
-                  <span className="flight-name">VN195</span>
-                  <span className="flight-time">18:35</span>
-                  <span className="flight-price">1,299,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
-                <div className="flight-row">
-                  <span className="flight-name">VJ519</span>
-                  <span className="flight-time">22:10</span>
-                  <span className="flight-price">1,720,000đ</span>
-                  <button className="select-button">Chọn</button>
-                </div>
+                {Array.isArray(searchData.inBound.data.flights) &&
+                  flights2.map((flight, index) => (
+                    <div>
+                      <div className="flight-row" key={index}>
+                        <span>
+                          <img
+                            src={getAirlineImage(
+                              flight.airlineCode,
+                              hangmaybay
+                            )}
+                            alt=''
+
+                            style={{
+                              width: "55px"
+                            }}
+                          />
+                        </span>
+                        <span className="flight-name">{flight.flightNumber}</span>
+                        <span className="flight-time">{flight.departureTime}</span>
+                        <span className="flight-price">{phantrams.length > 0
+                          ? (
+                            (parseInt(flight.price.replace(/,/g, ''), 10) *
+                              phantrams[0].phantram) /
+                            100
+                          ).toLocaleString()
+                          : 'Đang tải...'}</span>
+                        <img
+                          src="./collaspe.png"
+                          onClick={e => {
+                            e.stopPropagation()
+                            toggleDetails(
+                              index,
+                              flight,
+                              setVisibleDetailIndex,
+                              setSelectedFlight,
+                              visibleDetailIndex
+                            )
+                          }}
+                        >
+
+                        </img>
+                        <button className="select-button1">Chọn</button>
+                      </div>
+                      {visibleDetailIndex === index && (
+                        <div
+                          className='flight-detail-content'
+                          onClick={e => e.stopPropagation()}
+                        >
+
+                          <div>
+                            <table width='100%' cellSpacing='0' cellPadding='0'>
+                              <tbody className='view-detail-flight'>
+                                <tr>
+                                  <td
+                                    valign='top'
+                                    style={{ width: '25%', textAlign: 'right' }}
+                                  >
+                                    <p>
+                                      <b style={{ fontSize: '14px' }}>
+                                        {`${cityfrom}`}
+                                      </b>
+                                    </p>
+                                    <p>
+                                      <b>{selectedFlight.departureTime}</b>,
+                                      {formatDate(date)}
+                                    </p>
+                                    <p>{`${cityfrom}`}</p>
+                                  </td>
+                                  <td
+                                    className='duration-info-container'
+                                    style={{
+                                      textAlign: 'center',
+                                      fontSize: '12px',
+                                      width: '20%'
+                                    }}
+                                  >
+                                    <p style={{ paddingRight: '5px' }}>
+                                      {calculateDuration(
+                                        selectedFlight.departureTime,
+                                        selectedFlight.arrivalTime
+                                      )}
+                                    </p>
+                                    <p>
+                                      <img
+                                        src='/01-point.png'
+                                        alt='Flight Path'
+                                      />
+                                    </p>
+                                    <p
+                                      style={{
+                                        paddingRight: '5px',
+                                        marginTop: '-10px'
+                                      }}
+                                    >
+                                      <p style={{ fontSize: "13px" }}>Máy bay: Airbus</p>
+                                    </p>
+                                  </td>
+                                  <td valign='top' style={{ width: '25%' }}>
+                                    <p>
+                                      <b style={{ fontSize: '14px' }}>
+                                        {`${cityto}`}
+                                      </b>
+                                    </p>
+                                    <p>
+                                      <b>{selectedFlight.arrivalTime}</b>,
+                                      {formatDate(date)}
+                                    </p>
+                                    <p>{`${cityto}`}</p>
+                                  </td>
+                                  <td style={{ width: '30%' }}>
+                                    <table
+                                      width='100%'
+                                      cellPadding='0'
+                                      cellSpacing='0'
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td style={{ textAlign: 'left' }}>
+                                            <img
+                                              align='absmiddle'
+                                              src={getAirlineImage(
+                                                selectedFlight.airlineCode,
+                                                hangmaybay
+                                              )}
+                                              alt='Airline Logo'
+                                            />
+                                          </td>
+                                          <td
+                                            style={{
+                                              lineHeight: '18px',
+                                              padding: 0
+                                            }}
+                                          >
+                                            {getAirlineName(
+                                              selectedFlight.airlineCode,
+                                              hangmaybay
+                                            )}{' '}
+                                            <br />
+                                            Chuyến bay:
+                                            <b>{selectedFlight.flightNumber}</b>
+                                            <br />
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                            <table width='100%' className='price-break'>
+                              <tbody>
+                                <tr className='title-b'>
+                                  <td align='center' className='header'>
+                                    Loại
+                                  </td>
+                                  <td align='center' className='header'>
+                                    S.L
+                                  </td>
+                                  <td align='center' className='header'>
+                                    Giá/vé
+                                  </td>
+                                  <td align='center' className='header'>
+                                    Thuế,Phí
+                                  </td>
+                                  <td align='center' className='header'>
+                                    T.Giá
+                                  </td>
+                                </tr>
+                                {mangnguoi.map((item, index) => (
+                                  <tr key={index}>
+                                    <td align='center' className='pax'>
+                                      {item.name}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {item.songuoi}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {(
+                                        ((parseInt(
+                                          selectedFlight.price.replace(/,/g, ''),
+                                          10
+                                        ) *
+                                          phantrams[0].phantram) /
+                                          100) *
+                                        item.songuoi
+                                      ).toLocaleString()}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {(
+                                        ((((parseInt(
+                                          selectedFlight.price.replace(/,/g, ''),
+                                          10
+                                        ) *
+                                          phantrams[0].phantram) /
+                                          100) *
+                                          30) /
+                                          100) *
+                                        item.songuoi
+                                      ).toLocaleString()}
+                                    </td>
+                                    <td align='center' className='pax'>
+                                      {HandelTonggia(
+                                        parseInt(
+                                          selectedFlight.price.replace(/,/g, ''),
+                                          10
+                                        ),
+                                        phantrams,
+                                        item
+                                      ).toLocaleString()}
+                                    </td>
+                                  </tr>
+                                ))}
+                                <tr class='total-b'>
+                                  <td align='right' colspan='4' class='footer'>
+                                    <b>
+                                      <t>Tổng giá</t> {totalPeople} người
+                                    </b>
+                                  </td>
+                                  <td
+                                    colspan={1}
+                                    align='center'
+                                    class='footer pb-price'
+                                  >
+                                    {totalPrice.toLocaleString()} VNĐ
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
               </div>
-            </div>
-          </div>
+            </div></div>
         </div>
 
         <div className="filter-sidebar">
