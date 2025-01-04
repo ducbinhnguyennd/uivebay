@@ -10,7 +10,7 @@ function FlightBookingForm () {
   const dropdownRef = useRef(null)
   const { showToast } = useToast()
 
-  const { setSearchData, setcityto, setcityfrom, setmafrom, setmato, setdate } =
+  const { setSearchData, setcityto, setcityfrom, setmafrom, setmato, setdate, setreturnDate } =
     useToast()
 
   const [departure, setDeparture] = useState('Chọn điểm đi')
@@ -19,8 +19,8 @@ function FlightBookingForm () {
   const [maarrival, setmaarrival] = useState('')
 
   const [dropdownOpen, setDropdownOpen] = useState(null)
-  const [departureDate, setDepartureDate] = useState('2025-01-03')
-  const [returnDate, setReturnDate] = useState(null)
+  const [departureDate, setDepartureDate] = useState('2025-01-06')
+  const [returnDate, setReturnDate] = useState('2025-01-08')
   const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
   const [infants, setInfants] = useState(0)
@@ -71,6 +71,7 @@ function FlightBookingForm () {
 
       if (returnDate) {
         requestData.returnDate = formatDate(returnDate)
+        setreturnDate(requestData.returnDate)
       }
 
       const response = await fetch(
@@ -85,7 +86,7 @@ function FlightBookingForm () {
       const data = await response.json()
       if (response.ok) {
         setSearchData(data)
-        navigate('/search')
+        navigate('/searchkhuhoi')
       }
     } catch (error) {
       console.error('Error fetching flight data:', error)

@@ -31,6 +31,9 @@ const ToastProvider = ({ children }) => {
   const [date, setdate] = useState(() => {
     return localStorage.getItem('date') || ''
   })
+  const [returnDate, setreturnDate] = useState(() => {
+    return localStorage.getItem('returnDate') || ''
+  })
 
   useEffect(() => {
     localStorage.setItem('cityfrom', cityfrom)
@@ -55,6 +58,9 @@ const ToastProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('date', date)
   }, [date])
+  useEffect(() => {
+    localStorage.setItem('returnDate', returnDate)
+  }, [returnDate])
 
   const showToast = (message, type = 'success') => {
     toast[type](message)
@@ -75,7 +81,9 @@ const ToastProvider = ({ children }) => {
         mato,
         setmato,
         date,
-        setdate
+        setdate,
+        returnDate,
+        setreturnDate
       }}
     >
       {children}

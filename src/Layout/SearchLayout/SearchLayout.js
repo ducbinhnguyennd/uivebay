@@ -21,7 +21,7 @@ import {
   calculateDuration
 } from './SearchLayoutFunction'
 function SearchLayout () {
-  const { cityfrom, cityto, searchData, mafrom, mato, date } = useToast()
+  const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate } = useToast()
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
@@ -57,7 +57,7 @@ function SearchLayout () {
       console.error(error)
     }
   }
-
+console.log(returnDate)
   useEffect(() => {
     fetchhang()
     fetchphantram()

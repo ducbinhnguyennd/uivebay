@@ -17,7 +17,6 @@ function SearchSidebar () {
   const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
   const [infants, setInfants] = useState(0)
-
   const [dropdownOpen, setDropdownOpen] = useState(null)
 
   const formatDate = isoDate => {
