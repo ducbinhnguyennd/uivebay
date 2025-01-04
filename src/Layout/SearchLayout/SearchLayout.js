@@ -130,7 +130,11 @@ function SearchLayout () {
               {(activeDate === 'Thứ Bảy' || activeDate === 'Thứ Hai') &&
                 Array.isArray(searchData.outBound.data.flights) &&
                 flights1.map((flight, index) => (
-                  <div key={index} onClick={navigate('/datve')}>
+                  <div
+                    key={index}
+                    onClick={() => navigate('/datve')}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className='flight-row'>
                       <div className='flight-info'>
                         <span>
@@ -161,7 +165,8 @@ function SearchLayout () {
                       </div>
                       <button
                         className='flight-details'
-                        onClick={() =>
+                        onClick={e => {
+                          e.stopPropagation()
                           toggleDetails(
                             index,
                             flight,
@@ -169,7 +174,7 @@ function SearchLayout () {
                             setSelectedFlight,
                             visibleDetailIndex
                           )
-                        }
+                        }}
                       >
                         {visibleDetailIndex === index
                           ? 'Ẩn chi tiết'
