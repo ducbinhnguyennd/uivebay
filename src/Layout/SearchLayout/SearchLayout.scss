@@ -110,68 +110,58 @@ body {
   
   .flight-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between; /* Chia đều khoảng cách giữa các phần tử */
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc; /* Đường kẻ ngăn cách giữa các hàng */
   }
   
-  .flight-info {
+
+  .flight-info  {
     flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    width: 100px;
   }
-  
   .flight-code {
+    flex: 1; 
+    text-align: center;
     font-weight: bold;
-    margin-right: 10px;
+    color: #555;
   }
   
   .flight-time {
+    flex: 1; 
+    text-align: center;
+    font-weight: bold;
     color: #555;
   }
   
   .flight-price {
+    flex: 1; 
+    text-align: center;
     font-weight: bold;
-    color: #ff8c00;
-    margin-right: 10px;
   }
   
-  .flight-details {
-    background: none;
-    border: none;
-    color: #007bff;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  .select-flight {
-    padding: 5px 10px;
-    background: #ff8c00;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.select-flight {
+  flex: 1; 
+  padding: 5px 10px;
+  margin-left: 5px;
+  background-color: #e67e00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
   
   .select-flight:hover {
     background: #e67e00;
   }
   .flight-detail-content {
-    background: #f5f5f5;
+    // background: #f5f5f5;
     padding: 10px;
-    border-left: 2px solid #ff8c00;
-    margin-top: 5px; /* Giúp nó nằm sát dưới dòng tương ứng */
+    // border-left: 2px solid #ff8c00;
+    margin-top: 5px; 
     margin-bottom: 10px;
   }
   
-  .flight-detail-content ul {
-    margin: 0;
-    padding-left: 20px;
-  }
-  
-  .flight-detail-content li {
-    margin-bottom: 5px;
-  }
   

@@ -161,15 +161,8 @@ const handleAirlineChange = e => {
                     <tr className='sub-title'>
                       <td>Hãng hàng không</td>
                       <td>
-                        <a
-                          className='remove-filter'
-                          type='airline'
-                          href='#'
-                          onClick={() =>
-                            onFiltersChange({ ...filters, airlines: [] })
-                          }
-                        >
-                          Hiển thị tất cả
+                        <a className="remove-filter" type="airline" href="#">
+                          Xem tất cả
                         </a>
                       </td>
                     </tr>

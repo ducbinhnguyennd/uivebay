@@ -229,13 +229,186 @@ function SearchLayout () {
                       </button>
                     </div>
                     {visibleDetailIndex === index && (
-                      <div className='flight-detail-content'>
-                        <p>Chi tiết chuyến bay:</p>
-                        <ul>
-                          {flights.map((detail, i) => (
-                            <li key={i}>{detail}</li>
-                          ))}
-                        </ul>
+                      <div className="flight-detail-content">
+                        <div>
+                          <table width="100%" cellSpacing="0" cellPadding="0">
+                            <tbody className="view-detail-flight">
+                              <tr>
+                                <td
+                                  valign="top"
+                                  style={{ width: "25%", textAlign: "right" }}
+                                >
+                                  <p>
+                                    <b style={{ fontSize: "14px" }}>
+                                      Phú Quốc (PQC)
+                                    </b>
+                                  </p>
+                                  <p>
+                                    <b>09:20</b>, 06/01/2025
+                                  </p>
+                                  <p>Phú Quốc</p>
+                                </td>
+                                <td
+                                  className="duration-info-container"
+                                  style={{
+                                    textAlign: "center",
+                                    fontSize: "12px",
+                                    width: "20%",
+                                  }}
+                                >
+                                  <p style={{ paddingRight: "25px" }}>
+                                    2 giờ 5 phút
+                                  </p>
+                                  <p>
+                                    <img
+                                      src="/01-point.png"
+                                      alt="Flight Path"
+                                    />
+                                  </p>
+                                  <p
+                                    style={{
+                                      paddingRight: "25px",
+                                      marginTop: "-10px",
+                                    }}
+                                  >
+                                    <b>Máy bay: Airbus A321</b>
+                                  </p>
+                                </td>
+                                <td valign="top" style={{ width: "25%" }}>
+                                  <p>
+                                    <b style={{ fontSize: "14px" }}>
+                                      Hà Nội (HAN)
+                                    </b>
+                                  </p>
+                                  <p>
+                                    <b>11:25</b>, 06/01/2025
+                                  </p>
+                                  <p>Nội Bài</p>
+                                </td>
+                                <td style={{ width: "30%" }}>
+                                  <table
+                                    width="100%"
+                                    cellPadding="0"
+                                    cellSpacing="0"
+                                  >
+                                    <tbody>
+                                      <tr>
+                                        <td style={{ textAlign: "left" }}>
+                                          <img
+                                            align="absmiddle"
+                                            src="/smVJ.gif"
+                                            alt="Airline Logo"
+                                          />
+                                        </td>
+                                        <td
+                                          style={{
+                                            lineHeight: "18px",
+                                            padding: 0,
+                                          }}
+                                        >
+                                          Vietjet Air <br />
+                                          Chuyến bay: <b>VJ452</b> <br />
+                                          <span>
+                                            <t>Hạng vé</t>: <b>L1_ECO</b>
+                                          </span>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table width="100%" className="price-break">
+                            <tbody>
+                              <tr className="title-b">
+                                <td align="center" className="header">
+                                  Loại hành khách
+                                </td>
+                                <td align="center" className="header">
+                                  Số lượng vé
+                                </td>
+                                <td align="center" className="header">
+                                  Giá mỗi vé
+                                </td>
+                                <td align="center" className="header">
+                                  Thuế & Phí
+                                </td>
+                                <td align="center" className="header">
+                                  Tổng giá
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="center" className="pax">
+                                  Người lớn
+                                </td>
+                                <td align="center" className="pax">
+                                  1
+                                </td>
+                                <td align="right" className="pax">
+                                  2,160,000 VNĐ
+                                </td>
+                                <td align="right" className="pax">
+                                  877,000 VNĐ
+                                </td>
+                                <td align="center" className="pax">
+                                  3,037,000 VNĐ
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          {/* Baggage Conditions */}
+                          <table
+                            cellPadding="0"
+                            cellSpacing="0"
+                            style={{ width: "45%" }}
+                          >
+                            <tbody>
+                              <tr className="title">
+                                <td colSpan="2" style={{ fontSize: "12px" }}>
+                                  Điều Kiện Hành Lý
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style={{ width: "120px" }}>
+                                  Hành Lý Xách Tay
+                                </td>
+                                <td>7kg</td>
+                              </tr>
+                              <tr>
+                                <td style={{ width: "120px" }}>
+                                  Hành Lý Ký Gửi
+                                </td>
+                                <td>Vui lòng chọn ở bước tiếp theo</td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                          <table
+                            cellPadding="0"
+                            cellSpacing="0"
+                            style={{ width: "45%" }}
+                          >
+                            <tbody>
+                              <tr className="title">
+                                <td colSpan="2" style={{ fontSize: "12px" }}>
+                                  Điều Kiện Về Vé
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>- Áp dụng đổi vé mất phí</td>
+                              </tr>
+                              <tr>
+                                <td>- Áp dụng hoàn vé mất phí</td>
+                              </tr>
+                              <tr>
+                                <td>- Không áp dụng đổi tên</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     )}
                   </div>

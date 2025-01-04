@@ -77,9 +77,18 @@
 }
 #filter label{
     padding-left: 5px;
+    font-size: 13px;
 }
 #filter td {
     padding-bottom: 5px;
+    font-size: 15px;
+
+}
+.remove-filter{
+    color: #e84e0f;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer
 }
 .locTimkiem {
     background: url("../../../public/bgDate_07.jpg") repeat-x;
