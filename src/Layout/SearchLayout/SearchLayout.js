@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/style-prop-object */
 import { useState, useEffect } from 'react'
 import './SearchLayout.scss'
@@ -22,7 +23,17 @@ import {
   calculateDuration
 } from './SearchLayoutFunction'
 function SearchLayout () {
-  const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate,mangnguoi } = useToast()
+  const {
+    cityfrom,
+    cityto,
+    searchData,
+    mafrom,
+    mato,
+    date,
+    returnDate,
+    mangnguoi,
+    setflightdata
+  } = useToast()
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
@@ -57,7 +68,7 @@ function SearchLayout () {
       console.error(error)
     }
   }
-console.log(returnDate)
+  console.log(returnDate)
   useEffect(() => {
     fetchhang()
     fetchphantram()
@@ -145,7 +156,10 @@ console.log(returnDate)
                 flights1.map((flight, index) => (
                   <div
                     key={index}
-                    onClick={() => navigate('/datve')}
+                    onClick={() => {
+                      setflightdata(flight)
+                      navigate('/datve')
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     <div className='flight-row'>
@@ -161,7 +175,7 @@ console.log(returnDate)
                         </span>
                       </div>
                       <div className='flight-info'>
-                      <span className='flight-code'>
+                        <span className='flight-code'>
                           {flight.flightNumber}
                         </span>
                       </div>
@@ -179,29 +193,42 @@ console.log(returnDate)
                             ).toLocaleString()
                           : 'Đang tải...'}
                       </div>
-                      <div onClick={e => {
-                            e.stopPropagation()
-                            toggleDetails(
-                              index,
-                              flight,
-                              setVisibleDetailIndex,
-                              setSelectedFlight,
-                              visibleDetailIndex
-                            )
-                          }} style={{display:"flex"}}>
-                        <div style={{color: "#143a83", fontSize:"13px", paddingRight:"5px"}}>Chi tiết</div>
-                        <img
-                          src="./collaspe.png"
-                          
-                        />
+                      <div
+                        onClick={e => {
+                          e.stopPropagation()
+                          toggleDetails(
+                            index,
+                            flight,
+                            setVisibleDetailIndex,
+                            setSelectedFlight,
+                            visibleDetailIndex
+                          )
+                        }}
+                        style={{ display: 'flex' }}
+                      >
+                        <div
+                          style={{
+                            color: '#143a83',
+                            fontSize: '13px',
+                            paddingRight: '5px'
+                          }}
+                        >
+                          Chi tiết
+                        </div>
+                        <img src='./collaspe.png' />
                       </div>
 
-                      <button className='select-flight' style={{
-    backgroundColor: flight.chooseText === "Hạng Thương Gia" ? "#e84e12  " : "#e67e00",
-  }}>
+                      <button
+                        className='select-flight'
+                        style={{
+                          backgroundColor:
+                            flight.chooseText === 'Hạng Thương Gia'
+                              ? '#e84e12  '
+                              : '#e67e00'
+                        }}
+                      >
                         {flight.chooseText}
                       </button>
-                 
                     </div>
                     {visibleDetailIndex === index && (
                       <div

@@ -1,18 +1,39 @@
 /* eslint-disable no-script-url */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './DatVe.scss'
+import { useToast } from '../../components/useToast/ToastContext'
+import { getAirlineName } from '../SearchLayout/SearchLayoutFunction'
+import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 
 function ThongTinDat () {
   const [isInvoiceChecked, setIsInvoiceChecked] = useState(false)
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
   const [baggageOption, setBaggageOption] = useState('2,266000')
+  const [hangmaybay, sethangmaybay] = useState([])
 
   const navigate = useNavigate()
 
   const handleInvoiceChange = () => setIsInvoiceChecked(!isInvoiceChecked)
   const handleRemarkChange = () => setIsRemarkChecked(!isRemarkChecked)
+  const { flightdata, date, mafrom, mato } = useToast()
+
+  const fetchhang = async () => {
+    try {
+      const response = await fetch('https://webmaybay.vercel.app/gethangmaybay')
+      const data = await response.json()
+      if (response.ok) {
+        sethangmaybay(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchhang()
+  }, [])
 
   return (
     <div id='main-datve'>
@@ -442,19 +463,24 @@ function ThongTinDat () {
                                   className='img-VJ-Full h30'
                                 />
                               </td>
-                              <td className='nowrap'>Vietjet Air</td>
                               <td className='nowrap'>
-                                <span>&nbsp;C.Nhật</span>
+                                {getAirlineName(
+                                  flightdata.airlineCode,
+                                  hangmaybay
+                                )}
                               </td>
                               <td className='nowrap'>
-                                <span className='bold'>&nbsp;05/01</span>
+                                <span>&nbsp;{CalendarFormat(date)}</span>
                               </td>
                               <td className='nowrap'>
                                 <span className='bold'>
-                                  &nbsp;&nbsp;SGN&nbsp;05:00
+                                  &nbsp;&nbsp;{mafrom}&nbsp;
+                                  {flightdata.departureTime}
                                 </span>
                                 <span>&nbsp;-&nbsp;</span>
-                                <span>HAN&nbsp;07:10</span>
+                                <span>
+                                  {mato}&nbsp;{flightdata.arrivalTime}
+                                </span>
                               </td>
                             </tr>
                           </tbody>
