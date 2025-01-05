@@ -78,7 +78,7 @@ function FlightBookingForm () {
 
       if (returnDate) {
         requestData.returnDate = formatDate(returnDate)
-        setreturnDate(requestData.returnDate)
+        setreturnDate(returnDate)
       }
 
       const response = await fetch(
@@ -111,9 +111,12 @@ function FlightBookingForm () {
 
           return newState
         })
-
-        // navigate('/search')
-        navigate('/searchkhuhoi')
+        setdate(departureDate)
+        if (returnDate) {
+          navigate('/searchkhuhoi')
+        } else {
+          navigate('/search')
+        }
       }
     } catch (error) {
       console.error('Error fetching flight data:', error)
@@ -187,7 +190,6 @@ function FlightBookingForm () {
               value={departureDate}
               onChange={e => {
                 setDepartureDate(e.target.value)
-                setdate(e.target.value)
               }}
             />
           </div>

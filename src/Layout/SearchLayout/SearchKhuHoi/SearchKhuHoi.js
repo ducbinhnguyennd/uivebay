@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useState, useEffect } from "react";
 import "./SearchKhuHoi.scss";
 import { useToast } from "../../../components/useToast/ToastContext";
@@ -25,6 +26,8 @@ function SearchKhuHoi() {
     useToast();
   const [activeDate, setActiveDate] = useState("Thứ Bảy");
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
+  const [visibleDetailIndex2, setVisibleDetailIndex2] = useState(null)
+
   const [hangmaybay, sethangmaybay] = useState([]);
   const [phantrams, setphantram] = useState([]);
   const [selectedFlight, setSelectedFlight] = useState(null);
@@ -114,7 +117,7 @@ function SearchKhuHoi() {
                 <h3>
                   {cityfrom} <img src="./air-plane.png" alt="arrow" /> {cityto}
                 </h3>
-                <p>Thứ Bảy 04/01/2025, tức ngày 5 âm lịch</p>
+                <p>{LunarCalendarFormat(date)}</p>
               </div>
 
               <div className="tabs">
@@ -383,7 +386,7 @@ function SearchKhuHoi() {
                 <h3>
                   {cityto} <img src="./air-plane.png" alt="arrow" /> {cityfrom}
                 </h3>
-                <p>Thứ Bảy 04/01/2025, tức ngày 5 âm lịch</p>
+                <p>{LunarCalendarFormat(returnDate)}</p>
               </div>
 
               <div className="tabs">
@@ -440,9 +443,9 @@ function SearchKhuHoi() {
                             toggleDetails(
                               index,
                               flight,
-                              setVisibleDetailIndex,
+                              setVisibleDetailIndex2,
                               setSelectedFlight,
-                              visibleDetailIndex
+                              visibleDetailIndex2
                             )
                           }}
                         >
@@ -450,7 +453,7 @@ function SearchKhuHoi() {
                         </img>
                         <button className="select-button1">Chọn</button>
                       </div>
-                      {visibleDetailIndex === index && (
+                      {visibleDetailIndex2 === index && (
                         <div
                           className='flight-detail-content'
                           onClick={e => e.stopPropagation()}
