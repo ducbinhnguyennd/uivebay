@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useState, useEffect } from "react";
 import "./SearchKhuHoi.scss";
 import { useToast } from "../../../components/useToast/ToastContext";
@@ -23,11 +24,9 @@ import {
 function SearchKhuHoi() {
   const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate, mangnguoi } =
     useToast();
-  const [visibleDetailIndexOut, setVisibleDetailIndexOut] = useState(null); // Bảng đi
-const [selectedFlightOut, setSelectedFlightOut] = useState(null);
-
-const [visibleDetailIndexIn, setVisibleDetailIndexIn] = useState(null); // Bảng về
-const [selectedFlightIn, setSelectedFlightIn] = useState(null);
+  const [activeDate, setActiveDate] = useState("Thứ Bảy");
+  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
+  const [visibleDetailIndex2, setVisibleDetailIndex2] = useState(null)
 
   const [hangmaybay, sethangmaybay] = useState([]);
   const [phantrams, setphantram] = useState([]);
@@ -109,7 +108,7 @@ const [selectedFlightIn, setSelectedFlightIn] = useState(null);
                 <h3>
                   {cityfrom} <img src="./air-plane.png" alt="arrow" /> {cityto}
                 </h3>
-                <p>Thứ Bảy 04/01/2025, tức ngày 5 âm lịch</p>
+                <p>{LunarCalendarFormat(date)}</p>
               </div>
 
               <div className="tabs">
@@ -166,15 +165,15 @@ const [selectedFlightIn, setSelectedFlightIn] = useState(null);
                             toggleDetails(
                               index,
                               flight,
-                              setVisibleDetailIndexOut,
+                              setVisibleDetailIndex,
                               setSelectedFlight,
-                              visibleDetailIndexOut
+                              visibleDetailIndex
                             )
                           }}
                         /> 
                         <button className="select-button">Chọn</button>
                       </div>
-                      {visibleDetailIndexOut === index && (
+                      {visibleDetailIndex === index && (
                         <div
                           className='flight-detail-content'
                           onClick={e => e.stopPropagation()}
@@ -363,7 +362,7 @@ const [selectedFlightIn, setSelectedFlightIn] = useState(null);
                 <h3>
                   {cityto} <img src="./air-plane.png" alt="arrow" /> {cityfrom}
                 </h3>
-                <p>Thứ Bảy 04/01/2025, tức ngày 5 âm lịch</p>
+                <p>{LunarCalendarFormat(returnDate)}</p>
               </div>
 
               <div className="tabs">
@@ -420,9 +419,9 @@ const [selectedFlightIn, setSelectedFlightIn] = useState(null);
                             toggleDetails(
                               index,
                               flight,
-                              setVisibleDetailIndexIn,
+                              setVisibleDetailIndex2,
                               setSelectedFlight,
-                              visibleDetailIndexIn
+                              visibleDetailIndex2
                             )
                           }}
                         >
@@ -430,7 +429,7 @@ const [selectedFlightIn, setSelectedFlightIn] = useState(null);
                         </img>
                         <button className="select-button1">Chọn</button>
                       </div>
-                      {visibleDetailIndexIn === index && (
+                      {visibleDetailIndex2 === index && (
                         <div
                           className='flight-detail-content'
                           onClick={e => e.stopPropagation()}
