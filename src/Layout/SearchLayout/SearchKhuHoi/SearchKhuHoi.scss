@@ -41,22 +41,6 @@ body {
     margin-bottom: 20px;
   }
   
-
-.select-flight {
-  flex: 1; 
-  padding: 5px 10px;
-  margin-left: 5px;
-  background-color: #e67e00;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-}
-  
-  .select-flight:hover {
-    background: #e67e00;
-  }
   .flight-detail-content {
     // background: #f5f5f5;
     padding: 10px;
@@ -138,11 +122,11 @@ body {
     border-top: 1px solid #ddd;
   }
   
-  .flight-row {
+  .flight-row-khuhoi {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 5px;
+    padding: 5px 5px;
     border-bottom: 1px solid #f3f3f3;
   }
   
@@ -189,11 +173,17 @@ body {
   .view-detail-flight tr td p{
     padding: 0;
     margin: 0;
-    // font-size: 10px;
+    font-size: 13px;
+    line-height: 25px;
   }
   .price-info {
     font-size: 15px;
     text-align: left;
     color: #555;
     padding: 10px;
+  }
+  .price-break{
+    font-size: 13px;
+    line-height: 25px;
+
   }

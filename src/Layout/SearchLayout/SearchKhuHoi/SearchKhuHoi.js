@@ -23,8 +23,12 @@ import {
 function SearchKhuHoi() {
   const { cityfrom, cityto, searchData, mafrom, mato, date, returnDate, mangnguoi } =
     useToast();
-  const [activeDate, setActiveDate] = useState("Thứ Bảy");
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
+  const [visibleDetailIndexOut, setVisibleDetailIndexOut] = useState(null); // Bảng đi
+const [selectedFlightOut, setSelectedFlightOut] = useState(null);
+
+const [visibleDetailIndexIn, setVisibleDetailIndexIn] = useState(null); // Bảng về
+const [selectedFlightIn, setSelectedFlightIn] = useState(null);
+
   const [hangmaybay, sethangmaybay] = useState([]);
   const [phantrams, setphantram] = useState([]);
   const [selectedFlight, setSelectedFlight] = useState(null);
@@ -68,15 +72,6 @@ function SearchKhuHoi() {
     fetchphantram();
   }, []);
 
-  const dates = [
-    { day: "Thứ Hai", date: "06/01", price: "868,000đ" },
-    { day: "Thứ Ba", date: "06/01", price: "868,000đ" },
-    { day: "Thứ Tư", date: "01/01", price: "" },
-    { day: "Thứ Năm", date: "02/01", price: "" },
-    { day: "Thứ Sáu", date: "03/01", price: "1,010,000đ" },
-    { day: "Thứ Bảy", date: "04/01", price: "868,000đ" },
-    { day: "Chủ Nhật", date: "05/01", price: "1,008,000đ" },
-  ];
 
   const flights1 = applyFilters(searchData.outBound.data.flights, filters);
   const flights2 = applyFilters(searchData.inBound.data.flights, filters);
@@ -141,7 +136,7 @@ function SearchKhuHoi() {
                 {Array.isArray(searchData.outBound.data.flights) &&
                   flights1.map((flight, index) => (
                     <div>
-                      <div className="flight-row" key={index}>
+                      <div className="flight-row-khuhoi" key={index}>
                         <span>
                           <img
                             src={getAirlineImage(
@@ -156,7 +151,7 @@ function SearchKhuHoi() {
                           />
                         </span>
                         <span className="flight-name">{flight.flightNumber}</span>
-                        <span className="flight-time">{flight.departureTime}</span>
+                        <span className="flight-time">{flight?.departureTime}</span>
                         <span className="flight-price">{phantrams.length > 0
                           ? (
                             (parseInt(flight.price.replace(/,/g, ''), 10) *
@@ -171,17 +166,15 @@ function SearchKhuHoi() {
                             toggleDetails(
                               index,
                               flight,
-                              setVisibleDetailIndex,
+                              setVisibleDetailIndexOut,
                               setSelectedFlight,
-                              visibleDetailIndex
+                              visibleDetailIndexOut
                             )
                           }}
-                        >
-
-                        </img>
+                        /> 
                         <button className="select-button">Chọn</button>
                       </div>
-                      {visibleDetailIndex === index && (
+                      {visibleDetailIndexOut === index && (
                         <div
                           className='flight-detail-content'
                           onClick={e => e.stopPropagation()}
@@ -193,7 +186,7 @@ function SearchKhuHoi() {
                                 <tr>
                                   <td
                                     valign='top'
-                                    style={{ width: '25%', textAlign: 'right' }}
+                                    style={{ width: '25%', textAlign: 'center' }}
                                   >
                                     <p>
                                       <b style={{ fontSize: '14px' }}>
@@ -201,11 +194,11 @@ function SearchKhuHoi() {
                                       </b>
                                     </p>
                                     <p>
-                                      <b>{selectedFlight.departureTime}</b>,
+                                      <b>{selectedFlight?.departureTime}</b>,
                                       {formatDate(date)}
 
                                     </p>
-                                    <p>{`${cityfrom}`}</p>
+                                    <p>{`${mafrom}`}</p>
                                   </td>
                                   <td
                                     className='duration-info-container'
@@ -217,8 +210,8 @@ function SearchKhuHoi() {
                                   >
                                     <p style={{ paddingRight: '5px' }}>
                                       {calculateDuration(
-                                        selectedFlight.departureTime,
-                                        selectedFlight.arrivalTime
+                                        selectedFlight?.departureTime,
+                                        selectedFlight?.arrivalTime
                                       )}
                                     </p>
                                     <p>
@@ -236,20 +229,24 @@ function SearchKhuHoi() {
                                       <p style={{ fontSize: "13px" }}>Máy bay: Airbus</p>
                                     </p>
                                   </td>
-                                  <td valign='top' style={{ width: '25%' }}>
+                                  <td valign='top' style={{ width: '25%',textAlign: "center" }}>
                                     <p>
-                                      <b style={{ fontSize: '14px' }}>
+                                      <b style={{ fontSize: '13px' }}>
                                         {`${cityto}`}
                                       </b>
                                     </p>
                                     <p>
-                                      <b>{selectedFlight.arrivalTime}</b>,
+                                      <b>{selectedFlight?.arrivalTime}</b>,
                                       {formatDate(date)}
 
                                     </p>
-                                    <p>{`${cityto}`}</p>
+                                    <p>{`${mato}`}</p>
                                   </td>
-                                  <td style={{ width: '30%' }}>
+                                  
+                                </tr>
+                              </tbody>
+                            </table>
+                            <td style={{ width: '30%' }}>
                                     <table
                                       width='100%'
                                       cellPadding='0'
@@ -279,17 +276,13 @@ function SearchKhuHoi() {
                                             )}{' '}
                                             <br />
                                             Chuyến bay:
-                                            <b>{selectedFlight.flightNumber}</b>
+                                            {selectedFlight.flightNumber}
                                             <br />
                                           </td>
                                         </tr>
                                       </tbody>
                                     </table>
                                   </td>
-                                </tr>
-                              </tbody>
-                            </table>
-
                             <table width='100%' className='price-break'>
                               <tbody>
                                 <tr className='title-b'>
@@ -353,20 +346,7 @@ function SearchKhuHoi() {
                                     </td>
                                   </tr>
                                 ))}
-                                <tr class='total-b'>
-                                  <td align='right' colspan='4' class='footer'>
-                                    <b>
-                                      <t>Tổng giá</t> {totalPeople} người
-                                    </b>
-                                  </td>
-                                  <td
-                                    colspan={1}
-                                    align='center'
-                                    class='footer pb-price'
-                                  >
-                                    {totalPrice.toLocaleString()} VNĐ
-                                  </td>
-                                </tr>
+                              
                               </tbody>
                             </table>
                             <div></div>
@@ -410,7 +390,7 @@ function SearchKhuHoi() {
                 {Array.isArray(searchData.inBound.data.flights) &&
                   flights2.map((flight, index) => (
                     <div>
-                      <div className="flight-row" key={index}>
+                      <div className="flight-row-khuhoi" key={index}>
                         <span>
                           <img
                             src={getAirlineImage(
@@ -425,7 +405,7 @@ function SearchKhuHoi() {
                           />
                         </span>
                         <span className="flight-name">{flight.flightNumber}</span>
-                        <span className="flight-time">{flight.departureTime}</span>
+                        <span className="flight-time">{flight?.departureTime}</span>
                         <span className="flight-price">{phantrams.length > 0
                           ? (
                             (parseInt(flight.price.replace(/,/g, ''), 10) *
@@ -440,9 +420,9 @@ function SearchKhuHoi() {
                             toggleDetails(
                               index,
                               flight,
-                              setVisibleDetailIndex,
+                              setVisibleDetailIndexIn,
                               setSelectedFlight,
-                              visibleDetailIndex
+                              visibleDetailIndexIn
                             )
                           }}
                         >
@@ -450,7 +430,7 @@ function SearchKhuHoi() {
                         </img>
                         <button className="select-button1">Chọn</button>
                       </div>
-                      {visibleDetailIndex === index && (
+                      {visibleDetailIndexIn === index && (
                         <div
                           className='flight-detail-content'
                           onClick={e => e.stopPropagation()}
@@ -462,7 +442,7 @@ function SearchKhuHoi() {
                                 <tr>
                                   <td
                                     valign='top'
-                                    style={{ width: '25%', textAlign: 'right' }}
+                                    style={{ width: '25%', textAlign: 'center' }}
                                   >
                                     <p>
                                       <b style={{ fontSize: '14px' }}>
@@ -470,10 +450,10 @@ function SearchKhuHoi() {
                                       </b>
                                     </p>
                                     <p>
-                                      <b>{selectedFlight.departureTime}</b>,
+                                      <b>{selectedFlight?.departureTime}</b>,
                                       {formatDate(date)}
                                     </p>
-                                    <p>{`${cityfrom}`}</p>
+                                    <p>{`${mafrom}`}</p>
                                   </td>
                                   <td
                                     className='duration-info-container'
@@ -485,14 +465,15 @@ function SearchKhuHoi() {
                                   >
                                     <p style={{ paddingRight: '5px' }}>
                                       {calculateDuration(
-                                        selectedFlight.departureTime,
-                                        selectedFlight.arrivalTime
+                                        selectedFlight?.departureTime,
+                                        selectedFlight?.arrivalTime
                                       )}
                                     </p>
                                     <p>
                                       <img
                                         src='/01-point.png'
                                         alt='Flight Path'
+                                       
                                       />
                                     </p>
                                     <p
@@ -504,19 +485,23 @@ function SearchKhuHoi() {
                                       <p style={{ fontSize: "13px" }}>Máy bay: Airbus</p>
                                     </p>
                                   </td>
-                                  <td valign='top' style={{ width: '25%' }}>
+                                  <td valign='top' style={{ width: '25%', textAlign: 'center' }}>
                                     <p>
                                       <b style={{ fontSize: '14px' }}>
                                         {`${cityto}`}
                                       </b>
                                     </p>
                                     <p>
-                                      <b>{selectedFlight.arrivalTime}</b>,
+                                      <b>{selectedFlight?.arrivalTime}</b>,
                                       {formatDate(date)}
                                     </p>
-                                    <p>{`${cityto}`}</p>
+                                    <p>{`${mato}`}</p>
                                   </td>
-                                  <td style={{ width: '30%' }}>
+                                  
+                                </tr>
+                              </tbody>
+                            </table>
+                            <td style={{ width: '30%' }}>
                                     <table
                                       width='100%'
                                       cellPadding='0'
@@ -546,17 +531,13 @@ function SearchKhuHoi() {
                                             )}{' '}
                                             <br />
                                             Chuyến bay:
-                                            <b>{selectedFlight.flightNumber}</b>
+                                            {selectedFlight.flightNumber}
                                             <br />
                                           </td>
                                         </tr>
                                       </tbody>
                                     </table>
                                   </td>
-                                </tr>
-                              </tbody>
-                            </table>
-
                             <table width='100%' className='price-break'>
                               <tbody>
                                 <tr className='title-b'>
@@ -620,20 +601,7 @@ function SearchKhuHoi() {
                                     </td>
                                   </tr>
                                 ))}
-                                <tr class='total-b'>
-                                  <td align='right' colspan='4' class='footer'>
-                                    <b>
-                                      <t>Tổng giá</t> {totalPeople} người
-                                    </b>
-                                  </td>
-                                  <td
-                                    colspan={1}
-                                    align='center'
-                                    class='footer pb-price'
-                                  >
-                                    {totalPrice.toLocaleString()} VNĐ
-                                  </td>
-                                </tr>
+                              
                               </tbody>
                             </table>
                             <div></div>
@@ -644,7 +612,8 @@ function SearchKhuHoi() {
                   ))}
 
               </div>
-            </div></div>
+            </div>
+            </div>
         </div>
 
         <div className="filter-sidebar">

@@ -1,18 +1,22 @@
 const handleDateClick = (day, setActiveDate) => {
   setActiveDate(day)
 }
-
 const toggleDetails = (
-  index,
-  flight,
+  currentIndex,
+  selectedFlight,
   setVisibleDetailIndex,
   setSelectedFlight,
-  visibleDetailIndex
+  currentVisibleIndex
 ) => {
-  setVisibleDetailIndex(visibleDetailIndex === index ? null : index)
-  setSelectedFlight(flight)
-}
+  setVisibleDetailIndex(null) // Đặt lại trạng thái trước
+  setSelectedFlight(null)
 
+  setTimeout(() => {
+    // Cập nhật trạng thái mới sau khi làm sạch
+    setVisibleDetailIndex(currentVisibleIndex === currentIndex ? null : currentIndex)
+    setSelectedFlight(selectedFlight)
+  }, 0) // Đảm bảo thứ tự thực thi
+}
 const getAirlineImage = (airlineCode, hangmaybay) => {
   const airline = hangmaybay.find(h => h.mahangmaybay === airlineCode)
   return airline ? airline.image : ''
@@ -51,6 +55,7 @@ const calculateDuration = (departureTime, arrivalTime) => {
 export {
   handleDateClick,
   toggleDetails,
+
   getAirlineImage,
   getAirlineName,
   HandelTonggia,

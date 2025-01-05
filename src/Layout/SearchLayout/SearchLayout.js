@@ -159,14 +159,17 @@ console.log(returnDate)
                             alt=''
                           />
                         </span>
-                        <span className='flight-code'>
+                      </div>
+                      <div className='flight-info'>
+                      <span className='flight-code'>
                           {flight.flightNumber}
                         </span>
+                      </div>
+                      <div className='flight-info'>
                         <span className='flight-time'>
                           {flight.departureTime} - {flight.arrivalTime}
                         </span>
                       </div>
-
                       <div className='flight-price'>
                         {phantrams.length > 0
                           ? (
@@ -176,26 +179,29 @@ console.log(returnDate)
                             ).toLocaleString()
                           : 'Đang tải...'}
                       </div>
-                      <button
-                        className='flight-details'
-                        onClick={e => {
-                          e.stopPropagation()
-                          toggleDetails(
-                            index,
-                            flight,
-                            setVisibleDetailIndex,
-                            setSelectedFlight,
-                            visibleDetailIndex
-                          )
-                        }}
-                      >
-                        {visibleDetailIndex === index
-                          ? 'Ẩn chi tiết'
-                          : 'Chi tiết'}
-                      </button>
-                      <button className='select-flight'>
+                      <div onClick={e => {
+                            e.stopPropagation()
+                            toggleDetails(
+                              index,
+                              flight,
+                              setVisibleDetailIndex,
+                              setSelectedFlight,
+                              visibleDetailIndex
+                            )
+                          }} style={{display:"flex"}}>
+                        <div style={{color: "#143a83", fontSize:"13px", paddingRight:"5px"}}>Chi tiết</div>
+                        <img
+                          src="./collaspe.png"
+                          
+                        />
+                      </div>
+
+                      <button className='select-flight' style={{
+    backgroundColor: flight.chooseText === "Hạng Thương Gia" ? "#e84e12  " : "#e67e00",
+  }}>
                         {flight.chooseText}
                       </button>
+                 
                     </div>
                     {visibleDetailIndex === index && (
                       <div

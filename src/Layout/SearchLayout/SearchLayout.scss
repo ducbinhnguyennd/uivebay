@@ -113,17 +113,15 @@ body {
 
 .flight-row {
   display: flex;
+  padding: 2px;
   align-items: center;
   justify-content: space-between;
-  /* Chia đều khoảng cách giữa các phần tử */
-  padding: 10px;
   border-bottom: 1px solid #ccc;
-  /* Đường kẻ ngăn cách giữa các hàng */
 }
 
 
 .flight-info {
-  flex: 1;
+  // flex: 1;
   width: 100px;
 }
 
@@ -149,14 +147,15 @@ body {
 
 .select-flight {
   flex: 1;
-  padding: 5px 10px;
-  margin-left: 5px;
+  padding: 5px 0px;
+  text-shadow: 1px 1px #543b16;
   background-color: #e67e00;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
+  margin-left: 5px;
 }
 
 .select-flight:hover {
