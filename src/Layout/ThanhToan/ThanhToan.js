@@ -40,7 +40,7 @@ const ThanhToan = () => {
   const fetchdonhang = async () => {
     try {
       const response = await fetch(
-        'https://script.googleusercontent.com/macros/echo?user_content_key=yWlCbU69Vc-zvBpuyD_-GK2f0Xjlc2WetLxOVHaN1quoGGPgZ5Dw6A59dVw42TSJfCx3VsEgSr1kiYX9jKfMO1JFjYY5d0Xdm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnI8WPH85_3ke86Rl7B-vX7tcyVAlO9-LRhaBqBa0qteIX033vYyi_r-v1ICY335UeWL_IDHP0YSNkg9oBGzJyPXqLEEDrIYNqtz9Jw9Md8uu&lib=MPSQZlixQIDTGF_193U24EboBWcMPcusi'
+        'https://script.google.com/macros/s/AKfycbwmaPrImIpU-V7SmK_XPgWKRGS6JQ5uv9Vu3nyCVT-EIBSIt7k8SNpe4tljB_Oz22suzQ/exec'
       )
       const data = await response.json()
       if (response.ok) {
@@ -51,16 +51,11 @@ const ThanhToan = () => {
     }
   }
 
-useEffect(() => {
-  fetchdonhang()
-
-  const interval = setInterval(() => {
+  useEffect(() => {
     fetchdonhang()
-  }, 5000)
+  }, [])
 
-  return () => clearInterval(interval)
-}, [])
-
+  console.log(datagiaodich)
 
   return (
     <div>
@@ -111,7 +106,9 @@ useEffect(() => {
                     Mở App Ngân hàng để quét mã QR
                   </div>
                   <img
-                    src={`https://img.vietqr.io/image/MB-2220198032222-compact2.png?amount=${hoadon.tongtien}&addInfo=${hoadon.mahoadon}&accountName=NGUYEN NGOC CHIEN`}
+                    src={`https://img.vietqr.io/image/MB-2220198032222-compact2.png?amount=${
+                      hoadon.tongtien
+                    }&addInfo=${`${hoadon.mahoadon} ${hoadon.tongtien}`}&accountName=NGUYEN NGOC CHIEN`}
                     alt=''
                     style={{ width: '200px' }}
                   />
