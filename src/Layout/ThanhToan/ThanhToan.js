@@ -6,8 +6,9 @@ import { getAirlineImage } from '../SearchLayout/SearchLayoutFunction'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
-  const { showToast, hoadon, flightdata, cityfrom, cityto } = useToast()
+  const { hoadon, flightdata, cityfrom, cityto } = useToast()
   const [hangmaybay, sethangmaybay] = useState([])
+  const [datagiaodich, setdatagiaodich] = useState([])
 
   const fetchhang = async () => {
     try {
@@ -35,6 +36,32 @@ const ThanhToan = () => {
       </div>
     )
   }
+
+  const fetchdonhang = async () => {
+    try {
+      const response = await fetch(
+        'https://script.googleusercontent.com/macros/echo?user_content_key=yWlCbU69Vc-zvBpuyD_-GK2f0Xjlc2WetLxOVHaN1quoGGPgZ5Dw6A59dVw42TSJfCx3VsEgSr1kiYX9jKfMO1JFjYY5d0Xdm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnI8WPH85_3ke86Rl7B-vX7tcyVAlO9-LRhaBqBa0qteIX033vYyi_r-v1ICY335UeWL_IDHP0YSNkg9oBGzJyPXqLEEDrIYNqtz9Jw9Md8uu&lib=MPSQZlixQIDTGF_193U24EboBWcMPcusi'
+      )
+      const data = await response.json()
+      if (response.ok) {
+        setdatagiaodich(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+useEffect(() => {
+  fetchdonhang()
+
+  const interval = setInterval(() => {
+    fetchdonhang()
+  }, 5000)
+
+  return () => clearInterval(interval)
+}, [])
+
+
   return (
     <div>
       <div className='tatcadonhang'>Xem tất cả đơn hàng</div>
@@ -72,11 +99,11 @@ const ThanhToan = () => {
                     <button>Copy</button>
                   </p>
                   <p>
-                    Nội dung: DH5004690 <button>Copy</button>
+                    Nội dung: {hoadon.mahoadon} <button>Copy</button>
                   </p>
-                  <p>Ngân hàng: Vietcombank</p>
+                  <p>Ngân hàng: MBBANK</p>
                   <p>
-                    Số TK: 0021000257522 <button>Copy</button>
+                    Số TK: 2220198032222 <button>Copy</button>
                   </p>
                 </div>
                 <div className='qr-code'>
@@ -84,7 +111,7 @@ const ThanhToan = () => {
                     Mở App Ngân hàng để quét mã QR
                   </div>
                   <img
-                    src='./qrthanhtoan.png'
+                    src={`https://img.vietqr.io/image/MB-2220198032222-compact2.png?amount=${hoadon.tongtien}&addInfo=${hoadon.mahoadon}&accountName=NGUYEN NGOC CHIEN`}
                     alt=''
                     style={{ width: '200px' }}
                   />

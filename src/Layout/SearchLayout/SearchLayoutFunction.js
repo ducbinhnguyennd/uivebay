@@ -13,7 +13,9 @@ const toggleDetails = (
 
   setTimeout(() => {
     // Cập nhật trạng thái mới sau khi làm sạch
-    setVisibleDetailIndex(currentVisibleIndex === currentIndex ? null : currentIndex)
+    setVisibleDetailIndex(
+      currentVisibleIndex === currentIndex ? null : currentIndex
+    )
     setSelectedFlight(selectedFlight)
   }, 0) // Đảm bảo thứ tự thực thi
 }
@@ -27,10 +29,8 @@ const getAirlineName = (airlineCode, hangmaybay) => {
   return airline ? airline.name : ''
 }
 
-const HandelTonggia = (price, phantrams, item) => {
-  const gia =
-    ((price * phantrams[0].phantram) / 100) * item.songuoi +
-    ((((price * phantrams[0].phantram) / 100) * 30) / 100) * item.songuoi
+const HandelTonggia = (price, item) => {
+  const gia = price * item.songuoi + ((price * 30) / 100) * item.songuoi
   return gia
 }
 
@@ -55,7 +55,6 @@ const calculateDuration = (departureTime, arrivalTime) => {
 export {
   handleDateClick,
   toggleDetails,
-
   getAirlineImage,
   getAirlineName,
   HandelTonggia,
