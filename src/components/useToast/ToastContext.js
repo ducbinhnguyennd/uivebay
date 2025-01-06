@@ -21,6 +21,11 @@ const ToastProvider = ({ children }) => {
     return flightdata ? JSON.parse(flightdata) : []
   })
 
+  const [hoadon, sethoadon] = useState(() => {
+    const hoadon = localStorage.getItem('hoadon')
+    return hoadon ? JSON.parse(hoadon) : []
+  })
+
   const [tienve, settienve] = useState(() => {
     return localStorage.getItem('tienve') || null
   })
@@ -87,6 +92,10 @@ const ToastProvider = ({ children }) => {
     localStorage.setItem('tienve', tienve)
   }, [tienve])
 
+  useEffect(() => {
+    localStorage.setItem('hoadon', JSON.stringify(hoadon))
+  }, [hoadon])
+
   const showToast = (message, type = 'success') => {
     toast[type](message)
   }
@@ -114,7 +123,9 @@ const ToastProvider = ({ children }) => {
         flightdata,
         setflightdata,
         tienve,
-        settienve
+        settienve,
+        hoadon,
+        sethoadon
       }}
     >
       {children}
