@@ -11,7 +11,8 @@ import DatVe from '../Layout/DatVe/DatVe'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
 import XemLaiDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/XemLaiDonHang'
-import SearchKhuHoi from '../Layout/SearchLayout/SearchKhuHoi/SearchKhuHoi'
+import SearchKhuHoi from '../Layout/SearchLayout/SearchKhuHoiNoiDia/SearchKhuHoi'
+import SearchQuocTe from '../Layout/SearchLayout/SearchQuocTe/SearchQuocTe'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -26,6 +27,8 @@ const publicRoutes = [
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
   { path: '/searchkhuhoi', component: SearchKhuHoi },
+  { path: '/searchquocte', component: SearchQuocTe },
+
 
 ]
 const privateRoutes = []
