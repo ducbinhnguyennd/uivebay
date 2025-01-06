@@ -7,6 +7,7 @@ import { VungLayout } from '../Layout/AdminLayout/VungLayout'
 import { SearchLayout } from '../Layout/SearchLayout'
 import { HangMayBayLayout } from '../Layout/AdminLayout/HangMayBayLayout'
 import { TheLoaiBlog } from '../Layout/AdminLayout/TheLoaiBlogLayout'
+import { PhanTramLayout } from '../Layout/AdminLayout/PhanTramLayout'
 import DatVe from '../Layout/DatVe/DatVe'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
@@ -23,13 +24,14 @@ const publicRoutes = [
   { path: '/vung', component: VungLayout, layout: 'admin' },
   { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
   { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
+  { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
   { path: '/datve', component: DatVe },
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
   { path: '/searchkhuhoi', component: SearchKhuHoi },
   { path: '/searchquocte', component: SearchQuocTe },
-  { path: '/searchkhuhoiquocte', component: SearchKHQT },
+  { path: '/searchkhuhoiquocte', component: SearchKHQT }
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }
