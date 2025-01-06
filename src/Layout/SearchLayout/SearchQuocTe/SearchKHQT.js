@@ -74,7 +74,7 @@ function SearchKHQT() {
     fetchphantram();
   }, []);
 
-  const flights1 = applyFilters(searchData.outBound.data.flights, filters);
+  const flights1 = applyFilters(searchData.data, filters);
 
   const totalPeople = mangnguoi.reduce(
     (total, item) => total + item.songuoi,
@@ -163,15 +163,16 @@ function SearchKHQT() {
             </div>
 
             <div className="flight-options-quocte">
-              {Array.isArray(searchData.outBound.data.flights) &&
+              {Array.isArray(searchData.data) &&
                 flights1.map((flight, index) => (
                   <div
                     key={index}
                     onClick={() => navigate("/datve")}
                     style={{ cursor: "pointer" }}
                   >
-                    <div className="flight-row-quocte">
-                      <div className="flight-info-quocte-logo">
+               <div>
+               <div className="flight-row-quocte">
+                      {/* <div className="flight-info-quocte-logo">
                         <span>
                           <img
                             src={getAirlineImage(
@@ -181,7 +182,7 @@ function SearchKHQT() {
                             alt=""
                           />
                         </span>
-                      </div>
+                      </div> */}
                       <div className="flight-info-quocte">
                         <span className="flight-code-quocte">
                           {mafrom} - {mato}
@@ -189,7 +190,7 @@ function SearchKHQT() {
                       </div>
                       <div className="flight-info-quocte">
                         <span className="flight-time-chang-quocte">
-                          {flight.departureTime} - {flight.arrivalTime}
+                          {flight.outbound.departureTime} - {flight.outbound.arrivalTime}
                         </span>
                       </div>
                       <div className="flight-info-quocte">
@@ -204,8 +205,8 @@ function SearchKHQT() {
                           Thời gian bay:
                           <div className="flight-time-quocte">
                             {calculateDuration(
-                              flight.departureTime,
-                              flight.arrivalTime
+                              flight.outbound.departureTime,
+                              flight.outbound.arrivalTime
                             )}
                           </div>
                         </div>
@@ -238,7 +239,7 @@ function SearchKHQT() {
                       <div className="flight-price-quocte">
                         {phantrams.length > 0
                           ? (
-                              (parseInt(flight.price.replace(/,/g, ""), 10) *
+                              (parseInt(flight.totalPrice.replace(/,/g, ""), 10) *
                                 phantrams[0].phantram) /
                               100
                             ).toLocaleString() + "đ"
@@ -246,6 +247,83 @@ function SearchKHQT() {
                       </div>
                       <button className="select-button">Chọn</button>
                     </div>
+                    <div className="flight-row-quocte">
+                      {/* <div className="flight-info-quocte-logo">
+                        <span>
+                          <img
+                            src={getAirlineImage(
+                              flight.airlineCode,
+                              hangmaybay
+                            )}
+                            alt=""
+                          />
+                        </span>
+                      </div> */}
+                      <div className="flight-info-quocte">
+                        <span className="flight-code-quocte">
+                          {mato} - {mafrom}
+                        </span>
+                      </div>
+                      <div className="flight-info-quocte">
+                        <span className="flight-time-chang-quocte">
+                          {flight.inbound.departureTime} - {flight.inbound.arrivalTime}
+                        </span>
+                      </div>
+                      <div className="flight-info-quocte">
+                        <div
+                          style={{
+                            display: "flex",
+                            fontSize: "12px",
+                            gap: "8px",
+                            alignItems: "center",
+                          }}
+                        >
+                          Thời gian bay:
+                          <div className="flight-time-quocte">
+                            {calculateDuration(
+                              flight.inbound.departureTime,
+                              flight.inbound.arrivalTime
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleDetails(
+                            index,
+                            flight,
+                            setVisibleDetailIndex,
+                            setSelectedFlight,
+                            visibleDetailIndex
+                          );
+                        }}
+                        style={{ display: "flex" }}
+                      >
+                        <div
+                          style={{
+                            color: "#143a83",
+                            fontSize: "13px",
+                            paddingRight: "5px",
+                          }}
+                        >
+                          Chi tiết
+                        </div>
+                        <img src="./collaspe.png" />
+                      </div>
+                      <div className="flight-price-quocte">
+                        {phantrams.length > 0
+                          ? (
+                              (parseInt(flight.totalPrice.replace(/,/g, ""), 10) *
+                                phantrams[0].phantram) /
+                              100
+                            ).toLocaleString() + "đ"
+                          : "Đang tải..."}
+                      </div>
+                      <button className="select-button">Chọn</button>
+                    </div>
+               </div>
                     {visibleDetailIndex === index && (
                       <div
                         className="flight-detail-content"
@@ -265,7 +343,7 @@ function SearchKHQT() {
                                     </b>
                                   </p>
                                   <p>
-                                    <b>{selectedFlight.departureTime}</b>,
+                                    <b>{selectedFlight.inbound.departureTime}</b>,
                                     {formatDate(date)}
                                   </p>
                                   <p>{`${cityfrom}`}</p>
@@ -280,8 +358,8 @@ function SearchKHQT() {
                                 >
                                   <p style={{ paddingRight: "25px" }}>
                                     {calculateDuration(
-                                      selectedFlight.departureTime,
-                                      selectedFlight.arrivalTime
+                                      selectedFlight.inbound.departureTime,
+                                      selectedFlight.inbound.arrivalTime
                                     )}
                                   </p>
                                   <p>
@@ -306,7 +384,7 @@ function SearchKHQT() {
                                     </b>
                                   </p>
                                   <p>
-                                    <b>{selectedFlight.arrivalTime}</b>,
+                                    <b>{selectedFlight.inbound.arrivalTime}</b>,
                                     {formatDate(date)}
                                   </p>
                                   <p>{`${cityto}`}</p>
@@ -336,12 +414,12 @@ function SearchKHQT() {
                                           }}
                                         >
                                           {getAirlineName(
-                                            selectedFlight.airlineCode,
+                                            selectedFlight.inbound.airlineCode,
                                             hangmaybay
                                           )}{" "}
                                           <br />
                                           Chuyến bay:
-                                          <b>{selectedFlight.flightNumber}</b>
+                                          <b>{selectedFlight.inbound.flightNumber}</b>
                                           <br />
                                         </td>
                                       </tr>
@@ -382,7 +460,7 @@ function SearchKHQT() {
                                   <td align="center" className="pax">
                                     {(
                                       ((parseInt(
-                                        selectedFlight.price.replace(/,/g, ""),
+                                        selectedFlight.totalPrice.replace(/,/g, ""),
                                         10
                                       ) *
                                         phantrams[0].phantram) /
@@ -393,7 +471,7 @@ function SearchKHQT() {
                                   <td align="center" className="pax">
                                     {(
                                       ((((parseInt(
-                                        selectedFlight.price.replace(/,/g, ""),
+                                        selectedFlight.totalPrice.replace(/,/g, ""),
                                         10
                                       ) *
                                         phantrams[0].phantram) /
@@ -406,7 +484,7 @@ function SearchKHQT() {
                                   <td align="center" className="pax">
                                     {HandelTonggia(
                                       parseInt(
-                                        selectedFlight.price.replace(/,/g, ""),
+                                        selectedFlight.totalPrice.replace(/,/g, ""),
                                         10
                                       ),
                                       phantrams,
