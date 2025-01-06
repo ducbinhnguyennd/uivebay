@@ -8,7 +8,17 @@
     margin-top: 7px;
     margin-right: 10px
 }
-
+.ngaydi, .ngayve {
+  color: #fff;
+}
+.form-label{
+  width: 80px;
+  color: #fff;
+}
+.form-description{
+  color: #aecde8 ;
+  margin-left: 30px;
+}
   .flight-form {
     flex: 1; 
     background: #104282 url("../../../public/bgSearchForm.jpg") repeat-x top;
@@ -45,6 +55,7 @@
           display: block;
           margin-bottom: 5px;
           font-size: 14px;
+          
         }
   
         input,
@@ -68,7 +79,7 @@
   
         input,
         select {
-          width: 30%;
+          width: 20%;
           padding: 5px;
           border-radius: 5px;
           border: 1px solid #ddd;
@@ -81,14 +92,13 @@
       align-items: center;
   
       .help-link {
-        color: #ffdd00;
+        color: #fff;
         font-size: 14px;
-        text-decoration: none;
       }
   
       .search {
         display: flex;
-        align-items: center; /* Đảm bảo hình ảnh và văn bản thẳng hàng theo chiều dọc */
+        align-items: center;
         cursor: pointer;
         border: none !important;
         font-size: 19px !important;
