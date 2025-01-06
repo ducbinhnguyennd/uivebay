@@ -166,9 +166,10 @@ function SearchKhuHoi () {
                         <span className='flight-price'>
                           {phantrams.length > 0
                             ? (
+                                parseInt(flight.price.replace(/,/g, ''), 10) -
                                 (parseInt(flight.price.replace(/,/g, ''), 10) *
                                   phantrams[0].phantram) /
-                                100
+                                  100
                               ).toLocaleString()
                             : 'Đang tải...'}
                         </span>
@@ -332,6 +333,14 @@ function SearchKhuHoi () {
                                     </td>
                                     <td align='center' className='pax'>
                                       {(
+                                        parseInt(
+                                          selectedFlight.price.replace(
+                                            /,/g,
+                                            ''
+                                          ),
+                                          10
+                                        ) *
+                                          item.songuoi -
                                         ((parseInt(
                                           selectedFlight.price.replace(
                                             /,/g,
@@ -341,23 +350,31 @@ function SearchKhuHoi () {
                                         ) *
                                           phantrams[0].phantram) /
                                           100) *
-                                        item.songuoi
+                                          item.songuoi
                                       ).toLocaleString()}
                                     </td>
                                     <td align='center' className='pax'>
                                       {(
-                                        ((((parseInt(
+                                        ((parseInt(
                                           selectedFlight.price.replace(
                                             /,/g,
                                             ''
                                           ),
                                           10
                                         ) *
-                                          phantrams[0].phantram) /
-                                          100) *
+                                          item.songuoi -
+                                          ((parseInt(
+                                            selectedFlight.price.replace(
+                                              /,/g,
+                                              ''
+                                            ),
+                                            10
+                                          ) *
+                                            phantrams[0].phantram) /
+                                            100) *
+                                            item.songuoi) *
                                           30) /
-                                          100) *
-                                        item.songuoi
+                                        100
                                       ).toLocaleString()}
                                     </td>
                                     <td align='center' className='pax'>
@@ -368,8 +385,18 @@ function SearchKhuHoi () {
                                             ''
                                           ),
                                           10
-                                        ),
-                                        phantrams,
+                                        ) *
+                                          item.songuoi -
+                                          ((parseInt(
+                                            selectedFlight.price.replace(
+                                              /,/g,
+                                              ''
+                                            ),
+                                            10
+                                          ) *
+                                            phantrams[0].phantram) /
+                                            100) *
+                                            item.songuoi,
                                         item
                                       ).toLocaleString()}
                                     </td>
@@ -439,9 +466,10 @@ function SearchKhuHoi () {
                         <span className='flight-price'>
                           {phantrams.length > 0
                             ? (
+                                parseInt(flight.price.replace(/,/g, ''), 10) -
                                 (parseInt(flight.price.replace(/,/g, ''), 10) *
                                   phantrams[0].phantram) /
-                                100
+                                  100
                               ).toLocaleString()
                             : 'Đang tải...'}
                         </span>
@@ -605,6 +633,14 @@ function SearchKhuHoi () {
                                     </td>
                                     <td align='center' className='pax'>
                                       {(
+                                        parseInt(
+                                          selectedFlight1.price.replace(
+                                            /,/g,
+                                            ''
+                                          ),
+                                          10
+                                        ) *
+                                          item.songuoi -
                                         ((parseInt(
                                           selectedFlight1.price.replace(
                                             /,/g,
@@ -614,23 +650,31 @@ function SearchKhuHoi () {
                                         ) *
                                           phantrams[0].phantram) /
                                           100) *
-                                        item.songuoi
+                                          item.songuoi
                                       ).toLocaleString()}
                                     </td>
                                     <td align='center' className='pax'>
                                       {(
-                                        ((((parseInt(
+                                        ((parseInt(
                                           selectedFlight1.price.replace(
                                             /,/g,
                                             ''
                                           ),
                                           10
                                         ) *
-                                          phantrams[0].phantram) /
-                                          100) *
+                                          item.songuoi -
+                                          ((parseInt(
+                                            selectedFlight1.price.replace(
+                                              /,/g,
+                                              ''
+                                            ),
+                                            10
+                                          ) *
+                                            phantrams[0].phantram) /
+                                            100) *
+                                            item.songuoi) *
                                           30) /
-                                          100) *
-                                        item.songuoi
+                                        100
                                       ).toLocaleString()}
                                     </td>
                                     <td align='center' className='pax'>
@@ -641,8 +685,18 @@ function SearchKhuHoi () {
                                             ''
                                           ),
                                           10
-                                        ),
-                                        phantrams,
+                                        ) *
+                                          item.songuoi -
+                                          ((parseInt(
+                                            selectedFlight1.price.replace(
+                                              /,/g,
+                                              ''
+                                            ),
+                                            10
+                                          ) *
+                                            phantrams[0].phantram) /
+                                            100) *
+                                            item.songuoi,
                                         item
                                       ).toLocaleString()}
                                     </td>

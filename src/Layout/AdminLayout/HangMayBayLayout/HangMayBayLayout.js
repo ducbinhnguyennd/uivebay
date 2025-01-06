@@ -124,7 +124,7 @@ function HangMayBayLayout () {
             ))
           ) : (
             <tr>
-              <td colSpan={4}>Không có dữ liệu</td>
+              <td colSpan={6}>Không có dữ liệu</td>
             </tr>
           )}
         </tbody>
