@@ -10,8 +10,7 @@ const removeVietnameseTones = str => {
     .toLowerCase()
 }
 
-function TableThanhPho ({ title, onSelect }) {
-  const [data, setdata] = useState([])
+function TableThanhPho ({ title, onSelect,data,setdata }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [suggestions, setSuggestions] = useState([])
 
@@ -29,6 +28,7 @@ function TableThanhPho ({ title, onSelect }) {
 
   useEffect(() => {
     fetchthanhpho()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

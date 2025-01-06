@@ -30,8 +30,6 @@ const publicRoutes = [
   { path: '/searchkhuhoi', component: SearchKhuHoi },
   { path: '/searchquocte', component: SearchQuocTe },
   { path: '/searchkhuhoiquocte', component: SearchKHQT },
-
-
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }

@@ -32,6 +32,7 @@ function FlightBookingForm () {
   const [adults, setAdults] = useState(1)
   const [children, setChildren] = useState(0)
   const [infants, setInfants] = useState(0)
+  const [data, setdata] = useState([])
 
   const validate = () => {
     let valid = true
@@ -64,9 +65,21 @@ function FlightBookingForm () {
     }
   }, [])
 
+  const isInVietnam = (code, data) => {
+    return data.some(
+      item =>
+        item.namevung === 'Việt Nam' &&
+        item.thanhpho.some(place => place.mathanhpho === code)
+    )
+  }
+
   const handelSearch = async () => {
     if (!validate()) return
+
     try {
+      const isDepartureInVietnam = isInVietnam(madepature, data)
+      const isArrivalInVietnam = isInVietnam(maarrival, data)
+
       const requestData = {
         departure: madepature,
         arrival: maarrival,
@@ -81,41 +94,66 @@ function FlightBookingForm () {
         setreturnDate(returnDate)
       }
 
-      const response = await fetch(
-        `https://wooordersystem.store/order-woo/api/getInfoFlights`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestData)
-        }
-      )
+      if (isDepartureInVietnam && isArrivalInVietnam) {
+        // Gọi API nội địa
+        const response = await fetch(
+          `https://wooordersystem.store/order-woo/api/getInfoFlights`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+          }
+        )
+        const data = await response.json()
 
-      const data = await response.json()
-      if (response.ok) {
-        setSearchData(data)
-        setmangnguoi(() => {
-          const newState = []
-
-          newState.push({
-            name: 'Người lớn',
-            songuoi: adults
+        if (response.ok) {
+          setSearchData(data)
+          setmangnguoi(() => {
+            const newState = []
+            newState.push({ name: 'Người lớn', songuoi: adults })
+            if (children > 0)
+              newState.push({ name: 'Trẻ em', songuoi: children })
+            if (infants > 0)
+              newState.push({ name: 'Trẻ sơ sinh', songuoi: infants })
+            return newState
           })
 
-          if (children > 0) {
-            newState.push({ name: 'Trẻ em', songuoi: children })
-          }
+          setdate(departureDate)
 
-          if (infants > 0) {
-            newState.push({ name: 'Trẻ sơ sinh', songuoi: infants })
+          if (returnDate) {
+            navigate('/searchkhuhoi')
+          } else {
+            navigate('/search')
           }
+        }
+      } else {
+        const response = await fetch(
+          `https://wooordersystem.store/order-woo/api/getInfoFlightInternational`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+          }
+        )
+        const data = await response.json()
 
-          return newState
-        })
-        setdate(departureDate)
-        if (returnDate) {
-          navigate('/searchkhuhoi')
-        } else {
-          navigate('/search')
+        if (response.ok) {
+          setSearchData(data)
+          setmangnguoi(() => {
+            const newState = []
+            newState.push({ name: 'Người lớn', songuoi: adults })
+            if (children > 0)
+              newState.push({ name: 'Trẻ em', songuoi: children })
+            if (infants > 0)
+              newState.push({ name: 'Trẻ sơ sinh', songuoi: infants })
+            return newState
+          })
+
+          if (returnDate) {
+            navigate('/searchkhuhoiquocte')
+          } else {
+            navigate('/searchquocte')
+          }
         }
       }
     } catch (error) {
@@ -153,6 +191,8 @@ function FlightBookingForm () {
                   setmafrom(ma)
                   setDropdownOpen(null)
                 }}
+                data={data}
+                setdata={setdata}
               />
             )}
           </div>
@@ -178,6 +218,8 @@ function FlightBookingForm () {
                   setmato(ma)
                   setDropdownOpen(null)
                 }}
+                data={data}
+                setdata={setdata}
               />
             )}
           </div>

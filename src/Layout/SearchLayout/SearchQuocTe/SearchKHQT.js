@@ -41,6 +41,7 @@ function SearchKHQT() {
     airlines: [],
   });
   const navigate = useNavigate();
+  console.log(searchData);
 
   const fetchhang = async () => {
     try {
