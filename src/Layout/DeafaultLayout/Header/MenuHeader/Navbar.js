@@ -10,7 +10,6 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    // Hàm gọi API
     const fetchMenus = async () => {
       try {
         const [noiDia, quocTe, theoHang] = await Promise.all([
@@ -45,7 +44,7 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             {menus.veNoiDia.map((item) => (
               <li key={item._id}>
-              <Link to={`/blog/${item._id}`}>{item.tieude}</Link>
+              <Link to={`/getchitietblog/${item._id}`}>{item.tieude}</Link>
             </li>
             ))}
           </ul>
@@ -55,7 +54,7 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             {menus.veQuocTe.map((item) => (
               <li key={item._id}>
-              <Link to={`/blog/${item._id}`}>{item.tieude}</Link>
+              <Link to={`/getchitietblog/${item._id}`}>{item.tieude}</Link>
             </li>
             ))}
           </ul>
@@ -65,7 +64,7 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             {menus.veTheoHang.map((item) => (
               <li key={item._id}>
-              <Link to={`/blog/${item._id}`}>{item.tieude}</Link>
+              <Link to={`/getchitietblog/${item._id}`}>{item.tieude}</Link>
             </li>
             ))}
           </ul>

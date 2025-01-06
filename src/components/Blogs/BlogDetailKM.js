@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './BlogDetail.scss';
 import FlightBookingForm from '../FlyBookingForm/FlyBookingForm';
-import NewsPromotion from './BangKhuyeMai';
 
-const BlogDetail = () => {
+const BlogDetailKM = () => {
   const { idblog } = useParams();
   const [blog, setBlog] = useState(null);
 
@@ -29,17 +28,12 @@ const BlogDetail = () => {
   return (
     <div className="blog-detail">
         <FlightBookingForm />
-      <div className='blog-container'>
       <div
         className="blog-content"
         dangerouslySetInnerHTML={{ __html: blog.noidung }}
       ></div>
-      <div>
-        <NewsPromotion/>
-      </div>
-      </div>
     </div>
   );
 };
 
-export default BlogDetail;
+export default BlogDetailKM;
