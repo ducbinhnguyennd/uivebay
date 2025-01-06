@@ -141,7 +141,7 @@ function SearchQuocTe() {
 
                         <div class="captions-container"> <label>Ghi chú:</label><div class="caption-option"><div class="option-container"><div class="stop-points-container"><div class="stop-points-line stop-points-0"><div class="straight-line"></div></div></div></div><label>Bay thẳng</label></div><div class="caption-option"><div class="option-container"><div class="stop-points-container"><div class="stop-points-line stop-points-1"><div class="straight-line"></div><span class="circle">1</span></div></div></div><label>điểm dừng</label></div><div class="caption-option stop-points-2"><div class="option-container"><div class="stop-points-container"><div class="stop-points-line stop-points-2"><div class="straight-line"></div><span class="circle">2</span></div></div></div><label>điểm dừng</label></div></div>
 
-                        <div className='flight-options'>
+                        <div className='flight-options-quocte'>
                             {(activeDate === 'Thứ Bảy' || activeDate === 'Thứ Hai') &&
                                 Array.isArray(searchData.outBound.data.flights) &&
                                 flights1.map((flight, index) => (
@@ -150,8 +150,8 @@ function SearchQuocTe() {
                                         onClick={() => navigate('/datve')}
                                         style={{ cursor: 'pointer' }}
                                     >
-                                        <div className='flight-row'>
-                                            <div className='flight-info'>
+                                        <div className='flight-row-quocte'>
+                                            <div className='flight-info-quocte-logo'>
                                                 <span>
                                                     <img
                                                         src={getAirlineImage(
@@ -162,25 +162,28 @@ function SearchQuocTe() {
                                                     />
                                                 </span>
                                             </div>
-                                            <div className='flight-info'>
-                                                <span className='flight-code'>
-                                                    {flight.flightNumber}
+                                            <div className='flight-info-quocte'>
+                                                <span className='flight-code-quocte'>
+                                                    {mafrom} - {mato}
                                                 </span>
                                             </div>
-                                            <div className='flight-info'>
-                                                <span className='flight-time'>
+                                            <div className='flight-info-quocte'>
+                                                <span className='flight-time-chang-quocte'>
                                                     {flight.departureTime} - {flight.arrivalTime}
                                                 </span>
                                             </div>
-                                            <div className='flight-price'>
-                                                {phantrams.length > 0
-                                                    ? (
-                                                        (parseInt(flight.price.replace(/,/g, ''), 10) *
-                                                            phantrams[0].phantram) /
-                                                        100
-                                                    ).toLocaleString()
-                                                    : 'Đang tải...'}
+                                            <div className='flight-info-quocte'>
+                                            <div style={{ display: "flex", fontSize: "12px", gap: "8px", alignItems: "center" }}>
+                                                Thời gian bay:
+                                                                       <div className='flight-time-quocte'>
+                                                                       {calculateDuration(
+                                                                            flight.departureTime,
+                                                                            flight.arrivalTime
+                                                                        )}
+                                                                       </div>
+                                                                    </div>
                                             </div>
+                                            
                                             <div onClick={e => {
                                                 e.stopPropagation()
                                                 toggleDetails(
@@ -197,12 +200,16 @@ function SearchQuocTe() {
 
                                                 />
                                             </div>
-
-                                            <button className='select-flight' style={{
-                                                backgroundColor: flight.chooseText === "Hạng Thương Gia" ? "#e84e12  " : "#e67e00",
-                                            }}>
-                                                {flight.chooseText}
-                                            </button>
+                                            <div className='flight-price-quocte'>
+                                                {phantrams.length > 0
+                                                    ? (
+                                                        (parseInt(flight.price.replace(/,/g, ''), 10) *
+                                                            phantrams[0].phantram) /
+                                                        100
+                                                    ).toLocaleString() + 'đ'
+                                                    : 'Đang tải...'}
+                                            </div>
+                                            <button className='select-button'>Chọn</button>
 
                                         </div>
                                         {visibleDetailIndex === index && (
@@ -392,54 +399,7 @@ function SearchQuocTe() {
                                                     </table>
                                                     <div></div>
 
-                                                    <table
-                                                        cellPadding='0'
-                                                        cellSpacing='0'
-                                                        style={{ width: '45%' }}
-                                                    >
-                                                        <tbody>
-                                                            <tr className='title'>
-                                                                <td colSpan='2' style={{ fontSize: '12px' }}>
-                                                                    Điều Kiện Hành Lý
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style={{ width: '120px' }}>
-                                                                    Hành Lý Xách Tay
-                                                                </td>
-                                                                <td>7kg</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style={{ width: '120px' }}>
-                                                                    Hành Lý Ký Gửi
-                                                                </td>
-                                                                <td>Vui lòng chọn ở bước tiếp theo</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
-                                                    <table
-                                                        cellPadding='0'
-                                                        cellSpacing='0'
-                                                        style={{ width: '45%' }}
-                                                    >
-                                                        <tbody>
-                                                            <tr className='title'>
-                                                                <td colSpan='2' style={{ fontSize: '12px' }}>
-                                                                    Điều Kiện Về Vé
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>- Áp dụng đổi vé mất phí</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>- Áp dụng hoàn vé mất phí</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>- Không áp dụng đổi tên</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                   
                                                 </div>
                                             </div>
                                         )}

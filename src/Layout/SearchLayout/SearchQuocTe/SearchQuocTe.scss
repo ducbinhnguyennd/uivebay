@@ -107,66 +107,43 @@ body {
   .date:not(:last-child) {
     margin-right: 10px;
   }
-  
-  .date.active {
-    background: #ff8c00;
-    color: #fff;
-    border-color: #ff8c00;
-  }
-  
-  .date:hover {
-    background: #ffe4b3;
-  }
-  
-  .flight-options {
-    margin-top: 20px;
-  }
-  
-  .flight-row {
+
+  .flight-row-quocte {
     display: flex;
-    padding: 2px;
+    padding: 10px 2px;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
   }
   
   
-  .flight-info {
-    // flex: 1;
-    width: 100px;
+  .flight-info-quocte-logo {
+    width: 90px;
   }
   
-  .flight-code {
+  .flight-code-quocte {
     flex: 1;
+    text-align: center;
+    font-size: 12px;
+  }
+  
+  .flight-time-quocte {
+    flex: 1;
+    text-align: center;
+    padding: 5px 10px;
+    background-color: #ffffe0;
+  }
+  .flight-time-chang-quocte{
+    color: #00428b;
+    font-weight: bold;
+    font-size: 15px;
+
+  }
+  .flight-price-quocte {
     text-align: center;
     font-weight: bold;
-    color: #555;
-  }
-  
-  .flight-time {
-    flex: 1;
-    text-align: center;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .flight-price {
-    flex: 1;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .select-flight {
-    flex: 1;
-    padding: 5px 0px;
-    text-shadow: 1px 1px #543b16;
-    background-color: #e67e00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-left: 5px;
+    color:   #e84e0f;
+    font-size: 16px;
   }
   
   .select-flight:hover {
