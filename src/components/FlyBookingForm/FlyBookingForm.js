@@ -149,7 +149,11 @@ function FlightBookingForm () {
             return newState
           })
 
-          navigate('/searchquocte')
+          if (returnDate) {
+            navigate('/searchkhuhoiquocte')
+          } else {
+            navigate('/searchquocte')
+          }
         }
       }
     } catch (error) {

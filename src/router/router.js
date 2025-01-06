@@ -13,6 +13,7 @@ import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
 import XemLaiDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/XemLaiDonHang'
 import SearchKhuHoi from '../Layout/SearchLayout/SearchKhuHoiNoiDia/SearchKhuHoi'
 import SearchQuocTe from '../Layout/SearchLayout/SearchQuocTe/SearchQuocTe'
+import SearchKHQT from '../Layout/SearchLayout/SearchQuocTe/SearchKHQT'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -28,6 +29,7 @@ const publicRoutes = [
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
   { path: '/searchkhuhoi', component: SearchKhuHoi },
   { path: '/searchquocte', component: SearchQuocTe },
+  { path: '/searchkhuhoiquocte', component: SearchKHQT },
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }
