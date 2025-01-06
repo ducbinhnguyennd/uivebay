@@ -1,21 +1,18 @@
 import { iconsImgs, personsImgs } from '../../../utils/images'
 
+
 export const navigationLinks = [
   { id: 1, title: 'Home', image: iconsImgs.home, link: '/' },
   {
     id: 2,
     title: 'Hãng máy bay',
-    image: iconsImgs.budget,
+    image: iconsImgs.maybay,
     link: '/hangmaybay'
   },
-  { id: 3, title: 'Thành phố', image: iconsImgs.plane, link: '/vung' },
-  { id: 4, title: 'Subscriptions', image: iconsImgs.wallet },
-  { id: 5, title: 'Loans', image: iconsImgs.bills },
-  { id: 6, title: 'Reports', image: iconsImgs.report },
-  { id: 7, title: 'Savings', image: iconsImgs.wallet },
-  { id: 8, title: 'Financial Advice', image: iconsImgs.wealth },
-  { id: 9, title: 'Account', image: iconsImgs.user },
-  { id: 10, title: 'Settings', image: iconsImgs.gears }
+  { id: 3, title: 'Thành phố', image: iconsImgs.city, link: '/vung' },
+  { id: 4, title: 'Phần trăm', image: iconsImgs.phantram, link: '/phantram' },
+  { id: 5, title: 'Blog', image: iconsImgs.blog, link: '/theloaiblog' },
+  { id: 6, title: 'Hóa đơn', image: iconsImgs.report,link: '/hoadon'},
 ]
 
 export const transactions = [

@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import { FaPlus } from 'react-icons/fa6'
 import { MdEdit } from 'react-icons/md'
 import { useToast } from '../../../components/useToast/ToastContext'
+import { AddPhanTram } from './AddPhanTram'
+import { EditPhanTram } from './EditPhanTram'
 
 function PhanTramLayout () {
   const [data, setData] = useState([])
-//   const [isOpenAdd, setIsOpenAdd] = useState(false)
-//   const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [isOpenAdd, setIsOpenAdd] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [nameselected, setnameselected] = useState('')
@@ -48,10 +50,10 @@ function PhanTramLayout () {
 
   const handleUpdate = () => {
     if (selectedIds.length === 1) {
-      const selectedName = data.find(item => item._id === selectedIds[0])?.name
+      const selectedName = data.find(item => item._id === selectedIds[0])?.phantram
       setnameselected(selectedName)
       console.log(nameselected)
-    //   setIsOpenEdit(true)
+      setIsOpenEdit(true)
     } else if (selectedIds.length > 1) {
       showToast('Bạn chỉ được phép chọn 1 Phần trăm để cập nhật.', 'warning')
     } else {
@@ -59,18 +61,18 @@ function PhanTramLayout () {
     }
   }
 
-
   return (
     <div className='vung-container'>
       <div className='vung-header'>
         <div className='divvungchonitem'>
           Phần trăm đã chọn: <div>{selectedIds.length}</div>
         </div>
-        <div className='divvungitem' 
-        >
-          <FaPlus />
-          Thêm Phần trăm
-        </div>
+        {data.length === 0 && (
+          <div className='divvungitem' onClick={() => setIsOpenAdd(true)}>
+            <FaPlus />
+            Thêm Phần trăm
+          </div>
+        )}
         <div className='divvungitem' onClick={handleUpdate}>
           <MdEdit />
           Cập nhật Phần trăm
@@ -114,19 +116,18 @@ function PhanTramLayout () {
           )}
         </tbody>
       </table>
-      {/* <AddVung
+      <AddPhanTram
         isOpen={isOpenAdd}
         onClose={() => setIsOpenAdd(false)}
         fetchdata={fetchVung}
       />
-      <EditVung
+      <EditPhanTram
         isOpen={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
         fetchdata={fetchVung}
-        tenvung={nameselected}
-        idvung={selectedIds[0]}
-      /> */}
-
+        tenphantram={nameselected}
+        idphantram={selectedIds[0]}
+      />
     </div>
   )
 }
