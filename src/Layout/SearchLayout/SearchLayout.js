@@ -30,7 +30,6 @@ function SearchLayout () {
     mafrom,
     mato,
     date,
-    returnDate,
     mangnguoi,
     setflightdata,
     settienve,
@@ -70,7 +69,7 @@ function SearchLayout () {
       console.error(error)
     }
   }
-  
+
   useEffect(() => {
     fetchhang()
     fetchphantram()

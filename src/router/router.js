@@ -28,8 +28,6 @@ const publicRoutes = [
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
   { path: '/searchkhuhoi', component: SearchKhuHoi },
   { path: '/searchquocte', component: SearchQuocTe },
-
-
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }
