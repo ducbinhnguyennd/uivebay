@@ -16,6 +16,11 @@ const ToastProvider = ({ children }) => {
     return mangnguoi ? JSON.parse(mangnguoi) : []
   })
 
+  const [flightdata, setflightdata] = useState(() => {
+    const flightdata = localStorage.getItem('flightdata')
+    return flightdata ? JSON.parse(flightdata) : []
+  })
+
   const [cityfrom, setcityfrom] = useState(() => {
     return localStorage.getItem('cityfrom') || ''
   })
@@ -64,6 +69,10 @@ const ToastProvider = ({ children }) => {
   }, [mangnguoi])
 
   useEffect(() => {
+    localStorage.setItem('flightdata', JSON.stringify(flightdata))
+  }, [flightdata])
+
+  useEffect(() => {
     localStorage.setItem('date', date)
   }, [date])
   useEffect(() => {
@@ -93,7 +102,9 @@ const ToastProvider = ({ children }) => {
         returnDate,
         setreturnDate,
         mangnguoi,
-        setmangnguoi
+        setmangnguoi,
+        flightdata,
+        setflightdata
       }}
     >
       {children}
