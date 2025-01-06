@@ -32,7 +32,9 @@ function SearchLayout () {
     date,
     returnDate,
     mangnguoi,
-    setflightdata
+    setflightdata,
+    settienve,
+    flightdata
   } = useToast()
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
@@ -68,7 +70,7 @@ function SearchLayout () {
       console.error(error)
     }
   }
-  console.log(returnDate)
+  
   useEffect(() => {
     fetchhang()
     fetchphantram()
@@ -88,11 +90,33 @@ function SearchLayout () {
   const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
 
   const totalPrice = mangnguoi.reduce((total, item) => {
-    if (!selectedFlight || !selectedFlight.price) {
+    if (
+      !selectedFlight ||
+      !selectedFlight.price ||
+      !phantrams ||
+      phantrams.length === 0
+    ) {
       return total
     }
     const pricePerTicket =
       (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
+        phantrams[0].phantram) /
+      100
+    const taxAndFee = (pricePerTicket * 30) / 100
+    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
+  }, 0)
+
+  const totalPrice2 = mangnguoi.reduce((total, item) => {
+    if (
+      !flightdata ||
+      !flightdata.price ||
+      !phantrams ||
+      phantrams.length === 0
+    ) {
+      return total
+    }
+    const pricePerTicket =
+      (parseInt(flightdata.price.replace(/,/g, ''), 10) *
         phantrams[0].phantram) /
       100
     const taxAndFee = (pricePerTicket * 30) / 100
@@ -158,6 +182,7 @@ function SearchLayout () {
                     key={index}
                     onClick={() => {
                       setflightdata(flight)
+                      settienve(totalPrice2)
                       navigate('/datve')
                     }}
                     style={{ cursor: 'pointer' }}

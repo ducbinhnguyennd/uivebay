@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useState, useEffect } from 'react'
 import './SearchQuocTe.scss'
 import { useToast } from '../../../components/useToast/ToastContext'

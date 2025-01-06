@@ -8,16 +8,29 @@ import { getAirlineName } from '../SearchLayout/SearchLayoutFunction'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 
 function ThongTinDat () {
-  const [isInvoiceChecked, setIsInvoiceChecked] = useState(false)
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
-  const [baggageOption, setBaggageOption] = useState('2,266000')
   const [hangmaybay, sethangmaybay] = useState([])
+  const [namenguoibay, setnamenguoibay] = useState('')
+  const [phone, setphone] = useState('')
+  const [email, setemail] = useState('')
+  const [kygui, setkygui] = useState(false)
+  const [hanhlykygui, sethanhlykygui] = useState('Mua thêm ký gửi')
+  const [pricekygui, setpricekygui] = useState(0)
+  const [xuathoadon, setxuathoadon] = useState(false)
+  const [masothue, setmasothue] = useState('')
+  const [tencongty, settencongty] = useState('')
+  const [diachi, setdiachi] = useState('')
+  const [ghichu, setghichu] = useState('')
+  const [themkhach, setthemkhach] = useState(false)
+  const [valuethemkhach, setvaluethemkhach] = useState('')
+  const [sokhachthem, setsokhachthem] = useState(0)
 
   const navigate = useNavigate()
 
-  const handleInvoiceChange = () => setIsInvoiceChecked(!isInvoiceChecked)
+  const handleInvoiceChange = () => setxuathoadon(!xuathoadon)
   const handleRemarkChange = () => setIsRemarkChecked(!isRemarkChecked)
-  const { flightdata, date, mafrom, mato } = useToast()
+  const { flightdata, date, mafrom, mato, tienve, mangnguoi, showToast } =
+    useToast()
 
   const fetchhang = async () => {
     try {
@@ -34,6 +47,99 @@ function ThongTinDat () {
   useEffect(() => {
     fetchhang()
   }, [])
+
+  const validate = () => {
+    let valid = true
+    if (namenguoibay) {
+      valid = true
+    } else {
+      valid = false
+      showToast('Vui lòng nhập tên người bay', 'warning')
+    }
+    if (phone) {
+      valid = true
+    } else {
+      valid = false
+      showToast('Vui lòng nhập số điện thoại', 'warning')
+    }
+    if (email) {
+      valid = true
+    } else {
+      valid = false
+      showToast('Vui lòng nhập email', 'warning')
+    }
+    if (xuathoadon) {
+      if (masothue) {
+        valid = true
+      } else {
+        valid = false
+        showToast('Vui lòng nhập mả số thuế', 'warning')
+      }
+      if (tencongty) {
+        valid = true
+      } else {
+        valid = false
+        showToast('Vui lòng nhập tên công ty', 'warning')
+      }
+      if (diachi) {
+        valid = true
+      } else {
+        valid = false
+        showToast('Vui lòng nhập địa chỉ', 'warning')
+      }
+    }
+    if (isRemarkChecked) {
+      if (ghichu) {
+        valid = true
+      } else {
+        valid = false
+        showToast('Vui lòng nhập ghi chú', 'warning')
+      }
+    }
+    return valid
+  }
+
+  const handledatve = async () => {
+    if (!validate()) {
+      return
+    }
+    try {
+      const response = await fetch('http://localhost:8080/posthoadon', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          namenguoibay,
+          phone,
+          email,
+          ngaybay: date,
+          hang: flightdata.airlineCode,
+          cityfrom: mafrom,
+          cityto: mato,
+          nguoilon: mangnguoi[0]?.songuoi,
+          treem: mangnguoi[1]?.songuoi || 0,
+          tresosinh: mangnguoi[2]?.songuoi || 0,
+          kygui,
+          hanhlykygui,
+          pricekygui,
+          xuathoadon,
+          masothue,
+          tencongty,
+          diachi,
+          ghichu,
+          themkhach,
+          sokhachthem,
+          tienve
+        })
+      })
+      if (response.ok) {
+        navigate('/thanhtoan')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div id='main-datve'>
@@ -102,6 +208,8 @@ function ThongTinDat () {
                                 id='cphMainColumn_ctl00_usrPassengerInfoD_repPassenger_txtFullName_0'
                                 className='letterOnly i-require new LastNamePassengerFlight passenger-name'
                                 placeholder='Họ và tên người bay...'
+                                value={namenguoibay}
+                                onChange={e => setnamenguoibay(e.target.value)}
                               />
                             </td>
                           </tr>
@@ -122,57 +230,76 @@ function ThongTinDat () {
                               }}
                             >
                               <div className='baggage-container'>
-                                <input
-                                  type='hidden'
-                                  name=''
-                                  id='cphMainColumn_ctl00_usrPassengerInfoD_repPassenger_hidOutboundBaggage_0'
-                                  value='20'
-                                />
                                 <select
                                   name='ctl00$cphMainColumn$ctl00$usrPassengerInfoD$repPassenger$ctl00$cboBaggageOutBound'
                                   id='cphMainColumn_ctl00_usrPassengerInfoD_repPassenger_cboBaggageOutBound_0'
                                   className='cbo-baggage out-baggage'
                                   style={{ background: 'rgb(254, 238, 210)' }}
-                                  value={baggageOption}
-                                  onChange={e =>
-                                    setBaggageOption(e.target.value)
-                                  }
+                                  value={hanhlykygui}
+                                  onChange={e => {
+                                    const selectedOption =
+                                      e.target.options[e.target.selectedIndex]
+                                        .text
+
+                                    if (selectedOption === 'Mua thêm ký gửi') {
+                                      setkygui(false)
+                                      sethanhlykygui(selectedOption)
+                                      setpricekygui(0)
+                                    } else {
+                                      const match = selectedOption.match(
+                                        /(\d+)kg\s-\s([\d,.]+)/
+                                      )
+                                      if (match) {
+                                        const kg = match[1]
+                                        const price = parseInt(
+                                          match[2].replaceAll(',', ''),
+                                          10
+                                        )
+                                        setkygui(kg !== '0')
+                                        sethanhlykygui(selectedOption)
+                                        setpricekygui(price)
+                                      }
+                                    }
+                                  }}
                                 >
-                                  <option value='0,0' data-baggage-value='0'>
+                                  <option
+                                    value='Mua thêm ký gửi'
+                                    data-baggage-value='0'
+                                  >
                                     Mua thêm ký gửi
                                   </option>
                                   <option
-                                    value='2,266000'
+                                    value='Mua 20kg - 266,000 đ'
                                     data-baggage-value='20'
                                   >
                                     Mua 20kg - 266,000 đ
                                   </option>
                                   <option
-                                    value='4,374000'
+                                    value='Mua 30kg - 374,000 đ'
                                     data-baggage-value='30'
                                   >
                                     Mua 30kg - 374,000 đ
                                   </option>
                                   <option
-                                    value='6,482000'
+                                    value='Mua 40kg - 482,000 đ'
                                     data-baggage-value='40'
                                   >
                                     Mua 40kg - 482,000 đ
                                   </option>
                                   <option
-                                    value='1,644000'
+                                    value='Mua 50kg - 644,000 đ'
                                     data-baggage-value='50'
                                   >
                                     Mua 50kg - 644,000 đ
                                   </option>
                                   <option
-                                    value='3,752000'
+                                    value='Mua 60kg - 752,000 đ'
                                     data-baggage-value='60'
                                   >
                                     Mua 60kg - 752,000 đ
                                   </option>
                                   <option
-                                    value='5,860000'
+                                    value='Mua 70kg - 860,000 đ'
                                     data-baggage-value='70'
                                   >
                                     Mua 70kg - 860,000 đ
@@ -213,13 +340,28 @@ function ThongTinDat () {
                         <select
                           name='ctl00$cphMainColumn$ctl00$usrPassengerInfoD$cboAddOrRemovePax'
                           id='cphMainColumn_ctl00_usrPassengerInfoD_cboAddOrRemovePax'
+                          value={valuethemkhach}
+                          onChange={e => {
+                            const selectedValue = e.target.value
+                            const match = selectedValue.match(/\d+/)
+                            const numberOfGuests = match
+                              ? parseInt(match[0], 10)
+                              : 0
+                            setvaluethemkhach(selectedValue)
+                            setsokhachthem(numberOfGuests)
+                            if (numberOfGuests > 0) {
+                              setthemkhach(true)
+                            } else {
+                              setthemkhach(false)
+                            }
+                          }}
                         >
                           <option selected value=''>
                             Thêm khách
                           </option>
-                          <option value='1'>Thêm 1 khách</option>
-                          <option value='2'>Thêm 2 khách</option>
-                          <option value='3'>Thêm 3 khách</option>
+                          <option value='Thêm 1 khách'>Thêm 1 khách</option>
+                          <option value='Thêm 2 khách'>Thêm 2 khách</option>
+                          <option value='Thêm 3 khách'>Thêm 3 khách</option>
                         </select>
                       </div>
                     </td>
@@ -275,6 +417,8 @@ function ThongTinDat () {
                                 maxlength='20'
                                 id='cphMainColumn_ctl00_usrContactInfoD_txtMobilePhone'
                                 className='phone-contact'
+                                value={phone}
+                                onChange={e => setphone(e.target.value)}
                               />
                             </td>
                           </tr>
@@ -299,6 +443,8 @@ function ThongTinDat () {
                                 maxlength='100'
                                 id='cphMainColumn_ctl00_usrContactInfoD_txtEmailContact'
                                 className='mail-contact'
+                                value={email}
+                                onChange={e => setemail(e.target.value)}
                               />
                             </td>
                           </tr>
@@ -316,7 +462,7 @@ function ThongTinDat () {
                         id='cphMainColumn_ctl00_usrContactInfoD_chkIsInvoice'
                         type='checkbox'
                         name='ctl00$cphMainColumn$ctl00$usrContactInfoD$chkIsInvoice'
-                        checked={isInvoiceChecked}
+                        checked={xuathoadon}
                         onChange={handleInvoiceChange}
                       />
                       <label for='cphMainColumn_ctl00_usrContactInfoD_chkIsInvoice'>
@@ -324,7 +470,7 @@ function ThongTinDat () {
                       </label>
                     </td>
                   </tr>
-                  {isInvoiceChecked && (
+                  {xuathoadon && (
                     <tr>
                       <td colspan='2'>
                         <table>
@@ -350,6 +496,10 @@ function ThongTinDat () {
                                           id='cphMainColumn_ctl00_usrContactInfoD_txtTax'
                                           className='new i-require txtTaxCode'
                                           style={{ width: '200px' }}
+                                          value={masothue}
+                                          onChange={e =>
+                                            setmasothue(e.target.value)
+                                          }
                                         />
                                       </td>
                                     </tr>
@@ -363,6 +513,10 @@ function ThongTinDat () {
                                           maxlength='250'
                                           id='cphMainColumn_ctl00_usrContactInfoD_txtNameInvoice'
                                           className='new i-require letterOnly txtNameInvoice'
+                                          value={tencongty}
+                                          onChange={e =>
+                                            settencongty(e.target.value)
+                                          }
                                         />
                                       </td>
                                     </tr>
@@ -376,6 +530,10 @@ function ThongTinDat () {
                                           maxlength='250'
                                           id='cphMainColumn_ctl00_usrContactInfoD_txtAddress'
                                           className='new i-require txtAddress'
+                                          value={diachi}
+                                          onChange={e =>
+                                            setdiachi(e.target.value)
+                                          }
                                         />
                                       </td>
                                     </tr>
@@ -441,6 +599,8 @@ function ThongTinDat () {
                                   cols='20'
                                   id='cphMainColumn_ctl00_usrContactInfoD_txtRemark'
                                   className='text-note'
+                                  value={ghichu}
+                                  onChange={e => setghichu(e.target.value)}
                                 ></textarea>
                               </td>
                             </tr>
@@ -496,7 +656,7 @@ function ThongTinDat () {
                       <a
                         onClick={e => {
                           e.preventDefault()
-                          navigate('/thanhtoan')
+                          handledatve()
                         }}
                         id='cphMainColumn_ctl00_btnContinue'
                         className='btn-submit btn-submit1 btnContinue'
