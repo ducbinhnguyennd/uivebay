@@ -29,8 +29,16 @@ function ThongTinDat () {
 
   const handleInvoiceChange = () => setxuathoadon(!xuathoadon)
   const handleRemarkChange = () => setIsRemarkChecked(!isRemarkChecked)
-  const { flightdata, date, mafrom, mato, tienve, mangnguoi, showToast } =
-    useToast()
+  const {
+    flightdata,
+    date,
+    mafrom,
+    mato,
+    tienve,
+    mangnguoi,
+    showToast,
+    sethoadon
+  } = useToast()
 
   const fetchhang = async () => {
     try {
@@ -114,9 +122,12 @@ function ThongTinDat () {
           phone,
           email,
           ngaybay: date,
+          chuyenbay:flightdata.flightNumber,
           hang: flightdata.airlineCode,
           cityfrom: mafrom,
           cityto: mato,
+          hourfrom: flightdata.departureTime,
+          hourto: flightdata.arrivalTime,
           nguoilon: mangnguoi[0]?.songuoi,
           treem: mangnguoi[1]?.songuoi || 0,
           tresosinh: mangnguoi[2]?.songuoi || 0,
@@ -134,6 +145,8 @@ function ThongTinDat () {
         })
       })
       if (response.ok) {
+        const data = await response.json()
+        sethoadon(data)
         navigate('/thanhtoan')
       }
     } catch (error) {

@@ -27,14 +27,16 @@
     }
   }
 }
-.tatcadonhang{
-    padding: 10px 20px;
-    background-color: #cce7ff;
-    width: 200px;
-    margin: 15px;
-    border: #0056b3 2px solid;
-    cursor: pointer;
+
+.tatcadonhang {
+  padding: 10px 20px;
+  background-color: #cce7ff;
+  width: 200px;
+  margin: 15px;
+  border: #0056b3 2px solid;
+  cursor: pointer;
 }
+
 .thanhtoan {
   flex: 6;
   padding-top: 16px;
@@ -42,10 +44,12 @@
   padding-right: 16px;
   background-color: #efefef;
 }
+
 .faq-hdtt {
   flex: 4;
   padding: 16px 0px;
 }
+
 .order-details {
   margin-bottom: 24px;
 
@@ -75,7 +79,7 @@
     margin-bottom: 12px;
   }
 
-  > div {
+  >div {
     margin-bottom: 16px;
 
     label {
@@ -117,18 +121,22 @@
     }
   }
 }
+
 .bank-info {
   flex: 7;
   padding: 16px;
 }
+
 .qr-code {
   flex: 3;
 }
+
 .flight-details {
   display: flex;
   margin-bottom: 24px;
   padding: 12px;
   background-color: #ffffff;
+
   p {
     margin: 8px 0;
 
@@ -166,4 +174,13 @@
     border-top: none;
     border-radius: 0 0 4px 4px;
   }
+}
+
+.divanhhang {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.divanhhang img{
+  height: 20px;
 }

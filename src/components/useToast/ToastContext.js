@@ -23,7 +23,7 @@ const ToastProvider = ({ children }) => {
 
   const [hoadon, sethoadon] = useState(() => {
     const hoadon = localStorage.getItem('hoadon')
-    return hoadon ? JSON.parse(hoadon) : []
+    return hoadon ? JSON.parse(hoadon) : {}
   })
 
   const [tienve, settienve] = useState(() => {
