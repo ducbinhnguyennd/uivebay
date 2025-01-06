@@ -6,7 +6,7 @@ import { getAirlineImage } from '../SearchLayout/SearchLayoutFunction'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
-  const { showToast, hoadon, flightdata } = useToast()
+  const { showToast, hoadon, flightdata, cityfrom, cityto } = useToast()
   const [hangmaybay, sethangmaybay] = useState([])
 
   const fetchhang = async () => {
@@ -104,9 +104,14 @@ const ThanhToan = () => {
           </div>
           <div className='flight-details'>
             <div>
-              <p>Hồ Chí Minh ➔ Hà Nội</p>
+              <p>
+                {cityfrom} ➔ {cityto}
+              </p>
               <div className='divanhhang'>
-                <img src={`${getAirlineImage(flightdata.airlineCode,hangmaybay)}`} /> <p>{hoadon.chuyenbay}</p>
+                <img
+                  src={`${getAirlineImage(flightdata.airlineCode, hangmaybay)}`}
+                />{' '}
+                <p>{hoadon.chuyenbay}</p>
               </div>
               <p>Anh: {hoadon.namenguoibay}</p>
 
