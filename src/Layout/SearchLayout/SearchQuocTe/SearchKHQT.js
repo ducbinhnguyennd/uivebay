@@ -166,165 +166,114 @@ function SearchKHQT () {
                     style={{ cursor: 'pointer' }}
                   >
                     <div>
-                      <div className='flight-row-quocte'>
-                        {/* <div className="flight-info-quocte-logo">
-                        <span>
-                          <img
-                            src={getAirlineImage(
-                              flight.airlineCode,
-                              hangmaybay
-                            )}
-                            alt=""
-                          />
-                        </span>
-                      </div> */}
-                        <div className='flight-info-quocte'>
-                          <span className='flight-code-quocte'>
-                            {mafrom} - {mato}
-                          </span>
-                        </div>
-                        <div className='flight-info-quocte'>
-                          <span className='flight-time-chang-quocte'>
-                            {flight.outbound.departureTime} -{' '}
-                            {flight.outbound.arrivalTime}
-                          </span>
-                        </div>
-                        <div className='flight-info-quocte'>
-                          <div
-                            style={{
-                              display: 'flex',
-                              fontSize: '12px',
-                              gap: '8px',
-                              alignItems: 'center'
-                            }}
-                          >
-                            Thời gian bay:
-                            <div className='flight-time-quocte'>
-                              {calculateDuration(
-                                flight.outbound.departureTime,
-                                flight.outbound.arrivalTime
-                              )}
+                      <div className="flight-row-quoctekh">
+                        <div className="flight-left">
+                          <div className="flight-left1">
+                            <div className="flight-info-quocte">
+                              <span className="flight-code-quocte">
+                                {mafrom} - {mato}
+                              </span>
+                            </div>
+                            <div className="flight-info-quocte-timekh">
+                              <span className="flight-time-chang-quocte">
+                                {flight.outbound.departureTime} -{" "}
+                                {flight.outbound.arrivalTime}
+                              </span>
+                            </div>
+                            <div className="flight-info-quocte">
+                              <div
+                                style={{
+                                  display: "flex",
+                                  fontSize: "12px",
+                                  gap: "8px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                Thời gian bay:
+                                <div className="flight-time-quocte">
+                                  {calculateDuration(
+                                    flight.outbound.departureTime,
+                                    flight.outbound.arrivalTime
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flight-left2">
+                            <div className="flight-info-quocte">
+                              <span className="flight-code-quocte">
+                                {mato} - {mafrom}
+                              </span>
+                            </div>
+                            <div className="flight-info-quocte-timekh">
+                              <span className="flight-time-chang-quocte">
+                                {flight.inbound.departureTime} -{" "}
+                                {flight.inbound.arrivalTime}
+                              </span>
+                            </div>
+                            <div className="flight-info-quocte">
+                              <div
+                                style={{
+                                  display: "flex",
+                                  fontSize: "12px",
+                                  gap: "8px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                Thời gian bay:
+                                <div className="flight-time-quocte">
+                                  {calculateDuration(
+                                    flight.inbound.departureTime,
+                                    flight.inbound.arrivalTime
+                                  )}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-
-                        <div
-                          onClick={e => {
-                            e.stopPropagation()
-                            toggleDetails(
-                              index,
-                              flight,
-                              setVisibleDetailIndex,
-                              setSelectedFlight,
-                              visibleDetailIndex
-                            )
-                          }}
-                          style={{ display: 'flex' }}
-                        >
+                        <div className="flight-right">
                           <div
-                            style={{
-                              color: '#143a83',
-                              fontSize: '13px',
-                              paddingRight: '5px'
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleDetails(
+                                index,
+                                flight,
+                                setVisibleDetailIndex,
+                                setSelectedFlight,
+                                visibleDetailIndex
+                              );
                             }}
+                            style={{ display: "flex" }}
                           >
-                            Chi tiết
-                          </div>
-                          <img src='./collaspe.png' />
-                        </div>
-                        <div className='flight-price-quocte'>
-                          {phantrams.length > 0
-                            ? (
-                                (parseInt(
-                                  flight.totalPrice.replace(/,/g, ''),
-                                  10
-                                ) *
-                                  phantrams[0].phantram) /
-                                100
-                              ).toLocaleString() + 'đ'
-                            : 'Đang tải...'}
-                        </div>
-                        <button className='select-button'>Chọn</button>
-                      </div>
-                      <div className='flight-row-quocte'>
-                        {/* <div className="flight-info-quocte-logo">
-                        <span>
-                          <img
-                            src={getAirlineImage(
-                              flight.airlineCode,
-                              hangmaybay
-                            )}
-                            alt=""
-                          />
-                        </span>
-                      </div> */}
-                        <div className='flight-info-quocte'>
-                          <span className='flight-code-quocte'>
-                            {mato} - {mafrom}
-                          </span>
-                        </div>
-                        <div className='flight-info-quocte'>
-                          <span className='flight-time-chang-quocte'>
-                            {flight.inbound.departureTime} -{' '}
-                            {flight.inbound.arrivalTime}
-                          </span>
-                        </div>
-                        <div className='flight-info-quocte'>
-                          <div
-                            style={{
-                              display: 'flex',
-                              fontSize: '12px',
-                              gap: '8px',
-                              alignItems: 'center'
-                            }}
-                          >
-                            Thời gian bay:
-                            <div className='flight-time-quocte'>
-                              {calculateDuration(
-                                flight.inbound.departureTime,
-                                flight.inbound.arrivalTime
-                              )}
+                            <div
+                              style={{
+                                color: "#143a83",
+                                fontSize: "13px",
+                                paddingRight: "5px",
+                              }}
+                            >
+                              Chi tiết
                             </div>
+                            <img
+                              src="./collaspe.png"
+                              style={{ width: "20px", height: "20px" }}
+                            />
                           </div>
-                        </div>
-
-                        <div
-                          onClick={e => {
-                            e.stopPropagation()
-                            toggleDetails(
-                              index,
-                              flight,
-                              setVisibleDetailIndex,
-                              setSelectedFlight,
-                              visibleDetailIndex
-                            )
-                          }}
-                          style={{ display: 'flex' }}
-                        >
-                          <div
-                            style={{
-                              color: '#143a83',
-                              fontSize: '13px',
-                              paddingRight: '5px'
-                            }}
-                          >
-                            Chi tiết
+                          <div className="flight-price-quoctekh">
+                            {phantrams.length > 0
+                              ? (
+                                  (parseInt(
+                                    flight.totalPrice.replace(/,/g, ""),
+                                    10
+                                  ) *
+                                    phantrams[0].phantram) /
+                                  100
+                                ).toLocaleString() + "đ"
+                              : "Đang tải..."}
                           </div>
-                          <img src='./collaspe.png' />
+                          <button className="select-button">Chọn</button>
                         </div>
-                        <div className='flight-price-quocte'>
-                          {phantrams.length > 0
-                            ? (
-                                (parseInt(
-                                  flight.totalPrice.replace(/,/g, ''),
-                                  10
-                                ) *
-                                  phantrams[0].phantram) /
-                                100
-                              ).toLocaleString() + 'đ'
-                            : 'Đang tải...'}
-                        </div>
-                        <button className='select-button'>Chọn</button>
                       </div>
                     </div>
                     {visibleDetailIndex === index && (
@@ -333,8 +282,8 @@ function SearchKHQT () {
                         onClick={e => e.stopPropagation()}
                       >
                         <div>
-                          <table width='100%' cellSpacing='0' cellPadding='0'>
-                            <tbody className='view-detail-flight'>
+                          <table width="100%" cellSpacing="0" cellPadding="0">
+                            <tbody className="view-detail-flight-khqt">
                               <tr>
                                 <td
                                   valign='top'
@@ -351,7 +300,110 @@ function SearchKHQT () {
                                     </b>
                                     ,{formatDate(date)}
                                   </p>
-                                  <p>{`${cityfrom}`}</p>
+                                </td>
+                                <td
+                                  className="duration-info-container"
+                                  style={{
+                                    textAlign: "center",
+                                    fontSize: "12px",
+                                    width: "20%",
+                                  }}
+                                >
+                                  <p style={{ paddingRight: "25px" }}>
+                                    {calculateDuration(
+                                      selectedFlight.inbound.departureTime,
+                                      selectedFlight.inbound.arrivalTime
+                                    )}
+                                  </p>
+                                  <p>
+                                    <img
+                                      src="/01-point.png"
+                                      alt="Flight Path"
+                                    />
+                                  </p>
+                                  <p
+                                    style={{
+                                      paddingRight: "25px",
+                                      marginTop: "-10px",
+                                    }}
+                                  >
+                                    <b>Máy bay: Airbus A321</b>
+                                  </p>
+                                </td>
+                                <td valign="top" style={{ width: "25%" }}>
+                                  <p>
+                                    <b style={{ fontSize: "14px" }}>
+                                      {`${cityto}`}
+                                    </b>
+                                    {`${mato}`}
+                                  </p>
+                                  <p>
+                                    <b>{selectedFlight.inbound.arrivalTime}</b>,
+                                    {formatDate(date)}
+                                  </p>
+                                </td>
+                                <td style={{ width: "30%" }}>
+                                  <table
+                                    width="100%"
+                                    cellPadding="0"
+                                    cellSpacing="0"
+                                  >
+                                    <tbody>
+                                      <tr>
+                                        {/* <td style={{ textAlign: "left" }}>
+                                          <img
+                                            align="absmiddle"
+                                            src={getAirlineImage(
+                                              selectedFlight.airlineCode,
+                                              hangmaybay
+                                            )}
+                                            alt="Airline Logo"
+                                          />
+                                        </td> */}
+                                        <td
+                                          style={{
+                                            lineHeight: "18px",
+                                            padding: 0,
+                                          }}
+                                        >
+                                          {getAirlineName(
+                                            selectedFlight.inbound.airlineCode,
+                                            hangmaybay
+                                          )}{" "}
+                                          <br />
+                                          <b>
+                                            {
+                                              selectedFlight.inbound
+                                                .flightNumber
+                                            }
+                                          </b>
+                                          <br />
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <table width="100%" cellSpacing="0" cellPadding="0">
+                            <tbody className="view-detail-flight-khqt">
+                              <tr>
+                                <td
+                                  valign="top"
+                                  style={{ width: "25%", textAlign: "right" }}
+                                >
+                                  <p>
+                                    <b style={{ fontSize: "14px" }}>
+                                      {`${cityfrom} (${mafrom})`}
+                                    </b>
+                                  </p>
+                                  <p>
+                                    <b>
+                                      {selectedFlight.inbound.departureTime}
+                                    </b>
+                                    ,{formatDate(date)}
+                                  </p>
                                 </td>
                                 <td
                                   className='duration-info-container'
@@ -392,7 +444,6 @@ function SearchKHQT () {
                                     <b>{selectedFlight.inbound.arrivalTime}</b>,
                                     {formatDate(date)}
                                   </p>
-                                  <p>{`${cityto}`}</p>
                                 </td>
                                 <td style={{ width: '30%' }}>
                                   <table
@@ -402,7 +453,7 @@ function SearchKHQT () {
                                   >
                                     <tbody>
                                       <tr>
-                                        <td style={{ textAlign: 'left' }}>
+                                        {/* <td style={{ textAlign: "left" }}>
                                           <img
                                             align='absmiddle'
                                             src={getAirlineImage(
@@ -411,7 +462,7 @@ function SearchKHQT () {
                                             )}
                                             alt='Airline Logo'
                                           />
-                                        </td>
+                                        </td> */}
                                         <td
                                           style={{
                                             lineHeight: '18px',
@@ -423,7 +474,6 @@ function SearchKHQT () {
                                             hangmaybay
                                           )}{' '}
                                           <br />
-                                          Chuyến bay:
                                           <b>
                                             {
                                               selectedFlight.inbound
@@ -439,8 +489,7 @@ function SearchKHQT () {
                               </tr>
                             </tbody>
                           </table>
-
-                          <table width='100%' className='price-break'>
+                          <table width="100%" className="price-break">
                             <tbody>
                               <tr className='title-b'>
                                 <td align='center' className='header'>
@@ -472,7 +521,7 @@ function SearchKHQT () {
                                       ((parseInt(
                                         selectedFlight.totalPrice.replace(
                                           /,/g,
-                                          ''
+                                          ""
                                         ),
                                         10
                                       ) *
@@ -486,7 +535,7 @@ function SearchKHQT () {
                                       ((((parseInt(
                                         selectedFlight.totalPrice.replace(
                                           /,/g,
-                                          ''
+                                          ""
                                         ),
                                         10
                                       ) *
@@ -502,7 +551,7 @@ function SearchKHQT () {
                                       parseInt(
                                         selectedFlight.totalPrice.replace(
                                           /,/g,
-                                          ''
+                                          ""
                                         ),
                                         10
                                       ),

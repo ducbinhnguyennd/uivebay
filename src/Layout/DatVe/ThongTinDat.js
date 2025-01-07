@@ -153,7 +153,7 @@ function ThongTinDat () {
       return
     }
     try {
-      const response = await fetch('http://localhost:8080/posthoadon', {
+      const response = await fetch('https://webmaybay.vercel.app/posthoadon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

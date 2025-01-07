@@ -27,7 +27,7 @@ const Header = () => {
       </a>
       <div class="dienthoai"><div class="cskhTrangchu">
         <img src="/tong-dai-24h-18dec18.png" class="imgtongdai" alt="Dịch vụ chăm sóc khách hàng Abay"/> 
-        <span class="contentTextcskhTrangchu"><p class="title">Tổng đài hỗ trợ: <b class="mainNumber">1900 6091</b></p><p class="message">Giờ làm việc: <b style={{fontWeight:"bold"}}>0h-24h</b> (không nghỉ)</p></span></div></div>
+        <span class="contentTextcskhTrangchu"><p class="title">Tổng đài hỗ trợ: <b class="mainNumber"></b></p><p class="message">Giờ làm việc: <b style={{fontWeight:"bold"}}>0h-24h</b> (không nghỉ)</p></span></div></div>
         <div class="clr"></div>
         </div>
   );
