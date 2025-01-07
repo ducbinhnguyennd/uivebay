@@ -1,31 +1,174 @@
 import React, { useState } from 'react'
 import './SearchMB.scss'
 import TableChonThanhPho from './TabelChonThanhPho'
+import { useToast } from '../../../components/useToast/ToastContext'
+import { formatDate } from '../../../components/LunarCalendarFormat/LunarCalendarFormat'
+import { useNavigate } from 'react-router-dom'
 const SearchMB = () => {
-  const [departureCity, setDepartureCity] = useState('Tp Hồ Chí Minh')
-  const [arrivalCity, setArrivalCity] = useState('Hà Nội')
-  const [departureDate, setDepartureDate] = useState('T.Tư, 08 tháng 01, 2025')
-  const [returnDate, setReturnDate] = useState('--/--/----')
+  const today = new Date().toISOString().split('T')[0]
+  const navigate = useNavigate()
+  const [departureCity, setDepartureCity] = useState('')
+  const [arrivalCity, setArrivalCity] = useState('')
+  const [departureDate, setDepartureDate] = useState(today)
+  const [returnDate, setReturnDate] = useState('')
   const [adultCount, setAdultCount] = useState(1)
   const [childCount, setChildCount] = useState(0)
   const [infantCount, setInfantCount] = useState(0)
   const [isCityTableVisible, setCityTableVisible] = useState(false)
-
-  const handleCityChange = (setCity, city) => {
-    setCity(city)
-  }
+  const [isCityTableVisible2, setCityTableVisible2] = useState(false)
+  const [data, setdata] = useState([])
+  const {
+    setSearchData,
+    setcityto,
+    setcityfrom,
+    setmafrom,
+    setmato,
+    setdate,
+    setreturnDate,
+    setmangnguoi,
+    mafrom,
+    mato,
+    showToast
+  } = useToast()
 
   const handleCountChange = (setCount, count) => {
     setCount(count)
   }
 
-  const handleSearch = () => {
-    console.log('Searching for flights...')
+  const handleCityFrom = (city, closemodal, mafrom) => {
+    setDepartureCity(city)
+    setcityfrom(city)
+    setmafrom(mafrom)
+    closemodal()
   }
 
-  const handleCitySelect = (city,closemodal) => {
-    setDepartureCity(city)
+  const handleCityTo = (city, closemodal, mato) => {
+    setArrivalCity(city)
+    setcityto(city)
+    setmato(mato)
     closemodal()
+  }
+
+  const validate = () => {
+    let valid = true
+
+    if (!departureCity) {
+      valid = false
+      showToast('Bạn chưa chọn điểm đi', 'warning')
+    }
+
+    if (!arrivalCity) {
+      valid = false
+      showToast('Bạn chưa chọn điểm đến', 'warning')
+    }
+
+    if (adultCount === 0) {
+      valid = false
+      showToast('Số lượng khách người lớn phải lớn hơn 1', 'warning')
+    }
+
+    if (adultCount < infantCount) {
+      valid = false
+      showToast(
+        'Số lượng khách người lớn phải lớn hơn hoặc bằng khách em bé',
+        'warning'
+      )
+    }
+
+    return valid
+  }
+  const isInVietnam = (code, data) => {
+    return data.some(
+      item =>
+        item.namevung === 'Việt Nam' &&
+        item.thanhpho.some(place => place.mathanhpho === code)
+    )
+  }
+
+  const handelSearch = async () => {
+    if (!validate()) return
+
+    try {
+      const isDepartureInVietnam = isInVietnam(mafrom, data)
+      const isArrivalInVietnam = isInVietnam(mato, data)
+
+      const requestData = {
+        departure: mafrom,
+        arrival: mato,
+        date: formatDate(departureDate),
+        adults: adultCount,
+        children: childCount,
+        infants: infantCount
+      }
+
+      if (returnDate) {
+        requestData.returnDate = formatDate(returnDate)
+        setreturnDate(returnDate)
+      }
+
+      if (isDepartureInVietnam && isArrivalInVietnam) {
+        const response = await fetch(
+          `https://wooordersystem.store/order-woo/api/getInfoFlights`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+          }
+        )
+        const data = await response.json()
+
+        if (response.ok) {
+          setSearchData(data)
+          setmangnguoi(() => {
+            const newState = []
+            newState.push({ name: 'Người lớn', songuoi: adultCount })
+            if (childCount > 0)
+              newState.push({ name: 'Trẻ em', songuoi: childCount })
+            if (infantCount > 0)
+              newState.push({ name: 'Trẻ sơ sinh', songuoi: infantCount })
+            return newState
+          })
+
+          setdate(departureDate)
+
+          if (returnDate) {
+            navigate('/searchkhuhoi')
+          } else {
+            navigate('/search')
+          }
+        }
+      } else {
+        const response = await fetch(
+          `https://wooordersystem.store/order-woo/api/getInfoFlightInternational`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+          }
+        )
+        const data = await response.json()
+
+        if (response.ok) {
+          setSearchData(data)
+          setmangnguoi(() => {
+            const newState = []
+            newState.push({ name: 'Người lớn', songuoi: adultCount })
+            if (childCount > 0)
+              newState.push({ name: 'Trẻ em', songuoi: childCount })
+            if (infantCount > 0)
+              newState.push({ name: 'Trẻ sơ sinh', songuoi: infantCount })
+            return newState
+          })
+          if (returnDate) {
+            navigate('/searchkhuhoiquocte')
+          } else {
+            navigate('/searchquocte')
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching flight data:', error)
+    }
   }
 
   return (
@@ -48,7 +191,9 @@ const SearchMB = () => {
         {isCityTableVisible && (
           <TableChonThanhPho
             onClose={() => setCityTableVisible(false)}
-            onSelect={handleCitySelect}
+            onSelect={handleCityFrom}
+            data={data}
+            setdata={setdata}
           />
         )}
 
@@ -59,23 +204,33 @@ const SearchMB = () => {
           <div className='col2'>
             <div
               className='txt divArrivalAirport'
-              onClick={() => handleCityChange(setArrivalCity, 'Chọn điểm đến')}
+              onClick={() => setCityTableVisible2(true)}
             >
               {arrivalCity}
             </div>
           </div>
         </div>
+        {isCityTableVisible2 && (
+          <TableChonThanhPho
+            onClose={() => setCityTableVisible2(false)}
+            onSelect={handleCityTo}
+            data={data}
+            setdata={setdata}
+          />
+        )}
+
         <div className='rowmb'>
           <div className='col1'>
             <label className='lbl lbldate'>Ngày đi</label>
           </div>
           <div className='col2'>
-            <div
+            <input
+              type='date'
+              min={today}
               className='txt divDepartureDate'
-              onClick={() => setDepartureDate('Chọn ngày khởi hành')}
-            >
-              {departureDate}
-            </div>
+              value={departureDate}
+              onChange={e => setDepartureDate(e.target.value)}
+            />
           </div>
         </div>
         <div className='rowmb'>
@@ -83,12 +238,13 @@ const SearchMB = () => {
             <label className='lbl lbldate'>Ngày về</label>
           </div>
           <div className='col2'>
-            <div
+            <input
+              type='date'
               className='txt divReturnDate gray'
-              onClick={() => setReturnDate('Chọn ngày về')}
-            >
-              {returnDate}
-            </div>
+              min={departureDate || today}
+              value={returnDate}
+              onChange={e => setReturnDate(e.target.value)}
+            />
           </div>
         </div>
         <div className='paxinfo'>
@@ -195,7 +351,7 @@ const SearchMB = () => {
           </div>
         </div>
         <div className='search-button'>
-          <div className='btn-search btnSearch2' onClick={handleSearch}>
+          <div className='btn-search btnSearch2' onClick={handelSearch}>
             TÌM CHUYẾN BAY
           </div>
         </div>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './TableChonThanhPho.scss'
 
-function TableChonThanhPho ({ onClose, onSelect }) {
+function TableChonThanhPho ({ onClose, onSelect,data,setdata }) {
   const [isExiting, setIsExiting] = useState(false)
-  const [data, setdata] = useState([])
   const handleExit = () => {
     setIsExiting(true)
     setTimeout(() => {
@@ -46,7 +45,7 @@ function TableChonThanhPho ({ onClose, onSelect }) {
               <div
                 key={i}
                 className='table-row'
-                onClick={() => onSelect(city.name, handleExit)}
+                onClick={() => onSelect(city.name, handleExit,city.mathanhpho)}
               >
                 {group.namevung === 'Việt Nam'
                   ? `${city.name}`
