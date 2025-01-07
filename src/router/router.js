@@ -23,6 +23,7 @@ import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHan
 import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/ThongTinChuyenKhoan'
 import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
 import LienHeMB from '../LayoutMobile/DefaultLayoutMB/LienHeMB/LienHeMB'
+import SearchNoiDiaMB from '../LayoutMobile/SearchMB/SearchNoiDiaMB/SearchNoiDiaMB'
 
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
@@ -40,7 +41,10 @@ const publicRoutes = [
     const isMobile = IsMobile()
     return isMobile ? <LienHeMB /> : <LienHe />
   } },
-  { path: '/search', component: SearchLayout },
+  { path: '/search', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <SearchNoiDiaMB /> : <SearchLayout />
+  } },
   { path: '/gioi-thieu', component: GioiThieu },
   { path: '/vung', component: VungLayout, layout: 'admin' },
   { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
