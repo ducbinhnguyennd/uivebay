@@ -45,7 +45,8 @@ function SearchKhuHoi () {
   const [selectedFlight, setSelectedFlight] = useState(null)
   const [selectedFlight1, setSelectedFlight1] = useState(null)
   const { previousTwoDays, nextTwoDays } = getSurroundingDateskhuhoinoidia(date)
-  const { previousTwoDays1, nextTwoDays1 } = getSurroundingDateskhuhoinoidia1(returnDate)
+  const { previousTwoDays1, nextTwoDays1 } =
+    getSurroundingDateskhuhoinoidia1(returnDate)
 
   const [filters, setFilters] = useState({
     sortBy: 'abay-suggest',
@@ -173,16 +174,23 @@ function SearchKhuHoi () {
               </div>
 
               <div className='tabs'>
-                {previousTwoDays.map((day, index) => (
-                  <div
-                    key={index}
-                    className={`date`}
-                    onClick={() => handleSearch(day)}
-                  >
-                    {CalendarFormat(day)}
-                    <br />
-                  </div>
-                ))}
+                {previousTwoDays.map((day, index) => {
+                  const isPastDate =
+                    new Date(day) < new Date().setHours(0, 0, 0, 0)
+
+                  return (
+                    <div
+                      key={index}
+                      className={`date ${isPastDate ? 'disabled' : ''}`}
+                      onClick={
+                        !isPastDate ? () => handleSearch(day) : undefined
+                      }
+                    >
+                      {CalendarFormat(day)}
+                      <br />
+                    </div>
+                  )
+                })}
                 <div className={`date ${date ? 'active' : ''}`}>
                   {CalendarFormat(date)}
                   <br />
@@ -480,16 +488,23 @@ function SearchKhuHoi () {
               </div>
 
               <div className='tabs'>
-                {previousTwoDays1.map((day, index) => (
-                  <div
-                    key={index}
-                    className={`date`}
-                    onClick={() => handleSearch1(day)}
-                  >
-                    {CalendarFormat(day)}
-                    <br />
-                  </div>
-                ))}
+                {previousTwoDays1.map((day, index) => {
+                  const isPastDate =
+                    new Date(day) < new Date().setHours(0, 0, 0, 0)
+
+                  return (
+                    <div
+                      key={index}
+                      className={`date ${isPastDate ? 'disabled' : ''}`}
+                      onClick={
+                        !isPastDate ? () => handleSearch1(day) : undefined
+                      }
+                    >
+                      {CalendarFormat(day)}
+                      <br />
+                    </div>
+                  )
+                })}
                 <div className={`date ${returnDate ? 'active' : ''}`}>
                   {CalendarFormat(returnDate)}
                   <br />

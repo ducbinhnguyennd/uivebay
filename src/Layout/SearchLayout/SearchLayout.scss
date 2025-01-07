@@ -81,6 +81,13 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+
+  .disabled {
+    background: #ffffff;
+    color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
 
 .date {
@@ -176,7 +183,8 @@ body {
     border-top: 1px dashed gray;
     border-bottom: 1px dashed gray;
   }
-  .pb-price{
+
+  .pb-price {
     color: red;
     font-weight: 700;
   }

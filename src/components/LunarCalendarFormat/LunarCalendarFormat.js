@@ -39,7 +39,8 @@ export const getSurroundingDates = dateString => {
   const nextTwoDays = []
 
   // Lấy 2 ngày trước
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 2; i >= 1; i--) {
+    // Đảo chiều vòng lặp
     const newDate = new Date(givenDate)
     newDate.setDate(newDate.getDate() - i)
     previousTwoDays.push(newDate.toISOString().split('T')[0])
@@ -54,8 +55,6 @@ export const getSurroundingDates = dateString => {
 
   return { previousTwoDays, nextTwoDays }
 }
-
-
 
 export const getSurroundingDateskhuhoinoidia = dateString => {
   const givenDate = new Date(dateString) // Tạo đối tượng Date từ chuỗi
@@ -100,5 +99,3 @@ export const getSurroundingDateskhuhoinoidia1 = dateString => {
 
   return { previousTwoDays1, nextTwoDays1 }
 }
-
-

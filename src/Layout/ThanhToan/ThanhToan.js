@@ -1,14 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react'
 import { useToast } from '../../components/useToast/ToastContext'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import { getAirlineImage } from '../SearchLayout/SearchLayoutFunction'
+import { useNavigate } from 'react-router-dom'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
   const { hoadon, flightdata, cityfrom, cityto } = useToast()
   const [hangmaybay, sethangmaybay] = useState([])
-  const [datagiaodich, setdatagiaodich] = useState([])
+  const [datagiaodich, setdatagiaodich] = useState({})
+  const navigate = useNavigate()
 
   const fetchhang = async () => {
     try {
@@ -40,7 +43,7 @@ const ThanhToan = () => {
   const fetchdonhang = async () => {
     try {
       const response = await fetch(
-        'https://script.google.com/macros/s/AKfycbwmaPrImIpU-V7SmK_XPgWKRGS6JQ5uv9Vu3nyCVT-EIBSIt7k8SNpe4tljB_Oz22suzQ/exec'
+        'https://script.google.com/macros/s/AKfycby1vSXFZ-76JgB0LSAjH-cN91P3yX47zRJVA2M0vUP0IB-ZdPfVBfamllzmHn6TbLhLvQ/exec'
       )
       const data = await response.json()
       if (response.ok) {
@@ -51,11 +54,45 @@ const ThanhToan = () => {
     }
   }
 
+  const checkTransaction = async () => {
+    const description = `${hoadon.mahoadon} ${hoadon.tongtien}`
+    const isMatched = datagiaodich.data?.some(transaction =>
+      transaction['Mô tả'].includes(description)
+    )
+    if (isMatched) {
+      try {
+        const response = await fetch(
+          `http://localhost:3013/postthanhtoan/${hoadon.mahoadon}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        if (response.ok) {
+          navigate('/success')
+          localStorage.clear()
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
   useEffect(() => {
     fetchdonhang()
+
+    const interval = setInterval(() => {
+      fetchdonhang()
+    }, 5000)
+
+    return () => clearInterval(interval)
   }, [])
 
-  console.log(datagiaodich)
+  useEffect(() => {
+    checkTransaction()
+  }, [datagiaodich, hoadon])
 
   return (
     <div>
@@ -94,7 +131,7 @@ const ThanhToan = () => {
                     <button>Copy</button>
                   </p>
                   <p>
-                    Nội dung: {hoadon.mahoadon} <button>Copy</button>
+                    Nội dung: {hoadon.mahoadon} {hoadon.tongtien} <button>Copy</button>
                   </p>
                   <p>Ngân hàng: MBBANK</p>
                   <p>
