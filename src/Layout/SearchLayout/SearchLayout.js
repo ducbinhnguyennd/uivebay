@@ -10,7 +10,7 @@ import {
   LunarCalendarFormat,
   formatDate,
   getSurroundingDates,
-  CalendarFormat,
+  CalendarFormat
 } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import {
   applyFilters,
@@ -85,7 +85,7 @@ function SearchLayout () {
         departure: mafrom,
         arrival: mato,
         date: formatDate(date),
-        adults: mangnguoi[0]?.songuoi ,
+        adults: mangnguoi[0]?.songuoi,
         children: mangnguoi[1]?.songuoi || 0,
         infants: mangnguoi[2]?.songuoi || 0
       }
@@ -169,16 +169,21 @@ function SearchLayout () {
             </div>
 
             <div className='date-selection'>
-              {previousTwoDays.map((day, index) => (
-                <div
-                  key={index}
-                  className={`date`}
-                  onClick={() => handleSearch(day)}
-                >
-                  {CalendarFormat(day)}
-                  <br />
-                </div>
-              ))}
+              {previousTwoDays.map((day, index) => {
+                const isPastDate =
+                  new Date(day) < new Date().setHours(0, 0, 0, 0)
+
+                return (
+                  <div
+                    key={index}
+                    className={`date ${isPastDate ? 'disabled' : ''}`} 
+                    onClick={!isPastDate ? () => handleSearch(day) : undefined}
+                  >
+                    {CalendarFormat(day)}
+                    <br />
+                  </div>
+                )
+              })}
               <div className={`date ${date ? 'active' : ''}`}>
                 {CalendarFormat(date)}
                 <br />
@@ -196,8 +201,7 @@ function SearchLayout () {
             </div>
 
             <div className='flight-options'>
-              {
-                Array.isArray(searchData.outBound.data.flights) &&
+              {Array.isArray(searchData.outBound.data.flights) &&
                 flights1.map((flight, index) => (
                   <div
                     key={index}

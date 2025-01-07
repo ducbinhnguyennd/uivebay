@@ -1,189 +1,205 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.search-layout {
+  display: flex;
+  justify-content: center;
+
+  .content-wrapper {
+    display: flex;
+    width: 100%;
+  }
+
+  .main-content {
+    flex: 8;
+    width: 70%;
+    padding: 5px;
     background-color: #f9f9f9;
   }
-  .booking-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-  }
-  .search-layout {
-    display: flex;
-    justify-content: center;
-  
-    .content-wrapper {
-      display: flex;
-      width: 100%;
-    }
-  
-    .main-content {
-      flex: 8;
-      width: 70%;
-      padding: 5px;
-      background-color: #f9f9f9;
-    }
-  
-    .filter-sidebar {
+
+  .filter-sidebar {
     //   flex: 2;
-      padding: 5px;
-    }
+    padding: 5px;
   }
+}
 
-  
-  .date-selection {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .flight-detail-content {
-    // background: #f5f5f5;
-    padding: 10px;
-    // border-left: 2px solid #ff8c00;
-    margin-top: 5px; 
-    margin-bottom: 10px;
-  }
-  
-  ///////////////////
-  .note-icon {
-    color: #ff9800;
-  }
-  
-  .flight-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .flight-list {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .flight-go, .flight-back {
-    width: 50%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .flight-section {
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .section-header {
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    text-align: center;
-  }
-  
-  .section-header.orange {
-    background-color: #e84e12;
-  }
-  
-  .section-header.blue {
-    background-color: #10559a ;
-  }
-  
-  .tabs {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .tab {
-    text-align: center;
-    cursor: pointer;
-    background-color: #f9f9f9;
-    transition: background-color 0.3s, color 0.3s;
-  }
 
-  .tab.active {
-    background-color: #e84e12;
-    color: white;
-  }
-  .tab.active1 {
-    background-color: #10559a;
-    color: white;
-  }
-  .tabs p{
-    margin: 0;
-    padding: 0;
-  }
-  
-  .flight-table {
-    border-top: 1px solid #ddd;
-  }
-  
-  .flight-row-khuhoi {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 5px;
-    border-bottom: 1px solid #f3f3f3;
-  }
-  
-  .flight-name {
-    width: 20%;
-    font-weight: bold;
-    text-align: center;
-    color: #333;
-  }
-  
-  .flight-time {
-    width: 20%;
-    text-align: center;
-    color: #333;
-  }
-  
-  .flight-price {
-    width: 30%;
-    text-align: center;
-    font-weight: bold;
-    color: #e53935;
-  }
-  
-  .select-button {
-    padding: 8px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #e84e12;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 5px;
-  }
-  .select-button1 {
-    padding: 8px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #10559a;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-left: 5px;
-  }
-  .view-detail-flight tr td p{
-    padding: 0;
-    margin: 0;
-    font-size: 13px;
-    line-height: 25px;
-  }
-  .price-info {
-    font-size: 15px;
-    text-align: left;
-    color: #555;
-    padding: 10px;
-  }
-  .price-break{
-    font-size: 13px;
-    line-height: 25px;
+.date-selection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
+.flight-detail-content {
+  // background: #f5f5f5;
+  padding: 10px;
+  // border-left: 2px solid #ff8c00;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+///////////////////
+.note-icon {
+  color: #ff9800;
+}
+
+.flight-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.flight-go,
+.flight-back {
+  width: 50%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.flight-section {
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.section-header {
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+}
+
+.section-header.orange {
+  background-color: #e84e12;
+}
+
+.section-header.blue {
+  background-color: #10559a;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+
+  .disabled {
+    background: #ffffff;
+    color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
   }
+}
+
+.tab {
+  text-align: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tab.active {
+  background-color: #e84e12;
+  color: white;
+}
+
+.tab.active1 {
+  background-color: #10559a;
+  color: white;
+}
+
+.tabs p {
+  margin: 0;
+  padding: 0;
+}
+
+.flight-table {
+  border-top: 1px solid #ddd;
+}
+
+.flight-row-khuhoi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5px;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.flight-name {
+  width: 20%;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+.flight-time {
+  width: 20%;
+  text-align: center;
+  color: #333;
+}
+
+.flight-price {
+  width: 30%;
+  text-align: center;
+  font-weight: bold;
+  color: #e53935;
+}
+
+.select-button {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e84e12;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 5px;
+}
+
+.select-button1 {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #10559a;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 5px;
+}
+
+.view-detail-flight tr td p {
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 25px;
+}
+
+.price-info {
+  font-size: 15px;
+  text-align: left;
+  color: #555;
+  padding: 10px;
+}
+
+.price-break {
+  font-size: 13px;
+  line-height: 25px;
+
+}
