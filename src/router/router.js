@@ -1,5 +1,6 @@
-import { TrangChuLayout } from '../Layout/TrangChuLayout'
+import { useMediaQuery } from 'react-responsive'
 
+import { TrangChuLayout } from '../Layout/TrangChuLayout'
 import LienHe from '../Layout/DeafaultLayout/LienHe/LienHe'
 
 import GioiThieu from '../Layout/DeafaultLayout/GioiThieu/GioiThieu'
@@ -21,7 +22,16 @@ import BlogDetailKM from '../components/Blogs/BlogDetailKM'
 import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHang'
 import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/ThongTinChuyenKhoan'
 
+const useIsMobile = () => {
+  return useMediaQuery({ query: '(max-width: 767px)' })
+}
+
+
 const publicRoutes = [
+  //  {
+  //   path: '/',
+  //   component: useIsMobile() ? TrangChuLayoutMobile : TrangChuLayoutDesktop,
+  // },
   { path: '/', component: TrangChuLayout },
   { path: '/lien-he', component: LienHe },
   { path: '/search', component: SearchLayout },
