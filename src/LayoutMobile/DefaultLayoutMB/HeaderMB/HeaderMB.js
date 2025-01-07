@@ -28,24 +28,24 @@ const HeaderMB = () => {
             <a href="/">Trang chủ Abay</a>
           </li>
           <li>
-            <a href="/xem-lai-booking">
+            <a href="/xem-lai-don-hang">
               <strong>Xem lại đơn hàng</strong>
             </a>
           </li>
           <li>
             <a href="/huong-dan-thanh-toan">Hướng dẫn thanh toán</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/gioi-thieu">Giới thiệu Abay</a>
-          </li>
+          </li> */}
           <li>
             <a href="/lien-he">Liên hệ Abay</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/khach-hang-noi-ve-chung-toi">
               Khách hàng nói về chúng tôi
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="title-oneway">
