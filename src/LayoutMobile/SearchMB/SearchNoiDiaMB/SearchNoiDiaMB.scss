@@ -1,0 +1,38 @@
+.date-selectionmb {
+    display: flex;
+    margin-bottom: 20px;
+  
+    .disabled {
+      background: #ffffff;
+      color: #888;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+  
+  .datemb {
+    text-align: center;
+    // padding: 5px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  
+  .datemb.active {
+    background: #00428b;
+    color: #fff;
+    border-color: #00428b;
+  }
+  .select-flightmb {
+    padding: 10px 8px;
+    text-shadow: 1px 1px #543b16;
+    background-color: #e67e00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 5px;
+  }
