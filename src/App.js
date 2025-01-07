@@ -5,7 +5,7 @@ import { DefaultLayout } from './Layout/DeafaultLayout'
 import { AdminLayout } from './Layout/AdminLayout'
 import ToastProvider from './components/useToast/ToastContext'
 import { useMediaQuery } from 'react-responsive'
-import Test2 from './Layout/Test/Test2'
+import DeafaultLayoutMB from './LayoutMobile/DefaultLayoutMB/DefaultLayoutMB'
 
 function App () {
   const IsMobile = () => {
@@ -21,7 +21,7 @@ function App () {
               let Layout
 
               if (IsMobile()) {
-                Layout = Test2
+                Layout = DeafaultLayoutMB
               } else {
                 Layout = DefaultLayout
               }

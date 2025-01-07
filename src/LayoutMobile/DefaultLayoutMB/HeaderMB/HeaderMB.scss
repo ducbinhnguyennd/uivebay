@@ -1,0 +1,207 @@
+html,body {
+    -webkit-overflow-scrolling: touch !important;
+    height: 100% !important
+}
+
+.btnAll2 {
+    float: right;
+    background-color: #ffffe0;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1em;
+    margin: -7px 4px 0 0;
+    cursor: pointer;
+    color: #000
+}
+
+.divtop {
+    height: 48px;
+    position: relative;
+    background-color: #00428b
+}
+
+.divtop .logolink {
+    display: inline-block;
+    padding: 6px 0 10px 10px !important
+}
+
+.divtop .logoimg {
+    width: 80px;
+    height: 33px
+}
+
+.sotongdai {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 42%;
+    margin-left: -55px;
+    color: #fbbb12;
+    line-height: 18px
+}
+
+.title-oneway {
+    padding: 12px 0;
+    border-top: solid 1px #0e69c7;
+    text-align: center;
+    background: #00428b;
+    color: #fff7e5;
+    position: relative
+}
+
+.title-roundtrip {
+    padding: 5px 0;
+    border-top: solid 1px #0e69c7;
+    text-align: center;
+    background: #00428b;
+    color: #fff7e5;
+    position: relative
+}
+
+.thong-bao {
+    font-size: 1em !important;
+    margin: 10px 10px 0 10px;
+    line-height: 1.4em;
+    text-align: center;
+    display: block;
+    padding: 5px 0;
+    background: #eee;
+    border-radius: 5px
+}
+
+.thong-bao .tb-img {
+    width: 99%;
+    float: left
+}
+
+.thong-bao .tb-message {
+    text-align: center;
+    padding-top: 3px
+}
+
+.thong-bao .tb-time {
+    display: inline-block;
+    color: #e84e0f;
+    font-weight: 600
+}
+
+.thong-bao .tb-time1 {
+    color: #e84e0f
+}
+
+.thong-bao .tb-time2 {
+    text-align: center
+}
+
+.thong-bao .tb-hotline {
+    font-weight: 600
+}
+
+.thong-bao .call-center {
+    text-decoration: none
+}
+
+#menu-link {
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 47px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAYAAADnEwSWAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABcSURBVHjaYvz//z8DvQALiKhfwkBzGxtjGBiZGOgIGEHBqB20ieY+u7rOjxEcjCFBfoz08Bn9g1HZbS7Ng/HurmRIMMbEJTOMBiM1gnGYpkZ6Z+phmhrpBQACDAC8kik3ubYIYwAAAABJRU5ErkJggg==') no-repeat center center;
+    border-left: solid 1px #1d45a8;
+    box-shadow: -1px 0 0 #053369
+}
+
+#menu-content {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    height: 0;
+    width: 0;
+    background-color: rgba(46,73,140,.93);
+    box-shadow: -1px 0 1px #173580;
+    transition-property: max-height;
+    -webkit-transition-property: max-height;
+    transition-duration: .3s;
+    -webkit-transition-duration: .3s;
+    padding-left: 10px
+}
+
+#menu-content a strong {
+    font-weight: 700
+}
+
+#menu-content.active {
+    z-index: 100;
+    height: auto;
+    width: 225px
+}
+
+#menu-content a {
+    color: #fff;
+    border-top: solid 1px #4763a9;
+    border-bottom: solid 1px #2a4079;
+    line-height: 2.2;
+    text-indent: 17px;
+    text-decoration: none
+}
+
+#menu-content a:hover {
+    background: #4763a9
+}
+
+#menu-content a:first-child {
+    border-top: none
+}
+
+#menu-content a:last-child {
+    border-bottom: none
+}
+
+#menu-content {
+    position: fixed;
+    top: 92px;
+    right: 0
+}
+
+#menu-content li {
+    width: 240px;
+    border-bottom: solid 1px #2a4079
+}
+
+.header-notification {
+    background: #f5f7fa;
+    display: inline-block;
+    width: 100%
+}
+
+.msgtime {
+    color: #e84e0f;
+    font-weight: normal
+}
+
+.s17 {
+    font-size: 17px
+}
+
+#gotop {
+    opacity: .5;
+    background: #000 url('data:image/gif;base64,R0lGODlhJQAlAMQAAAYGBgkJCQwMDBISEjIyMv///7+/v62trampqTo6OhQUFPn5+UNDQzU1Nfz8/Lm5uS8vL6amppCQkOrq6ry8vCwsLD09PaOjo8LCwgAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAlACUAAAW7IAAEYmmeaKqOa+ui5Cu38Wyf9a3nus33sh9weBKIAiQhsZRkLVUx5BN6FAmUT+PAOIUasc8AYUIBcLsmiMMSeThnwiigUSCMIgarE/uLDQAJBQksAQd5I0hgP2cJDg1SXIY+MCMVCwxMAAoiFxgif2ZUJkYCBAWYoQB/AqwID6ADSjlSphA4qWYIB1s0KAoLBH8BoFUxAggSb5SjbyRcZzUDwqJo1NXL19jZJmBo3V3fU+Hb5OXm5+guIQA7') no-repeat center center;
+    border: solid 1px #fff;
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    z-index: 99
+}
+
+
+
+.tcenter {
+    text-align: center!important
+}

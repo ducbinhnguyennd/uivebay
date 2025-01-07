@@ -21,7 +21,7 @@ import BlogDetail from '../components/Blogs/BlogDetail'
 import BlogDetailKM from '../components/Blogs/BlogDetailKM'
 import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHang'
 import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/ThongTinChuyenKhoan'
-import Test from '../Layout/Test/TestLayout'
+import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
 
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
@@ -32,7 +32,7 @@ const publicRoutes = [
     path: '/',
     component: () => {
       const isMobile = IsMobile()
-      return isMobile ? <Test /> : <TrangChuLayout />
+      return isMobile ? <TrangChuMB /> : <TrangChuLayout />
     }
   },
   { path: '/lien-he', component: LienHe },
