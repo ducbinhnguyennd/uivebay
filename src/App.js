@@ -4,15 +4,27 @@ import { publicRoutes } from './router'
 import { DefaultLayout } from './Layout/DeafaultLayout'
 import { AdminLayout } from './Layout/AdminLayout'
 import ToastProvider from './components/useToast/ToastContext'
+import { useMediaQuery } from 'react-responsive'
+import Test2 from './Layout/Test/Test2'
 
 function App () {
+  const IsMobile = () => {
+    return useMediaQuery({ query: '(max-width: 767px)' })
+  }
+
   return (
     <ToastProvider>
       <Router>
         <div className='App'>
           <Routes>
             {publicRoutes.map((route, index) => {
-              let Layout = DefaultLayout
+              let Layout
+
+              if (IsMobile()) {
+                Layout = Test2
+              } else {
+                Layout = DefaultLayout
+              }
               const Page = route.component
 
               if (route.layout === null) {
