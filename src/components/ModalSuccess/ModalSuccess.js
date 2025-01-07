@@ -41,7 +41,6 @@ function ModalThanhToanSuccess ({ isOpen, onClose }) {
             <p>Thanh toán của bạn đã thành công</p>
             <p>Cảm ơn đã tin tưởng sử dụng dịch vụ!</p>
           </div>
-
           <div className='divbtnthanhtoansuccess'>
             <button
               style={{
