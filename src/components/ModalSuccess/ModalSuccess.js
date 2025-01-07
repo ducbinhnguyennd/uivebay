@@ -1,10 +1,32 @@
+import { useState, useEffect } from 'react'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './ModalSuccess.scss'
 
 function ModalThanhToanSuccess ({ isOpen, onClose }) {
+  const [seconds, setSeconds] = useState(5)
+  const [timerActive, setTimerActive] = useState(true)
+
+  useEffect(() => {
+    if (seconds === 0) {
+      onClose()
+    }
+
+    let interval
+    if (timerActive) {
+      interval = setInterval(() => {
+        setSeconds(prevSeconds => prevSeconds - 1)
+      }, 1000)
+    }
+
+    return () => clearInterval(interval)
+  }, [seconds, timerActive, onClose])
 
   if (!isOpen) return null
+
+  const circleStyle = {
+    animation: `rotate ${seconds}s linear infinite`
+  }
 
   return (
     <>
@@ -28,7 +50,11 @@ function ModalThanhToanSuccess ({ isOpen, onClose }) {
                 fontSize: '15px'
               }}
             >
-              Về trang chủ <div className='sogiay'></div>
+              Về trang chủ{' '}
+              <div className='sogiay'>
+                <div className='circle' style={circleStyle}></div>
+                <span>{seconds} giây</span>
+              </div>
             </button>
           </div>
         </div>
