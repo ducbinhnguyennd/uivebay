@@ -17,6 +17,7 @@ import SearchQuocTe from '../Layout/SearchLayout/SearchQuocTe/SearchQuocTe'
 import SearchKHQT from '../Layout/SearchLayout/SearchQuocTe/SearchKHQT'
 import BlogDetail from '../components/Blogs/BlogDetail'
 import BlogDetailKM from '../components/Blogs/BlogDetailKM'
+import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHang'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -36,6 +37,8 @@ const publicRoutes = [
   { path: '/searchkhuhoiquocte', component: SearchKHQT },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
+  { path: '/chitietdonhang', component: ChiTietDonHang },
+
 
 ]
 const privateRoutes = []

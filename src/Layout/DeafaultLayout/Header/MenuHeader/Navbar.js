@@ -72,7 +72,7 @@ const Navbar = () => {
         <li><a href="/xem-lai-don-hang">Xem lại đơn hàng</a></li>
         <li><a href="/tien-ich">Tiện ích</a></li>
         <li><a href="/tin-khuyen-mai">Tin khuyến mãi</a></li>
-        <li><a href="/gioi-thieu">Giới thiệu</a></li>
+        {/* <li><a href="/gioi-thieu">Giới thiệu</a></li> */}
         <li><a href="/lien-he">Liên hệ</a></li>
       </ul>
     </div>
