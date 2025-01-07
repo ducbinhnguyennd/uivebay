@@ -1,10 +1,6 @@
 import React from "react";
 import "./LienHe.scss";
 function LienHe() {
-  const handleHideMessage = () => {
-    // Logic for hiding the message
-    console.log("Hide message");
-  };
 
   const handleFileChange = () => {
     // Logic for handling file changes or form submission
@@ -22,23 +18,6 @@ function LienHe() {
         backgroundColor: "#fff",
       }}
     >
-      {/* <div id="pnlMessage">
-        <div className="message-box">
-          <div className="message-title">ABAY.VN</div>
-          <p id="lblMessage" className="message-content"></p>
-          <div className="message-footer">
-            <span
-              className="click"
-              onClick={handleHideMessage}
-              style={{ display: "none" }}
-            >
-              OK
-            </span>
-            <span className="waiting">Vui lòng đợi trong giây lát</span>
-          </div>
-        </div>
-      </div> */}
-
       <div style={{ width: "800px", margin: "0 auto", textAlign: "left" }}>
         
         <table className="tbl">
