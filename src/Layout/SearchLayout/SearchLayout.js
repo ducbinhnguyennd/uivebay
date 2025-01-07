@@ -10,7 +10,7 @@ import {
   LunarCalendarFormat,
   formatDate,
   getSurroundingDates,
-  CalendarFormat
+  CalendarFormat,
 } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import {
   applyFilters,
@@ -20,7 +20,6 @@ import {
   toggleDetails,
   getAirlineImage,
   getAirlineName,
-  handleDateClick,
   HandelTonggia,
   calculateDuration
 } from './SearchLayoutFunction'
@@ -37,7 +36,6 @@ function SearchLayout () {
     setSearchData,
     setdate
   } = useToast()
-  const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
   const [phantrams, setphantram] = useState([])
@@ -198,7 +196,7 @@ function SearchLayout () {
             </div>
 
             <div className='flight-options'>
-              {(activeDate === 'Thứ Bảy' || activeDate === 'Thứ Hai') &&
+              {
                 Array.isArray(searchData.outBound.data.flights) &&
                 flights1.map((flight, index) => (
                   <div

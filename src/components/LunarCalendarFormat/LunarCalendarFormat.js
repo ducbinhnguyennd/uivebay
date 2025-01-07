@@ -54,3 +54,51 @@ export const getSurroundingDates = dateString => {
 
   return { previousTwoDays, nextTwoDays }
 }
+
+
+
+export const getSurroundingDateskhuhoinoidia = dateString => {
+  const givenDate = new Date(dateString) // Tạo đối tượng Date từ chuỗi
+  const previousTwoDays = []
+  const nextTwoDays = []
+
+  // Lấy 2 ngày trước
+  for (let i = 1; i <= 1; i++) {
+    const newDate = new Date(givenDate)
+    newDate.setDate(newDate.getDate() - i)
+    previousTwoDays.push(newDate.toISOString().split('T')[0])
+  }
+
+  // Lấy 2 ngày sau
+  for (let i = 1; i <= 1; i++) {
+    const newDate = new Date(givenDate)
+    newDate.setDate(newDate.getDate() + i)
+    nextTwoDays.push(newDate.toISOString().split('T')[0])
+  }
+
+  return { previousTwoDays, nextTwoDays }
+}
+
+export const getSurroundingDateskhuhoinoidia1 = dateString => {
+  const givenDate = new Date(dateString) // Tạo đối tượng Date từ chuỗi
+  const previousTwoDays1 = []
+  const nextTwoDays1 = []
+
+  // Lấy 2 ngày trước
+  for (let i = 1; i <= 1; i++) {
+    const newDate = new Date(givenDate)
+    newDate.setDate(newDate.getDate() - i)
+    previousTwoDays1.push(newDate.toISOString().split('T')[0])
+  }
+
+  // Lấy 2 ngày sau
+  for (let i = 1; i <= 1; i++) {
+    const newDate = new Date(givenDate)
+    newDate.setDate(newDate.getDate() + i)
+    nextTwoDays1.push(newDate.toISOString().split('T')[0])
+  }
+
+  return { previousTwoDays1, nextTwoDays1 }
+}
+
+

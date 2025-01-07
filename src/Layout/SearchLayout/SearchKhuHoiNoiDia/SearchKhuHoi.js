@@ -7,7 +7,10 @@ import FilterComponent from '../../../components/SideBar/Filter'
 import SearchSidebar from '../../../components/SideBar/SearchSideBar'
 import {
   LunarCalendarFormat,
-  formatDate
+  formatDate,
+  getSurroundingDateskhuhoinoidia,
+  CalendarFormat,
+  getSurroundingDateskhuhoinoidia1
 } from '../../../components/LunarCalendarFormat/LunarCalendarFormat'
 import {
   applyFilters,
@@ -17,7 +20,6 @@ import {
   toggleDetails,
   getAirlineImage,
   getAirlineName,
-  // handleDateClick,
   HandelTonggia,
   calculateDuration
 } from '../SearchLayoutFunction'
@@ -30,9 +32,11 @@ function SearchKhuHoi () {
     mato,
     date,
     returnDate,
-    mangnguoi
+    mangnguoi,
+    setSearchData,
+    setdate,
+    setreturnDate
   } = useToast()
-  // const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [visibleDetailIndex2, setVisibleDetailIndex2] = useState(null)
 
@@ -40,17 +44,14 @@ function SearchKhuHoi () {
   const [phantrams, setphantram] = useState([])
   const [selectedFlight, setSelectedFlight] = useState(null)
   const [selectedFlight1, setSelectedFlight1] = useState(null)
+  const { previousTwoDays, nextTwoDays } = getSurroundingDateskhuhoinoidia(date)
+  const { previousTwoDays1, nextTwoDays1 } = getSurroundingDateskhuhoinoidia1(returnDate)
 
   const [filters, setFilters] = useState({
     sortBy: 'abay-suggest',
     airlines: []
   })
-  // const navigate = useNavigate()
-  const [selectedTab, setSelectedTab] = useState('T.Bay 04/01')
 
-  const handleTabClick = tab => {
-    setSelectedTab(tab)
-  }
   const fetchhang = async () => {
     try {
       const response = await fetch('https://demovemaybay.shop/gethangmaybay')
@@ -84,19 +85,70 @@ function SearchKhuHoi () {
   const flights1 = applyFilters(searchData.outBound.data.flights, filters)
   const flights2 = applyFilters(searchData.inBound.data.flights, filters)
 
-  // const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
+  const handleSearch = async date => {
+    try {
+      const requestData = {
+        departure: mafrom,
+        arrival: mato,
+        date: formatDate(date),
+        adults: mangnguoi[0]?.songuoi,
+        children: mangnguoi[1]?.songuoi || 0,
+        infants: mangnguoi[2]?.songuoi || 0,
+        returnDate: formatDate(returnDate)
+      }
 
-  // const totalPrice = mangnguoi.reduce((total, item) => {
-  //   if (!selectedFlight || !selectedFlight.price) {
-  //     return total
-  //   }
-  //   const pricePerTicket =
-  //     (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
-  //       phantrams[0].phantram) /
-  //     100
-  //   const taxAndFee = (pricePerTicket * 30) / 100
-  //   return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
-  // }, 0)
+      const response = await fetch(
+        'https://wooordersystem.store/order-woo/api/getInfoFlights',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData)
+        }
+      )
+      const data = await response.json()
+
+      if (response.ok) {
+        setSearchData(data)
+        setdate(date)
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleSearch1 = async returnDate => {
+    try {
+      const requestData = {
+        departure: mafrom,
+        arrival: mato,
+        date: formatDate(date),
+        adults: mangnguoi[0]?.songuoi,
+        children: mangnguoi[1]?.songuoi || 0,
+        infants: mangnguoi[2]?.songuoi || 0,
+        returnDate: formatDate(returnDate)
+      }
+
+      const response = await fetch(
+        'https://wooordersystem.store/order-woo/api/getInfoFlights',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData)
+        }
+      )
+      const data = await response.json()
+
+      if (response.ok) {
+        setSearchData(data)
+        setreturnDate(returnDate)
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className='search-layout'>
       <div className='content-wrapper'>
@@ -121,21 +173,28 @@ function SearchKhuHoi () {
               </div>
 
               <div className='tabs'>
-                {[
-                  { label: 'T.Năm 02/01', price: '1,028,000đ' },
-                  { label: 'T.Sáu 03/01', price: '490,000đ' },
-                  { label: 'T.Bay 04/01', price: '1,028,000đ' },
-                  { label: 'C.Nhật 05/01', price: '490,000đ' },
-                  { label: 'T.Hai 06/01', price: '490,000đ' }
-                ].map(tab => (
+                {previousTwoDays.map((day, index) => (
                   <div
-                    key={tab.label}
-                    className={`tab ${
-                      selectedTab === tab.label ? 'active' : ''
-                    }`}
-                    onClick={() => handleTabClick(tab.label)}
+                    key={index}
+                    className={`date`}
+                    onClick={() => handleSearch(day)}
                   >
-                    <div>{tab.label}</div>
+                    {CalendarFormat(day)}
+                    <br />
+                  </div>
+                ))}
+                <div className={`date ${date ? 'active' : ''}`}>
+                  {CalendarFormat(date)}
+                  <br />
+                </div>
+                {nextTwoDays.map((day, index) => (
+                  <div
+                    key={index}
+                    className={`date`}
+                    onClick={() => handleSearch(day)}
+                  >
+                    {CalendarFormat(day)}
+                    <br />
                   </div>
                 ))}
               </div>
@@ -421,21 +480,28 @@ function SearchKhuHoi () {
               </div>
 
               <div className='tabs'>
-                {[
-                  { label: 'T.Năm 02/01', price: '1,028,000đ' },
-                  { label: 'T.Sáu 03/01', price: '490,000đ' },
-                  { label: 'T.Bay 04/01', price: '1,028,000đ' },
-                  { label: 'C.Nhật 05/01', price: '490,000đ' },
-                  { label: 'T.Hai 06/01', price: '490,000đ' }
-                ].map(tab => (
+                {previousTwoDays1.map((day, index) => (
                   <div
-                    key={tab.label}
-                    className={`tab ${
-                      selectedTab === tab.label ? 'active1' : ''
-                    }`}
-                    onClick={() => handleTabClick(tab.label)}
+                    key={index}
+                    className={`date`}
+                    onClick={() => handleSearch1(day)}
                   >
-                    <div>{tab.label}</div>
+                    {CalendarFormat(day)}
+                    <br />
+                  </div>
+                ))}
+                <div className={`date ${returnDate ? 'active' : ''}`}>
+                  {CalendarFormat(returnDate)}
+                  <br />
+                </div>
+                {nextTwoDays1.map((day, index) => (
+                  <div
+                    key={index}
+                    className={`date`}
+                    onClick={() => handleSearch1(day)}
+                  >
+                    {CalendarFormat(day)}
+                    <br />
                   </div>
                 ))}
               </div>
