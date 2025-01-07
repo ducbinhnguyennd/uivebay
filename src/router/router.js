@@ -8,6 +8,7 @@ import { SearchLayout } from '../Layout/SearchLayout'
 import { HangMayBayLayout } from '../Layout/AdminLayout/HangMayBayLayout'
 import { TheLoaiBlog } from '../Layout/AdminLayout/TheLoaiBlogLayout'
 import { PhanTramLayout } from '../Layout/AdminLayout/PhanTramLayout'
+import { Login } from '../Layout/AdminLayout/LoginLayout'
 import DatVe from '../Layout/DatVe/DatVe'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
@@ -36,7 +37,7 @@ const publicRoutes = [
   { path: '/searchkhuhoiquocte', component: SearchKHQT },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
-
+  { path: '/login', component: Login, layout: null }
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }

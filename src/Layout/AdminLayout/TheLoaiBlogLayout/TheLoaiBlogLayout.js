@@ -17,7 +17,7 @@ function TheLoaiBlogLayout () {
 
   const fetchTheLoai = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/gettheloaiblog')
+      const response = await fetch('https://demovemaybay.shop/gettheloaiblog')
       const data = await response.json()
       if (response.ok) {
         setData(data)

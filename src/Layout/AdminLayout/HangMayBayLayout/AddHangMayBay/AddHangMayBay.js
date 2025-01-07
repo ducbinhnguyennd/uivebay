@@ -47,10 +47,13 @@ function AddHangMayBay ({ isOpen, onClose, fetchdata }) {
           formData.append('image', file)
         }
 
-        const response = await fetch('https://webmaybay.vercel.app/posthangmaybay', {
-          method: 'POST',
-          body: formData
-        })
+        const response = await fetch(
+          'https://demovemaybay.shop/posthangmaybay',
+          {
+            method: 'POST',
+            body: formData
+          }
+        )
         if (response.ok) {
           fetchdata()
           handlehuy()

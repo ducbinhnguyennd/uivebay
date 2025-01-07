@@ -53,7 +53,7 @@ function SearchKhuHoi () {
   }
   const fetchhang = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/gethangmaybay')
+      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
       const data = await response.json()
       if (response.ok) {
         sethangmaybay(data)
@@ -65,7 +65,7 @@ function SearchKhuHoi () {
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/getphantram')
+      const response = await fetch('https://demovemaybay.shop/getphantram')
       const data = await response.json()
       console.log(data)
       if (response.ok) {

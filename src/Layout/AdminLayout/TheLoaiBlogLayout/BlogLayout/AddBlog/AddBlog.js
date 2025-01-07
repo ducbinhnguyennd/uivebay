@@ -13,15 +13,15 @@ function AddBlog ({ isOpen, onClose, fetchdata, idtheloai }) {
   const { showToast } = useToast()
 
   const modules = {
-  toolbar: [
-    [{ header: '1' }, { header: '2' }, { font: [] }],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    ['bold', 'italic', 'underline'],
-    [{ align: [] }], // add align toolbar
-    ['link'],
-    ['image']
-  ]
-}
+    toolbar: [
+      [{ header: '1' }, { header: '2' }, { font: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['bold', 'italic', 'underline'],
+      [{ align: [] }], // add align toolbar
+      ['link'],
+      ['image']
+    ]
+  }
 
   const validateinput = () => {
     let valid = true
@@ -50,7 +50,7 @@ function AddBlog ({ isOpen, onClose, fetchdata, idtheloai }) {
     if (validateinput()) {
       try {
         const response = await fetch(
-          `https://webmaybay.vercel.app/postblog/${idtheloai}`,
+          `https://demovemaybay.shop/postblog/${idtheloai}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -86,8 +86,7 @@ function AddBlog ({ isOpen, onClose, fetchdata, idtheloai }) {
             onChange={setnoidung}
             placeholder='Nhập nội dung'
             theme='snow'
-            modules = { modules }
-
+            modules={modules}
           />
         </div>
         <div className='footeraddvung'>

@@ -10,13 +10,13 @@ const removeVietnameseTones = str => {
     .toLowerCase()
 }
 
-function TableThanhPho ({ title, onSelect,data,setdata }) {
+function TableThanhPho ({ title, onSelect, data, setdata }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [suggestions, setSuggestions] = useState([])
 
   const fetchthanhpho = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/getfulltp')
+      const response = await fetch('https://demovemaybay.shop/getfulltp')
       const data = await response.json()
       if (response.ok) {
         setdata(data)
@@ -28,7 +28,7 @@ function TableThanhPho ({ title, onSelect,data,setdata }) {
 
   useEffect(() => {
     fetchthanhpho()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

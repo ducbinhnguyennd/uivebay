@@ -32,3 +32,25 @@ export const formatDate = isoDate => {
   const [year, month, day] = isoDate.split('-')
   return `${day}/${month}/${year}`
 }
+
+export const getSurroundingDates = dateString => {
+  const givenDate = new Date(dateString) // Tạo đối tượng Date từ chuỗi
+  const previousTwoDays = []
+  const nextTwoDays = []
+
+  // Lấy 2 ngày trước
+  for (let i = 1; i <= 2; i++) {
+    const newDate = new Date(givenDate)
+    newDate.setDate(newDate.getDate() - i)
+    previousTwoDays.push(newDate.toISOString().split('T')[0])
+  }
+
+  // Lấy 2 ngày sau
+  for (let i = 1; i <= 2; i++) {
+    const newDate = new Date(givenDate)
+    newDate.setDate(newDate.getDate() + i)
+    nextTwoDays.push(newDate.toISOString().split('T')[0])
+  }
+
+  return { previousTwoDays, nextTwoDays }
+}

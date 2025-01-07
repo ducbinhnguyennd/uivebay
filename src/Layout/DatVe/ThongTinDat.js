@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-script-url */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
@@ -24,6 +25,8 @@ function ThongTinDat () {
   const [themkhach, setthemkhach] = useState(false)
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [sokhachthem, setsokhachthem] = useState(0)
+  const [phantrams, setphantram] = useState([])
+
 
   const navigate = useNavigate()
 
@@ -37,12 +40,13 @@ function ThongTinDat () {
     tienve,
     mangnguoi,
     showToast,
-    sethoadon
+    sethoadon,
+    settienve
   } = useToast()
 
   const fetchhang = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/gethangmaybay')
+      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
       const data = await response.json()
       if (response.ok) {
         sethangmaybay(data)
@@ -52,9 +56,46 @@ function ThongTinDat () {
     }
   }
 
+  const fetchphantram = async () => {
+  try {
+    const response = await fetch('https://demovemaybay.shop/getphantram')
+    const data = await response.json()
+    if (response.ok) {
+      setphantram(data)
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
   useEffect(() => {
     fetchhang()
+    fetchphantram()
   }, [])
+
+  useEffect(() => {
+    if (
+      !flightdata ||
+      !flightdata.price ||
+      !phantrams ||
+      phantrams.length === 0
+    )
+      return
+
+    const totalPrice2 = mangnguoi.reduce((total, item) => {
+      const pricePerTicket =
+        parseInt(flightdata.price.replace(/,/g, ''), 10) -
+        (parseInt(flightdata.price.replace(/,/g, ''), 10) *
+          phantrams[0].phantram) /
+          100
+
+      const taxAndFee = (pricePerTicket * 30) / 100
+      return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
+    }, 0)
+
+    settienve(totalPrice2)
+  }, [flightdata, mangnguoi, phantrams])
 
   const validate = () => {
     let valid = true
@@ -122,7 +163,7 @@ function ThongTinDat () {
           phone,
           email,
           ngaybay: date,
-          chuyenbay:flightdata.flightNumber,
+          chuyenbay: flightdata.flightNumber,
           hang: flightdata.airlineCode,
           cityfrom: mafrom,
           cityto: mato,
