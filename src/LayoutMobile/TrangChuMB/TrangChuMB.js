@@ -4,25 +4,25 @@ import { useState } from "react";
 function TrangChuMB() {
   const items = [
     {
-      href: "/_WEB/DonHang/Page/Payment.aspx",
+      href: "/",
       imgSrc: "/pay.png",
       imgAlt: "thanh toán trực tuyến vé máy bay",
       text: "Thanh toán trực tuyến",
     },
     {
-      href: "/xem-lai-booking",
+      href: "/xem-lai-don-hang",
       imgSrc: "/order.png",
       imgAlt: "xem lại booking vé máy bay giá rẻ đã đặt",
       text: "Xem lại đơn hàng",
     },
     {
-      href: "/khach-hang-noi-ve-chung-toi",
+      href: "/",
       imgSrc: "/review.png",
       imgAlt: "khách hàng",
       text: "Khách hàng nói về\nChúng tôi",
     },
     {
-      href: "/cau-hoi-thuong-gap",
+      href: "/",
       imgSrc: "/faq.png",
       imgAlt: "câu hỏi về cách săn vé máy bay giá rẻ",
       text: "Câu hỏi thường gặp",

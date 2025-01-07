@@ -22,6 +22,7 @@ import BlogDetailKM from '../components/Blogs/BlogDetailKM'
 import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHang'
 import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/ThongTinChuyenKhoan'
 import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
+import LienHeMB from '../LayoutMobile/DefaultLayoutMB/LienHeMB/LienHeMB'
 
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
@@ -35,7 +36,10 @@ const publicRoutes = [
       return isMobile ? <TrangChuMB /> : <TrangChuLayout />
     }
   },
-  { path: '/lien-he', component: LienHe },
+  { path: '/lien-he', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <LienHeMB /> : <LienHe />
+  } },
   { path: '/search', component: SearchLayout },
   { path: '/gioi-thieu', component: GioiThieu },
   { path: '/vung', component: VungLayout, layout: 'admin' },
