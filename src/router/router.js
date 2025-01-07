@@ -21,19 +21,20 @@ import BlogDetail from '../components/Blogs/BlogDetail'
 import BlogDetailKM from '../components/Blogs/BlogDetailKM'
 import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHang'
 import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/ThongTinChuyenKhoan'
-import DeafaultLayoutMB from '../LayoutMobile/DefaultLayoutMB/DefaultLayoutMB'
+import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
 
-const useIsMobile = () => {
+const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
 }
 
-
 const publicRoutes = [
-  //  {
-  //   path: '/',
-  //   component: useIsMobile() ? DeafaultLayoutMB : TrangChuLayout,
-  // },
-  { path: '/', component: TrangChuLayout },
+  {
+    path: '/',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <TrangChuMB /> : <TrangChuLayout />
+    }
+  },
   { path: '/lien-he', component: LienHe },
   { path: '/search', component: SearchLayout },
   { path: '/gioi-thieu', component: GioiThieu },
@@ -53,7 +54,6 @@ const publicRoutes = [
   { path: '/chitietdonhang', component: ChiTietDonHang },
   { path: '/thongtinchuyenkhoan', component: ThongTinChuyenKhoan },
   { path: '/login', component: Login, layout: null }
-
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }

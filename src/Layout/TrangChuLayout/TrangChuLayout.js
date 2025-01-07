@@ -6,39 +6,9 @@ import FlightBookingForm from "../../components/FlyBookingForm/FlyBookingForm";
 import HinhThuc from "./HinhThuc/HinhThuc";
 import CauHoiThuongGap from "./CauHoiThuongGap/CauHoiThuongGap";
 function TrangChuLayout() {
-  const [data, setdata] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchdata = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch("https://baominh.shop/sanpham");
-      const data = await response.json();
-      if (response.ok) {
-        setdata(data);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchdata();
-  }, []);
-
-  const handleAddToCart = (product) => {
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const updatedCart = [...existingCart, product];
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    alert(`${product.name} đã được thêm vào giỏ hàng!`);
-  };
 
   return (
     <div>
-      {isLoading && <Loading />}
-      {!isLoading && (
         <div>
           <div className="working-hours-container">
             <div className="icon-container">
@@ -66,7 +36,7 @@ function TrangChuLayout() {
           <CauHoiThuongGap/>
          
         </div>
-      )}
+
     </div>
   );
 }
