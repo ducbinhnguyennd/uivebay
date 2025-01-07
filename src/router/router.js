@@ -8,6 +8,7 @@ import { SearchLayout } from '../Layout/SearchLayout'
 import { HangMayBayLayout } from '../Layout/AdminLayout/HangMayBayLayout'
 import { TheLoaiBlog } from '../Layout/AdminLayout/TheLoaiBlogLayout'
 import { PhanTramLayout } from '../Layout/AdminLayout/PhanTramLayout'
+import { Login } from '../Layout/AdminLayout/LoginLayout'
 import DatVe from '../Layout/DatVe/DatVe'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
@@ -18,6 +19,7 @@ import SearchKHQT from '../Layout/SearchLayout/SearchQuocTe/SearchKHQT'
 import BlogDetail from '../components/Blogs/BlogDetail'
 import BlogDetailKM from '../components/Blogs/BlogDetailKM'
 import ChiTietDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/ChiTietDonHang'
+import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/ThongTinChuyenKhoan'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -38,7 +40,8 @@ const publicRoutes = [
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
   { path: '/chitietdonhang', component: ChiTietDonHang },
-
+  { path: '/thongtinchuyenkhoan', component: ThongTinChuyenKhoan },
+  { path: '/login', component: Login, layout: null }
 
 ]
 const privateRoutes = []

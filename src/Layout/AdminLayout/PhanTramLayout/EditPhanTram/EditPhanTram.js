@@ -32,7 +32,7 @@ function EditPhanTram ({ isOpen, onClose, fetchdata, tenphantram, idphantram }) 
     if (validateinput()) {
       try {
         const response = await fetch(
-          `https://webmaybay.vercel.app/putphantram/${idphantram}`,
+          `https://demovemaybay.shop/putphantram/${idphantram}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

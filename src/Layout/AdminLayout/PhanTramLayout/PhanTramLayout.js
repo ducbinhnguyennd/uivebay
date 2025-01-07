@@ -15,7 +15,7 @@ function PhanTramLayout () {
 
   const fetchVung = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/getphantram')
+      const response = await fetch('https://demovemaybay.shop/getphantram')
       const data = await response.json()
       if (response.ok) {
         setData(data)
@@ -50,7 +50,9 @@ function PhanTramLayout () {
 
   const handleUpdate = () => {
     if (selectedIds.length === 1) {
-      const selectedName = data.find(item => item._id === selectedIds[0])?.phantram
+      const selectedName = data.find(
+        item => item._id === selectedIds[0]
+      )?.phantram
       setnameselected(selectedName)
       console.log(nameselected)
       setIsOpenEdit(true)

@@ -15,7 +15,7 @@ function HangMayBayLayout () {
 
   const fetchHangMayBay = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/gethangmaybay')
+      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
       const data = await response.json()
       if (response.ok) {
         setData(data)

@@ -36,28 +36,28 @@ function HinhThuc() {
               <span className="insideLi">Qua chat</span>
               <div className="chatList">
                 <a
-                  onClick={() =>
-                    window.open("https://www.zopim.com/livechat/abay.vn")
-                  }
+                  // onClick={() =>
+                  //   window.open("https://www.zopim.com/livechat/abay.vn")
+                  // }
                 >
                   <img src="/zopim.png" alt="Chat tren website" />
                 </a>{" "}
-                <a target="_blank" href="//m.me/abay.vn">
+                <a target="_blank" >
                   <img src="/messenger.png" alt="Chat qua Facebook Messeger" />
                 </a>{" "}
                 <a
                   target="_blank"
-                  href="/tin-tuc/huong-dan-cach-lien-he-voi-abay-qua-zalo.aspx"
+                 
                 >
                   <img src="/zalo.png" alt="Chat qua Zalo" />
                 </a>{" "}
                 <a
                   target="_blank"
-                  href="/tin-tuc/cach-lien-he-voi-abay-qua-viber.aspx"
+                 
                 >
                   <img src="/viber.png" alt="Chat qua Viber" />
                 </a>{" "}
-                <a href="skype:abay.chat1?chat">
+                <a>
                   <img src="/skype.png" alt="" />
                 </a>
               </div>
@@ -79,7 +79,8 @@ function HinhThuc() {
                 Tổng đài:{" "}
                 <a className="telTD" href="tel:19006091">
                   {" "}
-                  1900 6091{" "}
+                  {/* 1900 6091 */}
+                  {" "}
                 </a>{" "}
               </span>
               <div className="clr"></div>

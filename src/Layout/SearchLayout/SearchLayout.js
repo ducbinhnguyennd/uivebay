@@ -8,7 +8,9 @@ import FilterComponent from '../../components/SideBar/Filter'
 import SearchSidebar from '../../components/SideBar/SearchSideBar'
 import {
   LunarCalendarFormat,
-  formatDate
+  formatDate,
+  getSurroundingDates,
+  CalendarFormat
 } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import {
   applyFilters,
@@ -32,8 +34,8 @@ function SearchLayout () {
     date,
     mangnguoi,
     setflightdata,
-    settienve,
-    flightdata
+    setSearchData,
+    setdate
   } = useToast()
   const [activeDate, setActiveDate] = useState('Thứ Bảy')
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
@@ -44,11 +46,15 @@ function SearchLayout () {
     sortBy: 'abay-suggest',
     airlines: []
   })
+  const { previousTwoDays, nextTwoDays } = getSurroundingDates(date)
+  console.log(previousTwoDays)
+  console.log(nextTwoDays)
+
   const navigate = useNavigate()
 
   const fetchhang = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/gethangmaybay')
+      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
       const data = await response.json()
       if (response.ok) {
         sethangmaybay(data)
@@ -60,7 +66,7 @@ function SearchLayout () {
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/getphantram')
+      const response = await fetch('https://demovemaybay.shop/getphantram')
       const data = await response.json()
       if (response.ok) {
         setphantram(data)
@@ -75,15 +81,36 @@ function SearchLayout () {
     fetchphantram()
   }, [])
 
-  const dates = [
-    { day: 'Thứ Hai', date: '06/01', price: '868,000đ' },
-    { day: 'Thứ Ba', date: '06/01', price: '868,000đ' },
-    { day: 'Thứ Tư', date: '01/01', price: '' },
-    { day: 'Thứ Năm', date: '02/01', price: '' },
-    { day: 'Thứ Sáu', date: '03/01', price: '1,010,000đ' },
-    { day: 'Thứ Bảy', date: '04/01', price: '868,000đ' },
-    { day: 'Chủ Nhật', date: '05/01', price: '1,008,000đ' }
-  ]
+  const handleSearch = async date => {
+    try {
+      const requestData = {
+        departure: mafrom,
+        arrival: mato,
+        date: formatDate(date),
+        adults: mangnguoi[0]?.songuoi ,
+        children: mangnguoi[1]?.songuoi || 0,
+        infants: mangnguoi[2]?.songuoi || 0
+      }
+
+      const response = await fetch(
+        'https://wooordersystem.store/order-woo/api/getInfoFlights',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData)
+        }
+      )
+      const data = await response.json()
+
+      if (response.ok) {
+        setSearchData(data)
+        setdate(date)
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const flights1 = applyFilters(searchData.outBound.data.flights, filters)
   const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
@@ -102,25 +129,6 @@ function SearchLayout () {
       (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
         phantrams[0].phantram) /
         100
-    const taxAndFee = (pricePerTicket * 30) / 100
-    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
-  }, 0)
-
-  const totalPrice2 = mangnguoi.reduce((total, item) => {
-    if (
-      !flightdata ||
-      !flightdata.price ||
-      !phantrams ||
-      phantrams.length === 0
-    ) {
-      return total
-    }
-    const pricePerTicket =
-      parseInt(flightdata.price.replace(/,/g, ''), 10) -
-      (parseInt(flightdata.price.replace(/,/g, ''), 10) *
-        phantrams[0].phantram) /
-        100
-
     const taxAndFee = (pricePerTicket * 30) / 100
     return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
   }, 0)
@@ -163,15 +171,28 @@ function SearchLayout () {
             </div>
 
             <div className='date-selection'>
-              {dates.map(({ day, date, price }) => (
+              {previousTwoDays.map((day, index) => (
                 <div
-                  key={day}
-                  className={`date ${activeDate === day ? 'active' : ''}`}
-                  onClick={() => handleDateClick(day, setActiveDate)}
+                  key={index}
+                  className={`date`}
+                  onClick={() => handleSearch(day)}
                 >
-                  {day}
+                  {CalendarFormat(day)}
                   <br />
-                  {price || date}
+                </div>
+              ))}
+              <div className={`date ${date ? 'active' : ''}`}>
+                {CalendarFormat(date)}
+                <br />
+              </div>
+              {nextTwoDays.map((day, index) => (
+                <div
+                  key={index}
+                  className={`date`}
+                  onClick={() => handleSearch(day)}
+                >
+                  {CalendarFormat(day)}
+                  <br />
                 </div>
               ))}
             </div>
@@ -184,7 +205,6 @@ function SearchLayout () {
                     key={index}
                     onClick={() => {
                       setflightdata(flight)
-                      settienve(totalPrice2)
                       navigate('/datve')
                     }}
                     style={{ cursor: 'pointer' }}

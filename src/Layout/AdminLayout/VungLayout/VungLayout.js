@@ -19,7 +19,7 @@ function VungLayout () {
 
   const fetchVung = async () => {
     try {
-      const response = await fetch('https://webmaybay.vercel.app/getvung')
+      const response = await fetch('https://demovemaybay.shop/getvung')
       const data = await response.json()
       if (response.ok) {
         setData(data)
