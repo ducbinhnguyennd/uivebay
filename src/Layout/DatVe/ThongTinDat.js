@@ -62,10 +62,9 @@ function ThongTinDat () {
     0
   )
   const tongPriceKygui = khachhangs.reduce(
-  (total, khach) => total + khach.pricekygui,
-  0
-)
-
+    (total, khach) => total + khach.pricekygui,
+    0
+  )
 
   const getFlatIndex = (index, idx) =>
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
@@ -98,7 +97,7 @@ function ThongTinDat () {
   useEffect(() => {
     fetchhang()
     fetchphantram()
-  }, [])
+  }, [phantrams, hangmaybay])
 
   useEffect(() => {
     if (
@@ -268,12 +267,7 @@ function ThongTinDat () {
                                 <img
                                   align='absmiddle'
                                   className='img-VJ-Full'
-                                  src='/_WEB/_File/Images/AirlineLogo/smVJ.gif'
                                   alt=''
-                                  onError={e =>
-                                    (e.target.src =
-                                      '/_WEB/_File/Images/AirlineLogo/WW.gif')
-                                  }
                                 />
                               </span>
                               &nbsp;
@@ -348,16 +342,16 @@ function ThongTinDat () {
                                   </tr>
                                 </tbody>
                               </table>
-                              <table
-                                className='tbl-baggage'
-                              >
+                              <table className='tbl-baggage'>
                                 <tbody>
                                   <tr>
                                     <td className='col-title'>Hành lý</td>
                                     <td className='col-calculator'></td>
                                     <td className='col-equal'>=</td>
                                     <td className='col-price'>
-                                      <span className='p-baggage'>{tongPriceKygui.toLocaleString()}</span>{' '}
+                                      <span className='p-baggage'>
+                                        {tongPriceKygui.toLocaleString()}
+                                      </span>{' '}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
@@ -372,7 +366,11 @@ function ThongTinDat () {
                                       className='total-price'
                                       style={{ color: '#e84e0f' }}
                                     >
-                                      <span className='t-price'>{(tienve+tongPriceKygui).toLocaleString()}</span>{' '}
+                                      <span className='t-price'>
+                                        {(
+                                          tienve + tongPriceKygui
+                                        ).toLocaleString()}
+                                      </span>{' '}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
