@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import "./TrangChuMB.scss";
 import SearchMB from "../componentsMB/SearchMB/SearchMB";
 import { useState } from "react";

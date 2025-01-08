@@ -21,6 +21,11 @@ const ToastProvider = ({ children }) => {
     return flightdata ? JSON.parse(flightdata) : []
   })
 
+  const [flightdata2, setflightdata2] = useState(() => {
+    const flightdata2 = localStorage.getItem('flightdata2')
+    return flightdata2 ? JSON.parse(flightdata2) : []
+  })
+
   const [hoadon, sethoadon] = useState(() => {
     const hoadon = localStorage.getItem('hoadon')
     return hoadon ? JSON.parse(hoadon) : {}
@@ -28,6 +33,9 @@ const ToastProvider = ({ children }) => {
 
   const [tienve, settienve] = useState(() => {
     return localStorage.getItem('tienve') || null
+  })
+  const [tienveve, settienveve] = useState(() => {
+    return localStorage.getItem('tienveve') || null
   })
 
   const [cityfrom, setcityfrom] = useState(() => {
@@ -82,6 +90,10 @@ const ToastProvider = ({ children }) => {
   }, [flightdata])
 
   useEffect(() => {
+    localStorage.setItem('flightdata2', JSON.stringify(flightdata2))
+  }, [flightdata2])
+
+  useEffect(() => {
     localStorage.setItem('date', date)
   }, [date])
   useEffect(() => {
@@ -91,6 +103,10 @@ const ToastProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('tienve', tienve)
   }, [tienve])
+
+  useEffect(() => {
+    localStorage.setItem('tienveve', tienveve)
+  }, [tienveve])
 
   useEffect(() => {
     localStorage.setItem('hoadon', JSON.stringify(hoadon))
@@ -125,7 +141,11 @@ const ToastProvider = ({ children }) => {
         tienve,
         settienve,
         hoadon,
-        sethoadon
+        sethoadon,
+        flightdata2,
+        setflightdata2,
+        tienveve,
+        settienveve
       }}
     >
       {children}

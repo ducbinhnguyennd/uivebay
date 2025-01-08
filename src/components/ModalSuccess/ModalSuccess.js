@@ -1,26 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useNavigate } from 'react-router-dom'
 import './ModalSuccess.scss'
 
 function ModalThanhToanSuccess ({ isOpen, onClose }) {
   const [seconds, setSeconds] = useState(5)
-  const [timerActive, setTimerActive] = useState(true)
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (seconds === 0) {
       onClose()
+      navigate('/')
     }
 
     let interval
-    if (timerActive) {
+    if (isOpen) {
       interval = setInterval(() => {
         setSeconds(prevSeconds => prevSeconds - 1)
       }, 1000)
     }
 
     return () => clearInterval(interval)
-  }, [seconds, timerActive, onClose])
+  }, [seconds, isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -43,11 +45,7 @@ function ModalThanhToanSuccess ({ isOpen, onClose }) {
           </div>
           <div className='divbtnthanhtoansuccess'>
             <button
-              style={{
-                marginTop: '10px',
-                backgroundColor: 'rgb(1, 136, 46)',
-                fontSize: '15px'
-              }}
+              className='btnthanhtoansuccess'
             >
               Về trang chủ{' '}
               <div className='sogiay'>

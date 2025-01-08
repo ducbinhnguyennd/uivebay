@@ -24,6 +24,7 @@ import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/Th
 import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
 import LienHeMB from '../LayoutMobile/DefaultLayoutMB/LienHeMB/LienHeMB'
 import SearchNoiDiaMB from '../LayoutMobile/SearchMB/SearchNoiDiaMB/SearchNoiDiaMB'
+import DatVeKhuHoi from '../Layout/DatVe/DatVeKhuHoi'
 
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
@@ -51,6 +52,7 @@ const publicRoutes = [
   { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
   { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
   { path: '/datve', component: DatVe },
+  { path: '/datvekhuhoi', component: DatVeKhuHoi },
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
