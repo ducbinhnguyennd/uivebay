@@ -27,7 +27,7 @@ function ThongTinDat () {
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
-
+  
   const navigate = useNavigate()
 
   const handleInvoiceChange = () => setxuathoadon(!xuathoadon)

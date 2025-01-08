@@ -5,15 +5,11 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './DatVe.scss'
 import { useToast } from '../../components/useToast/ToastContext'
-import {
-  getAirlineName,
-  getAirlineImage,
-  calculateDuration
-} from '../SearchLayout/SearchLayoutFunction'
+
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import './ThongTinDatKhuHoi.scss'
 
-function ThongTinDatKhuHoi () {
+function ThongTinDatKhuHoiQT () {
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
   const [hangmaybay, sethangmaybay] = useState([])
   const [phone, setphone] = useState('')
@@ -45,7 +41,6 @@ function ThongTinDatKhuHoi () {
     showToast,
     sethoadon,
     settienve,
-    flightdata2,
     tienveve,
     settienveve,
     returnDate
@@ -107,9 +102,8 @@ function ThongTinDatKhuHoi () {
   useEffect(() => {
     if (
       !flightdata ||
-      !flightdata2 ||
-      !flightdata2.price ||
-      !flightdata.price ||
+      !flightdata.inbound.price ||
+      !flightdata.outbound.price ||
       !phantrams ||
       phantrams.length === 0
     )
@@ -117,10 +111,8 @@ function ThongTinDatKhuHoi () {
 
     const totalPrice2 = mangnguoi.reduce((total, item) => {
       const pricePerTicket =
-        parseInt(flightdata.price.replace(/,/g, ''), 10) -
-        (parseInt(flightdata.price.replace(/,/g, ''), 10) *
-          phantrams[0].phantram) /
-          100
+        flightdata.outbound.totalPrice -
+        (flightdata.outbound.totalPrice * phantrams[0].phantram) / 100
 
       const taxAndFee = (pricePerTicket * 30) / 100
       return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
@@ -129,17 +121,15 @@ function ThongTinDatKhuHoi () {
     settienve(totalPrice2)
     const totalPrice3 = mangnguoi.reduce((total, item) => {
       const pricePerTicket =
-        parseInt(flightdata2.price.replace(/,/g, ''), 10) -
-        (parseInt(flightdata2.price.replace(/,/g, ''), 10) *
-          phantrams[0].phantram) /
-          100
+        flightdata.inbound.totalPrice -
+        (flightdata.inbound.totalPrice * phantrams[0].phantram) / 100
 
       const taxAndFee = (pricePerTicket * 30) / 100
       return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
     }, 0)
 
     settienveve(totalPrice3)
-  }, [flightdata, flightdata2, mangnguoi, phantrams])
+  }, [flightdata, mangnguoi, phantrams])
 
   const validate = () => {
     let valid = true
@@ -207,12 +197,10 @@ function ThongTinDatKhuHoi () {
           phone,
           email,
           ngaybay: date,
-          chuyenbay: flightdata.flightNumber,
-          hang: flightdata.airlineCode,
           cityfrom: mafrom,
           cityto: mato,
-          hourfrom: flightdata.departureTime,
-          hourto: flightdata.arrivalTime,
+          hourfrom: flightdata.outbound.departureTime,
+          hourto: flightdata.outbound.arrivalTime,
           xuathoadon,
           masothue,
           tencongty,
@@ -220,10 +208,8 @@ function ThongTinDatKhuHoi () {
           ghichu,
           tienve,
           ngayve: returnDate,
-          hangve: flightdata2.airlineCode,
-          chuyenbayve: flightdata2.flightNumber,
-          hourvefrom: flightdata2.departureTime,
-          hourveto: flightdata2.arrivalTime,
+          hourvefrom: flightdata.inbound.departureTime,
+          hourveto: flightdata.inbound.arrivalTime,
           tienveve,
           khachhangs
         })
@@ -232,6 +218,9 @@ function ThongTinDatKhuHoi () {
         const data = await response.json()
         sethoadon(data)
         navigate('/thanhtoan')
+      }
+      else{
+        showToast('Đặt vé thất bại', 'warning')
       }
     } catch (error) {
       console.error(error)
@@ -287,49 +276,6 @@ function ThongTinDatKhuHoi () {
                             <td style={{ paddingRight: '40px' }}></td>
                           </tr>
                           <tr>
-                            <td>
-                              <span
-                                style={{
-                                  height: '16px',
-                                  width: '50px',
-                                  textAlign: 'center',
-                                  display: 'inline-block'
-                                }}
-                              >
-                                <img
-                                  align='absmiddle'
-                                  className='img-VJ-Full'
-                                  src={`${getAirlineImage(
-                                    flightdata.airlineCode,
-                                    hangmaybay
-                                  )}`}
-                                  alt=''
-                                />
-                              </span>
-                              &nbsp;
-                              <span
-                                style={{
-                                  verticalAlign: 'baseline',
-                                  width: '55px',
-                                  display: 'inline-block'
-                                }}
-                              >
-                                {flightdata.flightNumber}
-                              </span>
-                              <span
-                                style={{
-                                  verticalAlign: 'baseline',
-                                  display: 'inline-block',
-                                  paddingRight: '20px',
-                                  float: 'right'
-                                }}
-                              >
-                                {calculateDuration(
-                                  flightdata.departureTime,
-                                  flightdata.arrivalTime
-                                )}
-                              </span>
-                            </td>
                             <td
                               style={{
                                 textAlign: 'right',
@@ -338,9 +284,9 @@ function ThongTinDatKhuHoi () {
                               }}
                             >
                               <span className='bold'>
-                                {flightdata.departureTime}
+                                {flightdata.outbound.departureTime}
                               </span>{' '}
-                              - <span>{flightdata.arrivalTime}</span>
+                              - <span>{flightdata.outbound.arrivalTime}</span>
                             </td>
                             <td></td>
                           </tr>
@@ -393,49 +339,6 @@ function ThongTinDatKhuHoi () {
                             <td style={{ paddingRight: '40px' }}></td>
                           </tr>
                           <tr>
-                            <td>
-                              <span
-                                style={{
-                                  height: '16px',
-                                  width: '50px',
-                                  textAlign: 'center',
-                                  display: 'inline-block'
-                                }}
-                              >
-                                <img
-                                  align='absmiddle'
-                                  className='img-VJ-Full'
-                                  src={`${getAirlineImage(
-                                    flightdata2.airlineCode,
-                                    hangmaybay
-                                  )}`}
-                                  alt=''
-                                />
-                              </span>
-                              &nbsp;
-                              <span
-                                style={{
-                                  verticalAlign: 'baseline',
-                                  width: '55px',
-                                  display: 'inline-block'
-                                }}
-                              >
-                                {flightdata2.flightNumber}
-                              </span>
-                              <span
-                                style={{
-                                  verticalAlign: 'baseline',
-                                  display: 'inline-block',
-                                  paddingRight: '20px',
-                                  float: 'right'
-                                }}
-                              >
-                                {calculateDuration(
-                                  flightdata2.departureTime,
-                                  flightdata2.arrivalTime
-                                )}
-                              </span>
-                            </td>
                             <td
                               style={{
                                 textAlign: 'right',
@@ -444,9 +347,9 @@ function ThongTinDatKhuHoi () {
                               }}
                             >
                               <span className='bold'>
-                                {flightdata2.departureTime}
+                                {flightdata.inbound.departureTime}
                               </span>{' '}
-                              - <span>{flightdata2.arrivalTime}</span>
+                              - <span>{flightdata.inbound.arrivalTime}</span>
                             </td>
                             <td></td>
                           </tr>
@@ -474,22 +377,22 @@ function ThongTinDatKhuHoi () {
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé đi</td>
                                     <td className='col-calculator'>
-                                    {' '}  x {tongSoNguoi}
+                                      &nbsp;x {tongSoNguoi}
                                     </td>
                                     <td className='col-equal'>=</td>
                                     <td className='col-price'>
-                                      {tienve.toLocaleString()}
+                                      {parseFloat(tienve).toLocaleString()}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé về</td>
                                     <td className='col-calculator'>
-                                      x {tongSoNguoi}
+                                      &nbsp;x {tongSoNguoi}
                                     </td>
                                     <td className='col-equal'>=</td>
                                     <td className='col-price'>
-                                      {tienveve.toLocaleString()}
+                                      {parseFloat(tienveve).toLocaleString()}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
@@ -521,8 +424,8 @@ function ThongTinDatKhuHoi () {
                                     >
                                       <span className='t-price'>
                                         {(
-                                          tienve +
-                                          tienveve +
+                                          parseFloat(tienve) +
+                                          parseFloat(tienveve) +
                                           tongPriceKygui
                                         ).toLocaleString()}
                                       </span>{' '}
@@ -551,21 +454,9 @@ function ThongTinDatKhuHoi () {
                             <td>{mato}</td>
                           </tr>
                           <tr>
-                            <td>{flightdata.flightNumber}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'inline-block' }}>:</div>
-                              <div
-                                style={{
-                                  display: 'inline-block',
-                                  verticalAlign: 'inherit',
-                                  textAlign: 'justify',
-                                  whiteSpace: 'break-spaces'
-                                }}
-                              >
-                                {getAirlineName(
-                                  flightdata.airlineCode,
-                                  hangmaybay
-                                )}
+                              <div style={{ display: 'inline-block' }}>
+                                Máy bay chiều đi:
                               </div>
                               <div
                                 style={{
@@ -579,21 +470,9 @@ function ThongTinDatKhuHoi () {
                             </td>
                           </tr>
                           <tr>
-                            <td>{flightdata2.flightNumber}</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'inline-block' }}>:</div>
-                              <div
-                                style={{
-                                  display: 'inline-block',
-                                  verticalAlign: 'inherit',
-                                  textAlign: 'justify',
-                                  whiteSpace: 'break-spaces'
-                                }}
-                              >
-                                {getAirlineName(
-                                  flightdata2.airlineCode,
-                                  hangmaybay
-                                )}
+                              <div style={{ display: 'inline-block' }}>
+                                Máy bay chiều về:
                               </div>
                               <div
                                 style={{
@@ -1075,65 +954,33 @@ function ThongTinDatKhuHoi () {
                           <tbody>
                             <tr>
                               <td>Chuyến đi: </td>
-                              <td>
-                                <img
-                                  src={`${getAirlineImage(
-                                    flightdata.airlineCode,
-                                    hangmaybay
-                                  )}`}
-                                  alt=''
-                                  className='img-VJ-Full h30'
-                                />
-                              </td>
-                              <td className='nowrap'>
-                                {getAirlineName(
-                                  flightdata.airlineCode,
-                                  hangmaybay
-                                )}
-                              </td>
                               <td className='nowrap'>
                                 <span>&nbsp;{CalendarFormat(date)}</span>
                               </td>
                               <td className='nowrap'>
                                 <span className='bold'>
                                   &nbsp;&nbsp;{mafrom}&nbsp;
-                                  {flightdata.departureTime}
+                                  {flightdata.outbound.departureTime}
                                 </span>
                                 <span>&nbsp;-&nbsp;</span>
                                 <span>
-                                  {mato}&nbsp;{flightdata.arrivalTime}
+                                  {mato}&nbsp;{flightdata.outbound.arrivalTime}
                                 </span>
                               </td>
                             </tr>
                             <tr>
                               <td>Chuyến về:</td>
-                              <td>
-                                <img
-                                  src={`${getAirlineImage(
-                                    flightdata2.airlineCode,
-                                    hangmaybay
-                                  )}`}
-                                  alt=''
-                                  className='img-VJ-Full h30'
-                                />
-                              </td>
-                              <td className='nowrap'>
-                                {getAirlineName(
-                                  flightdata2.airlineCode,
-                                  hangmaybay
-                                )}
-                              </td>
                               <td className='nowrap'>
                                 <span>&nbsp;{CalendarFormat(returnDate)}</span>
                               </td>
                               <td className='nowrap'>
                                 <span className='bold'>
                                   &nbsp;&nbsp;{mato}&nbsp;
-                                  {flightdata2.departureTime}
+                                  {flightdata.inbound.departureTime}
                                 </span>
                                 <span>&nbsp;-&nbsp;</span>
                                 <span>
-                                  {mafrom}&nbsp;{flightdata2.arrivalTime}
+                                  {mafrom}&nbsp;{flightdata.inbound.arrivalTime}
                                 </span>
                               </td>
                             </tr>
@@ -1232,4 +1079,4 @@ function ThongTinDatKhuHoi () {
   )
 }
 
-export default ThongTinDatKhuHoi
+export default ThongTinDatKhuHoiQT

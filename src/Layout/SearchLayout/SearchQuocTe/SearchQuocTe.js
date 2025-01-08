@@ -227,7 +227,10 @@ function SearchQuocTe() {
                 flights1.map((flight, index) => (
                   <div
                     key={index}
-                    onClick={() => navigate("/datve")}
+                    onClick={() => {
+                      setflightdata(flight)
+                      navigate('/datvequocte')
+                    }}
                     style={{ cursor: "pointer" }}
                   >
                     <div className="flight-row-quocte">

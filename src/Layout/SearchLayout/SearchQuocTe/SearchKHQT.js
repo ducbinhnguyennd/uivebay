@@ -15,9 +15,7 @@ import {
 } from '../../../components/FilterChuyenBay/FilterChuyenBay'
 import {
   toggleDetails,
-  getAirlineImage,
   getAirlineName,
-  handleDateClick,
   HandelTonggia,
   calculateDuration
 } from '../SearchLayoutFunction'
@@ -30,7 +28,8 @@ function SearchKHQT () {
     mato,
     date,
     returnDate,
-    mangnguoi
+    mangnguoi,
+    setflightdata
   } = useToast()
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [hangmaybay, sethangmaybay] = useState([])
@@ -162,35 +161,39 @@ function SearchKHQT () {
                 flights1.map((flight, index) => (
                   <div
                     key={index}
-                    onClick={() => navigate('/datve')}
+                    onClick={() => {
+                      setflightdata(flight)
+
+                      navigate('/datvekhuhoiquocte')
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     <div>
-                      <div className="flight-row-quoctekh">
-                        <div className="flight-left">
-                          <div className="flight-left1">
-                            <div className="flight-info-quocte">
-                              <span className="flight-code-quocte">
+                      <div className='flight-row-quoctekh'>
+                        <div className='flight-left'>
+                          <div className='flight-left1'>
+                            <div className='flight-info-quocte'>
+                              <span className='flight-code-quocte'>
                                 {mafrom} - {mato}
                               </span>
                             </div>
-                            <div className="flight-info-quocte-timekh">
-                              <span className="flight-time-chang-quocte">
-                                {flight.outbound.departureTime} -{" "}
+                            <div className='flight-info-quocte-timekh'>
+                              <span className='flight-time-chang-quocte'>
+                                {flight.outbound.departureTime} -{' '}
                                 {flight.outbound.arrivalTime}
                               </span>
                             </div>
-                            <div className="flight-info-quocte">
+                            <div className='flight-info-quocte'>
                               <div
                                 style={{
-                                  display: "flex",
-                                  fontSize: "12px",
-                                  gap: "8px",
-                                  alignItems: "center",
+                                  display: 'flex',
+                                  fontSize: '12px',
+                                  gap: '8px',
+                                  alignItems: 'center'
                                 }}
                               >
                                 Thời gian bay:
-                                <div className="flight-time-quocte">
+                                <div className='flight-time-quocte'>
                                   {calculateDuration(
                                     flight.outbound.departureTime,
                                     flight.outbound.arrivalTime
@@ -200,29 +203,29 @@ function SearchKHQT () {
                             </div>
                           </div>
 
-                          <div className="flight-left2">
-                            <div className="flight-info-quocte">
-                              <span className="flight-code-quocte">
+                          <div className='flight-left2'>
+                            <div className='flight-info-quocte'>
+                              <span className='flight-code-quocte'>
                                 {mato} - {mafrom}
                               </span>
                             </div>
-                            <div className="flight-info-quocte-timekh">
-                              <span className="flight-time-chang-quocte">
-                                {flight.inbound.departureTime} -{" "}
+                            <div className='flight-info-quocte-timekh'>
+                              <span className='flight-time-chang-quocte'>
+                                {flight.inbound.departureTime} -{' '}
                                 {flight.inbound.arrivalTime}
                               </span>
                             </div>
-                            <div className="flight-info-quocte">
+                            <div className='flight-info-quocte'>
                               <div
                                 style={{
-                                  display: "flex",
-                                  fontSize: "12px",
-                                  gap: "8px",
-                                  alignItems: "center",
+                                  display: 'flex',
+                                  fontSize: '12px',
+                                  gap: '8px',
+                                  alignItems: 'center'
                                 }}
                               >
                                 Thời gian bay:
-                                <div className="flight-time-quocte">
+                                <div className='flight-time-quocte'>
                                   {calculateDuration(
                                     flight.inbound.departureTime,
                                     flight.inbound.arrivalTime
@@ -232,47 +235,47 @@ function SearchKHQT () {
                             </div>
                           </div>
                         </div>
-                        <div className="flight-right">
+                        <div className='flight-right'>
                           <div
-                            onClick={(e) => {
-                              e.stopPropagation();
+                            onClick={e => {
+                              e.stopPropagation()
                               toggleDetails(
                                 index,
                                 flight,
                                 setVisibleDetailIndex,
                                 setSelectedFlight,
                                 visibleDetailIndex
-                              );
+                              )
                             }}
-                            style={{ display: "flex" }}
+                            style={{ display: 'flex' }}
                           >
                             <div
                               style={{
-                                color: "#143a83",
-                                fontSize: "13px",
-                                paddingRight: "5px",
+                                color: '#143a83',
+                                fontSize: '13px',
+                                paddingRight: '5px'
                               }}
                             >
                               Chi tiết
                             </div>
                             <img
-                              src="./collaspe.png"
-                              style={{ width: "20px", height: "20px" }}
+                              src='./collaspe.png'
+                              style={{ width: '20px', height: '20px' }}
                             />
                           </div>
-                          <div className="flight-price-quoctekh">
+                          <div className='flight-price-quoctekh'>
                             {phantrams.length > 0
                               ? (
                                   (parseInt(
-                                    flight.totalPrice.replace(/,/g, ""),
+                                    flight.totalPrice.replace(/,/g, ''),
                                     10
                                   ) *
                                     phantrams[0].phantram) /
                                   100
-                                ).toLocaleString() + "đ"
-                              : "Đang tải..."}
+                                ).toLocaleString() + 'đ'
+                              : 'Đang tải...'}
                           </div>
-                          <button className="select-button">Chọn</button>
+                          <button className='select-button'>Chọn</button>
                         </div>
                       </div>
                     </div>
@@ -282,8 +285,8 @@ function SearchKHQT () {
                         onClick={e => e.stopPropagation()}
                       >
                         <div>
-                          <table width="100%" cellSpacing="0" cellPadding="0">
-                            <tbody className="view-detail-flight-khqt">
+                          <table width='100%' cellSpacing='0' cellPadding='0'>
+                            <tbody className='view-detail-flight-khqt'>
                               <tr>
                                 <td
                                   valign='top'
@@ -302,14 +305,14 @@ function SearchKHQT () {
                                   </p>
                                 </td>
                                 <td
-                                  className="duration-info-container"
+                                  className='duration-info-container'
                                   style={{
-                                    textAlign: "center",
-                                    fontSize: "12px",
-                                    width: "20%",
+                                    textAlign: 'center',
+                                    fontSize: '12px',
+                                    width: '20%'
                                   }}
                                 >
-                                  <p style={{ paddingRight: "25px" }}>
+                                  <p style={{ paddingRight: '25px' }}>
                                     {calculateDuration(
                                       selectedFlight.inbound.departureTime,
                                       selectedFlight.inbound.arrivalTime
@@ -317,22 +320,22 @@ function SearchKHQT () {
                                   </p>
                                   <p>
                                     <img
-                                      src="/01-point.png"
-                                      alt="Flight Path"
+                                      src='/01-point.png'
+                                      alt='Flight Path'
                                     />
                                   </p>
                                   <p
                                     style={{
-                                      paddingRight: "25px",
-                                      marginTop: "-10px",
+                                      paddingRight: '25px',
+                                      marginTop: '-10px'
                                     }}
                                   >
                                     <b>Máy bay: Airbus A321</b>
                                   </p>
                                 </td>
-                                <td valign="top" style={{ width: "25%" }}>
+                                <td valign='top' style={{ width: '25%' }}>
                                   <p>
-                                    <b style={{ fontSize: "14px" }}>
+                                    <b style={{ fontSize: '14px' }}>
                                       {`${cityto}`}
                                     </b>
                                     {`${mato}`}
@@ -342,11 +345,11 @@ function SearchKHQT () {
                                     {formatDate(date)}
                                   </p>
                                 </td>
-                                <td style={{ width: "30%" }}>
+                                <td style={{ width: '30%' }}>
                                   <table
-                                    width="100%"
-                                    cellPadding="0"
-                                    cellSpacing="0"
+                                    width='100%'
+                                    cellPadding='0'
+                                    cellSpacing='0'
                                   >
                                     <tbody>
                                       <tr>
@@ -362,14 +365,14 @@ function SearchKHQT () {
                                         </td> */}
                                         <td
                                           style={{
-                                            lineHeight: "18px",
-                                            padding: 0,
+                                            lineHeight: '18px',
+                                            padding: 0
                                           }}
                                         >
                                           {getAirlineName(
                                             selectedFlight.inbound.airlineCode,
                                             hangmaybay
-                                          )}{" "}
+                                          )}{' '}
                                           <br />
                                           <b>
                                             {
@@ -386,15 +389,15 @@ function SearchKHQT () {
                               </tr>
                             </tbody>
                           </table>
-                          <table width="100%" cellSpacing="0" cellPadding="0">
-                            <tbody className="view-detail-flight-khqt">
+                          <table width='100%' cellSpacing='0' cellPadding='0'>
+                            <tbody className='view-detail-flight-khqt'>
                               <tr>
                                 <td
-                                  valign="top"
-                                  style={{ width: "25%", textAlign: "right" }}
+                                  valign='top'
+                                  style={{ width: '25%', textAlign: 'right' }}
                                 >
                                   <p>
-                                    <b style={{ fontSize: "14px" }}>
+                                    <b style={{ fontSize: '14px' }}>
                                       {`${cityfrom} (${mafrom})`}
                                     </b>
                                   </p>
@@ -489,7 +492,7 @@ function SearchKHQT () {
                               </tr>
                             </tbody>
                           </table>
-                          <table width="100%" className="price-break">
+                          <table width='100%' className='price-break'>
                             <tbody>
                               <tr className='title-b'>
                                 <td align='center' className='header'>
@@ -521,7 +524,7 @@ function SearchKHQT () {
                                       ((parseInt(
                                         selectedFlight.totalPrice.replace(
                                           /,/g,
-                                          ""
+                                          ''
                                         ),
                                         10
                                       ) *
@@ -535,7 +538,7 @@ function SearchKHQT () {
                                       ((((parseInt(
                                         selectedFlight.totalPrice.replace(
                                           /,/g,
-                                          ""
+                                          ''
                                         ),
                                         10
                                       ) *
@@ -551,7 +554,7 @@ function SearchKHQT () {
                                       parseInt(
                                         selectedFlight.totalPrice.replace(
                                           /,/g,
-                                          ""
+                                          ''
                                         ),
                                         10
                                       ),

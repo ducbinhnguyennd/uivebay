@@ -159,6 +159,9 @@ const SearchMB = () => {
               newState.push({ name: 'Trẻ sơ sinh', songuoi: infantCount })
             return newState
           })
+
+          setdate(departureDate)
+          
           if (returnDate) {
             navigate('/searchkhuhoiquocte')
           } else {

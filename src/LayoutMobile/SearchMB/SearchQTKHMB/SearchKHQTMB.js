@@ -11,8 +11,8 @@ import {
   formatDate,
 } from "../../../components/LunarCalendarFormat/LunarCalendarFormat";
 import {
-  applyFilters,
-  handleFiltersChange,
+  applyFiltersQT,
+  handleFiltersChangeQT,
 } from "../../../components/FilterChuyenBay/FilterChuyenBay";
 import {
   toggleDetails,
@@ -74,7 +74,7 @@ function SearchKHQTMB() {
     fetchphantram();
   }, []);
 
-  const flights1 = applyFilters(searchData.data, filters);
+  const flights1 = applyFiltersQT(searchData.data, filters);
 
   const totalPeople = mangnguoi.reduce(
     (total, item) => total + item.songuoi,
@@ -119,14 +119,14 @@ function SearchKHQTMB() {
                 <br />
                 <div className="date-info">
                   <span className="selected-date">
-                    {LunarCalendarFormat(date)}
+                    {LunarCalendarFormat(returnDate)}
                   </span>
                 </div>
               </div>
             </div>
             <FilterMB
             filters={filters}
-            onFiltersChange={handleFiltersChange}
+            onFiltersChange={handleFiltersChangeQT}
             setFilters={setFilters}
           />
             {/* <div class="captions-container">

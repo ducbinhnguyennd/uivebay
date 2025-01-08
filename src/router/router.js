@@ -12,7 +12,9 @@ import { PhanTramLayout } from '../Layout/AdminLayout/PhanTramLayout'
 import { Login } from '../Layout/AdminLayout/LoginLayout'
 import { HoaDonLayout } from '../Layout/AdminLayout/HoaDonLayout'
 import { NganHangLayout } from '../Layout/AdminLayout/NganHangLayout'
+import DatVeQT from '../Layout/DatVe/DatVeQT'
 import DatVe from '../Layout/DatVe/DatVe'
+import DatVeKhuHoiQT from '../Layout/DatVe/DateKhuHoiQT'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
 import XemLaiDonHang from '../Layout/DeafaultLayout/XemLaiDonHang/XemLaiDonHang'
@@ -83,6 +85,10 @@ const publicRoutes = [
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
+  { path: '/datvequocte', component: DatVeQT },
+    { path: '/datvekhuhoiquocte', component: DatVeKhuHoiQT },
+
+
   {
     path: '/searchkhuhoi',
     component: () => {
