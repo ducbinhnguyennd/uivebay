@@ -11,7 +11,7 @@ import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalend
 function ThongTinDat () {
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
   const [hangmaybay, sethangmaybay] = useState([])
-  const [namenguoibay, setnamenguoibay] = useState('')
+  const [namebay, setnamebay] = useState('')
   const [phone, setphone] = useState('')
   const [email, setemail] = useState('')
   const [kygui, setkygui] = useState(false)
@@ -26,7 +26,6 @@ function ThongTinDat () {
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
-
 
   const navigate = useNavigate()
 
@@ -57,17 +56,16 @@ function ThongTinDat () {
   }
 
   const fetchphantram = async () => {
-  try {
-    const response = await fetch('https://demovemaybay.shop/getphantram')
-    const data = await response.json()
-    if (response.ok) {
-      setphantram(data)
+    try {
+      const response = await fetch('https://demovemaybay.shop/getphantram')
+      const data = await response.json()
+      if (response.ok) {
+        setphantram(data)
+      }
+    } catch (error) {
+      console.error(error)
     }
-  } catch (error) {
-    console.error(error)
   }
-}
-
 
   useEffect(() => {
     fetchhang()
@@ -99,7 +97,7 @@ function ThongTinDat () {
 
   const validate = () => {
     let valid = true
-    if (namenguoibay) {
+    if (namebay) {
       valid = true
     } else {
       valid = false
@@ -149,6 +147,9 @@ function ThongTinDat () {
   }
 
   const handledatve = async () => {
+    const khachangs =[{
+      namebay
+    }]
     if (!validate()) {
       return
     }
@@ -159,7 +160,7 @@ function ThongTinDat () {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          namenguoibay,
+          namebay,
           phone,
           email,
           ngaybay: date,
@@ -228,144 +229,98 @@ function ThongTinDat () {
                       <p className='title'>Hành lý ký gửi</p>
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan='2'></td>
-                  </tr>
-                  <tr>
-                    <td className='col-left' style={{ verticalAlign: 'top' }}>
-                      <table className='passenger-info'>
-                        <tbody>
-                          <tr>
-                            <td style={{ paddingTop: '4px' }}>
-                              <select
-                                name='ctl00e'
-                                id='cphMainColumn_ctl00_usrPassengerInfoD_repPassenger_cboTitle_0'
-                                style={{ width: '96px' }}
-                              >
-                                <option selected value='8'>
-                                  Anh
-                                </option>
-                                <option value='9'>Chị</option>
-                                <option value='6'>Ông</option>
-                                <option value='7'>Bà</option>
-                              </select>
-                            </td>
-                            <td
-                              colspan='2'
-                              className='passenger-1'
-                              style={{ paddingLeft: '4px', paddingTop: '4px' }}
-                            >
-                              <input
-                                name='ce'
-                                type='text'
-                                maxlength='100'
-                                id='cphMainColumn_ctl00_usrPassengerInfoD_repPassenger_txtFullName_0'
-                                className='letterOnly i-require new LastNamePassengerFlight passenger-name'
-                                placeholder='Họ và tên người bay...'
-                                value={namenguoibay}
-                                onChange={e => setnamenguoibay(e.target.value)}
-                              />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                    <td
-                      className='col-right'
-                      style={{ verticalAlign: 'top', paddingTop: '2px' }}
-                    >
-                      <table style={{ width: '100%' }}>
-                        <tbody>
-                          <tr>
-                            <td
-                              style={{
-                                verticalAlign: 'top',
-                                paddingTop: '2px'
-                              }}
-                            >
-                              <div className='baggage-container'>
-                                <select
-                                  name='ctl00$cphMainColumn$ctl00$usrPassengerInfoD$repPassenger$ctl00$cboBaggageOutBound'
-                                  id='cphMainColumn_ctl00_usrPassengerInfoD_repPassenger_cboBaggageOutBound_0'
-                                  className='cbo-baggage out-baggage'
-                                  style={{ background: 'rgb(254, 238, 210)' }}
-                                  value={hanhlykygui}
-                                  onChange={e => {
-                                    const selectedOption =
-                                      e.target.options[e.target.selectedIndex]
-                                        .text
-
-                                    if (selectedOption === 'Mua thêm ký gửi') {
-                                      setkygui(false)
-                                      sethanhlykygui(selectedOption)
-                                      setpricekygui(0)
-                                    } else {
-                                      const match = selectedOption.match(
-                                        /(\d+)kg\s-\s([\d,.]+)/
-                                      )
-                                      if (match) {
-                                        const kg = match[1]
-                                        const price = parseInt(
-                                          match[2].replaceAll(',', ''),
-                                          10
-                                        )
-                                        setkygui(kg !== '0')
-                                        sethanhlykygui(selectedOption)
-                                        setpricekygui(price)
-                                      }
-                                    }
+                  {mangnguoi.map((nguoi, index) =>
+                    Array.from({ length: nguoi.songuoi }).map((_, idx) => (
+                      <tr key={`${index}-${idx}`}>
+                        <td
+                          className='col-left'
+                          style={{ verticalAlign: 'top' }}
+                        >
+                          <table className='passenger-info'>
+                            <tbody>
+                              <tr>
+                                <td style={{ paddingTop: '4px' }}>
+                                  <select
+                                    name='ctl00e'
+                                    id={`passenger_title_${index}_${idx}`}
+                                    style={{ width: '96px' }}
+                                  >
+                                    <option selected value={nguoi.name}>
+                                      {nguoi.name}
+                                    </option>
+                                    
+                                  </select>
+                                </td>
+                                <td
+                                  colSpan='2'
+                                  style={{
+                                    paddingLeft: '4px',
+                                    paddingTop: '4px'
                                   }}
                                 >
-                                  <option
-                                    value='Mua thêm ký gửi'
-                                    data-baggage-value='0'
-                                  >
-                                    Mua thêm ký gửi
-                                  </option>
-                                  <option
-                                    value='Mua 20kg - 266,000 đ'
-                                    data-baggage-value='20'
-                                  >
-                                    Mua 20kg - 266,000 đ
-                                  </option>
-                                  <option
-                                    value='Mua 30kg - 374,000 đ'
-                                    data-baggage-value='30'
-                                  >
-                                    Mua 30kg - 374,000 đ
-                                  </option>
-                                  <option
-                                    value='Mua 40kg - 482,000 đ'
-                                    data-baggage-value='40'
-                                  >
-                                    Mua 40kg - 482,000 đ
-                                  </option>
-                                  <option
-                                    value='Mua 50kg - 644,000 đ'
-                                    data-baggage-value='50'
-                                  >
-                                    Mua 50kg - 644,000 đ
-                                  </option>
-                                  <option
-                                    value='Mua 60kg - 752,000 đ'
-                                    data-baggage-value='60'
-                                  >
-                                    Mua 60kg - 752,000 đ
-                                  </option>
-                                  <option
-                                    value='Mua 70kg - 860,000 đ'
-                                    data-baggage-value='70'
-                                  >
-                                    Mua 70kg - 860,000 đ
-                                  </option>
-                                </select>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
+                                  <input
+                                    type='text'
+                                    maxLength='100'
+                                    className='letterOnly i-require new LastNamePassengerFlight passenger-name'
+                                    placeholder={`Họ và tên người bay`}
+                                    value={namebay}
+                                    onChange={e =>
+                                      setnamebay(e.target.value)
+                                    }
+                                  />
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td
+                          className='col-right'
+                          style={{ verticalAlign: 'top' }}
+                        >
+                          <div className='baggage-container'>
+                            <select
+                              className='cbo-baggage out-baggage'
+                              value={hanhlykygui}
+                              onChange={e => {
+                                const selectedOption =
+                                  e.target.options[e.target.selectedIndex].text
+                                if (selectedOption === 'Mua thêm ký gửi') {
+                                  setkygui(false)
+                                  sethanhlykygui(selectedOption)
+                                  setpricekygui(0)
+                                } else {
+                                  const match = selectedOption.match(
+                                    /(\d+)kg\s-\s([\d,.]+)/
+                                  )
+                                  if (match) {
+                                    const kg = match[1]
+                                    const price = parseInt(
+                                      match[2].replaceAll(',', ''),
+                                      10
+                                    )
+                                    setkygui(kg !== '0')
+                                    sethanhlykygui(selectedOption)
+                                    setpricekygui(price)
+                                  }
+                                }
+                              }}
+                            >
+                              <option value='Mua thêm ký gửi'>
+                                Mua thêm ký gửi
+                              </option>
+                              <option value='Mua 20kg - 266,000 đ'>
+                                Mua 20kg - 266,000 đ
+                              </option>
+                              <option value='Mua 30kg - 374,000 đ'>
+                                Mua 30kg - 374,000 đ
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+
                   <tr>
                     <td
                       className='col-left'
