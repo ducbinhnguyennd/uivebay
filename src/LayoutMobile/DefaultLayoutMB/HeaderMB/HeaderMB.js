@@ -15,7 +15,7 @@ const HeaderMB = () => {
         <a className="logolink" href="/">
           <img
             className="logoimg"
-            src="/abaylogo.png"
+            src="/logo.png"
             alt="Vé máy bay giá rẻ ABAY"
           />
         </a>

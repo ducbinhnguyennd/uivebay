@@ -12,7 +12,7 @@
   
   .datemb {
     text-align: center;
-    // padding: 5px;
+    padding: 5px;
     border: 1px solid #ddd;
     background: #f9f9f9;
     cursor: pointer;
@@ -24,6 +24,8 @@
     background: #00428b;
     color: #fff;
     border-color: #00428b;
+    height: 50px;
+    padding: 5px;
   }
   .select-flightmb {
     padding: 10px 8px;
