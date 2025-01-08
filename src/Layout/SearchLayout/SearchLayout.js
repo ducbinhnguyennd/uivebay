@@ -45,8 +45,6 @@ function SearchLayout () {
     airlines: []
   })
   const { previousTwoDays, nextTwoDays } = getSurroundingDates(date)
-  console.log(previousTwoDays)
-  console.log(nextTwoDays)
 
   const navigate = useNavigate()
 
@@ -251,7 +249,8 @@ function SearchLayout () {
                             flight,
                             setVisibleDetailIndex,
                             setSelectedFlight,
-                            visibleDetailIndex
+                            visibleDetailIndex,
+                            setflightdata
                           )
                         }}
                         style={{ display: 'flex' }}
