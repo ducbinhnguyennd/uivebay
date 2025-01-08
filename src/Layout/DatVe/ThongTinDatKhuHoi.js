@@ -223,7 +223,327 @@ function ThongTinDatKhuHoi () {
       <table id='tbl-passenger'>
         <tbody>
           <tr>
-            <td colspan='2'></td>
+          <td class='ctr-passenger1'>
+              <table className='flight-page'>
+                <tbody>
+                  <tr>
+                    <td className='col-left'>
+                      <table>
+                        <tbody>
+                          <tr>
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                marginRight: '40px'
+                              }}
+                            >
+                              <span>
+                                <span className='bold'>cityfrom</span>
+                                {`(${mafrom})`}
+                              </span>
+                              <img
+                                src='/arrow-right-black.png'
+                                style={{ width: '11px', padding: 0 }}
+                                alt='arrow-right'
+                              />
+                              <span>
+                                <span className='bold'>cityfrom</span>
+                                {`(${mato})`}
+                              </span>
+                            </div>
+                            <td
+                              style={{
+                                textAlign: 'right',
+                                width: '1%',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              <span className='txtFlightDate bold'>
+                                {CalendarFormat(date)}
+                              </span>
+                            </td>
+                            <td style={{ paddingRight: '40px' }}></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span
+                                style={{
+                                  height: '16px',
+                                  width: '50px',
+                                  textAlign: 'center',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                <img
+                                  align='absmiddle'
+                                  className='img-VJ-Full'
+                                  src='/_WEB/_File/Images/AirlineLogo/smVJ.gif'
+                                  alt=''
+                                  onError={e =>
+                                    (e.target.src =
+                                      '/_WEB/_File/Images/AirlineLogo/WW.gif')
+                                  }
+                                />
+                              </span>
+                              &nbsp;
+                              <span
+                                style={{
+                                  verticalAlign: 'baseline',
+                                  width: '55px',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                {flightdata.flightNumber}
+                              </span>
+                              <span
+                                style={{
+                                  verticalAlign: 'baseline',
+                                  display: 'inline-block',
+                                  paddingRight: '20px',
+                                  float: 'right'
+                                }}
+                              >
+                                12-23
+                              </span>
+                            </td>
+                            <td
+                              style={{
+                                textAlign: 'right',
+                                width: '1%',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              <span className='bold'>
+                                {flightdata.departureTime}
+                              </span>{' '}
+                              - <span>{flightdata.arrivalTime}</span>
+                            </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td
+                              colSpan='2'
+                              style={{
+                                color: 'orangered',
+                                fontSize: '0.9em',
+                                textAlign: 'center'
+                              }}
+                            ></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                        <tbody>
+                          <tr>
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px'
+                              }}
+                            >
+                              <span>
+                                <span className='bold'>cityfrom</span>
+                                {`(${mafrom})`}
+                              </span>
+                              <img
+                                src='/arrow-right-black.png'
+                                style={{ width: '11px', padding: 0 }}
+                                alt='arrow-right'
+                              />
+                              <span>
+                                <span className='bold'>cityfrom</span>
+                                {`(${mato})`}
+                              </span>
+                            </div>
+                            <td
+                              style={{
+                                textAlign: 'right',
+                                width: '1%',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              <span className='txtFlightDate bold'>
+                                {CalendarFormat(date)}
+                              </span>
+                            </td>
+                            <td style={{ paddingRight: '40px' }}></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span
+                                style={{
+                                  height: '16px',
+                                  width: '50px',
+                                  textAlign: 'center',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                <img
+                                  align='absmiddle'
+                                  className='img-VJ-Full'
+                                  src='/_WEB/_File/Images/AirlineLogo/smVJ.gif'
+                                  alt=''
+                                  onError={e =>
+                                    (e.target.src =
+                                      '/_WEB/_File/Images/AirlineLogo/WW.gif')
+                                  }
+                                />
+                              </span>
+                              &nbsp;
+                              <span
+                                style={{
+                                  verticalAlign: 'baseline',
+                                  width: '55px',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                {flightdata.flightNumber}
+                              </span>
+                              <span
+                                style={{
+                                  verticalAlign: 'baseline',
+                                  display: 'inline-block',
+                                  paddingRight: '20px',
+                                  float: 'right'
+                                }}
+                              >
+                                12-23
+                              </span>
+                            </td>
+                            <td
+                              style={{
+                                textAlign: 'right',
+                                width: '1%',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              <span className='bold'>
+                                {flightdata.departureTime}
+                              </span>{' '}
+                              - <span>{flightdata.arrivalTime}</span>
+                            </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td
+                              colSpan='2'
+                              style={{
+                                color: 'orangered',
+                                fontSize: '0.9em',
+                                textAlign: 'center'
+                              }}
+                            ></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td className='col-right'>
+                      <table id='tbl-breakdown'>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
+                                    <td className='col-title'>Tiền vé</td>
+                                    <td className='col-calculator'>
+                                      x 3
+                                    </td>
+                                    <td className='col-equal'>=</td>
+                                    <td className='col-price'>
+                                      {tienve.toLocaleString()}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <table
+                                className='tbl-baggage'
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td className='col-title'>Hành lý</td>
+                                    <td className='col-calculator'></td>
+                                    <td className='col-equal'>=</td>
+                                    <td className='col-price'>
+                                      <span className='p-baggage'>{110}</span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr>
+                                    <td>Tổng giá vé = </td>
+                                    <td
+                                      colSpan='2'
+                                      className='total-price'
+                                      style={{ color: '#e84e0f' }}
+                                    >
+                                      <span className='t-price'>{1111}</span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan='2'>
+                      <table
+                        style={{ width: '100%' }}
+                        className='noteflightinfo pt20'
+                      >
+                        <tbody>
+                          <tr>
+                            <td>{mafrom}</td>
+                          </tr>
+                          <tr>
+                            <td>{mato}</td>
+                          </tr>
+                          <tr>
+                            <td>{flightdata.flightNumber}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <div style={{ display: 'inline-block' }}>:</div>
+                              <div
+                                style={{
+                                  display: 'inline-block',
+                                  verticalAlign: 'inherit',
+                                  textAlign: 'justify',
+                                  whiteSpace: 'break-spaces'
+                                }}
+                              >
+                                {getAirlineName(
+                                  flightdata.airlineCode,
+                                  hangmaybay
+                                )}
+                              </div>
+                              <div
+                                style={{
+                                  display: 'inline-block',
+                                  fontWeight: 'bold',
+                                  marginRight: '10px'
+                                }}
+                              >
+                                &nbsp;(Airbus A321)
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
           </tr>
           <tr>
             <td
