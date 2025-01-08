@@ -26,6 +26,7 @@ function ThongTinDat () {
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
+  const [khachhangs, setkhachhangs] = useState([])
 
   const navigate = useNavigate()
 
@@ -147,14 +148,11 @@ function ThongTinDat () {
   }
 
   const handledatve = async () => {
-    const khachangs =[{
-      namebay
-    }]
     if (!validate()) {
       return
     }
     try {
-      const response = await fetch('https://webmaybay.vercel.app/posthoadon', {
+      const response = await fetch('http://localhost:3013/posthoadon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -183,7 +181,8 @@ function ThongTinDat () {
           ghichu,
           themkhach,
           sokhachthem,
-          tienve
+          tienve,
+          khachhangs
         })
       })
       if (response.ok) {
@@ -244,11 +243,24 @@ function ThongTinDat () {
                                     name='ctl00e'
                                     id={`passenger_title_${index}_${idx}`}
                                     style={{ width: '96px' }}
+                                    value={nguoi.name}
+                                    onChange={e => {
+                                      const updatedName = e.target.value
+                                      setkhachhangs(prevKhachangs => {
+                                        const updatedKhachangs = [
+                                          ...prevKhachangs
+                                        ]
+                                        updatedKhachangs[index].doituong =
+                                          updatedName
+                                        return updatedKhachangs
+                                      })
+                                    }}
                                   >
-                                    <option selected value={nguoi.name}>
-                                      {nguoi.name}
+                                    <option value='Người lớn'>Người lớn</option>
+                                    <option value='Trẻ em'>Trẻ em</option>
+                                    <option value='Trẻ sơ sinh'>
+                                      Trẻ sơ sinh
                                     </option>
-                                    
                                   </select>
                                 </td>
                                 <td
@@ -264,9 +276,18 @@ function ThongTinDat () {
                                     className='letterOnly i-require new LastNamePassengerFlight passenger-name'
                                     placeholder={`Họ và tên người bay`}
                                     value={namebay}
-                                    onChange={e =>
-                                      setnamebay(e.target.value)
-                                    }
+                                    onChange={e => {
+                                      const updatedName = e.target.value
+                                      setnamebay(updatedName)
+                                      setkhachhangs(prevKhachangs => {
+                                        const updatedKhachangs = [
+                                          ...prevKhachangs
+                                        ]
+                                        updatedKhachangs[index].namebay =
+                                          updatedName
+                                        return updatedKhachangs
+                                      })
+                                    }}
                                   />
                                 </td>
                               </tr>
