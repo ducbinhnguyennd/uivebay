@@ -172,7 +172,7 @@ function ThongTinDat () {
       return
     }
     try {
-      const response = await fetch('http://localhost:3013/posthoadon', {
+      const response = await fetch('https://demovemaybay.shop/posthoadon', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

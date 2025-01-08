@@ -10,6 +10,8 @@ import { HangMayBayLayout } from '../Layout/AdminLayout/HangMayBayLayout'
 import { TheLoaiBlog } from '../Layout/AdminLayout/TheLoaiBlogLayout'
 import { PhanTramLayout } from '../Layout/AdminLayout/PhanTramLayout'
 import { Login } from '../Layout/AdminLayout/LoginLayout'
+import { HoaDonLayout } from '../Layout/AdminLayout/HoaDonLayout'
+import { NganHangLayout } from '../Layout/AdminLayout/NganHangLayout'
 import DatVe from '../Layout/DatVe/DatVe'
 import ThanhToan from '../Layout/ThanhToan/ThanhToan'
 import KhuyenMai from '../Layout/DeafaultLayout/KhuyenMai/KhuyenMai'
@@ -42,42 +44,66 @@ const publicRoutes = [
       return isMobile ? <TrangChuMB /> : <TrangChuLayout />
     }
   },
-  { path: '/lien-he', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <LienHeMB /> : <LienHe />
-  } },
-  { path: '/search', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <SearchNoiDiaMB /> : <SearchLayout />
-  } },
+  {
+    path: '/lien-he',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <LienHeMB /> : <LienHe />
+    }
+  },
+  {
+    path: '/search',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <SearchNoiDiaMB /> : <SearchLayout />
+    }
+  },
   { path: '/gioi-thieu', component: GioiThieu },
   { path: '/vung', component: VungLayout, layout: 'admin' },
   { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
   { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
   { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
-  { path: '/datve', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <DatVeNoiDiaMB/> : <DatVe />
-  } },
-  { path: '/datvekhuhoi', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <DatVeKhuHoiMB /> : <DatVeKhuHoi />
-  }},
+  { path: '/hoadon', component: HoaDonLayout, layout: 'admin' },
+  { path: '/nganhang', component: NganHangLayout, layout: 'admin' },
+
+  {
+    path: '/datve',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <DatVeNoiDiaMB /> : <DatVe />
+    }
+  },
+  {
+    path: '/datvekhuhoi',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <DatVeKhuHoiMB /> : <DatVeKhuHoi />
+    }
+  },
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
-  { path: '/searchkhuhoi', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <SearchNoiDiaKHMB /> : <SearchKhuHoi />
-  } },
-  { path: '/searchquocte', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <SearchQTMB /> : <SearchQuocTe />
-  } },
-  { path: '/searchkhuhoiquocte', component: () => {
-    const isMobile = IsMobile()
-    return isMobile ? <SearchKHQTMB/> : <SearchKHQT />
-  }  },
+  {
+    path: '/searchkhuhoi',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <SearchNoiDiaKHMB /> : <SearchKhuHoi />
+    }
+  },
+  {
+    path: '/searchquocte',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <SearchQTMB /> : <SearchQuocTe />
+    }
+  },
+  {
+    path: '/searchkhuhoiquocte',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <SearchKHQTMB /> : <SearchKHQT />
+    }
+  },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
   { path: '/chitietdonhang', component: ChiTietDonHang },

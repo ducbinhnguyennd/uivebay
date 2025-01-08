@@ -62,7 +62,7 @@ const ThanhToan = () => {
     if (isMatched) {
       try {
         const response = await fetch(
-          `http://localhost:3013/postthanhtoan/${hoadon.mahoadon}`,
+          `https://demovemaybay.shop/postthanhtoan/${hoadon.mahoadon}`,
           {
             method: 'POST',
             headers: {
