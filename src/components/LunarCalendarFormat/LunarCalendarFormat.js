@@ -28,6 +28,21 @@ export function CalendarFormat (isoDate) {
   return `${formattedDate}`
 }
 
+export function CalendarFormatMB(isoDate) {
+  if (!isoDate) return '';
+
+  const date = new Date(isoDate);
+
+  // Lấy ngày tháng theo định dạng dd/MM
+  const formattedDate = format(date, 'dd/MM', { locale: vi });
+
+  // Lấy tên thứ và rút gọn
+  const dayName = format(date, 'EEEE', { locale: vi });
+  const shortDayName = dayName.replace('Thứ ', 'T.');
+
+  return `${shortDayName} ${formattedDate}`;
+}
+
 export const formatDate = isoDate => {
   const [year, month, day] = isoDate.split('-')
   return `${day}/${month}/${year}`
@@ -120,3 +135,4 @@ export const getSurroundingDateskhuhoinoidia1 = dateString => {
 
   return { previousTwoDays1, nextTwoDays1 }
 }
+  

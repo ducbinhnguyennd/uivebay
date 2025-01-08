@@ -24,6 +24,7 @@ import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/Th
 import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
 import LienHeMB from '../LayoutMobile/DefaultLayoutMB/LienHeMB/LienHeMB'
 import SearchNoiDiaMB from '../LayoutMobile/SearchMB/SearchNoiDiaMB/SearchNoiDiaMB'
+import SearchNoiDiaKHMB from '../LayoutMobile/SearchMB/SearchNoiDiaKHMB/SearchNoiDiaKHMB'
 
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
@@ -54,7 +55,10 @@ const publicRoutes = [
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
-  { path: '/searchkhuhoi', component: SearchKhuHoi },
+  { path: '/searchkhuhoi', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <SearchNoiDiaKHMB /> : <SearchKhuHoi />
+  } },
   { path: '/searchquocte', component: SearchQuocTe },
   { path: '/searchkhuhoiquocte', component: SearchKHQT },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
