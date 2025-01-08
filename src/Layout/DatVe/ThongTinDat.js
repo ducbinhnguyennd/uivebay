@@ -11,7 +11,7 @@ import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalend
 function ThongTinDat () {
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
   const [hangmaybay, sethangmaybay] = useState([])
-  const [namebay, setnamebay] = useState('')
+  const [namelienhe, setnamelienhe] = useState('')
   const [phone, setphone] = useState('')
   const [email, setemail] = useState('')
   const [kygui, setkygui] = useState(false)
@@ -26,7 +26,6 @@ function ThongTinDat () {
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
-  const [khachhangs, setkhachhangs] = useState([])
 
   const navigate = useNavigate()
 
@@ -43,6 +42,16 @@ function ThongTinDat () {
     sethoadon,
     settienve
   } = useToast()
+
+  const initialKhachhangs = mangnguoi.flatMap(nguoi =>
+    Array.from({ length: nguoi.songuoi }, () => ({ namebay: '', doituong: nguoi.name }))
+  )
+
+  const [khachhangs, setkhachhangs] = useState(initialKhachhangs)
+
+  const getFlatIndex = (index, idx) =>
+    mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
+    idx
 
   const fetchhang = async () => {
     try {
@@ -98,12 +107,6 @@ function ThongTinDat () {
 
   const validate = () => {
     let valid = true
-    if (namebay) {
-      valid = true
-    } else {
-      valid = false
-      showToast('Vui lòng nhập tên người bay', 'warning')
-    }
     if (phone) {
       valid = true
     } else {
@@ -158,7 +161,7 @@ function ThongTinDat () {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          namebay,
+          namelienhe,
           phone,
           email,
           ngaybay: date,
@@ -243,16 +246,18 @@ function ThongTinDat () {
                                     name='ctl00e'
                                     id={`passenger_title_${index}_${idx}`}
                                     style={{ width: '96px' }}
-                                    value={nguoi.name}
+                                    value={
+                                      khachhangs[getFlatIndex(index, idx)]
+                                        ?.doituong || ''
+                                    }
                                     onChange={e => {
-                                      const updatedName = e.target.value
-                                      setkhachhangs(prevKhachangs => {
-                                        const updatedKhachangs = [
-                                          ...prevKhachangs
-                                        ]
-                                        updatedKhachangs[index].doituong =
-                                          updatedName
-                                        return updatedKhachangs
+                                      const updatedValue = e.target.value
+                                      setkhachhangs(prev => {
+                                        const newKhachhangs = [...prev]
+                                        newKhachhangs[
+                                          getFlatIndex(index, idx)
+                                        ].doituong = updatedValue
+                                        return newKhachhangs
                                       })
                                     }}
                                   >
@@ -275,17 +280,18 @@ function ThongTinDat () {
                                     maxLength='100'
                                     className='letterOnly i-require new LastNamePassengerFlight passenger-name'
                                     placeholder={`Họ và tên người bay`}
-                                    value={namebay}
+                                    value={
+                                      khachhangs[getFlatIndex(index, idx)]
+                                        ?.namebay || ''
+                                    }
                                     onChange={e => {
-                                      const updatedName = e.target.value
-                                      setnamebay(updatedName)
-                                      setkhachhangs(prevKhachangs => {
-                                        const updatedKhachangs = [
-                                          ...prevKhachangs
-                                        ]
-                                        updatedKhachangs[index].namebay =
-                                          updatedName
-                                        return updatedKhachangs
+                                      const updatedValue = e.target.value
+                                      setkhachhangs(prev => {
+                                        const newKhachhangs = [...prev]
+                                        newKhachhangs[
+                                          getFlatIndex(index, idx)
+                                        ].namebay = updatedValue
+                                        return newKhachhangs
                                       })
                                     }}
                                   />
@@ -427,6 +433,8 @@ function ThongTinDat () {
                                 maxlength='50'
                                 id='cphMainColumn_ctl00_usrContactInfoD_txtFullName'
                                 className='name-contact'
+                                value={namelienhe}
+                                onChange={e => setnamelienhe(e.target.value)}
                               />
                             </td>
                           </tr>
