@@ -225,7 +225,8 @@ function ThongTinDat () {
                               style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '10px'
+                                gap: '10px',
+                                marginRight: '40px'
                               }}
                             >
                               <span>
