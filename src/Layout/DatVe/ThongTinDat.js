@@ -207,23 +207,23 @@ function ThongTinDat() {
                 <tbody>
                   <tr>
                     <td className="col-left">
-                      <table width="100%" className="flight-info">
+                      <table >
                         <tbody>
                           <tr>
                             <div style={{display: "flex", alignItems: "center"}}>
-                              <span >
-                                <span className="bold">Hồ Chí Minh</span>
-                                (SGN)&nbsp;&nbsp;
-                              </span>
+                             
+                                <span>Hồ Chí Minh (SGN) &nbsp;&nbsp;</span>
+                                
+                             
                               <img
                                 src="/arrow-right-black.png"
                                 style={{ width: "11px", padding: 0 }}
                                 alt="arrow-right"
                               />
-                              <span >
+                             
                                 &nbsp;&nbsp;
-                                <span className="bold">Bangkok</span>(BKK)
-                              </span>
+                                <span>Bangkok (BKK)</span>
+                             
                             </div>
                             <td
                               style={{
