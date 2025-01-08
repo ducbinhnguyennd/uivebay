@@ -24,8 +24,11 @@ import ThongTinChuyenKhoan from '../Layout/DeafaultLayout/ThongTinChuyenKhoan/Th
 import TrangChuMB from '../LayoutMobile/TrangChuMB/TrangChuMB'
 import LienHeMB from '../LayoutMobile/DefaultLayoutMB/LienHeMB/LienHeMB'
 import SearchNoiDiaMB from '../LayoutMobile/SearchMB/SearchNoiDiaMB/SearchNoiDiaMB'
+import SearchNoiDiaKHMB from '../LayoutMobile/SearchMB/SearchNoiDiaKHMB/SearchNoiDiaKHMB'
 import DatVeKhuHoi from '../Layout/DatVe/DatVeKhuHoi'
-
+import DatVeKhuHoiMB from '../LayoutMobile/DatVeMB/DatVeNoiDiaKHMB/DatVeNoiDiaKHMB'
+import DatVeNoiDiaMB from '../LayoutMobile/DatVeMB/DatVeNoiDiaMB/DatVeNoiDiaMB'
+import SearchQTMB from '../LayoutMobile/SearchMB/SearchQTMB/SearchQTMB'
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
 }
@@ -51,13 +54,25 @@ const publicRoutes = [
   { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
   { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
   { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
-  { path: '/datve', component: DatVe },
-  { path: '/datvekhuhoi', component: DatVeKhuHoi },
+  { path: '/datve', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <DatVeNoiDiaMB/> : <DatVe />
+  } },
+  { path: '/datvekhuhoi', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <DatVeKhuHoiMB /> : <DatVeKhuHoi />
+  }},
   { path: '/thanhtoan', component: ThanhToan },
   { path: '/tin-khuyen-mai', component: KhuyenMai },
   { path: '/xem-lai-don-hang', component: XemLaiDonHang },
-  { path: '/searchkhuhoi', component: SearchKhuHoi },
-  { path: '/searchquocte', component: SearchQuocTe },
+  { path: '/searchkhuhoi', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <SearchNoiDiaKHMB /> : <SearchKhuHoi />
+  } },
+  { path: '/searchquocte', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <SearchQTMB /> : <SearchQuocTe />
+  } },
   { path: '/searchkhuhoiquocte', component: SearchKHQT },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
