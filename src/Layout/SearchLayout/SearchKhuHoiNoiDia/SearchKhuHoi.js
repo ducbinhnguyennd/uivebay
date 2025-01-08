@@ -23,6 +23,7 @@ import {
   HandelTonggia,
   calculateDuration
 } from '../SearchLayoutFunction'
+import { useNavigate } from 'react-router-dom'
 function SearchKhuHoi () {
   const {
     cityfrom,
@@ -35,8 +36,11 @@ function SearchKhuHoi () {
     mangnguoi,
     setSearchData,
     setdate,
-    setreturnDate
+    setreturnDate,
+    setflightdata,
+    setflightdata2
   } = useToast()
+  const navigate = useNavigate()
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
   const [visibleDetailIndex2, setVisibleDetailIndex2] = useState(null)
 
@@ -150,6 +154,22 @@ function SearchKhuHoi () {
     }
   }
 
+  const handleSelectFlight1 = flight => {
+    setSelectedFlight(flight)
+    setflightdata(flight)
+    if (selectedFlight1) {
+      navigate('/datvekhuhoi')
+    }
+  }
+
+  const handleSelectFlight2 = flight => {
+    setSelectedFlight1(flight)
+    setflightdata2(flight)
+    if (selectedFlight) {
+      navigate('/datvekhuhoi')
+    }
+  }
+
   return (
     <div className='search-layout'>
       <div className='content-wrapper'>
@@ -210,8 +230,14 @@ function SearchKhuHoi () {
               <div className='flight-table'>
                 {Array.isArray(searchData.outBound.data.flights) &&
                   flights1.map((flight, index) => (
-                    <div>
-                      <div className='flight-row-khuhoi' key={index}>
+                    <div
+                      key={index}
+                      className={`divflightrow ${
+                        selectedFlight === flight ? 'addflightrow' : ''
+                      }`}
+                      onClick={() => handleSelectFlight1(flight)}
+                    >
+                      <div className='flight-row-khuhoi'>
                         <span>
                           <img
                             src={getAirlineImage(
@@ -249,7 +275,8 @@ function SearchKhuHoi () {
                               flight,
                               setVisibleDetailIndex,
                               setSelectedFlight,
-                              visibleDetailIndex
+                              visibleDetailIndex,
+                              setflightdata
                             )
                           }}
                         />
@@ -524,8 +551,14 @@ function SearchKhuHoi () {
               <div className='flight-table'>
                 {Array.isArray(searchData.inBound.data.flights) &&
                   flights2.map((flight, index) => (
-                    <div>
-                      <div className='flight-row-khuhoi' key={index}>
+                    <div
+                      key={index}
+                      className={`divflightrow ${
+                        selectedFlight1 === flight ? 'addflightrow' : ''
+                      }`}
+                      onClick={() => handleSelectFlight2(flight)}
+                    >
+                      <div className='flight-row-khuhoi'>
                         <span>
                           <img
                             src={getAirlineImage(
@@ -563,7 +596,8 @@ function SearchKhuHoi () {
                               flight,
                               setVisibleDetailIndex2,
                               setSelectedFlight1,
-                              visibleDetailIndex2
+                              visibleDetailIndex2,
+                              setflightdata2
                             )
                           }}
                         ></img>

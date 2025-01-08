@@ -133,6 +133,15 @@ body {
 .flight-table {
   border-top: 1px solid #ddd;
 }
+.divflightrow{
+  cursor: pointer;
+  &:hover{
+    background-color: #ffe655;
+  }
+}
+.addflightrow{
+  background-color: #ffe655;
+}
 
 .flight-row-khuhoi {
   display: flex;

@@ -6,18 +6,19 @@ const toggleDetails = (
   selectedFlight,
   setVisibleDetailIndex,
   setSelectedFlight,
-  currentVisibleIndex
+  currentVisibleIndex,
+  setflightdata
 ) => {
-  setVisibleDetailIndex(null) // Đặt lại trạng thái trước
+  setVisibleDetailIndex(null)
   setSelectedFlight(null)
 
   setTimeout(() => {
-    // Cập nhật trạng thái mới sau khi làm sạch
     setVisibleDetailIndex(
       currentVisibleIndex === currentIndex ? null : currentIndex
     )
     setSelectedFlight(selectedFlight)
-  }, 0) // Đảm bảo thứ tự thực thi
+    setflightdata(selectedFlight)
+  }, 0)
 }
 const getAirlineImage = (airlineCode, hangmaybay) => {
   const airline = hangmaybay.find(h => h.mahangmaybay === airlineCode)

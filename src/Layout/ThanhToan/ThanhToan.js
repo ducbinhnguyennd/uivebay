@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { useToast } from '../../components/useToast/ToastContext'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import { getAirlineImage } from '../SearchLayout/SearchLayoutFunction'
-import { useNavigate } from 'react-router-dom'
+import { ModalSuccess } from '../../components/ModalSuccess'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
   const { hoadon, flightdata, cityfrom, cityto } = useToast()
   const [hangmaybay, sethangmaybay] = useState([])
   const [datagiaodich, setdatagiaodich] = useState({})
-  const navigate = useNavigate()
+  const [isOpen, setisOpen] = useState(false)
 
   const fetchhang = async () => {
     try {
@@ -71,7 +71,7 @@ const ThanhToan = () => {
           }
         )
         if (response.ok) {
-          navigate('/success')
+          setisOpen(true)
           localStorage.clear()
         }
       } catch (error) {
@@ -131,7 +131,8 @@ const ThanhToan = () => {
                     <button>Copy</button>
                   </p>
                   <p>
-                    Nội dung: {hoadon.mahoadon} {hoadon.tongtien} <button>Copy</button>
+                    Nội dung: {hoadon.mahoadon} {hoadon.tongtien}{' '}
+                    <button>Copy</button>
                   </p>
                   <p>Ngân hàng: MBBANK</p>
                   <p>
@@ -225,6 +226,7 @@ const ThanhToan = () => {
           </Accordion>
         </div>
       </div>
+      <ModalSuccess isOpen={isOpen} onClose={() => setisOpen(false)} />
     </div>
   )
 }

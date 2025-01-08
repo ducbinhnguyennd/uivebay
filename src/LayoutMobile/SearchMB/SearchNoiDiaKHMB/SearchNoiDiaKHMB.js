@@ -23,6 +23,9 @@ import {
   HandelTonggia,
   calculateDuration,
 } from "../../../Layout/SearchLayout/SearchLayoutFunction";
+import { useNavigate } from 'react-router-dom'
+import FilterMB from "../../componentsMB/FilterMobile/FilterMB";
+
 function SearchNoiDiaKHMB() {
   const {
     cityfrom,
@@ -36,6 +39,8 @@ function SearchNoiDiaKHMB() {
     setSearchData,
     setdate,
     setreturnDate,
+    setflightdata,
+    setflightdata2
   } = useToast();
   const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
   const [visibleDetailIndex2, setVisibleDetailIndex2] = useState(null);
@@ -48,7 +53,7 @@ function SearchNoiDiaKHMB() {
     getSurroundingDateskhuhoinoidia(date);
   const { previousTwoDays1, nextTwoDays1 } =
     getSurroundingDateskhuhoinoidia1(returnDate);
-
+    const navigate = useNavigate()
   const [filters, setFilters] = useState({
     sortBy: "abay-suggest",
     airlines: [],
@@ -150,11 +155,30 @@ function SearchNoiDiaKHMB() {
       console.error(error);
     }
   };
+  const handleSelectFlight1 = flight => {
+    setSelectedFlight(flight)
+    setflightdata(flight)
+    if (selectedFlight1) {
+      navigate('/datvekhuhoi')
+    }
+  }
 
+  const handleSelectFlight2 = flight => {
+    setSelectedFlight1(flight)
+    setflightdata2(flight)
+    if (selectedFlight) {
+      navigate('/datvekhuhoi')
+    }
+  }
   return (
     <div className="search-layout">
       <div className="content-wrapper">
         <div className="main-content">
+        <FilterMB
+            filters={filters}
+            onFiltersChange={handleFiltersChange}
+            setFilters={setFilters}
+          />
           <div className="price-infomb">
             Ghi chú:
             <span className="note">
@@ -207,7 +231,13 @@ function SearchNoiDiaKHMB() {
               <div className="flight-table">
                 {Array.isArray(searchData.outBound.data.flights) &&
                   flights1.map((flight, index) => (
-                    <div>
+                    <div
+                    key={index}
+                    className={`divflightrow ${
+                      selectedFlight === flight ? 'addflightrow' : ''
+                    }`}
+                    onClick={() => handleSelectFlight1(flight)}
+                  >
                       <div className="flight-row-khuhoi" key={index}>
                         <span>
                           <img
@@ -294,7 +324,13 @@ function SearchNoiDiaKHMB() {
               <div className="flight-table">
                 {Array.isArray(searchData.inBound.data.flights) &&
                   flights2.map((flight, index) => (
-                    <div>
+                    <div
+                      key={index}
+                      className={`divflightrow ${
+                        selectedFlight1 === flight ? 'addflightrow' : ''
+                      }`}
+                      onClick={() => handleSelectFlight2(flight)}
+                    >
                       <div className="flight-row-khuhoi" key={index}>
                         <span>
                           <img
