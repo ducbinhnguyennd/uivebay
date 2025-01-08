@@ -54,7 +54,6 @@
 .col-right {
   display: inline-block;
   vertical-align: top;
-  width: 50%;
 }
 
 @media (max-width: 768px) {
@@ -88,13 +87,14 @@
 }
 .passenger-page input[type="text"], .passenger-page select {
     height: 24px;
-    border: 0 solid #000000;
-    margin-bottom: 5px;
-    margin-right: 10px;
+    border: 1px solid #d8d8d8;
+    outline: none;
 }
 .passenger-page input[type="text"] {
-    width: 100%;
+    width: 98%;
     padding-left: 1%;
+    margin-bottom: 5px;
+    margin-right: 5px;
 }
 .tblotherflight {
     background-color: #efefef;
