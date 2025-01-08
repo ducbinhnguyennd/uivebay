@@ -29,6 +29,7 @@ import DatVeKhuHoi from '../Layout/DatVe/DatVeKhuHoi'
 import DatVeKhuHoiMB from '../LayoutMobile/DatVeMB/DatVeNoiDiaKHMB/DatVeNoiDiaKHMB'
 import DatVeNoiDiaMB from '../LayoutMobile/DatVeMB/DatVeNoiDiaMB/DatVeNoiDiaMB'
 import SearchQTMB from '../LayoutMobile/SearchMB/SearchQTMB/SearchQTMB'
+import SearchKHQTMB from '../LayoutMobile/SearchMB/SearchQTKHMB/SearchKHQTMB'
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
 }
@@ -73,7 +74,10 @@ const publicRoutes = [
     const isMobile = IsMobile()
     return isMobile ? <SearchQTMB /> : <SearchQuocTe />
   } },
-  { path: '/searchkhuhoiquocte', component: SearchKHQT },
+  { path: '/searchkhuhoiquocte', component: () => {
+    const isMobile = IsMobile()
+    return isMobile ? <SearchKHQTMB/> : <SearchKHQT />
+  }  },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
   { path: '/chitietdonhang', component: ChiTietDonHang },

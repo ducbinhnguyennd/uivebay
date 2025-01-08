@@ -49,7 +49,7 @@ function ModalThanhToanSuccess ({ isOpen, onClose }) {
             >
               Về trang chủ{' '}
               <div className='sogiay'>
-                <div className='circle' style={circleStyle}></div>
+                <div className='circle1' style={circleStyle}></div>
                 <span>{seconds} giây</span>
               </div>
             </button>
