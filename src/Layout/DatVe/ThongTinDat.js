@@ -5,7 +5,10 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './DatVe.scss'
 import { useToast } from '../../components/useToast/ToastContext'
-import { getAirlineName } from '../SearchLayout/SearchLayoutFunction'
+import {
+  getAirlineName,
+  calculateDuration
+} from '../SearchLayout/SearchLayoutFunction'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 
 function ThongTinDat () {
@@ -14,9 +17,7 @@ function ThongTinDat () {
   const [namelienhe, setnamelienhe] = useState('')
   const [phone, setphone] = useState('')
   const [email, setemail] = useState('')
-  const [kygui, setkygui] = useState(false)
-  const [hanhlykygui, sethanhlykygui] = useState('Mua thêm ký gửi')
-  const [pricekygui, setpricekygui] = useState(0)
+
   const [xuathoadon, setxuathoadon] = useState(false)
   const [masothue, setmasothue] = useState('')
   const [tencongty, settencongty] = useState('')
@@ -40,14 +41,31 @@ function ThongTinDat () {
     mangnguoi,
     showToast,
     sethoadon,
-    settienve
+    settienve,
+    cityto,
+    cityfrom
   } = useToast()
 
   const initialKhachhangs = mangnguoi.flatMap(nguoi =>
-    Array.from({ length: nguoi.songuoi }, () => ({ namebay: '', doituong: nguoi.name }))
+    Array.from({ length: nguoi.songuoi }, () => ({
+      namebay: '',
+      doituong: nguoi.name,
+      kygui: false,
+      hanhlykygui: '',
+      pricekygui: 0
+    }))
   )
 
   const [khachhangs, setkhachhangs] = useState(initialKhachhangs)
+  const tongSoNguoi = mangnguoi.reduce(
+    (total, nguoi) => total + nguoi.songuoi,
+    0
+  )
+  const tongPriceKygui = khachhangs.reduce(
+  (total, khach) => total + khach.pricekygui,
+  0
+)
+
 
   const getFlatIndex = (index, idx) =>
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
@@ -171,19 +189,11 @@ function ThongTinDat () {
           cityto: mato,
           hourfrom: flightdata.departureTime,
           hourto: flightdata.arrivalTime,
-          nguoilon: mangnguoi[0]?.songuoi,
-          treem: mangnguoi[1]?.songuoi || 0,
-          tresosinh: mangnguoi[2]?.songuoi || 0,
-          kygui,
-          hanhlykygui,
-          pricekygui,
           xuathoadon,
           masothue,
           tencongty,
           diachi,
           ghichu,
-          themkhach,
-          sokhachthem,
           tienve,
           khachhangs
         })
@@ -203,14 +213,228 @@ function ThongTinDat () {
       <table id='tbl-passenger'>
         <tbody>
           <tr>
-            <td colspan='2'></td>
+            <td class='ctr-passenger1'>
+              <table className='flight-page'>
+                <tbody>
+                  <tr>
+                    <td className='col-left'>
+                      <table width='100%' className='flight-info'>
+                        <tbody>
+                          <tr>
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px'
+                              }}
+                            >
+                              <span>
+                                <span className='bold'>{cityfrom}</span>
+                                {`(${mafrom})`}
+                              </span>
+                              <img
+                                src='/arrow-right-black.png'
+                                style={{ width: '11px', padding: 0 }}
+                                alt='arrow-right'
+                              />
+                              <span>
+                                <span className='bold'>{cityto}</span>
+                                {`(${mato})`}
+                              </span>
+                            </div>
+                            <td
+                              style={{
+                                textAlign: 'right',
+                                width: '1%',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              <span className='txtFlightDate bold'>
+                                {CalendarFormat(date)}
+                              </span>
+                            </td>
+                            <td style={{ paddingRight: '40px' }}></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span
+                                style={{
+                                  height: '16px',
+                                  width: '50px',
+                                  textAlign: 'center',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                <img
+                                  align='absmiddle'
+                                  className='img-VJ-Full'
+                                  src='/_WEB/_File/Images/AirlineLogo/smVJ.gif'
+                                  alt=''
+                                  onError={e =>
+                                    (e.target.src =
+                                      '/_WEB/_File/Images/AirlineLogo/WW.gif')
+                                  }
+                                />
+                              </span>
+                              &nbsp;
+                              <span
+                                style={{
+                                  verticalAlign: 'baseline',
+                                  width: '55px',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                {flightdata.flightNumber}
+                              </span>
+                              <span
+                                style={{
+                                  verticalAlign: 'baseline',
+                                  display: 'inline-block',
+                                  paddingRight: '20px',
+                                  float: 'right'
+                                }}
+                              >
+                                {calculateDuration(
+                                  flightdata.departureTime,
+                                  flightdata.arrivalTime
+                                )}
+                              </span>
+                            </td>
+                            <td
+                              style={{
+                                textAlign: 'right',
+                                width: '1%',
+                                whiteSpace: 'nowrap'
+                              }}
+                            >
+                              <span className='bold'>
+                                {flightdata.departureTime}
+                              </span>{' '}
+                              - <span>{flightdata.arrivalTime}</span>
+                            </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td
+                              colSpan='2'
+                              style={{
+                                color: 'orangered',
+                                fontSize: '0.9em',
+                                textAlign: 'center'
+                              }}
+                            ></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                    <td className='col-right'>
+                      <table id='tbl-breakdown'>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
+                                    <td className='col-title'>Tiền vé</td>
+                                    <td className='col-calculator'>
+                                      x {tongSoNguoi}
+                                    </td>
+                                    <td className='col-equal'>=</td>
+                                    <td className='col-price'>
+                                      {tienve.toLocaleString()}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <table
+                                className='tbl-baggage'
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td className='col-title'>Hành lý</td>
+                                    <td className='col-calculator'></td>
+                                    <td className='col-equal'>=</td>
+                                    <td className='col-price'>
+                                      <span className='p-baggage'>{tongPriceKygui.toLocaleString()}</span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr>
+                                    <td>Tổng giá vé = </td>
+                                    <td
+                                      colSpan='2'
+                                      className='total-price'
+                                      style={{ color: '#e84e0f' }}
+                                    >
+                                      <span className='t-price'>{(tienve+tongPriceKygui).toLocaleString()}</span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan='2'>
+                      <table
+                        style={{ width: '100%' }}
+                        className='noteflightinfo pt20'
+                      >
+                        <tbody>
+                          <tr>
+                            <td>{mafrom}</td>
+                          </tr>
+                          <tr>
+                            <td>{mato}</td>
+                          </tr>
+                          <tr>
+                            <td>{flightdata.flightNumber}</td>
+                            <td style={{ whiteSpace: 'nowrap' }}>
+                              <div style={{ display: 'inline-block' }}>:</div>
+                              <div
+                                style={{
+                                  display: 'inline-block',
+                                  verticalAlign: 'inherit',
+                                  textAlign: 'justify',
+                                  whiteSpace: 'break-spaces'
+                                }}
+                              >
+                                {getAirlineName(
+                                  flightdata.airlineCode,
+                                  hangmaybay
+                                )}
+                              </div>
+                              <div
+                                style={{
+                                  display: 'inline-block',
+                                  fontWeight: 'bold',
+                                  marginRight: '10px'
+                                }}
+                              >
+                                &nbsp;(Airbus A321)
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
           </tr>
           <tr>
-            <td
-              colspan='2'
-              style={{ verticalAlign: 'top' }}
-              className='ctr-passenger'
-            >
+            <td colspan='2' className='ctr-passenger'>
               <table className='passenger-page'>
                 <tbody>
                   <tr>
@@ -307,29 +531,41 @@ function ThongTinDat () {
                           <div className='baggage-container'>
                             <select
                               className='cbo-baggage out-baggage'
-                              value={hanhlykygui}
+                              value={
+                                khachhangs[getFlatIndex(index, idx)]
+                                  ?.hanhlykygui || 'Mua thêm ký gửi'
+                              }
                               onChange={e => {
-                                const selectedOption =
-                                  e.target.options[e.target.selectedIndex].text
-                                if (selectedOption === 'Mua thêm ký gửi') {
-                                  setkygui(false)
-                                  sethanhlykygui(selectedOption)
-                                  setpricekygui(0)
-                                } else {
-                                  const match = selectedOption.match(
-                                    /(\d+)kg\s-\s([\d,.]+)/
-                                  )
+                                const selectedOption = e.target.value
+                                const match = selectedOption.match(
+                                  /(\d+)kg\s-\s([\d,.]+)/
+                                )
+                                setkhachhangs(prev => {
+                                  const newKhachhangs = [...prev]
+                                  const flatIndex = getFlatIndex(index, idx)
+
+                                  if (!newKhachhangs[flatIndex]) {
+                                    newKhachhangs[flatIndex] = {}
+                                  }
+
                                   if (match) {
-                                    const kg = match[1]
                                     const price = parseInt(
                                       match[2].replaceAll(',', ''),
                                       10
                                     )
-                                    setkygui(kg !== '0')
-                                    sethanhlykygui(selectedOption)
-                                    setpricekygui(price)
+                                    newKhachhangs[flatIndex].kygui = true
+                                    newKhachhangs[flatIndex].hanhlykygui =
+                                      selectedOption
+                                    newKhachhangs[flatIndex].pricekygui = price
+                                  } else {
+                                    newKhachhangs[flatIndex].kygui = false
+                                    newKhachhangs[flatIndex].hanhlykygui =
+                                      'Mua thêm ký gửi'
+                                    newKhachhangs[flatIndex].pricekygui = 0
                                   }
-                                }
+
+                                  return newKhachhangs
+                                })
                               }}
                             >
                               <option value='Mua thêm ký gửi'>

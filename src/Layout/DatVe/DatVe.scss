@@ -64,13 +64,18 @@
     border-radius: 6px
 }
 .passen-page,.flight-page,.ctr-passenger {
-    background: #efefef;
     width: 100%;
-    padding: 6px 10px 10px 10px;
+  padding: 6px 10px 10px 10px;
+}
+.ctr-passenger1 {
+  background: #ffffff;
+  width: 100%;
+  padding: 6px 10px 10px 10px;
 }
 .passenger-page input[type="text"], .passenger-page select {
     height: 24px;
     border: 0 solid #c7c7c7;
+    outline: none;
 }
 .passenger-page input[type="text"] {
     width: 98%;
