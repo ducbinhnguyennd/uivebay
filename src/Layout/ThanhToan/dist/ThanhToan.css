@@ -1,0 +1,203 @@
+.container-thanhtoan {
+  display: flex;
+  gap: 16px;
+}
+.container-thanhtoan h3,
+.container-thanhtoan h4 {
+  margin-bottom: 16px;
+  color: #0056b3;
+}
+.container-thanhtoan p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+.container-thanhtoan button {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.container-thanhtoan button:hover {
+  background-color: #003d80;
+}
+
+.tatcadonhang {
+  padding: 10px 20px;
+  background-color: #cce7ff;
+  width: 200px;
+  margin: 15px;
+  border: #0056b3 2px solid;
+  cursor: pointer;
+}
+
+.thanhtoan {
+  flex: 6;
+  padding-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: #efefef;
+}
+
+.faq-hdtt {
+  flex: 4;
+  padding: 16px 0px;
+}
+
+.order-details {
+  margin-bottom: 24px;
+}
+.order-details .support-options {
+  background-color: #f1f8ff;
+  border: 1px solid #cce7ff;
+  padding: 5px;
+  margin-top: 16px;
+}
+.order-details .support-options label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.order-details .support-options label input {
+  margin-right: 8px;
+}
+
+.payment-methods {
+  margin-bottom: 24px;
+}
+.payment-methods h4 {
+  margin-bottom: 12px;
+}
+.payment-methods > div {
+  margin-bottom: 16px;
+}
+.payment-methods > div label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.payment-methods > div label input {
+  margin-right: 8px;
+}
+.payment-methods > div .bank-details {
+  display: flex;
+  background-color: #f1f8ff;
+  border: 1px solid #cce7ff;
+  padding: 12px;
+  margin-top: 8px;
+}
+.payment-methods > div .bank-details p {
+  margin: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+.payment-methods > div .bank-details p button {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.payment-methods > div .bank-details p button:hover {
+  background-color: #ccc;
+}
+
+.bank-info {
+  flex: 7;
+  padding: 16px;
+}
+
+.qr-code {
+  flex: 3;
+}
+
+.flight-details {
+  display: flex;
+  margin-bottom: 24px;
+  padding: 12px;
+  background-color: #ffffff;
+}
+.flight-details p {
+  margin: 8px 0;
+}
+.flight-details p:first-of-type {
+  font-weight: bold;
+  color: #0056b3;
+}
+.flight-details p:nth-of-type(2) {
+  font-size: 14px;
+  color: #333;
+}
+
+.accordion {
+  margin-bottom: 16px;
+}
+.accordion button {
+  width: 100%;
+  text-align: left;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.accordion button:hover {
+  background-color: #143a83;
+}
+.accordion .accordion-content {
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.divanhhang {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.divanhhang img {
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .divthanhtoantong {
+    overflow: hidden;
+  }
+
+  .thanhtoan {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    margin: 0 auto;
+  }
+
+  .tatcadonhang {
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .bank-details {
+    padding: 0 !important;
+  }
+
+  .qr-code {
+    text-align: center;
+  }
+
+  .container-thanhtoan {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .divheaderdatghe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

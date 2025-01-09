@@ -130,8 +130,7 @@ function ThongTinDatKhuHoiQT () {
   useEffect(() => {
     if (
       !flightdata ||
-      !flightdata.inbound.price ||
-      !flightdata.outbound.price ||
+      !flightdata.totalPrice ||
       !phantrams ||
       phantrams.length === 0
     )
@@ -139,24 +138,15 @@ function ThongTinDatKhuHoiQT () {
 
     const totalPrice2 = mangnguoi.reduce((total, item) => {
       const pricePerTicket =
-        flightdata.outbound.totalPrice -
-        (flightdata.outbound.totalPrice * phantrams[0].phantram) / 100
+        parseFloat(flightdata.totalPrice) -
+        (parseFloat(flightdata.totalPrice) * phantrams[0].phantram) / 100
 
       const taxAndFee = (pricePerTicket * 30) / 100
       return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
     }, 0)
 
     settienve(totalPrice2)
-    const totalPrice3 = mangnguoi.reduce((total, item) => {
-      const pricePerTicket =
-        flightdata.inbound.totalPrice -
-        (flightdata.inbound.totalPrice * phantrams[0].phantram) / 100
-
-      const taxAndFee = (pricePerTicket * 30) / 100
-      return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
-    }, 0)
-
-    settienveve(totalPrice3)
+    settienveve(totalPrice2)
   }, [flightdata, mangnguoi, phantrams])
 
   const validate = () => {
@@ -208,6 +198,25 @@ function ThongTinDatKhuHoiQT () {
       }
     }
     return valid
+  }
+  const handeltongtien = () => {
+    const tongtienvedi =
+      (parseFloat(flightdata.totalPrice) -
+        (parseFloat(flightdata.totalPrice) * phantrams[0]?.phantram) / 100) *
+      tongSoNguoi
+
+    const thue = ((tongtienvedi * 30) / 100) * 2
+    const tongtien = tongtienvedi * 2 + thue + tongPriceKygui
+    return tongtien
+  }
+  const handlethue = () => {
+    const tongtienvedi =
+      (parseFloat(flightdata.totalPrice) -
+        (parseFloat(flightdata.totalPrice) * phantrams[0]?.phantram) / 100) *
+      tongSoNguoi
+
+    const thue = ((tongtienvedi * 30) / 100) * 2
+    return thue
   }
 
   const handledatve = async () => {
@@ -395,33 +404,62 @@ function ThongTinDatKhuHoiQT () {
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé đi</td>
                                     <td className='col-calculator'>
-                                      &nbsp;x {tongSoNguoi}
+                                      x {tongSoNguoi}
                                     </td>
-                                    <td className='col-equal'>=</td>
+                                    <td>=</td>
                                     <td className='col-price'>
-                                      {parseFloat(tienve).toLocaleString()}
-                                      <span className='currency'>đ</span>
-                                    </td>
-                                  </tr>
-                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
-                                    <td className='col-title'>Tiền vé về</td>
-                                    <td className='col-calculator'>
-                                      &nbsp;x {tongSoNguoi}
-                                    </td>
-                                    <td className='col-equal'>=</td>
-                                    <td className='col-price'>
-                                      {parseFloat(tienveve).toLocaleString()}
+                                      {(
+                                        parseFloat(flightdata.totalPrice) *
+                                        tongSoNguoi
+                                      ).toLocaleString()}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
+                                    <td className='col-title'>Tiền vé về</td>
+                                    <td className='col-calculator'>
+                                      x {tongSoNguoi}
+                                    </td>
+                                    <td>=</td>
+                                    <td className='col-price'>
+                                      {(
+                                        parseFloat(flightdata.totalPrice) *
+                                        tongSoNguoi
+                                      ).toLocaleString()}
+
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
+                                    <td className='col-title'>Thuế, phí</td>
+                                    <td className='col-calculator'>
+                                      x {tongSoNguoi}
+                                    </td>
+                                    <td>=</td>
+                                    <td className='col-price'>
+                                      {handlethue().toLocaleString()}
+
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
                               <table className='tbl-baggage'>
                                 <tbody>
                                   <tr>
                                     <td className='col-title'>Hành lý</td>
-                                    <td className='col-calculator'></td>
-                                    <td className='col-equal'>=</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
                                     <td className='col-price'>
                                       <span className='p-baggage'>
                                         {tongPriceKygui.toLocaleString()}
@@ -436,18 +474,14 @@ function ThongTinDatKhuHoiQT () {
                                   <tr>
                                     <td>Tổng giá vé </td>
                                     <td></td>
-                                    <td>=</td>
+                                    <td className='col-calculator'>=</td>
                                     <td
                                       colSpan='2'
                                       className='total-price'
                                       style={{ color: '#e84e0f' }}
                                     >
                                       <span className='t-price'>
-                                        {(
-                                          parseFloat(tienve) +
-                                          parseFloat(tienveve) +
-                                          tongPriceKygui
-                                        ).toLocaleString()}
+                                        {handeltongtien().toLocaleString()}
                                       </span>{' '}
                                       <span className='currency'>đ</span>
                                     </td>
@@ -789,7 +823,6 @@ function ThongTinDatKhuHoiQT () {
                               />
                             </td>
                           </tr>
-                          
                         </tbody>
                       </table>
                     </td>

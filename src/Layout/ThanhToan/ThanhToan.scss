@@ -181,6 +181,43 @@
   gap: 10px;
   align-items: center;
 }
-.divanhhang img{
+
+.divanhhang img {
   height: 20px;
+}
+
+@media (max-width: 768px) {
+  .divthanhtoantong {
+    overflow: hidden;
+  }
+
+
+  .thanhtoan {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    margin: 0 auto;
+  }
+
+  .tatcadonhang {
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .bank-details {
+    padding: 0 !important;
+  }
+  .qr-code{
+    text-align: center;
+  }
+  .container-thanhtoan{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .divheaderdatghe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }

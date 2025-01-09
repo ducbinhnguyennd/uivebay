@@ -76,16 +76,15 @@ function SearchKHQT () {
   const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
 
   const totalPrice = mangnguoi.reduce((total, item) => {
-    if (!selectedFlight || !selectedFlight.price) {
+    if (!selectedFlight || !selectedFlight.totalPrice) {
       return total
     }
     const pricePerTicket =
-      (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
-        phantrams[0].phantram) /
-      100
+      (parseFloat(selectedFlight.totalPrice) * phantrams[0]?.phantram) / 100
     const taxAndFee = (pricePerTicket * 30) / 100
     return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
   }, 0)
+  console.log(selectedFlight)
 
   return (
     <div className='search-layout'>
@@ -244,7 +243,8 @@ function SearchKHQT () {
                                 flight,
                                 setVisibleDetailIndex,
                                 setSelectedFlight,
-                                visibleDetailIndex
+                                visibleDetailIndex,
+                                setflightdata
                               )
                             }}
                             style={{ display: 'flex' }}
@@ -266,11 +266,7 @@ function SearchKHQT () {
                           <div className='flight-price-quoctekh'>
                             {phantrams.length > 0
                               ? (
-                                  (parseInt(
-                                    flight.totalPrice.replace(/,/g, ''),
-                                    10
-                                  ) *
-                                    phantrams[0].phantram) /
+                                  (flight.totalPrice * phantrams[0].phantram) /
                                   100
                                 ).toLocaleString() + 'đ'
                               : 'Đang tải...'}
@@ -521,13 +517,7 @@ function SearchKHQT () {
                                   </td>
                                   <td align='center' className='pax'>
                                     {(
-                                      ((parseInt(
-                                        selectedFlight.totalPrice.replace(
-                                          /,/g,
-                                          ''
-                                        ),
-                                        10
-                                      ) *
+                                      ((parseFloat(selectedFlight.totalPrice) *
                                         phantrams[0].phantram) /
                                         100) *
                                       item.songuoi
@@ -535,12 +525,8 @@ function SearchKHQT () {
                                   </td>
                                   <td align='center' className='pax'>
                                     {(
-                                      ((((parseInt(
-                                        selectedFlight.totalPrice.replace(
-                                          /,/g,
-                                          ''
-                                        ),
-                                        10
+                                      ((((parseFloat(
+                                        selectedFlight.totalPrice
                                       ) *
                                         phantrams[0].phantram) /
                                         100) *
@@ -551,14 +537,9 @@ function SearchKHQT () {
                                   </td>
                                   <td align='center' className='pax'>
                                     {HandelTonggia(
-                                      parseInt(
-                                        selectedFlight.totalPrice.replace(
-                                          /,/g,
-                                          ''
-                                        ),
-                                        10
-                                      ),
-                                      phantrams,
+                                      (parseFloat(selectedFlight.totalPrice) *
+                                        phantrams[0].phantram) /
+                                        100,
                                       item
                                     ).toLocaleString()}
                                   </td>

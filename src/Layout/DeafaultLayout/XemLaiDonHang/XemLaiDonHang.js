@@ -15,7 +15,7 @@ const XemLaiDonHang = () => {
     }
 
     try {
-       const response = await axios.post("https://demovemaybay.shop/searchhoadon", { query: phone  });
+       const response = await axios.post("https://demovemaybay.shop/searchhoadon2", { query: phone  });
 
       if (response.data) {
         navigate("/chitietdonhang", { state: response.data });

@@ -23,9 +23,7 @@ function ThongTinDatVeQT () {
   const [tencongty, settencongty] = useState('')
   const [diachi, setdiachi] = useState('')
   const [ghichu, setghichu] = useState('')
-  const [themkhach, setthemkhach] = useState(false)
   const [valuethemkhach, setvaluethemkhach] = useState('')
-  const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
 
   const navigate = useNavigate()
@@ -193,6 +191,11 @@ function ThongTinDatVeQT () {
     }
     return valid
   }
+  const handeltongtien = tienve => {
+    const thue = (tienve * 30) / 100
+    const tongtien = tienve + thue + tongPriceKygui
+    return tongtien
+  }
 
   const handledatve = async () => {
     if (!validate()) {
@@ -282,7 +285,7 @@ function ThongTinDatVeQT () {
                             </td>
                             <td className='txtFlightTime'></td>
                           </tr>
-                          <tr >
+                          <tr>
                             <td className='tdmaybay'>
                               <span
                                 style={{
@@ -326,6 +329,7 @@ function ThongTinDatVeQT () {
                         </tbody>
                       </table>
                     </td>
+                    ;
                     <td className='col-right'>
                       <table id='tbl-breakdown'>
                         <tbody>
@@ -334,24 +338,63 @@ function ThongTinDatVeQT () {
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
-                                    <td className='col-title'>Tiền vé </td>
+                                    <td className='col-title'>Tiền vé</td>
                                     <td className='col-calculator'>
-                                      &nbsp; x {tongSoNguoi}
+                                      x {tongSoNguoi}
                                     </td>
-                                    <td className='col-equal'>=</td>
+                                    <td>=</td>
                                     <td className='col-price'>
-                                      {tienve.toLocaleString()}
+                                      {(
+                                        (parseFloat(
+                                          flightdata.totalPrice
+                                        ) -
+                                          (parseFloat(
+                                            flightdata.totalPrice
+                                          ) *
+                                            phantrams[0]?.phantram) /
+                                            100) *
+                                        tongSoNguoi
+                                      ).toLocaleString()}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
+                                    <td className='col-title'>Thuế, phí</td>
+                                    <td className='col-calculator'>
+                                      x {tongSoNguoi}
+                                    </td>
+                                    <td>=</td>
+                                    <td className='col-price'>
+                                      {(
+                                        ((parseFloat(
+                                          flightdata.totalPrice
+                                        ) -
+                                          (parseFloat(
+                                            flightdata.totalPrice
+                                          ) *
+                                            phantrams[0]?.phantram) /
+                                            100) *
+                                          tongSoNguoi *
+                                          30) /
+                                        100
+                                      ).toLocaleString()}
+
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
                               <table className='tbl-baggage'>
                                 <tbody>
                                   <tr>
                                     <td className='col-title'>Hành lý</td>
-                                    <td className='col-calculator'></td>
-                                    <td className='col-equal'>=</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
                                     <td className='col-price'>
                                       <span className='p-baggage'>
                                         {tongPriceKygui.toLocaleString()}
@@ -366,15 +409,23 @@ function ThongTinDatVeQT () {
                                   <tr>
                                     <td>Tổng giá vé </td>
                                     <td></td>
-                                    <td>=</td>
+                                    <td className='col-calculator'>=</td>
                                     <td
                                       colSpan='2'
                                       className='total-price'
                                       style={{ color: '#e84e0f' }}
                                     >
                                       <span className='t-price'>
-                                        {(
-                                          tienve + tongPriceKygui
+                                        {handeltongtien(
+                                          (parseFloat(
+                                            flightdata.totalPrice
+                                          ) -
+                                            (parseFloat(
+                                              flightdata.totalPrice
+                                            ) *
+                                              phantrams[0]?.phantram) /
+                                              100) *
+                                            tongSoNguoi
                                         ).toLocaleString()}
                                       </span>{' '}
                                       <span className='currency'>đ</span>

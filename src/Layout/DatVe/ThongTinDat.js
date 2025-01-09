@@ -150,6 +150,12 @@ function ThongTinDat () {
     settienve(totalPrice2)
   }, [flightdata, mangnguoi, phantrams])
 
+  const handeltongtien = tienve => {
+    const thue = (tienve * 30) / 100
+    const tongtien = tienve + thue + tongPriceKygui
+    return tongtien
+  }
+
   const validate = () => {
     let valid = true
     if (phone) {
@@ -358,16 +364,59 @@ function ThongTinDat () {
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé</td>
                                     <td className='col-calculator'>
-                                      x {tongSoNguoi} 
+                                      x {tongSoNguoi}
                                     </td>
                                     <td>=</td>
                                     <td className='col-price'>
-                                      {tienve.toLocaleString()}
+                                      {(
+                                        (parseInt(
+                                          flightdata.price.replace(/,/g, ''),
+                                          10
+                                        ) -
+                                          (parseInt(
+                                            flightdata.price.replace(/,/g, ''),
+                                            10
+                                          ) *
+                                            phantrams[0]?.phantram) /
+                                            100) *
+                                        tongSoNguoi
+                                      ).toLocaleString()}
                                       <span className='currency'>đ</span>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
+                              <table className='tbl-price'>
+                                <tbody>
+                                  <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
+                                    <td className='col-title'>Thuế, phí</td>
+                                    <td className='col-calculator'>
+                                      x {tongSoNguoi}
+                                    </td>
+                                    <td>=</td>
+                                    <td className='col-price'>
+                                      {(
+                                        ((parseInt(
+                                          flightdata.price.replace(/,/g, ''),
+                                          10
+                                        ) -
+                                          (parseInt(
+                                            flightdata.price.replace(/,/g, ''),
+                                            10
+                                          ) *
+                                            phantrams[0]?.phantram) /
+                                            100) *
+                                          tongSoNguoi *
+                                          30) /
+                                        100
+                                      ).toLocaleString()}
+
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
                               <table className='tbl-baggage'>
                                 <tbody>
                                   <tr>
@@ -395,8 +444,21 @@ function ThongTinDat () {
                                       style={{ color: '#e84e0f' }}
                                     >
                                       <span className='t-price'>
-                                        {(
-                                          tienve + tongPriceKygui
+                                        {handeltongtien(
+                                          (parseInt(
+                                            flightdata.price.replace(/,/g, ''),
+                                            10
+                                          ) -
+                                            (parseInt(
+                                              flightdata.price.replace(
+                                                /,/g,
+                                                ''
+                                              ),
+                                              10
+                                            ) *
+                                              phantrams[0]?.phantram) /
+                                              100) *
+                                            tongSoNguoi
                                         ).toLocaleString()}
                                       </span>{' '}
                                       <span className='currency'>đ</span>
@@ -716,7 +778,7 @@ function ThongTinDat () {
                     <td className='col-right'>
                       <table className='contact-info'>
                         <tbody>
-                          <tr className = 'tremail'>
+                          <tr className='tremail'>
                             <td style={{ width: '96px' }}>Email</td>
                             <td>
                               <input

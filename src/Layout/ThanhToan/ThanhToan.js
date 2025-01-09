@@ -4,25 +4,16 @@ import React, { useEffect, useState } from 'react'
 import { useToast } from '../../components/useToast/ToastContext'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 import { ModalSuccess } from '../../components/ModalSuccess'
+import DatGhe from './DatGhe'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
   const { hoadon } = useToast()
   const [datagiaodich, setdatagiaodich] = useState({})
   const [isOpen, setisOpen] = useState(false)
-
-
-
-  const Accordion = ({ title, children }) => {
-    const [isOpen, setIsOpen] = React.useState(false)
-
-    return (
-      <div className='accordion'>
-        <button onClick={() => setIsOpen(!isOpen)}>{title}</button>
-        {isOpen && <div className='accordion-content'>{children}</div>}
-      </div>
-    )
-  }
+  const [selectedSeat, setSelectedSeat] = useState('')
+  const [tiendatghe, settiendatghe] = useState(0)
+  const [datghe, setdatghe] = useState(false)
 
   const fetchdonhang = async () => {
     try {
@@ -51,7 +42,12 @@ const ThanhToan = () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({ 
+              tiendatghe,
+              datghe,
+              ghe:selectedSeat
+             })
           }
         )
         if (response.ok) {
@@ -79,7 +75,7 @@ const ThanhToan = () => {
   }, [datagiaodich, hoadon])
 
   return (
-    <div>
+    <div className='divthanhtoantong'>
       <div className='tatcadonhang'>Xem tất cả đơn hàng</div>
       <div className='container-thanhtoan'>
         <div className='thanhtoan'>
@@ -110,7 +106,7 @@ const ThanhToan = () => {
                   <p>
                     Số tiền:{' '}
                     <strong style={{ color: 'red' }}>
-                      {hoadon.tongtien.toLocaleString()}
+                      {(hoadon.tongtien + tiendatghe).toLocaleString()}
                     </strong>{' '}
                     <button>Copy</button>
                   </p>
@@ -156,10 +152,10 @@ const ThanhToan = () => {
               <div className='divanhhang'>
                 <p>{hoadon.chuyenbay}</p>
               </div>
-              <p>Anh: {hoadon.namenguoibay}</p>
+              <p>Anh: {hoadon.namelienhe}</p>
 
               <p>
-                Hành lý:{' '}
+                Hành lý: 7kg hành lý xách tay
                 {hoadon.hanhlykygui &&
                   hoadon.hanhlykygui.replace(
                     /Mua (\d+kg).*$/,
@@ -174,37 +170,15 @@ const ThanhToan = () => {
           </div>
         </div>
         <div className='faq-hdtt'>
-          <Accordion title='Hướng dẫn upload chứng từ'>
-            <p>
-              Trong trường hợp việc cập nhật tình trạng thanh toán có thể bị
-              trễ, Quý khách vui lòng sử dụng tiện ích này để xác nhận việc đã
-              thanh toán cho Abay.
-            </p>
-          </Accordion>
-          <Accordion title='Nhập thẻ hội viên Bông sen vàng'>
-            <p>
-              Nếu quý khách đã có thẻ BSV, vui lòng click vào "Tiếp tục" để nhập
-              số thẻ Tiếp tục Quý khách chưa có thẻ BSV? xem hướng dẫn
-            </p>
-          </Accordion>
-          <Accordion title='Gửi yêu cầu thay đổi vé'>
-            <p>
-              Điều kiện vé (xem chi tiết)
-              <br />
-              - Áp dụng hoàn vé mất phí - Không áp dụng đổi tên - Áp dụng đổi vé
-              mất phí
-              <br />
-              Quý khách cần đổi ngày, giờ bay, đổi tên, đổi hành trình,...
-              <br />
-              vui lòng gửi yêu cầu tại đây (click)
-            </p>
-          </Accordion>
-          <Accordion title='Gửi yêu cầu hoàn vé'>
-            <p>Nội dung hoàn vé...</p>
-          </Accordion>
-          <Accordion title='Gửi yêu cầu xuất hóa đơn VAT'>
-            <p>Nội dung hóa đơn...</p>
-          </Accordion>
+          <DatGhe
+            selectedSeat={selectedSeat}
+            setSelectedSeat={setSelectedSeat}
+            tiendatghe={tiendatghe}
+            settiendatghe={settiendatghe}
+            name={hoadon.namelienhe}
+            datghe={datghe}
+            setdatghe={setdatghe}
+          />
         </div>
       </div>
       <ModalSuccess isOpen={isOpen} onClose={() => setisOpen(false)} />
