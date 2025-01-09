@@ -52,7 +52,7 @@ const Navbar = () => {
           <a href='/'>Trang chủ</a>
         </li>
         <li className='dropdown'>
-          <a href='/ve-noi-dia' className='dropdown-toggle'>
+          <a href='/' className='dropdown-toggle'>
             Vé nội địa
           </a>
           <ul className='dropdown-menu'>
@@ -64,7 +64,7 @@ const Navbar = () => {
           </ul>
         </li>
         <li className='dropdown'>
-          <a href='/ve-quoc-te' className='dropdown-toggle'>
+          <a href='/' className='dropdown-toggle'>
             Vé quốc tế
           </a>
           <ul className='dropdown-menu'>
@@ -88,7 +88,17 @@ const Navbar = () => {
           </ul>
         </li>
         <li><a href="/xem-lai-don-hang">Xem lại đơn hàng</a></li>
-        <li><a href="/tien-ich">Tiện ích</a></li>
+        <li className='dropdown'><a href="/">Tiện ích</a>
+        <ul className='dropdown-menu'>
+        <li>
+                <Link to={'/xem-lai-don-hang'}>Xem lại đơn hàng</Link>
+              </li>
+              <li>
+                <Link to={'/thongtinchuyenkhoan'}>Thông tin chuyển khoản</Link>
+              </li>
+        
+          </ul>
+        </li>
         <li><a href="/tin-khuyen-mai">Tin khuyến mãi</a></li>
         {/* <li><a href="/gioi-thieu">Giới thiệu</a></li> */}
         <li><a href="/lien-he">Liên hệ</a></li>
