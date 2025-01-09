@@ -1,26 +1,26 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useState, useEffect } from "react";
-import "./SearchQuocTe.scss";
-import { useToast } from "../../../components/useToast/ToastContext";
-import { useNavigate } from "react-router-dom";
-import FilterComponent from "../../../components/SideBar/Filter";
-import SearchSidebar from "../../../components/SideBar/SearchSideBar";
+import { useState, useEffect } from 'react'
+import './SearchQuocTe.scss'
+import { useToast } from '../../../components/useToast/ToastContext'
+import { useNavigate } from 'react-router-dom'
+import FilterComponent from '../../../components/SideBar/Filter'
+import SearchSidebar from '../../../components/SideBar/SearchSideBar'
 import {
   LunarCalendarFormat,
   formatDate,
   getSurroundingDates,
-  CalendarFormat,
-} from "../../../components/LunarCalendarFormat/LunarCalendarFormat";
+  CalendarFormat
+} from '../../../components/LunarCalendarFormat/LunarCalendarFormat'
 import {
   applyFilters,
-  handleFiltersChange,
-} from "../../../components/FilterChuyenBay/FilterChuyenBay";
+  handleFiltersChange
+} from '../../../components/FilterChuyenBay/FilterChuyenBay'
 import {
   toggleDetails,
   HandelTonggia,
-  calculateDuration,
-} from "../SearchLayoutFunction";
-function SearchQuocTe() {
+  calculateDuration
+} from '../SearchLayoutFunction'
+function SearchQuocTe () {
   const {
     cityfrom,
     cityto,
@@ -31,35 +31,35 @@ function SearchQuocTe() {
     mangnguoi,
     setflightdata,
     setSearchData,
-    setdate,
-  } = useToast();
-  const { previousTwoDays, nextTwoDays } = getSurroundingDates(date);
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
-  const [phantrams, setphantram] = useState([]);
-  const [selectedFlight, setSelectedFlight] = useState(null);
+    setdate
+  } = useToast()
+  const { previousTwoDays, nextTwoDays } = getSurroundingDates(date)
+  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
+  const [phantrams, setphantram] = useState([])
+  const [selectedFlight, setSelectedFlight] = useState(null)
   const [filters, setFilters] = useState({
-    sortBy: "abay-suggest",
-    airlines: [],
-  });
-  const navigate = useNavigate();
+    sortBy: 'abay-suggest',
+    airlines: []
+  })
+  const navigate = useNavigate()
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch("https://demovemaybay.shop/getphantram");
-      const data = await response.json();
+      const response = await fetch('https://demovemaybay.shop/getphantram')
+      const data = await response.json()
       if (response.ok) {
-        setphantram(data);
+        setphantram(data)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchphantram();
-  }, []);
+    fetchphantram()
+  }, [])
 
-  const handleSearch = async (date) => {
+  const handleSearch = async date => {
     try {
       const requestData = {
         departure: mafrom,
@@ -67,34 +67,31 @@ function SearchQuocTe() {
         date: formatDate(date),
         adults: mangnguoi[0]?.songuoi,
         children: mangnguoi[1]?.songuoi || 0,
-        infants: mangnguoi[2]?.songuoi || 0,
-      };
+        infants: mangnguoi[2]?.songuoi || 0
+      }
 
       const response = await fetch(
-        "https://wooordersystem.store/order-woo/api/getInfoFlightInternational",
+        'https://wooordersystem.store/order-woo/api/getInfoFlightInternational',
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(requestData),
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData)
         }
-      );
-      const data = await response.json();
+      )
+      const data = await response.json()
 
       if (response.ok) {
-        setSearchData(data);
-        setdate(date);
-        window.location.reload();
+        setSearchData(data)
+        setdate(date)
+        window.location.reload()
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  const flights1 = applyFilters(searchData.data, filters);
-  const totalPeople = mangnguoi.reduce(
-    (total, item) => total + item.songuoi,
-    0
-  );
+  const flights1 = applyFilters(searchData?.data, filters)
+  const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
 
   const totalPrice = mangnguoi.reduce((total, item) => {
     if (
@@ -103,73 +100,71 @@ function SearchQuocTe() {
       !phantrams ||
       phantrams.length === 0
     ) {
-      return total;
+      return total
     }
     const totalPricePerTicket =
-      parseInt(selectedFlight.totalPrice.replace(/,/g, ""), 10) -
-      (parseInt(selectedFlight.totalPrice.replace(/,/g, ""), 10) *
+      parseInt(selectedFlight.totalPrice.replace(/,/g, ''), 10) -
+      (parseInt(selectedFlight.totalPrice.replace(/,/g, ''), 10) *
         phantrams[0].phantram) /
-        100;
-    const taxAndFee = (totalPricePerTicket * 30) / 100;
-    return (
-      total + totalPricePerTicket * item.songuoi + taxAndFee * item.songuoi
-    );
-  }, 0);
+        100
+    const taxAndFee = (totalPricePerTicket * 30) / 100
+    return total + totalPricePerTicket * item.songuoi + taxAndFee * item.songuoi
+  }, 0)
 
   return (
-    <div className="search-layout">
-      <div className="content-wrapper">
-        <div className="main-content">
-          <div className="flight-booking">
-            <div className="booking-header">
-              <div className="route-info">
-                <span className="city">{cityfrom}</span>&nbsp;
-                <img src="/plane1.png" alt="plane" style={{ width: "15px" }} />
+    <div className='search-layout'>
+      <div className='content-wrapper'>
+        <div className='main-content'>
+          <div className='flight-booking'>
+            <div className='booking-header'>
+              <div className='route-info'>
+                <span className='city'>{cityfrom}</span>&nbsp;
+                <img src='/plane1.png' alt='plane' style={{ width: '15px' }} />
                 &nbsp;
-                <span className="city">{cityto}</span>
+                <span className='city'>{cityto}</span>
                 <br />
-                <div className="date-info">
-                  <span className="selected-date">
+                <div className='date-info'>
+                  <span className='selected-date'>
                     {LunarCalendarFormat(date)}
                   </span>
                 </div>
               </div>
-              <div className="price-info">
+              <div className='price-info'>
                 Giá vé chưa gồm thuế và phí
                 <br />
-                <span className="note">
+                <span className='note'>
                   <img
-                    src="./hanhly.png"
-                    alt="baggage"
-                    style={{ width: "18px" }}
+                    src='./hanhly.png'
+                    alt='baggage'
+                    style={{ width: '18px' }}
                   />
                   <img
-                    src="./suatan.jpg"
-                    alt="meal"
-                    style={{ width: "18px" }}
+                    src='./suatan.jpg'
+                    alt='meal'
+                    style={{ width: '18px' }}
                   />
                   giá vé đã bao gồm hành lý và suất ăn
                 </span>
               </div>
             </div>
 
-            <div className="date-selection">
+            <div className='date-selection'>
               {previousTwoDays.map((day, index) => {
                 const isPastDate =
-                  new Date(day) < new Date().setHours(0, 0, 0, 0);
+                  new Date(day) < new Date().setHours(0, 0, 0, 0)
 
                 return (
                   <div
                     key={index}
-                    className={`date ${isPastDate ? "disabled" : ""}`}
+                    className={`date ${isPastDate ? 'disabled' : ''}`}
                     onClick={!isPastDate ? () => handleSearch(day) : undefined}
                   >
                     {CalendarFormat(day)}
                     <br />
                   </div>
-                );
+                )
               })}
-              <div className={`date ${date ? "active" : ""}`}>
+              <div className={`date ${date ? 'active' : ''}`}>
                 {CalendarFormat(date)}
                 <br />
               </div>
@@ -185,36 +180,36 @@ function SearchQuocTe() {
               ))}
             </div>
 
-            <div class="captions-container">
-              {" "}
+            <div class='captions-container'>
+              {' '}
               <label>Ghi chú:</label>
-              <div class="caption-option">
-                <div class="option-container">
-                  <div class="stop-points-container">
-                    <div class="stop-points-line stop-points-0">
-                      <div class="straight-line"></div>
+              <div class='caption-option'>
+                <div class='option-container'>
+                  <div class='stop-points-container'>
+                    <div class='stop-points-line stop-points-0'>
+                      <div class='straight-line'></div>
                     </div>
                   </div>
                 </div>
                 <label>Bay thẳng</label>
               </div>
-              <div class="caption-option">
-                <div class="option-container">
-                  <div class="stop-points-container">
-                    <div class="stop-points-line stop-points-1">
-                      <div class="straight-line"></div>
-                      <span class="circle">1</span>
+              <div class='caption-option'>
+                <div class='option-container'>
+                  <div class='stop-points-container'>
+                    <div class='stop-points-line stop-points-1'>
+                      <div class='straight-line'></div>
+                      <span class='circle'>1</span>
                     </div>
                   </div>
                 </div>
                 <label>điểm dừng</label>
               </div>
-              <div class="caption-option stop-points-2">
-                <div class="option-container">
-                  <div class="stop-points-container">
-                    <div class="stop-points-line stop-points-2">
-                      <div class="straight-line"></div>
-                      <span class="circle">2</span>
+              <div class='caption-option stop-points-2'>
+                <div class='option-container'>
+                  <div class='stop-points-container'>
+                    <div class='stop-points-line stop-points-2'>
+                      <div class='straight-line'></div>
+                      <span class='circle'>2</span>
                     </div>
                   </div>
                 </div>
@@ -222,8 +217,8 @@ function SearchQuocTe() {
               </div>
             </div>
 
-            <div className="flight-options-quocte">
-              {Array.isArray(searchData.data) &&
+            <div className='flight-options-quocte'>
+              {Array.isArray(searchData?.data) && searchData?.data.length > 0 ? (
                 flights1.map((flight, index) => (
                   <div
                     key={index}
@@ -231,31 +226,31 @@ function SearchQuocTe() {
                       setflightdata(flight)
                       navigate('/datvequocte')
                     }}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                   >
-                    <div className="flight-row-quocte">
-                      <div className="flight-info-quocte">
-                        <span className="flight-code-quocte">
+                    <div className='flight-row-quocte'>
+                      <div className='flight-info-quocte'>
+                        <span className='flight-code-quocte'>
                           {mafrom} - {mato}
                         </span>
                       </div>
-                      <div className="flight-info-quocte">
-                        <span className="flight-time-chang-quocte">
-                          {flight.outbound.departureTime} -{" "}
+                      <div className='flight-info-quocte'>
+                        <span className='flight-time-chang-quocte'>
+                          {flight.outbound.departureTime} -{' '}
                           {flight.outbound.arrivalTime}
                         </span>
                       </div>
-                      <div className="flight-info-quocte">
+                      <div className='flight-info-quocte'>
                         <div
                           style={{
-                            display: "flex",
-                            fontSize: "12px",
-                            gap: "8px",
-                            alignItems: "center",
+                            display: 'flex',
+                            fontSize: '12px',
+                            gap: '8px',
+                            alignItems: 'center'
                           }}
                         >
                           Thời gian bay:
-                          <div className="flight-time-quocte">
+                          <div className='flight-time-quocte'>
                             {calculateDuration(
                               flight.outbound.departureTime,
                               flight.outbound.arrivalTime
@@ -265,8 +260,8 @@ function SearchQuocTe() {
                       </div>
 
                       <div
-                        onClick={(e) => {
-                          e.stopPropagation();
+                        onClick={e => {
+                          e.stopPropagation()
                           toggleDetails(
                             index,
                             flight,
@@ -274,46 +269,46 @@ function SearchQuocTe() {
                             setSelectedFlight,
                             visibleDetailIndex,
                             setflightdata
-                          );
+                          )
                         }}
-                        style={{ display: "flex" }}
+                        style={{ display: 'flex' }}
                       >
                         <div
                           style={{
-                            color: "#143a83",
-                            fontSize: "13px",
-                            paddingRight: "5px",
+                            color: '#143a83',
+                            fontSize: '13px',
+                            paddingRight: '5px'
                           }}
                         >
                           Chi tiết
                         </div>
-                        <img src="./collaspe.png" />
+                        <img src='./collaspe.png' />
                       </div>
-                      <div className="flight-price-quocte">
+                      <div className='flight-price-quocte'>
                         {phantrams.length > 0
                           ? (
                               flight.totalPrice -
                               (flight.totalPrice * phantrams[0].phantram) / 100
                             ).toLocaleString()
-                          : "Đang tải..."}
+                          : 'Đang tải...'}
                       </div>
-                      <button className="select-button">Chọn</button>
+                      <button className='select-button'>Chọn</button>
                     </div>
                     {visibleDetailIndex === index && (
                       <div
-                        className="flight-detail-content"
-                        onClick={(e) => e.stopPropagation()}
+                        className='flight-detail-content'
+                        onClick={e => e.stopPropagation()}
                       >
                         <div>
-                          <table width="100%" cellSpacing="0" cellPadding="0">
-                            <tbody className="view-detail-flight">
+                          <table width='100%' cellSpacing='0' cellPadding='0'>
+                            <tbody className='view-detail-flight'>
                               <tr>
                                 <td
-                                  valign="top"
-                                  style={{ width: "25%", textAlign: "right" }}
+                                  valign='top'
+                                  style={{ width: '25%', textAlign: 'right' }}
                                 >
                                   <p>
-                                    <b style={{ fontSize: "14px" }}>
+                                    <b style={{ fontSize: '14px' }}>
                                       {`${cityfrom} (${mafrom})`}
                                     </b>
                                   </p>
@@ -326,14 +321,14 @@ function SearchQuocTe() {
                                   <p>{`${cityfrom}`}</p>
                                 </td>
                                 <td
-                                  className="duration-info-container"
+                                  className='duration-info-container'
                                   style={{
-                                    textAlign: "center",
-                                    fontSize: "12px",
-                                    width: "20%",
+                                    textAlign: 'center',
+                                    fontSize: '12px',
+                                    width: '20%'
                                   }}
                                 >
-                                  <p style={{ paddingRight: "25px" }}>
+                                  <p style={{ paddingRight: '25px' }}>
                                     {calculateDuration(
                                       selectedFlight.outbound.departureTime,
                                       selectedFlight.outbound.arrivalTime
@@ -341,22 +336,22 @@ function SearchQuocTe() {
                                   </p>
                                   <p>
                                     <img
-                                      src="/01-point.png"
-                                      alt="Flight Path"
+                                      src='/01-point.png'
+                                      alt='Flight Path'
                                     />
                                   </p>
                                   <p
                                     style={{
-                                      paddingRight: "25px",
-                                      marginTop: "-10px",
+                                      paddingRight: '25px',
+                                      marginTop: '-10px'
                                     }}
                                   >
                                     <b>Máy bay: Airbus A321</b>
                                   </p>
                                 </td>
-                                <td valign="top" style={{ width: "25%" }}>
+                                <td valign='top' style={{ width: '25%' }}>
                                   <p>
-                                    <b style={{ fontSize: "14px" }}>
+                                    <b style={{ fontSize: '14px' }}>
                                       {`${cityto} (${mato})`}
                                     </b>
                                   </p>
@@ -370,34 +365,34 @@ function SearchQuocTe() {
                             </tbody>
                           </table>
 
-                          <table width="100%" className="price-break">
+                          <table width='100%' className='price-break'>
                             <tbody>
-                              <tr className="title-b">
-                                <td align="center" className="header">
+                              <tr className='title-b'>
+                                <td align='center' className='header'>
                                   Loại hành khách
                                 </td>
-                                <td align="center" className="header">
+                                <td align='center' className='header'>
                                   Số lượng vé
                                 </td>
-                                <td align="center" className="header">
+                                <td align='center' className='header'>
                                   Giá mỗi vé
                                 </td>
-                                <td align="center" className="header">
+                                <td align='center' className='header'>
                                   Thuế & Phí
                                 </td>
-                                <td align="center" className="header">
+                                <td align='center' className='header'>
                                   Tổng giá
                                 </td>
                               </tr>
                               {mangnguoi.map((item, index) => (
                                 <tr key={index}>
-                                  <td align="center" className="pax">
+                                  <td align='center' className='pax'>
                                     {item.name}
                                   </td>
-                                  <td align="center" className="pax">
+                                  <td align='center' className='pax'>
                                     {item.songuoi}
                                   </td>
-                                  <td align="center" className="pax">
+                                  <td align='center' className='pax'>
                                     {(
                                       selectedFlight.totalPrice * item.songuoi -
                                       ((selectedFlight.totalPrice *
@@ -406,7 +401,7 @@ function SearchQuocTe() {
                                         item.songuoi
                                     ).toLocaleString()}
                                   </td>
-                                  <td align="center" className="pax">
+                                  <td align='center' className='pax'>
                                     {(
                                       ((selectedFlight.totalPrice *
                                         item.songuoi -
@@ -418,7 +413,7 @@ function SearchQuocTe() {
                                       100
                                     ).toLocaleString()}
                                   </td>
-                                  <td align="center" className="pax">
+                                  <td align='center' className='pax'>
                                     {HandelTonggia(
                                       selectedFlight.totalPrice * item.songuoi -
                                         ((selectedFlight.totalPrice *
@@ -430,16 +425,16 @@ function SearchQuocTe() {
                                   </td>
                                 </tr>
                               ))}
-                              <tr class="total-b">
-                                <td align="right" colspan="4" class="footer">
+                              <tr class='total-b'>
+                                <td align='right' colspan='4' class='footer'>
                                   <b>
                                     <t>Tổng giá</t> {totalPeople} người
                                   </b>
                                 </td>
                                 <td
                                   colspan={1}
-                                  align="center"
-                                  class="footer pb-price"
+                                  align='center'
+                                  class='footer pb-price'
                                 >
                                   {totalPrice.toLocaleString()} VNĐ
                                 </td>
@@ -451,12 +446,15 @@ function SearchQuocTe() {
                       </div>
                     )}
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className='nodulieu'>không có dữ liệu</div>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="filter-sidebar">
+        <div className='filter-sidebar'>
           <FilterComponent
             filters={filters}
             onFiltersChange={handleFiltersChange}
@@ -466,7 +464,7 @@ function SearchQuocTe() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default SearchQuocTe;
+export default SearchQuocTe

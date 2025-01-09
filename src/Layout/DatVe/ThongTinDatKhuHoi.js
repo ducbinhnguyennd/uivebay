@@ -183,9 +183,7 @@ function ThongTinDatKhuHoi () {
           100) *
       tongSoNguoi
 
-    const thue =
-      (tongtienvedi * 30) / 100 +
-      (tongtienveve * 30) / 100
+    const thue = (tongtienvedi * 30) / 100 + (tongtienveve * 30) / 100
     const tongtien = tongtienvedi + tongtienveve + thue + tongPriceKygui
     return tongtien
   }
@@ -204,9 +202,7 @@ function ThongTinDatKhuHoi () {
           100) *
       tongSoNguoi
 
-    const thue =
-      (tongtienvedi * 30) / 100 +
-      (tongtienveve * 30) / 100
+    const thue = (tongtienvedi * 30) / 100 + (tongtienveve * 30) / 100
     return thue
   }
 
@@ -1139,14 +1135,15 @@ function ThongTinDatKhuHoi () {
                         <table id='remark-details'>
                           <tbody>
                             <tr>
-                              <td style={{ width: '93px' }}></td>
-                              <td>
+                              <td style={{ width: '1000px' }}>
                                 <textarea
                                   name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtRemark'
                                   rows='5'
                                   cols='20'
                                   id='cphMainColumn_ctl00_usrContactInfoD_txtRemark'
                                   className='text-note'
+                                  placeholder='Ghi chú về đơn hàng'
+                                  style={{ width: '100%' }}
                                   value={ghichu}
                                   onChange={e => setghichu(e.target.value)}
                                 ></textarea>

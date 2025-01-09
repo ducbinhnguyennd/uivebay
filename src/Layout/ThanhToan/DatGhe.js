@@ -11,7 +11,7 @@ const DatGhe = ({
   datghe,
   setdatghe
 }) => {
-  const rows = 20
+  const rows = 12
   const cols = ['A', 'B', 'C', 'D', 'E', 'F']
 
   const [occupiedSeats] = useState([

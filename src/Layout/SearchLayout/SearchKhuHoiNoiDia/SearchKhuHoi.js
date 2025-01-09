@@ -87,8 +87,8 @@ function SearchKhuHoi () {
     fetchphantram()
   }, [])
 
-  const flights1 = applyFilters(searchData.outBound.data.flights, filters)
-  const flights2 = applyFilters(searchData.inBound.data.flights, filters)
+  const flights1 = applyFilters(searchData.outBound?.data?.flights, filters)
+  const flights2 = applyFilters(searchData.inBound?.data?.flights, filters)
 
   const handleSearch = async date => {
     try {
@@ -228,7 +228,8 @@ function SearchKhuHoi () {
               </div>
 
               <div className='flight-table'>
-                {Array.isArray(searchData.outBound.data.flights) &&
+                {Array.isArray(searchData.outBound?.data?.flights) &&
+                searchData.outBound?.data?.flights.length > 0 ? (
                   flights1.map((flight, index) => (
                     <div
                       key={index}
@@ -503,7 +504,10 @@ function SearchKhuHoi () {
                         </div>
                       )}
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <div className='nodulieu'>không có dữ liệu</div>
+                )}
               </div>
             </div>
             <div className='flight-back'>
@@ -549,7 +553,8 @@ function SearchKhuHoi () {
               </div>
 
               <div className='flight-table'>
-                {Array.isArray(searchData.inBound.data.flights) &&
+                {Array.isArray(searchData.inBound?.data?.flights) &&
+                searchData.inBound?.data?.flights.length > 0 ? (
                   flights2.map((flight, index) => (
                     <div
                       key={index}
@@ -824,7 +829,10 @@ function SearchKhuHoi () {
                         </div>
                       )}
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <div className='nodulieu'>không có dữ liệu</div>
+                )}
               </div>
             </div>
           </div>

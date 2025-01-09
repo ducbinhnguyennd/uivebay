@@ -124,7 +124,7 @@ function ThongTinDatVeQT () {
   useEffect(() => {
     fetchhang()
     fetchphantram()
-  }, [phantrams, hangmaybay])
+  }, [])
 
   useEffect(() => {
     if (
@@ -329,7 +329,6 @@ function ThongTinDatVeQT () {
                         </tbody>
                       </table>
                     </td>
-                    ;
                     <td className='col-right'>
                       <table id='tbl-breakdown'>
                         <tbody>
@@ -345,12 +344,8 @@ function ThongTinDatVeQT () {
                                     <td>=</td>
                                     <td className='col-price'>
                                       {(
-                                        (parseFloat(
-                                          flightdata.totalPrice
-                                        ) -
-                                          (parseFloat(
-                                            flightdata.totalPrice
-                                          ) *
+                                        (parseFloat(flightdata.totalPrice) -
+                                          (parseFloat(flightdata.totalPrice) *
                                             phantrams[0]?.phantram) /
                                             100) *
                                         tongSoNguoi
@@ -370,12 +365,8 @@ function ThongTinDatVeQT () {
                                     <td>=</td>
                                     <td className='col-price'>
                                       {(
-                                        ((parseFloat(
-                                          flightdata.totalPrice
-                                        ) -
-                                          (parseFloat(
-                                            flightdata.totalPrice
-                                          ) *
+                                        ((parseFloat(flightdata.totalPrice) -
+                                          (parseFloat(flightdata.totalPrice) *
                                             phantrams[0]?.phantram) /
                                             100) *
                                           tongSoNguoi *
@@ -417,12 +408,8 @@ function ThongTinDatVeQT () {
                                     >
                                       <span className='t-price'>
                                         {handeltongtien(
-                                          (parseFloat(
-                                            flightdata.totalPrice
-                                          ) -
-                                            (parseFloat(
-                                              flightdata.totalPrice
-                                            ) *
+                                          (parseFloat(flightdata.totalPrice) -
+                                            (parseFloat(flightdata.totalPrice) *
                                               phantrams[0]?.phantram) /
                                               100) *
                                             tongSoNguoi
@@ -700,6 +687,7 @@ function ThongTinDatVeQT () {
                                 className='name-contact'
                                 value={namelienhe}
                                 onChange={e => setnamelienhe(e.target.value)}
+                                placeholder='Nhập tên liên hệ'
                               />
                             </td>
                           </tr>
@@ -722,6 +710,7 @@ function ThongTinDatVeQT () {
                                 className='phone-contact'
                                 value={phone}
                                 onChange={e => setphone(e.target.value)}
+                                placeholder='Nhập số điện thoại'
                               />
                             </td>
                           </tr>
@@ -742,6 +731,7 @@ function ThongTinDatVeQT () {
                                 className='mail-contact'
                                 value={email}
                                 onChange={e => setemail(e.target.value)}
+                                placeholder='Nhập địa chỉ email'
                               />
                             </td>
                           </tr>
@@ -888,14 +878,15 @@ function ThongTinDatVeQT () {
                         <table id='remark-details'>
                           <tbody>
                             <tr>
-                              <td style={{ width: '93px' }}></td>
-                              <td>
+                              <td style={{ width: '1000px' }}>
                                 <textarea
                                   name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtRemark'
                                   rows='5'
                                   cols='20'
                                   id='cphMainColumn_ctl00_usrContactInfoD_txtRemark'
                                   className='text-note'
+                                  placeholder='Ghi chú về đơn hàng'
+                                  style={{ width: '100%' }}
                                   value={ghichu}
                                   onChange={e => setghichu(e.target.value)}
                                 ></textarea>

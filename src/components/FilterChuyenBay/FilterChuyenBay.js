@@ -1,5 +1,6 @@
  const applyFilters = (flights, filters) => {
-  let filteredFlights = [...flights]
+  if(flights){
+let filteredFlights = [...flights]
 
   if (filters.airlines.length > 0) {
     filteredFlights = filteredFlights.filter(flight =>
@@ -35,6 +36,8 @@
   }
 
   return filteredFlights
+  }
+  
 }
 
  const handleFiltersChange = (newFilters, setFilters) => {

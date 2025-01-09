@@ -108,7 +108,7 @@ function SearchLayout () {
     }
   }
 
-  const flights1 = applyFilters(searchData.outBound.data.flights, filters)
+  const flights1 = applyFilters(searchData.outBound?.data?.flights, filters)
   const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
 
   const totalPrice = mangnguoi.reduce((total, item) => {
@@ -174,7 +174,7 @@ function SearchLayout () {
                 return (
                   <div
                     key={index}
-                    className={`date ${isPastDate ? 'disabled' : ''}`} 
+                    className={`date ${isPastDate ? 'disabled' : ''}`}
                     onClick={!isPastDate ? () => handleSearch(day) : undefined}
                   >
                     {CalendarFormat(day)}
@@ -199,7 +199,8 @@ function SearchLayout () {
             </div>
 
             <div className='flight-options'>
-              {Array.isArray(searchData.outBound.data.flights) &&
+              {Array.isArray(searchData.outBound?.data?.flights) &&
+              searchData.outBound?.data?.flights.length > 0 ? (
                 flights1.map((flight, index) => (
                   <div
                     key={index}
@@ -541,7 +542,10 @@ function SearchLayout () {
                       </div>
                     )}
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className='nodulieu'>không có dữ liệu</div>
+              )}
             </div>
           </div>
         </div>
