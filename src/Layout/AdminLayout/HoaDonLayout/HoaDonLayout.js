@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react'
 import { FaCity } from 'react-icons/fa'
 import { useToast } from '../../../components/useToast/ToastContext'
+import { publicRoutes } from '../../../router'
+import { useNavigate } from 'react-router-dom'
 
 function HoaDonLayout () {
   const [data, setData] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId')
+    if (!userId) {
+      navigate(publicRoutes[1].path)
+    }
+  }, [navigate])
 
   const fetchVung = async () => {
     try {

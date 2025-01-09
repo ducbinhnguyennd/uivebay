@@ -1,17 +1,35 @@
 import { useState, useEffect } from 'react'
 
-// import './HangMayBayLayout.scss'
 import { FaPlus } from 'react-icons/fa6'
 import { MdEdit } from 'react-icons/md'
-// import { useToast } from '../../../components/useToast/ToastContext'
+import { useToast } from '../../../components/useToast/ToastContext'
 import { AddHangMayBay } from './AddHangMayBay'
+import { publicRoutes } from '../../../router'
+import { useNavigate } from 'react-router-dom'
+import { EditHangMayBay } from './EditHangMayBay'
+import { MdDelete } from 'react-icons/md'
+import { ModalDelete } from '../../../components/ModalDelete'
 
 function HangMayBayLayout () {
   const [data, setData] = useState([])
   const [isOpenAdd, setIsOpenAdd] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+
   const [selectedIds, setSelectedIds] = useState([])
-  //   const { showToast } = useToast()
-  //   const [nameselected, setnameselected] = useState('')
+  const { showToast } = useToast()
+  const [nameselected, setnameselected] = useState('')
+  const [mahangselected, setmahangselected] = useState('')
+  const [imageselected, setimageselected] = useState('')
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId')
+    if (!userId) {
+      navigate(publicRoutes[1].path)
+    }
+  }, [navigate])
 
   const fetchHangMayBay = async () => {
     try {
@@ -48,26 +66,52 @@ function HangMayBayLayout () {
     }
   }
 
-  //   const handleUpdate = () => {
-  //     if (selectedIds.length === 1) {
-  //       const selectedName = data.find(item => item._id === selectedIds[0])?.name
-  //       setnameselected(selectedName)
-  //       console.log(nameselected)
-  //     } else if (selectedIds.length > 1) {
-  //       showToast('Bạn chỉ được phép chọn 1 vùng để cập nhật.', 'warning')
-  //     } else {
-  //       showToast('Vui lòng chọn 1 vùng để cập nhật.', 'warning')
-  //     }
-  //   }
+  const handleUpdate = () => {
+    if (selectedIds.length === 1) {
+      const selectedName = data.find(item => item._id === selectedIds[0])?.name
+      const selectedmahang = data.find(
+        item => item._id === selectedIds[0]
+      )?.mahangmaybay
+      const selectedimage = data.find(
+        item => item._id === selectedIds[0]
+      )?.image
+      setnameselected(selectedName)
+      setimageselected(selectedimage)
+      setmahangselected(selectedmahang)
+      setIsOpenEdit(true)
+    } else if (selectedIds.length > 1) {
+      showToast('Bạn chỉ được phép chọn 1 hãng máy bay để cập nhật.', 'warning')
+    } else {
+      showToast('Vui lòng chọn 1 hãng máy bay để cập nhật.', 'warning')
+    }
+  }
 
-  //   const handleThanhPho = () => {
-  //     if (selectedIds.length === 1) {
-  //     } else if (selectedIds.length > 1) {
-  //       showToast('Bạn chỉ được phép chọn 1 vùng để xem thành phố.', 'warning')
-  //     } else {
-  //       showToast('Vui lòng chọn 1 vùng để xem thành phố.', 'warning')
-  //     }
-  //   }
+  const Delete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3013/deletehang`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ids: selectedIds })
+      })
+      if (response.ok) {
+        fetchHangMayBay()
+        setSelectedIds([])
+        showToast('Xóa hãng máy bay thành công', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const Handeldelte = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDelete(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 hãng máy bay để xóa.', 'warning')
+    }
+  }
 
   return (
     <div className='vung-container'>
@@ -79,9 +123,13 @@ function HangMayBayLayout () {
           <FaPlus />
           Thêm hãng máy bay
         </div>
-        <div className='divvungitem'>
+        <div className='divvungitem' onClick={handleUpdate}>
           <MdEdit />
           Cập nhật hãng máy bay
+        </div>
+        <div className='divvungitem' onClick={Handeldelte}>
+          <MdDelete />
+          Xóa Hãng
         </div>
       </div>
       <table border='1'>
@@ -133,6 +181,21 @@ function HangMayBayLayout () {
         isOpen={isOpenAdd}
         onClose={() => setIsOpenAdd(false)}
         fetchdata={fetchHangMayBay}
+      />
+      <EditHangMayBay
+        isOpen={isOpenEdit}
+        onClose={() => setIsOpenEdit(false)}
+        fetchdata={fetchHangMayBay}
+        tenhang={nameselected}
+        mahang={mahangselected}
+        image={imageselected}
+        idhang={selectedIds[0]}
+      />
+      <ModalDelete
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        ten='hãng máy bay'
+        Delete={Delete}
       />
     </div>
   )

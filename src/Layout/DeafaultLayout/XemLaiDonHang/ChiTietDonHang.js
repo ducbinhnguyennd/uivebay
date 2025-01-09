@@ -18,8 +18,8 @@ const ChiTietDonHang = () => {
           <span className="hoadon-value">{hoadon.mahoadon}</span>
         </div>
         <div className="hoadon-info">
-          <span className="hoadon-label">Họ tên người bay:</span>
-          <span className="hoadon-value">{hoadon.namenguoibay}</span>
+          <span className="hoadon-label">Họ tên người liên hệ:</span>
+          <span className="hoadon-value">{hoadon.namelienhe}</span>
         </div>
         <div className="hoadon-info">
           <span className="hoadon-label">Số điện thoại:</span>

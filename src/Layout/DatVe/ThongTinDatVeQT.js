@@ -71,34 +71,33 @@ function ThongTinDatVeQT () {
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
     idx
 
-    const handleAddGuests = numberOfGuests => {
-  setmangnguoi(prev => [
-    ...prev,
-    { songuoi: numberOfGuests, name: 'Người lớn' }
-  ])
+  const handleAddGuests = numberOfGuests => {
+    setmangnguoi(prev => [
+      ...prev,
+      { songuoi: numberOfGuests, name: 'Người lớn' }
+    ])
 
-  setkhachhangs(prev => [
-    ...prev,
-    ...Array.from({ length: numberOfGuests }, () => ({
-      namebay: '',
-      doituong: '',
-      kygui: false,
-      hanhlykygui: '',
-      pricekygui: 0
-    }))
-  ])
-}
-
-const handleValueChange = e => {
-  const selectedValue = e.target.value
-  const match = selectedValue.match(/\d+/)
-  const numberOfGuests = match ? parseInt(match[0], 10) : 0
-
-  if (numberOfGuests > 0) {
-    handleAddGuests(numberOfGuests)
+    setkhachhangs(prev => [
+      ...prev,
+      ...Array.from({ length: numberOfGuests }, () => ({
+        namebay: '',
+        doituong: '',
+        kygui: false,
+        hanhlykygui: '',
+        pricekygui: 0
+      }))
+    ])
   }
-}
 
+  const handleValueChange = e => {
+    const selectedValue = e.target.value
+    const match = selectedValue.match(/\d+/)
+    const numberOfGuests = match ? parseInt(match[0], 10) : 0
+
+    if (numberOfGuests > 0) {
+      handleAddGuests(numberOfGuests)
+    }
+  }
 
   const fetchhang = async () => {
     try {
@@ -251,8 +250,10 @@ const handleValueChange = e => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                marginRight: '40px'
+                                marginRight: '10px'
                               }}
+                              className='divcitybay
+'
                             >
                               <span>
                                 <span className='bold'>{cityfrom}</span>
@@ -279,10 +280,10 @@ const handleValueChange = e => {
                                 {CalendarFormat(date)}
                               </span>
                             </td>
-                            <td style={{ paddingRight: '40px' }}></td>
+                            <td className='txtFlightTime'></td>
                           </tr>
-                          <tr>
-                            <td>
+                          <tr >
+                            <td className='tdmaybay'>
                               <span
                                 style={{
                                   verticalAlign: 'baseline',
@@ -335,8 +336,7 @@ const handleValueChange = e => {
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé </td>
                                     <td className='col-calculator'>
-                                      &nbsp;
-                                      x {tongSoNguoi}
+                                      &nbsp; x {tongSoNguoi}
                                     </td>
                                     <td className='col-equal'>=</td>
                                     <td className='col-price'>
@@ -364,7 +364,9 @@ const handleValueChange = e => {
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
-                                    <td>Tổng giá vé = </td>
+                                    <td>Tổng giá vé </td>
+                                    <td></td>
+                                    <td>=</td>
                                     <td
                                       colSpan='2'
                                       className='total-price'
@@ -401,7 +403,9 @@ const handleValueChange = e => {
                           </tr>
                           <tr>
                             <td style={{ whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'inline-block' }}>Máy Bay:</div>
+                              <div style={{ display: 'inline-block' }}>
+                                Máy Bay:
+                              </div>
                               <div
                                 style={{
                                   display: 'inline-block',
@@ -676,14 +680,8 @@ const handleValueChange = e => {
                     <td className='col-right'>
                       <table className='contact-info'>
                         <tbody>
-                          <tr>
-                            <td>
-                              <span id='cphMainColumn_ctl00_usrContactInfoD_lblEmail'>
-                                Email
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
+                          <tr className='tremail'>
+                            <td style={{ width: '96px' }}>Email</td>
                             <td>
                               <input
                                 name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtEmailContact'

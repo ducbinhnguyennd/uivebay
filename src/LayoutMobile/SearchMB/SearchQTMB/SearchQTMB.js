@@ -29,7 +29,6 @@ function SearchQTMB () {
   } = useToast()
   const { previousTwoDays, nextTwoDays } = getSurroundingDates(date)
   const [phantrams, setphantram] = useState([])
-  const [selectedFlight, setSelectedFlight] = useState(null)
   const [filters, setFilters] = useState({
     sortBy: 'abay-suggest',
     airlines: []
@@ -84,25 +83,6 @@ function SearchQTMB () {
   }
 
   const flights1 = applyFiltersQT(searchData.data, filters)
-  const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
-
-  const totalPrice = mangnguoi.reduce((total, item) => {
-    if (
-      !selectedFlight ||
-      !selectedFlight.totalPrice ||
-      !phantrams ||
-      phantrams.length === 0
-    ) {
-      return total
-    }
-    const totalPricePerTicket =
-      parseInt(selectedFlight.totalPrice.replace(/,/g, ''), 10) -
-      (parseInt(selectedFlight.totalPrice.replace(/,/g, ''), 10) *
-        phantrams[0].phantram) /
-        100
-    const taxAndFee = (totalPricePerTicket * 30) / 100
-    return total + totalPricePerTicket * item.songuoi + taxAndFee * item.songuoi
-  }, 0)
 
   return (
     <div className='search-layout'>

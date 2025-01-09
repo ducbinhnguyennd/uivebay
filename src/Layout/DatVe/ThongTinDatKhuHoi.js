@@ -23,9 +23,7 @@ function ThongTinDatKhuHoi () {
   const [tencongty, settencongty] = useState('')
   const [diachi, setdiachi] = useState('')
   const [ghichu, setghichu] = useState('')
-  const [themkhach, setthemkhach] = useState(false)
   const [valuethemkhach, setvaluethemkhach] = useState('')
-  const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
   const [namelienhe, setnamelienhe] = useState('')
 
@@ -105,34 +103,33 @@ function ThongTinDatKhuHoi () {
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
     idx
 
-    const handleAddGuests = numberOfGuests => {
-  setmangnguoi(prev => [
-    ...prev,
-    { songuoi: numberOfGuests, name: 'Người lớn' }
-  ])
+  const handleAddGuests = numberOfGuests => {
+    setmangnguoi(prev => [
+      ...prev,
+      { songuoi: numberOfGuests, name: 'Người lớn' }
+    ])
 
-  setkhachhangs(prev => [
-    ...prev,
-    ...Array.from({ length: numberOfGuests }, () => ({
-      namebay: '',
-      doituong: '',
-      kygui: false,
-      hanhlykygui: '',
-      pricekygui: 0
-    }))
-  ])
-}
-
-const handleValueChange = e => {
-  const selectedValue = e.target.value
-  const match = selectedValue.match(/\d+/)
-  const numberOfGuests = match ? parseInt(match[0], 10) : 0
-
-  if (numberOfGuests > 0) {
-    handleAddGuests(numberOfGuests)
+    setkhachhangs(prev => [
+      ...prev,
+      ...Array.from({ length: numberOfGuests }, () => ({
+        namebay: '',
+        doituong: '',
+        kygui: false,
+        hanhlykygui: '',
+        pricekygui: 0
+      }))
+    ])
   }
-}
 
+  const handleValueChange = e => {
+    const selectedValue = e.target.value
+    const match = selectedValue.match(/\d+/)
+    const numberOfGuests = match ? parseInt(match[0], 10) : 0
+    setvaluethemkhach(selectedValue)
+    if (numberOfGuests > 0) {
+      handleAddGuests(numberOfGuests)
+    }
+  }
 
   useEffect(() => {
     if (
@@ -285,9 +282,10 @@ const handleValueChange = e => {
                               style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '10px',
-                                marginRight: '40px'
+                                gap: '10px'
                               }}
+                              className='divcitybay
+'
                             >
                               <span>
                                 <span className='bold'>{cityfrom}</span>
@@ -314,16 +312,14 @@ const handleValueChange = e => {
                                 {CalendarFormat(date)}
                               </span>
                             </td>
-                            <td style={{ paddingRight: '40px' }}></td>
+                            <td className='txtFlightTime'></td>
                           </tr>
                           <tr>
-                            <td>
+                            <td className='tdmaybay'>
                               <span
                                 style={{
-                                  height: '16px',
-                                  width: '50px',
-                                  textAlign: 'center',
-                                  display: 'inline-block'
+                                  verticalAlign: 'baseline',
+                                  paddingRight: '20px'
                                 }}
                               >
                                 <img
@@ -341,7 +337,7 @@ const handleValueChange = e => {
                                 style={{
                                   verticalAlign: 'baseline',
                                   width: '55px',
-                                  display: 'inline-block'
+                                  paddingRight: '20px'
                                 }}
                               >
                                 {flightdata.flightNumber}
@@ -349,8 +345,6 @@ const handleValueChange = e => {
                               <span
                                 style={{
                                   verticalAlign: 'baseline',
-                                  display: 'inline-block',
-                                  paddingRight: '20px',
                                   float: 'right'
                                 }}
                               >
@@ -394,6 +388,7 @@ const handleValueChange = e => {
                                 alignItems: 'center',
                                 gap: '10px'
                               }}
+                              className='divcitybay'
                             >
                               <span>
                                 <span className='bold'>{cityto}</span>
@@ -420,16 +415,14 @@ const handleValueChange = e => {
                                 {CalendarFormat(returnDate)}
                               </span>
                             </td>
-                            <td style={{ paddingRight: '40px' }}></td>
+                            <td className='txtFlightTime'></td>
                           </tr>
                           <tr>
-                            <td>
+                            <td className='tdmaybay'>
                               <span
                                 style={{
-                                  height: '16px',
-                                  width: '50px',
-                                  textAlign: 'center',
-                                  display: 'inline-block'
+                                  verticalAlign: 'baseline',
+                                  paddingRight: '20px'
                                 }}
                               >
                                 <img
@@ -447,7 +440,7 @@ const handleValueChange = e => {
                                 style={{
                                   verticalAlign: 'baseline',
                                   width: '55px',
-                                  display: 'inline-block'
+                                  paddingRight: '20px'
                                 }}
                               >
                                 {flightdata2.flightNumber}
@@ -455,8 +448,6 @@ const handleValueChange = e => {
                               <span
                                 style={{
                                   verticalAlign: 'baseline',
-                                  display: 'inline-block',
-                                  paddingRight: '20px',
                                   float: 'right'
                                 }}
                               >
@@ -504,7 +495,8 @@ const handleValueChange = e => {
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé đi</td>
                                     <td className='col-calculator'>
-                                    {' '}  x {tongSoNguoi}
+                                      {' '}
+                                      x {tongSoNguoi}
                                     </td>
                                     <td className='col-equal'>=</td>
                                     <td className='col-price'>
@@ -543,7 +535,10 @@ const handleValueChange = e => {
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
-                                    <td>Tổng giá vé = </td>
+                                    <td>Tổng giá vé </td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
+
                                     <td
                                       colSpan='2'
                                       className='total-price'
@@ -581,9 +576,8 @@ const handleValueChange = e => {
                             <td>{mato}</td>
                           </tr>
                           <tr>
-                            <td>{flightdata.flightNumber}</td>
+                            <td>{flightdata.flightNumber}:</td>
                             <td style={{ whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'inline-block' }}>:</div>
                               <div
                                 style={{
                                   display: 'inline-block',
@@ -609,9 +603,10 @@ const handleValueChange = e => {
                             </td>
                           </tr>
                           <tr>
-                            <td>{flightdata2.flightNumber}</td>
-                            <td style={{ whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'inline-block' }}>:</div>
+                            <td>{flightdata2.flightNumber}:</td>
+                            <td
+                              style={{ whiteSpace: 'nowrap', display: 'flex' }}
+                            >
                               <div
                                 style={{
                                   display: 'inline-block',
@@ -829,9 +824,7 @@ const handleValueChange = e => {
                           value={valuethemkhach}
                           onChange={handleValueChange}
                         >
-                          <option selected value=''>
-                            Thêm khách
-                          </option>
+                          <option value=''>Thêm khách</option>
                           <option value='Thêm 1 khách'>Thêm 1 khách</option>
                           <option value='Thêm 2 khách'>Thêm 2 khách</option>
                           <option value='Thêm 3 khách'>Thêm 3 khách</option>
@@ -872,6 +865,7 @@ const handleValueChange = e => {
                                 className='name-contact'
                                 value={namelienhe}
                                 onChange={e => setnamelienhe(e.target.value)}
+                                placeholder='Nhập tên liên hệ'
                               />
                             </td>
                           </tr>
@@ -894,6 +888,7 @@ const handleValueChange = e => {
                                 className='phone-contact'
                                 value={phone}
                                 onChange={e => setphone(e.target.value)}
+                                placeholder='Nhập số điện thoại'
                               />
                             </td>
                           </tr>
@@ -903,14 +898,8 @@ const handleValueChange = e => {
                     <td className='col-right'>
                       <table className='contact-info'>
                         <tbody>
-                          <tr>
-                            <td>
-                              <span id='cphMainColumn_ctl00_usrContactInfoD_lblEmail'>
-                                Email
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
+                          <tr className='tremail'>
+                            <td style={{ width: '96px' }}>Email</td>
                             <td>
                               <input
                                 name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtEmailContact'
@@ -920,6 +909,7 @@ const handleValueChange = e => {
                                 className='mail-contact'
                                 value={email}
                                 onChange={e => setemail(e.target.value)}
+                                placeholder='Nhập địa chỉ email'
                               />
                             </td>
                           </tr>

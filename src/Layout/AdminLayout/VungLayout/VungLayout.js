@@ -7,6 +7,8 @@ import { MdEdit } from 'react-icons/md'
 import { FaCity } from 'react-icons/fa'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { ThanhPhoLayout } from './ThanhPhoLayout'
+import { useNavigate } from 'react-router-dom'
+import { publicRoutes } from '../../../router'
 
 function VungLayout () {
   const [data, setData] = useState([])
@@ -16,6 +18,14 @@ function VungLayout () {
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [nameselected, setnameselected] = useState('')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId')
+    if (!userId) {
+      navigate(publicRoutes[1].path)
+    }
+  }, [navigate])
 
   const fetchVung = async () => {
     try {

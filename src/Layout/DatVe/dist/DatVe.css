@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .datve-container {
   display: flex;
   /* Sử dụng Flexbox để chia hai phần */
@@ -8,7 +9,6 @@
 .content-left {
   flex: 8;
   padding: 16px;
-
 }
 
 .content-right {
@@ -29,7 +29,7 @@
 }
 
 #content1 {
-  padding-bottom: 60px
+  padding-bottom: 60px;
 }
 
 #main-datve .passenger-pagetable {
@@ -48,12 +48,9 @@
   padding-left: 0;
   padding-top: 0;
   float: right;
-  padding-right: 7px
+  padding-right: 7px;
 }
 
-// table {
-//     border-collapse: separate !important;
-// }
 .col-left,
 .col-right {
   display: inline-block;
@@ -70,49 +67,41 @@
 
 .tdmaybay {
   display: flex;
-
-  span {
-    flex: 1;
-  }
+}
+.tdmaybay span {
+  flex: 1;
 }
 
 @media (max-width: 768px) {
   #main-datve {
-    font-size: 16px
+    font-size: 16px;
   }
 
   .col-left,
-  .col-right {
+.col-right {
     display: block;
     width: 100%;
     margin: 8px 0px;
   }
 
-  .col-right {
-    table {
-      border-collapse: separate;
-      border-spacing: 0 5px;
-      width: 100%;
-    }
-
-    .title {
-      font-size: 16px;
-      font-weight: bold;
-    }
+  .col-right table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    width: 100%;
+  }
+  .col-right .title {
+    font-size: 16px;
+    font-weight: bold;
   }
 
-  .col-left {
-    table {
-      border-collapse: separate;
-      border-spacing: 0 5px;
-      width: 100%;
-    }
-
-    .title {
-      font-size: 16px;
-      font-weight: bold;
-
-    }
+  .col-left table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    width: 100%;
+  }
+  .col-left .title {
+    font-size: 16px;
+    font-weight: bold;
   }
 
   .tbl-price {
@@ -120,15 +109,12 @@
     border-spacing: 0 5px;
   }
 
-  .ctr-passenger {
-    table {
-      width: 100%;
-    }
-
+  .ctr-passenger table {
+    width: 100%;
   }
 
   .passenger-page select,
-  .passenger-page input[type=text] {
+.passenger-page input[type=text] {
     width: 100% !important;
     padding: 10px !important;
     font-size: 16px;
@@ -139,25 +125,19 @@
 
   .divcitybay {
     margin: 0;
-
-    span {
-      flex: 1;
-    }
+  }
+  .divcitybay span {
+    flex: 1;
   }
 
-  .tbl-baggage {
-    td {
-      width: 25%;
-      text-align: center;
-    }
+  .tbl-baggage td {
+    width: 25%;
+    text-align: center;
   }
 
-  .tbl-price {
-    td {
-      width: 25%;
-      text-align: center;
-
-    }
+  .tbl-price td {
+    width: 25%;
+    text-align: center;
   }
 
   .flight-page {
@@ -169,18 +149,18 @@
   }
 
   .ctr-passenger1,
-  .ctr-passenger {
+.ctr-passenger {
     padding: 0 !important;
   }
 
-.ctr-passenger1{
-  background: #fbfbfb !important;
-}
-.tremail {
-  display: table-row !important;
-}
-}
+  .ctr-passenger1 {
+    background: #fbfbfb !important;
+  }
 
+  .tremail {
+    display: table-row !important;
+  }
+}
 .tremail {
   display: flex;
   flex-direction: column;
@@ -197,7 +177,7 @@
   font-size: 18px;
   cursor: pointer;
   text-transform: uppercase;
-  border-radius: 6px
+  border-radius: 6px;
 }
 
 .passen-page,
@@ -213,14 +193,14 @@
   padding: 6px 10px 10px 10px;
 }
 
-.passenger-page input[type="text"],
+.passenger-page input[type=text],
 .passenger-page select {
   height: 24px;
   border: 1px solid #d8d8d8;
   outline: none;
 }
 
-.passenger-page input[type="text"] {
+.passenger-page input[type=text] {
   width: 98%;
   padding-left: 1%;
   margin-bottom: 5px;
@@ -229,5 +209,5 @@
 
 .tblotherflight {
   background-color: #efefef;
-  padding: 10px
+  padding: 10px;
 }

@@ -4,6 +4,8 @@ import { MdEdit } from 'react-icons/md'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { AddPhanTram } from './AddPhanTram'
 import { EditPhanTram } from './EditPhanTram'
+import { publicRoutes } from '../../../router'
+import { useNavigate } from 'react-router-dom'
 
 function PhanTramLayout () {
   const [data, setData] = useState([])
@@ -12,6 +14,13 @@ function PhanTramLayout () {
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [nameselected, setnameselected] = useState('')
+  const navigate = useNavigate()
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId')
+    if (!userId) {
+      navigate(publicRoutes[1].path)
+    }
+  }, [navigate])
 
   const fetchVung = async () => {
     try {

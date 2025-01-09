@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react'
 
 import { FaPlus } from 'react-icons/fa6'
 import { MdEdit } from 'react-icons/md'
-import { FaCity } from 'react-icons/fa'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { AddTheLoai } from './AddTheLoai'
 import { BlogLayout } from './BlogLayout'
+import { publicRoutes } from '../../../router'
+import { useNavigate } from 'react-router-dom'
+import { FaBloggerB } from 'react-icons/fa'
+
 
 function TheLoaiBlogLayout () {
   const [data, setData] = useState([])
@@ -14,6 +17,14 @@ function TheLoaiBlogLayout () {
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [nameselected, setnameselected] = useState('')
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId')
+    if (!userId) {
+      navigate(publicRoutes[1].path)
+    }
+  }, [navigate])
 
   const fetchTheLoai = async () => {
     try {
@@ -87,7 +98,7 @@ function TheLoaiBlogLayout () {
           Cập nhật thể loại
         </div>
         <div className='divvungitem' onClick={handleBlog}>
-          <FaCity />
+          <FaBloggerB />
           Blog
         </div>
       </div>

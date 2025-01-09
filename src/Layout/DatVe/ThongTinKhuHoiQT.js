@@ -45,7 +45,6 @@ function ThongTinDatKhuHoiQT () {
     settienveve,
     returnDate,
     setmangnguoi
-
   } = useToast()
 
   const fetchhang = async () => {
@@ -100,34 +99,33 @@ function ThongTinDatKhuHoiQT () {
   const getFlatIndex = (index, idx) =>
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
     idx
-    const handleAddGuests = numberOfGuests => {
-  setmangnguoi(prev => [
-    ...prev,
-    { songuoi: numberOfGuests, name: 'Người lớn' }
-  ])
+  const handleAddGuests = numberOfGuests => {
+    setmangnguoi(prev => [
+      ...prev,
+      { songuoi: numberOfGuests, name: 'Người lớn' }
+    ])
 
-  setkhachhangs(prev => [
-    ...prev,
-    ...Array.from({ length: numberOfGuests }, () => ({
-      namebay: '',
-      doituong: '',
-      kygui: false,
-      hanhlykygui: '',
-      pricekygui: 0
-    }))
-  ])
-}
-
-const handleValueChange = e => {
-  const selectedValue = e.target.value
-  const match = selectedValue.match(/\d+/)
-  const numberOfGuests = match ? parseInt(match[0], 10) : 0
-
-  if (numberOfGuests > 0) {
-    handleAddGuests(numberOfGuests)
+    setkhachhangs(prev => [
+      ...prev,
+      ...Array.from({ length: numberOfGuests }, () => ({
+        namebay: '',
+        doituong: '',
+        kygui: false,
+        hanhlykygui: '',
+        pricekygui: 0
+      }))
+    ])
   }
-}
 
+  const handleValueChange = e => {
+    const selectedValue = e.target.value
+    const match = selectedValue.match(/\d+/)
+    const numberOfGuests = match ? parseInt(match[0], 10) : 0
+
+    if (numberOfGuests > 0) {
+      handleAddGuests(numberOfGuests)
+    }
+  }
 
   useEffect(() => {
     if (
@@ -248,8 +246,7 @@ const handleValueChange = e => {
         const data = await response.json()
         sethoadon(data)
         navigate('/thanhtoan')
-      }
-      else{
+      } else {
         showToast('Đặt vé thất bại', 'warning')
       }
     } catch (error) {
@@ -275,8 +272,9 @@ const handleValueChange = e => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '10px',
-                                marginRight: '40px'
+                                marginRight: '10px'
                               }}
+                              className='divcitybay'
                             >
                               <span>
                                 <span className='bold'>{cityfrom}</span>
@@ -303,19 +301,13 @@ const handleValueChange = e => {
                                 {CalendarFormat(date)}
                               </span>
                             </td>
-                            <td style={{ paddingRight: '40px' }}></td>
+                            <td className='txtFlightTime'></td>
                           </tr>
                           <tr>
-                            <td
-                              style={{
-                                textAlign: 'right',
-                                width: '1%',
-                                whiteSpace: 'nowrap'
-                              }}
-                            >
+                            <td>
                               <span className='bold'>
                                 {flightdata.outbound.departureTime}
-                              </span>{' '}
+                              </span>
                               - <span>{flightdata.outbound.arrivalTime}</span>
                             </td>
                             <td></td>
@@ -338,8 +330,10 @@ const handleValueChange = e => {
                               style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '10px'
+                                gap: '10px',
+                                marginRight: '10px'
                               }}
+                              className='divcitybay'
                             >
                               <span>
                                 <span className='bold'>{cityto}</span>
@@ -366,19 +360,13 @@ const handleValueChange = e => {
                                 {CalendarFormat(returnDate)}
                               </span>
                             </td>
-                            <td style={{ paddingRight: '40px' }}></td>
+                            <td className='txtFlightTime'></td>
                           </tr>
                           <tr>
-                            <td
-                              style={{
-                                textAlign: 'right',
-                                width: '1%',
-                                whiteSpace: 'nowrap'
-                              }}
-                            >
+                            <td>
                               <span className='bold'>
                                 {flightdata.inbound.departureTime}
-                              </span>{' '}
+                              </span>
                               - <span>{flightdata.inbound.arrivalTime}</span>
                             </td>
                             <td></td>
@@ -446,7 +434,9 @@ const handleValueChange = e => {
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
-                                    <td>Tổng giá vé = </td>
+                                    <td>Tổng giá vé </td>
+                                    <td></td>
+                                    <td>=</td>
                                     <td
                                       colSpan='2'
                                       className='total-price'
@@ -751,6 +741,7 @@ const handleValueChange = e => {
                                 className='name-contact'
                                 value={namelienhe}
                                 onChange={e => setnamelienhe(e.target.value)}
+                                placeholder='Nhập họ và tên'
                               />
                             </td>
                           </tr>
@@ -773,6 +764,7 @@ const handleValueChange = e => {
                                 className='phone-contact'
                                 value={phone}
                                 onChange={e => setphone(e.target.value)}
+                                placeholder='Nhập số điện thoại'
                               />
                             </td>
                           </tr>
@@ -782,14 +774,8 @@ const handleValueChange = e => {
                     <td className='col-right'>
                       <table className='contact-info'>
                         <tbody>
-                          <tr>
-                            <td>
-                              <span id='cphMainColumn_ctl00_usrContactInfoD_lblEmail'>
-                                Email
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
+                          <tr className='tremail'>
+                            <td style={{ width: '96px' }}>Email</td>
                             <td>
                               <input
                                 name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtEmailContact'
@@ -799,9 +785,11 @@ const handleValueChange = e => {
                                 className='mail-contact'
                                 value={email}
                                 onChange={e => setemail(e.target.value)}
+                                placeholder='Nhập địa chỉ email'
                               />
                             </td>
                           </tr>
+                          
                         </tbody>
                       </table>
                     </td>

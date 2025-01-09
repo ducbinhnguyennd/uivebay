@@ -7,7 +7,8 @@ import './DatVe.scss'
 import { useToast } from '../../components/useToast/ToastContext'
 import {
   getAirlineName,
-  calculateDuration
+  calculateDuration,
+  getAirlineImage
 } from '../SearchLayout/SearchLayoutFunction'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 
@@ -23,9 +24,7 @@ function ThongTinDat () {
   const [tencongty, settencongty] = useState('')
   const [diachi, setdiachi] = useState('')
   const [ghichu, setghichu] = useState('')
-  const [themkhach, setthemkhach] = useState(false)
   const [valuethemkhach, setvaluethemkhach] = useState('')
-  const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
 
   const navigate = useNavigate()
@@ -126,7 +125,7 @@ function ThongTinDat () {
   useEffect(() => {
     fetchhang()
     fetchphantram()
-  }, [phantrams, hangmaybay])
+  }, [])
 
   useEffect(() => {
     if (
@@ -253,9 +252,9 @@ function ThongTinDat () {
                               style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '10px',
-                                marginRight: '40px'
+                                gap: '10px'
                               }}
+                              className='divcitybay'
                             >
                               <span>
                                 <span className='bold'>{cityfrom}</span>
@@ -282,30 +281,29 @@ function ThongTinDat () {
                                 {CalendarFormat(date)}
                               </span>
                             </td>
-                            <td style={{ paddingRight: '40px' }}></td>
+                            <td className='txtFlightTime'></td>
                           </tr>
                           <tr>
-                            <td>
+                            <td className='tdmaybay'>
                               <span
                                 style={{
-                                  height: '16px',
-                                  width: '50px',
-                                  textAlign: 'center',
-                                  display: 'inline-block'
+                                  verticalAlign: 'baseline',
+                                  paddingRight: '20px'
                                 }}
                               >
                                 <img
-                                  align='absmiddle'
-                                  className='img-VJ-Full'
+                                  src={`${getAirlineImage(
+                                    flightdata.airlineCode,
+                                    hangmaybay
+                                  )}`}
                                   alt=''
                                 />
                               </span>
-                              &nbsp;
                               <span
                                 style={{
                                   verticalAlign: 'baseline',
                                   width: '55px',
-                                  display: 'inline-block'
+                                  paddingRight: '5px'
                                 }}
                               >
                                 {flightdata.flightNumber}
@@ -313,8 +311,6 @@ function ThongTinDat () {
                               <span
                                 style={{
                                   verticalAlign: 'baseline',
-                                  display: 'inline-block',
-                                  paddingRight: '20px',
                                   float: 'right'
                                 }}
                               >
@@ -362,9 +358,9 @@ function ThongTinDat () {
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
                                     <td className='col-title'>Tiền vé</td>
                                     <td className='col-calculator'>
-                                      x {tongSoNguoi}
+                                      x {tongSoNguoi} 
                                     </td>
-                                    <td className='col-equal'>=</td>
+                                    <td>=</td>
                                     <td className='col-price'>
                                       {tienve.toLocaleString()}
                                       <span className='currency'>đ</span>
@@ -376,8 +372,8 @@ function ThongTinDat () {
                                 <tbody>
                                   <tr>
                                     <td className='col-title'>Hành lý</td>
-                                    <td className='col-calculator'></td>
-                                    <td className='col-equal'>=</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
                                     <td className='col-price'>
                                       <span className='p-baggage'>
                                         {tongPriceKygui.toLocaleString()}
@@ -390,7 +386,9 @@ function ThongTinDat () {
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
-                                    <td>Tổng giá vé = </td>
+                                    <td>Tổng giá vé </td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
                                     <td
                                       colSpan='2'
                                       className='total-price'
@@ -426,9 +424,10 @@ function ThongTinDat () {
                             <td>{mato}</td>
                           </tr>
                           <tr>
-                            <td>{flightdata.flightNumber}</td>
-                            <td style={{ whiteSpace: 'nowrap' }}>
-                              <div style={{ display: 'inline-block' }}>:</div>
+                            <td>{flightdata.flightNumber}:</td>
+                            <td
+                              style={{ whiteSpace: 'nowrap', display: 'flex' }}
+                            >
                               <div
                                 style={{
                                   display: 'inline-block',
@@ -643,9 +642,7 @@ function ThongTinDat () {
                           value={valuethemkhach}
                           onChange={handleValueChange}
                         >
-                          <option selected value=''>
-                            Thêm khách
-                          </option>
+                          <option value=''>Thêm khách</option>
                           <option value='Thêm 1 khách'>Thêm 1 khách</option>
                           <option value='Thêm 2 khách'>Thêm 2 khách</option>
                           <option value='Thêm 3 khách'>Thêm 3 khách</option>
@@ -686,6 +683,7 @@ function ThongTinDat () {
                                 className='name-contact'
                                 value={namelienhe}
                                 onChange={e => setnamelienhe(e.target.value)}
+                                placeholder='Nhập tên liên hệ'
                               />
                             </td>
                           </tr>
@@ -708,6 +706,7 @@ function ThongTinDat () {
                                 className='phone-contact'
                                 value={phone}
                                 onChange={e => setphone(e.target.value)}
+                                placeholder='Nhập số diện thoại'
                               />
                             </td>
                           </tr>
@@ -717,14 +716,8 @@ function ThongTinDat () {
                     <td className='col-right'>
                       <table className='contact-info'>
                         <tbody>
-                          <tr>
-                            <td>
-                              <span id='cphMainColumn_ctl00_usrContactInfoD_lblEmail'>
-                                Email
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
+                          <tr className = 'tremail'>
+                            <td style={{ width: '96px' }}>Email</td>
                             <td>
                               <input
                                 name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtEmailContact'
@@ -734,6 +727,7 @@ function ThongTinDat () {
                                 className='mail-contact'
                                 value={email}
                                 onChange={e => setemail(e.target.value)}
+                                placeholder='Nhập email'
                               />
                             </td>
                           </tr>
@@ -907,7 +901,10 @@ function ThongTinDat () {
                             <tr>
                               <td>
                                 <img
-                                  src='/_WEB/_File/Images/AirlineLogo/smVJ.gif'
+                                  src={`${getAirlineImage(
+                                    flightdata.airlineCode,
+                                    hangmaybay
+                                  )}`}
                                   alt=''
                                   className='img-VJ-Full h30'
                                 />

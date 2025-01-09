@@ -41,6 +41,21 @@ const IsMobile = () => {
 }
 
 const publicRoutes = [
+  { path: '/gioi-thieu', component: GioiThieu },
+  { path: '/login', component: Login, layout: null },
+  { path: '/vung', component: VungLayout, layout: 'admin' },
+  { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
+  { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
+  { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
+  { path: '/hoadon', component: HoaDonLayout, layout: 'admin' },
+  { path: '/nganhang', component: NganHangLayout, layout: 'admin' },
+  { path: '/getchitietblog/:idblog', component: BlogDetail },
+  { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
+  { path: '/chitietdonhang', component: ChiTietDonHang },
+  { path: '/thongtinchuyenkhoan', component: ThongTinChuyenKhoan },
+  { path: '/thanhtoan', component: ThanhToan },
+  { path: '/tin-khuyen-mai', component: KhuyenMai },
+  { path: '/xem-lai-don-hang', component: XemLaiDonHang },
   {
     path: '/',
     component: () => {
@@ -113,22 +128,7 @@ const publicRoutes = [
       const isMobile = IsMobile()
       return isMobile ? <SearchKHQTMB /> : <SearchKHQT />
     }
-  },
-  { path: '/gioi-thieu', component: GioiThieu },
-  { path: '/vung', component: VungLayout, layout: 'admin' },
-  { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
-  { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
-  { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
-  { path: '/hoadon', component: HoaDonLayout, layout: 'admin' },
-  { path: '/nganhang', component: NganHangLayout, layout: 'admin' },
-  { path: '/getchitietblog/:idblog', component: BlogDetail },
-  { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
-  { path: '/chitietdonhang', component: ChiTietDonHang },
-  { path: '/thongtinchuyenkhoan', component: ThongTinChuyenKhoan },
-  { path: '/login', component: Login, layout: null },
-  { path: '/thanhtoan', component: ThanhToan },
-  { path: '/tin-khuyen-mai', component: KhuyenMai },
-  { path: '/xem-lai-don-hang', component: XemLaiDonHang }
+  }
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }

@@ -32,7 +32,6 @@ function SearchNoiDiaMB() {
   } = useToast();
   const [hangmaybay, sethangmaybay] = useState([]);
   const [phantrams, setphantram] = useState([]);
-  const [selectedFlight, setSelectedFlight] = useState(null);
   const [filters, setFilters] = useState({
     sortBy: "abay-suggest",
     airlines: [],
@@ -104,7 +103,7 @@ function SearchNoiDiaMB() {
   };
 
   const flights1 = applyFilters(searchData.outBound.data.flights, filters);
-  
+
   return (
     <div className="search-layout">
       <div className="content-wrapper">

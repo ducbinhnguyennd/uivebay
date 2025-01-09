@@ -3,31 +3,15 @@
 import React, { useEffect, useState } from 'react'
 import { useToast } from '../../components/useToast/ToastContext'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
-import { getAirlineImage } from '../SearchLayout/SearchLayoutFunction'
 import { ModalSuccess } from '../../components/ModalSuccess'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
-  const { hoadon, flightdata, cityfrom, cityto } = useToast()
-  const [hangmaybay, sethangmaybay] = useState([])
+  const { hoadon } = useToast()
   const [datagiaodich, setdatagiaodich] = useState({})
   const [isOpen, setisOpen] = useState(false)
 
-  const fetchhang = async () => {
-    try {
-      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
-      const data = await response.json()
-      if (response.ok) {
-        sethangmaybay(data)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
-  useEffect(() => {
-    fetchhang()
-  }, [])
 
   const Accordion = ({ title, children }) => {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -167,12 +151,9 @@ const ThanhToan = () => {
           <div className='flight-details'>
             <div>
               <p>
-                {cityfrom} ➔ {cityto}
+                {hoadon.cityfrom} ➔ {hoadon.cityto}
               </p>
               <div className='divanhhang'>
-                <img
-                  src={`${getAirlineImage(flightdata.airlineCode, hangmaybay)}`}
-                />{' '}
                 <p>{hoadon.chuyenbay}</p>
               </div>
               <p>Anh: {hoadon.namenguoibay}</p>
