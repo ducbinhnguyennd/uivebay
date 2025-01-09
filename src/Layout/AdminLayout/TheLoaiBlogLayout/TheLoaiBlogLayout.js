@@ -8,15 +8,21 @@ import { BlogLayout } from './BlogLayout'
 import { publicRoutes } from '../../../router'
 import { useNavigate } from 'react-router-dom'
 import { FaBloggerB } from 'react-icons/fa'
-
+import { ModalDelete } from '../../../components/ModalDelete'
+import { MdDelete } from 'react-icons/md'
+import { EditTheLoaiBlog } from './EditTheLoai'
 
 function TheLoaiBlogLayout () {
   const [data, setData] = useState([])
   const [isOpenAdd, setIsOpenAdd] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
+
   const [isOpenBlog, setIsOpenBlog] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [nameselected, setnameselected] = useState('')
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -65,7 +71,7 @@ function TheLoaiBlogLayout () {
     if (selectedIds.length === 1) {
       const selectedName = data.find(item => item._id === selectedIds[0])?.name
       setnameselected(selectedName)
-      console.log(nameselected)
+      setIsOpenEdit(true)
     } else if (selectedIds.length > 1) {
       showToast('Bạn chỉ được phép chọn 1 thể loại để cập nhật.', 'warning')
     } else {
@@ -83,6 +89,33 @@ function TheLoaiBlogLayout () {
     }
   }
 
+  const Delete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3013/deletetheloaiblogs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ids: selectedIds })
+      })
+      if (response.ok) {
+        fetchTheLoai()
+        setSelectedIds([])
+        showToast('Xóa Blog thành công', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const Handeldelte = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDelete(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 Blog để xóa.', 'warning')
+    }
+  }
+
   return (
     <div className='vung-container'>
       <div className='vung-header'>
@@ -97,6 +130,11 @@ function TheLoaiBlogLayout () {
           <MdEdit />
           Cập nhật thể loại
         </div>
+        <div className='divvungitem' onClick={Handeldelte}>
+          <MdDelete />
+          Xóa thể loại
+        </div>
+
         <div className='divvungitem' onClick={handleBlog}>
           <FaBloggerB />
           Blog
@@ -148,6 +186,19 @@ function TheLoaiBlogLayout () {
       <BlogLayout
         isOpen={isOpenBlog}
         onClose={() => setIsOpenBlog(false)}
+        idtheloai={selectedIds[0]}
+      />
+      <ModalDelete
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        ten='thể loại'
+        Delete={Delete}
+      />
+      <EditTheLoaiBlog
+        isOpen={isOpenEdit}
+        onClose={() => setIsOpenEdit(false)}
+        fetchdata={fetchTheLoai}
+        tentheloai={nameselected}
         idtheloai={selectedIds[0]}
       />
     </div>

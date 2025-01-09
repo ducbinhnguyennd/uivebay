@@ -26,6 +26,7 @@ import city from '../assets/images/city2.png'
 import blog from '../assets/images/blog.png'
 import maybay from '../assets/images/maybay2.png'
 import phantram  from '../assets/images/phantram.png'
+import bank from '../assets/images/bank.png'
 
 export const iconsImgs = {
   alert,
@@ -48,7 +49,8 @@ export const iconsImgs = {
   city,
   blog,
   maybay,
-  phantram
+  phantram,
+  bank
 }
 
 export const personsImgs = {

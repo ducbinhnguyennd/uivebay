@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaPlus } from 'react-icons/fa6'
 import { MdCancel } from 'react-icons/md'
 import Modal from '../../../../components/Modal/Modal'
 import { useToast } from '../../../../components/useToast/ToastContext'
-function EditNganHang ({ isOpen, onClose, fetchdata }) {
+function EditNganHang ({
+  isOpen,
+  onClose,
+  fetchdata,
+  tennh,
+  tendd,
+  tentk,
+  sotk,
+  chiNh,
+
+  idnganhang
+}) {
   const [tennganhang, settennganhang] = useState('')
   const [tendaydu, settendaydu] = useState('')
 
@@ -14,6 +25,16 @@ function EditNganHang ({ isOpen, onClose, fetchdata }) {
   const [file, setFile] = useState(null)
 
   const { showToast } = useToast()
+
+  useEffect(() => {
+    if (isOpen) {
+      settennganhang(tennh || '')
+      settentaikhoan(tentk || '')
+      settendaydu(tendd || '')
+      setsotaikhoan(sotk || '')
+      setchinhanh(chiNh || '')
+    }
+  }, [tennh, isOpen, tendd, tentk, sotk, chiNh])
 
   const validateinput = () => {
     let valid = true
@@ -55,7 +76,7 @@ function EditNganHang ({ isOpen, onClose, fetchdata }) {
     onClose()
   }
 
-  const handleadd = async () => {
+  const handleedit = async () => {
     if (validateinput()) {
       try {
         const formData = new FormData()
@@ -69,14 +90,17 @@ function EditNganHang ({ isOpen, onClose, fetchdata }) {
           formData.append('image', file)
         }
 
-        const response = await fetch('https://demovemaybay.shop/postnganhang', {
-          method: 'POST',
-          body: formData
-        })
+        const response = await fetch(
+          `https://demovemaybay.shop/putnganhang/${idnganhang}`,
+          {
+            method: 'POST',
+            body: formData
+          }
+        )
         if (response.ok) {
           fetchdata()
           handlehuy()
-          showToast('Thêm ngân hàng thành công')
+          showToast('Cập nhật ngân hàng thành công')
         }
       } catch (error) {
         console.log(error)
@@ -87,7 +111,7 @@ function EditNganHang ({ isOpen, onClose, fetchdata }) {
   return (
     <Modal isOpen={isOpen} onClose={handlehuy}>
       <div className='add-vung'>
-        <h3>Thêm ngân hàng</h3>
+        <h3>Cập nhật ngân hàng</h3>
         <div className='bodyaddvung'>
           <label>Ảnh</label>
           <input type='file' onChange={e => setFile(e.target.files[0])} />
@@ -142,9 +166,9 @@ function EditNganHang ({ isOpen, onClose, fetchdata }) {
         <div className='footeraddvung'>
           <div className='rong'></div>
           <div className='btnfoot'>
-            <button className='btnaddvung' onClick={handleadd}>
+            <button className='btnaddvung' onClick={handleedit}>
               <FaPlus />
-              Thêm ngân hàng
+              Cập nhật ngân hàng
             </button>
             <button className='btnhuyvung' onClick={handlehuy}>
               <MdCancel />

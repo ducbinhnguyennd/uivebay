@@ -4,13 +4,22 @@ import ModalBig from '../../../../components/ModalBig/ModalBig'
 import { FaPlus } from 'react-icons/fa6'
 import { MdEdit } from 'react-icons/md'
 import { AddBlog } from './AddBlog'
-// import { useToast } from '../../../../components/useToast/ToastContext'
+import { useToast } from '../../../../components/useToast/ToastContext'
+import { EditBlog } from './EditBlog'
+import { ModalDelete } from '../../../../components/ModalDelete'
+import { MdDelete } from 'react-icons/md'
 
 function BlogLayout ({ isOpen, onClose, idtheloai }) {
   const [data, setdata] = useState([])
   const [isOpenAdd, setIsOpenAdd] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
+
   const [selectedIds, setSelectedIds] = useState([])
-  //   const { showToast } = useToast()
+  const [selectedTieude, setSelectedTieude] = useState('')
+  const [selectedNoidung, setSelectedNoidung] = useState('')
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+
+  const { showToast } = useToast()
 
   const handelclose = () => {
     setSelectedIds([])
@@ -20,7 +29,7 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
     if (idtheloai) {
       try {
         const response = await fetch(
-          `https://demovemaybay.shop/getblogid/${idtheloai}`
+          `http://localhost:3013/getblogid/${idtheloai}`
         )
         const data = await response.json()
         if (response.ok) {
@@ -53,16 +62,50 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
     }
   }
 
-  //   const handleUpdate = () => {
-  //     if (selectedIds.length === 1) {
-  //       const selected = data.find(item => item._id === selectedIds[0])
+  const handleUpdate = () => {
+    if (selectedIds.length === 1) {
+      const selectedtieude = data.find(
+        item => item._id === selectedIds[0]
+      )?.tieude
+      const selectednoidung = data.find(
+        item => item._id === selectedIds[0]
+      )?.noidung
+      setSelectedTieude(selectedtieude)
+      setSelectedNoidung(selectednoidung)
+      setIsOpenEdit(true)
+    } else if (selectedIds.length > 1) {
+      showToast('Bạn chỉ được phép chọn 1 blog để cập nhật.', 'warning')
+    } else {
+      showToast('Vui lòng chọn 1 blog để cập nhật.', 'warning')
+    }
+  }
 
-  //     } else if (selectedIds.length > 1) {
-  //       showToast('Bạn chỉ được phép chọn 1 blog để cập nhật.', 'warning')
-  //     } else {
-  //       showToast('Vui lòng chọn 1 blog để cập nhật.', 'warning')
-  //     }
-  //   }
+  const Delete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3013/deleteblogs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idblogs: selectedIds })
+      })
+      if (response.ok) {
+        fetchblog()
+        setSelectedIds([])
+        showToast('Xóa Blog thành công', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const Handeldelte = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDelete(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 Blog để xóa.', 'warning')
+    }
+  }
 
   return (
     <ModalBig isOpen={isOpen} onClose={handelclose}>
@@ -75,9 +118,13 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
             <FaPlus />
             Thêm blog
           </div>
-          <div className='divvungitem'>
+          <div className='divvungitem' onClick={handleUpdate}>
             <MdEdit />
             Cập nhật blog
+          </div>
+          <div className='divvungitem' onClick={Handeldelte}>
+            <MdDelete />
+            Xóa Blog
           </div>
         </div>
         <div className='body-thanhpho'>
@@ -128,6 +175,20 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
         onClose={() => setIsOpenAdd(false)}
         idtheloai={idtheloai}
         fetchdata={fetchblog}
+      />
+      <EditBlog
+        idblog={selectedIds[0]}
+        isOpen={isOpenEdit}
+        onClose={() => setIsOpenEdit(false)}
+        fetchdata={fetchblog}
+        tieudeblog={selectedTieude}
+        noidungblog={selectedNoidung}
+      />
+      <ModalDelete
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        Delete={Delete}
+        ten={'Blog'}
       />
     </ModalBig>
   )

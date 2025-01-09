@@ -3,15 +3,22 @@ import { FaPlus } from 'react-icons/fa6'
 import { MdEdit } from 'react-icons/md'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { AddNganHang } from './AddNganHang'
+import { EditNganHang } from './EditNganHang'
 
 function NganHangLayout () {
   const [data, setData] = useState([])
   const [isOpenAdd, setIsOpenAdd] = useState(false)
-  //   const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
   //   const [isOpenThanhPho, setIsOpenThanhPho] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
-  const [nameselected, setnameselected] = useState('')
+  const [tennganhang, settennganhang] = useState('')
+  const [tendaydu, settendaydu] = useState('')
+
+  const [tentaikhoan, settentaikhoan] = useState('')
+
+  const [sotaikhoan, setsotaikhoan] = useState('')
+  const [chinhanh, setchinhanh] = useState('')
 
   const fetchVung = async () => {
     try {
@@ -50,10 +57,30 @@ function NganHangLayout () {
 
   const handleUpdate = () => {
     if (selectedIds.length === 1) {
-      const selectedName = data.find(item => item._id === selectedIds[0])?.name
-      setnameselected(selectedName)
-      console.log(nameselected)
-      //   setIsOpenEdit(true)
+      const selectedTennganhang = data.find(
+        item => item._id === selectedIds[0]
+      )?.tennganhang
+      const selectedTendaydu = data.find(
+        item => item._id === selectedIds[0]
+      )?.tendaydu
+      const selectedTentaikhoan = data.find(
+        item => item._id === selectedIds[0]
+      )?.tentaikhoan
+      const selectedSotaikhoan = data.find(
+        item => item._id === selectedIds[0]
+      )?.sotaikhoan
+      const selectedChinhanh = data.find(
+        item => item._id === selectedIds[0]
+      )?.chinhanh
+
+
+      settennganhang(selectedTennganhang)
+      settendaydu(selectedTendaydu)
+      settentaikhoan(selectedTentaikhoan)
+      setsotaikhoan(selectedSotaikhoan)
+      setchinhanh(selectedChinhanh)
+
+      setIsOpenEdit(true)
     } else if (selectedIds.length > 1) {
       showToast('Bạn chỉ được phép chọn 1 ngân hàng để cập nhật.', 'warning')
     } else {
@@ -129,13 +156,17 @@ function NganHangLayout () {
         onClose={() => setIsOpenAdd(false)}
         fetchdata={fetchVung}
       />
-      {/* <EditVung
+      <EditNganHang
         isOpen={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
         fetchdata={fetchVung}
-        tenvung={nameselected}
-        idvung={selectedIds[0]}
-      /> */}
+        tennh={tennganhang}
+        tendd={tendaydu}
+        tentk={tentaikhoan}
+        sotk={sotaikhoan}
+        chiNh={chinhanh}
+        idnganhang={selectedIds[0]}
+      />
     </div>
   )
 }

@@ -12,6 +12,7 @@ export const navigationLinks = [
   { id: 3, title: 'Thành phố', image: iconsImgs.city, link: '/vung' },
   { id: 4, title: 'Phần trăm', image: iconsImgs.phantram, link: '/phantram' },
   { id: 5, title: 'Blog', image: iconsImgs.blog, link: '/theloaiblog' },
+  { id: 6, title: 'Ngân Hàng', image: iconsImgs.bank,link: '/nganhang'},
   { id: 6, title: 'Hóa đơn', image: iconsImgs.report,link: '/hoadon'},
 ]
 

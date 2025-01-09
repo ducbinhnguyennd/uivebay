@@ -1,0 +1,58 @@
+.vung-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 90px;
+}
+
+.vung-container table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.vung-container th {
+  padding: 10px;
+  text-align: center;
+  color: black;
+}
+
+.vung-container td {
+  padding: 10px;
+  text-align: center;
+  color: #0e0d0d;
+}
+
+.vung-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  background-color: #1093ff;
+  gap: 30px;
+  border-radius: 5px;
+}
+
+.divvungitem {
+  flex: 1 1 auto;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.divvungitem:hover {
+  background-color: #0058a0;
+  box-shadow: rgba(0, 41, 80, 0.35) 2px 2px 2px;
+}
+
+.divvungchonitem {
+  flex: 1 1 auto;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+}
