@@ -34,6 +34,8 @@ import DatVeKhuHoiMB from '../LayoutMobile/DatVeMB/DatVeNoiDiaKHMB/DatVeNoiDiaKH
 import DatVeNoiDiaMB from '../LayoutMobile/DatVeMB/DatVeNoiDiaMB/DatVeNoiDiaMB'
 import SearchQTMB from '../LayoutMobile/SearchMB/SearchQTMB/SearchQTMB'
 import SearchKHQTMB from '../LayoutMobile/SearchMB/SearchQTKHMB/SearchKHQTMB'
+import DatVeKhuHoiQTMB from '../LayoutMobile/DatVeMB/DatVeKhuHoiQTMB/DatVeKhuHoiQTMB'
+import DatVeQuocTeMB from '../LayoutMobile/DatVeMB/DatVeQuocTeMB/DatVeQuocTeMB'
 const IsMobile = () => {
   return useMediaQuery({ query: '(max-width: 767px)' })
 }
@@ -60,13 +62,6 @@ const publicRoutes = [
       return isMobile ? <SearchNoiDiaMB /> : <SearchLayout />
     }
   },
-  { path: '/gioi-thieu', component: GioiThieu },
-  { path: '/vung', component: VungLayout, layout: 'admin' },
-  { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
-  { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
-  { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
-  { path: '/hoadon', component: HoaDonLayout, layout: 'admin' },
-  { path: '/nganhang', component: NganHangLayout, layout: 'admin' },
 
   {
     path: '/datve',
@@ -82,12 +77,21 @@ const publicRoutes = [
       return isMobile ? <DatVeKhuHoiMB /> : <DatVeKhuHoi />
     }
   },
-  { path: '/thanhtoan', component: ThanhToan },
-  { path: '/tin-khuyen-mai', component: KhuyenMai },
-  { path: '/xem-lai-don-hang', component: XemLaiDonHang },
-  { path: '/datvequocte', component: DatVeQT },
-    { path: '/datvekhuhoiquocte', component: DatVeKhuHoiQT },
 
+  {
+    path: '/datvequocte',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <DatVeQuocTeMB /> : <DatVeQT />
+    }
+  },
+  {
+    path: '/datvekhuhoiquocte',
+    component: () => {
+      const isMobile = IsMobile()
+      return isMobile ? <DatVeKhuHoiQTMB /> : <DatVeKhuHoiQT />
+    }
+  },
 
   {
     path: '/searchkhuhoi',
@@ -110,11 +114,21 @@ const publicRoutes = [
       return isMobile ? <SearchKHQTMB /> : <SearchKHQT />
     }
   },
+  { path: '/gioi-thieu', component: GioiThieu },
+  { path: '/vung', component: VungLayout, layout: 'admin' },
+  { path: '/hangmaybay', component: HangMayBayLayout, layout: 'admin' },
+  { path: '/theloaiblog', component: TheLoaiBlog, layout: 'admin' },
+  { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
+  { path: '/hoadon', component: HoaDonLayout, layout: 'admin' },
+  { path: '/nganhang', component: NganHangLayout, layout: 'admin' },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
   { path: '/chitietdonhang', component: ChiTietDonHang },
   { path: '/thongtinchuyenkhoan', component: ThongTinChuyenKhoan },
-  { path: '/login', component: Login, layout: null }
+  { path: '/login', component: Login, layout: null },
+  { path: '/thanhtoan', component: ThanhToan },
+  { path: '/tin-khuyen-mai', component: KhuyenMai },
+  { path: '/xem-lai-don-hang', component: XemLaiDonHang }
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }

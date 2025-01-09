@@ -27,7 +27,7 @@ function ThongTinDat () {
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
-  
+
   const navigate = useNavigate()
 
   const handleInvoiceChange = () => setxuathoadon(!xuathoadon)
@@ -43,7 +43,8 @@ function ThongTinDat () {
     sethoadon,
     settienve,
     cityto,
-    cityfrom
+    cityfrom,
+    setmangnguoi
   } = useToast()
 
   const initialKhachhangs = mangnguoi.flatMap(nguoi =>
@@ -69,6 +70,34 @@ function ThongTinDat () {
   const getFlatIndex = (index, idx) =>
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
     idx
+
+  const handleAddGuests = numberOfGuests => {
+    setmangnguoi(prev => [
+      ...prev,
+      { songuoi: numberOfGuests, name: 'Người lớn' }
+    ])
+
+    setkhachhangs(prev => [
+      ...prev,
+      ...Array.from({ length: numberOfGuests }, () => ({
+        namebay: '',
+        doituong: '',
+        kygui: false,
+        hanhlykygui: '',
+        pricekygui: 0
+      }))
+    ])
+  }
+
+  const handleValueChange = e => {
+    const selectedValue = e.target.value
+    const match = selectedValue.match(/\d+/)
+    const numberOfGuests = match ? parseInt(match[0], 10) : 0
+
+    if (numberOfGuests > 0) {
+      handleAddGuests(numberOfGuests)
+    }
+  }
 
   const fetchhang = async () => {
     try {
@@ -612,20 +641,7 @@ function ThongTinDat () {
                           name='ctl00$cphMainColumn$ctl00$usrPassengerInfoD$cboAddOrRemovePax'
                           id='cphMainColumn_ctl00_usrPassengerInfoD_cboAddOrRemovePax'
                           value={valuethemkhach}
-                          onChange={e => {
-                            const selectedValue = e.target.value
-                            const match = selectedValue.match(/\d+/)
-                            const numberOfGuests = match
-                              ? parseInt(match[0], 10)
-                              : 0
-                            setvaluethemkhach(selectedValue)
-                            setsokhachthem(numberOfGuests)
-                            if (numberOfGuests > 0) {
-                              setthemkhach(true)
-                            } else {
-                              setthemkhach(false)
-                            }
-                          }}
+                          onChange={handleValueChange}
                         >
                           <option selected value=''>
                             Thêm khách

@@ -2,14 +2,10 @@
 import { useState, useEffect } from "react";
 import "./SearchNoiDiaKHMB.scss";
 import { useToast } from "../../../components/useToast/ToastContext";
-// import { useNavigate } from 'react-router-dom'
-import FilterComponent from "../../../components/SideBar/Filter";
 import {
-  LunarCalendarFormat,
   formatDate,
   CalendarFormatMB,
   getSurroundingDateskhuhoinoidia,
-  CalendarFormat,
   getSurroundingDateskhuhoinoidia1,
 } from "../../../components/LunarCalendarFormat/LunarCalendarFormat";
 import {
@@ -17,19 +13,14 @@ import {
   handleFiltersChange,
 } from "../../../components/FilterChuyenBay/FilterChuyenBay";
 import {
-  toggleDetails,
   getAirlineImage,
-  getAirlineName,
-  HandelTonggia,
-  calculateDuration,
+
 } from "../../../Layout/SearchLayout/SearchLayoutFunction";
 import { useNavigate } from 'react-router-dom'
 import FilterMB from "../../componentsMB/FilterMobile/FilterMB";
 
 function SearchNoiDiaKHMB() {
   const {
-    cityfrom,
-    cityto,
     searchData,
     mafrom,
     mato,
@@ -42,8 +33,7 @@ function SearchNoiDiaKHMB() {
     setflightdata,
     setflightdata2
   } = useToast();
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
-  const [visibleDetailIndex2, setVisibleDetailIndex2] = useState(null);
+
 
   const [hangmaybay, sethangmaybay] = useState([]);
   const [phantrams, setphantram] = useState([]);
@@ -51,7 +41,7 @@ function SearchNoiDiaKHMB() {
   const [selectedFlight1, setSelectedFlight1] = useState(null);
   const { previousTwoDays, nextTwoDays } =
     getSurroundingDateskhuhoinoidia(date);
-  const { previousTwoDays1, nextTwoDays1 } =
+  const { previousTwoDays1 } =
     getSurroundingDateskhuhoinoidia1(returnDate);
     const navigate = useNavigate()
   const [filters, setFilters] = useState({

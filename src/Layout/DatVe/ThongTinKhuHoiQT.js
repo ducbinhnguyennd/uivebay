@@ -43,7 +43,9 @@ function ThongTinDatKhuHoiQT () {
     settienve,
     tienveve,
     settienveve,
-    returnDate
+    returnDate,
+    setmangnguoi
+
   } = useToast()
 
   const fetchhang = async () => {
@@ -98,6 +100,34 @@ function ThongTinDatKhuHoiQT () {
   const getFlatIndex = (index, idx) =>
     mangnguoi.slice(0, index).reduce((acc, nguoi) => acc + nguoi.songuoi, 0) +
     idx
+    const handleAddGuests = numberOfGuests => {
+  setmangnguoi(prev => [
+    ...prev,
+    { songuoi: numberOfGuests, name: 'Người lớn' }
+  ])
+
+  setkhachhangs(prev => [
+    ...prev,
+    ...Array.from({ length: numberOfGuests }, () => ({
+      namebay: '',
+      doituong: '',
+      kygui: false,
+      hanhlykygui: '',
+      pricekygui: 0
+    }))
+  ])
+}
+
+const handleValueChange = e => {
+  const selectedValue = e.target.value
+  const match = selectedValue.match(/\d+/)
+  const numberOfGuests = match ? parseInt(match[0], 10) : 0
+
+  if (numberOfGuests > 0) {
+    handleAddGuests(numberOfGuests)
+  }
+}
+
 
   useEffect(() => {
     if (
@@ -676,20 +706,7 @@ function ThongTinDatKhuHoiQT () {
                           name='ctl00$cphMainColumn$ctl00$usrPassengerInfoD$cboAddOrRemovePax'
                           id='cphMainColumn_ctl00_usrPassengerInfoD_cboAddOrRemovePax'
                           value={valuethemkhach}
-                          onChange={e => {
-                            const selectedValue = e.target.value
-                            const match = selectedValue.match(/\d+/)
-                            const numberOfGuests = match
-                              ? parseInt(match[0], 10)
-                              : 0
-                            setvaluethemkhach(selectedValue)
-                            setsokhachthem(numberOfGuests)
-                            if (numberOfGuests > 0) {
-                              setthemkhach(true)
-                            } else {
-                              setthemkhach(false)
-                            }
-                          }}
+                          onChange={handleValueChange}
                         >
                           <option selected value=''>
                             Thêm khách

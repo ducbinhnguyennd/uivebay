@@ -24,7 +24,8 @@ function SearchQTMB () {
     date,
     mangnguoi,
     setSearchData,
-    setdate
+    setdate,
+    setflightdata
   } = useToast()
   const { previousTwoDays, nextTwoDays } = getSurroundingDates(date)
   const [phantrams, setphantram] = useState([])
@@ -196,7 +197,10 @@ function SearchQTMB () {
                 flights1.map((flight, index) => (
                   <div
                     key={index}
-                    onClick={() => navigate('/datve')}
+                    onClick={() => {
+                      setflightdata(flight)
+                      navigate('/datvequocte')
+                    }}
                     style={{ cursor: 'pointer' }}
                   >
                     <div className='flight-row-quocte'>

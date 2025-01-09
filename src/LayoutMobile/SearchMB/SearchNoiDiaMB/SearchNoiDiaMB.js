@@ -7,18 +7,14 @@ import {
   formatDate,
   getSurroundingDates,
   CalendarFormatMB,
-  CalendarFormat,
 } from "../../../components/LunarCalendarFormat/LunarCalendarFormat";
 import {
   applyFilters,
   handleFiltersChange,
 } from "../../../components/FilterChuyenBay/FilterChuyenBay";
 import {
-  toggleDetails,
   getAirlineImage,
-  getAirlineName,
-  HandelTonggia,
-  calculateDuration,
+
 } from "../../../Layout/SearchLayout/SearchLayoutFunction";
 import FilterMB from "../../componentsMB/FilterMobile/FilterMB";
 function SearchNoiDiaMB() {
@@ -34,7 +30,6 @@ function SearchNoiDiaMB() {
     setSearchData,
     setdate,
   } = useToast();
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
   const [hangmaybay, sethangmaybay] = useState([]);
   const [phantrams, setphantram] = useState([]);
   const [selectedFlight, setSelectedFlight] = useState(null);
@@ -109,29 +104,7 @@ function SearchNoiDiaMB() {
   };
 
   const flights1 = applyFilters(searchData.outBound.data.flights, filters);
-  const totalPeople = mangnguoi.reduce(
-    (total, item) => total + item.songuoi,
-    0
-  );
-
-  const totalPrice = mangnguoi.reduce((total, item) => {
-    if (
-      !selectedFlight ||
-      !selectedFlight.price ||
-      !phantrams ||
-      phantrams.length === 0
-    ) {
-      return total;
-    }
-    const pricePerTicket =
-      parseInt(selectedFlight.price.replace(/,/g, ""), 10) -
-      (parseInt(selectedFlight.price.replace(/,/g, ""), 10) *
-        phantrams[0].phantram) /
-        100;
-    const taxAndFee = (pricePerTicket * 30) / 100;
-    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi;
-  }, 0);
-
+  
   return (
     <div className="search-layout">
       <div className="content-wrapper">
