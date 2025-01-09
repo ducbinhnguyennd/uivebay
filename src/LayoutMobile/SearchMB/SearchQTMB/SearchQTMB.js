@@ -82,7 +82,7 @@ function SearchQTMB () {
     }
   }
 
-  const flights1 = applyFiltersQT(searchData.data, filters)
+  const flights1 = applyFiltersQT(searchData?.data, filters)
 
   return (
     <div className='search-layout'>
@@ -173,7 +173,8 @@ function SearchQTMB () {
             </div>
 
             <div className='flight-options-quocte'>
-              {Array.isArray(searchData.data) &&
+              {Array.isArray(searchData?.data) &&
+              searchData?.data.length > 0 ? (
                 flights1.map((flight, index) => (
                   <div
                     key={index}
@@ -229,7 +230,10 @@ function SearchQTMB () {
                       <button className='select-button'>Chọn</button>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className='nodulieu'>không có dữ liệu</div>
+              )}
             </div>
           </div>
           <div style={{ padding: '10px' }}>Giá vé chưa gồm thuế và phí</div>

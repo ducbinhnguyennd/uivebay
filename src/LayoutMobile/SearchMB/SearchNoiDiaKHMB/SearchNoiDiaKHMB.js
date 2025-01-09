@@ -1,25 +1,22 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useState, useEffect } from "react";
-import "./SearchNoiDiaKHMB.scss";
-import { useToast } from "../../../components/useToast/ToastContext";
+import { useState, useEffect } from 'react'
+import './SearchNoiDiaKHMB.scss'
+import { useToast } from '../../../components/useToast/ToastContext'
 import {
   formatDate,
   CalendarFormatMB,
   getSurroundingDateskhuhoinoidia,
-  getSurroundingDateskhuhoinoidia1,
-} from "../../../components/LunarCalendarFormat/LunarCalendarFormat";
+  getSurroundingDateskhuhoinoidia1
+} from '../../../components/LunarCalendarFormat/LunarCalendarFormat'
 import {
   applyFilters,
-  handleFiltersChange,
-} from "../../../components/FilterChuyenBay/FilterChuyenBay";
-import {
-  getAirlineImage,
-
-} from "../../../Layout/SearchLayout/SearchLayoutFunction";
+  handleFiltersChange
+} from '../../../components/FilterChuyenBay/FilterChuyenBay'
+import { getAirlineImage } from '../../../Layout/SearchLayout/SearchLayoutFunction'
 import { useNavigate } from 'react-router-dom'
-import FilterMB from "../../componentsMB/FilterMobile/FilterMB";
+import FilterMB from '../../componentsMB/FilterMobile/FilterMB'
 
-function SearchNoiDiaKHMB() {
+function SearchNoiDiaKHMB () {
   const {
     searchData,
     mafrom,
@@ -32,57 +29,54 @@ function SearchNoiDiaKHMB() {
     setreturnDate,
     setflightdata,
     setflightdata2
-  } = useToast();
+  } = useToast()
 
-
-  const [hangmaybay, sethangmaybay] = useState([]);
-  const [phantrams, setphantram] = useState([]);
-  const [selectedFlight, setSelectedFlight] = useState(null);
-  const [selectedFlight1, setSelectedFlight1] = useState(null);
-  const { previousTwoDays, nextTwoDays } =
-    getSurroundingDateskhuhoinoidia(date);
-  const { previousTwoDays1 } =
-    getSurroundingDateskhuhoinoidia1(returnDate);
-    const navigate = useNavigate()
+  const [hangmaybay, sethangmaybay] = useState([])
+  const [phantrams, setphantram] = useState([])
+  const [selectedFlight, setSelectedFlight] = useState(null)
+  const [selectedFlight1, setSelectedFlight1] = useState(null)
+  const { previousTwoDays, nextTwoDays } = getSurroundingDateskhuhoinoidia(date)
+  const { previousTwoDays1 } = getSurroundingDateskhuhoinoidia1(returnDate)
+  const navigate = useNavigate()
   const [filters, setFilters] = useState({
-    sortBy: "abay-suggest",
-    airlines: [],
-  });
+    sortBy: 'abay-suggest',
+    airlines: []
+  })
 
   const fetchhang = async () => {
     try {
-      const response = await fetch("https://demovemaybay.shop/gethangmaybay");
-      const data = await response.json();
+      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
+      const data = await response.json()
       if (response.ok) {
-        sethangmaybay(data);
+        sethangmaybay(data)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch("https://demovemaybay.shop/getphantram");
-      const data = await response.json();
-      console.log(data);
+      const response = await fetch('https://demovemaybay.shop/getphantram')
+      const data = await response.json()
+      console.log(data)
       if (response.ok) {
-        setphantram(data);
+        setphantram(data)
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
-  console.log(returnDate);
+  }
+  console.log(returnDate)
   useEffect(() => {
-    fetchhang();
-    fetchphantram();
-  }, []);
+    fetchhang()
+    fetchphantram()
+  }, [])
 
-  const flights1 = applyFilters(searchData.outBound.data.flights, filters);
-  const flights2 = applyFilters(searchData.inBound.data.flights, filters);
+  const flights1 = applyFilters(searchData.outBound?.data?.flights, filters)
+  const flights2 = applyFilters(searchData.inBound?.data?.flights, filters)
 
-  const handleSearch = async (date) => {
+  const handleSearch = async date => {
     try {
       const requestData = {
         departure: mafrom,
@@ -91,30 +85,30 @@ function SearchNoiDiaKHMB() {
         adults: mangnguoi[0]?.songuoi,
         children: mangnguoi[1]?.songuoi || 0,
         infants: mangnguoi[2]?.songuoi || 0,
-        returnDate: formatDate(returnDate),
-      };
+        returnDate: formatDate(returnDate)
+      }
 
       const response = await fetch(
-        "https://wooordersystem.store/order-woo/api/getInfoFlights",
+        'https://wooordersystem.store/order-woo/api/getInfoFlights',
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(requestData),
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData)
         }
-      );
-      const data = await response.json();
+      )
+      const data = await response.json()
 
       if (response.ok) {
-        setSearchData(data);
-        setdate(date);
-        window.location.reload();
+        setSearchData(data)
+        setdate(date)
+        window.location.reload()
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
-  const handleSearch1 = async (returnDate) => {
+  const handleSearch1 = async returnDate => {
     try {
       const requestData = {
         departure: mafrom,
@@ -123,28 +117,28 @@ function SearchNoiDiaKHMB() {
         adults: mangnguoi[0]?.songuoi,
         children: mangnguoi[1]?.songuoi || 0,
         infants: mangnguoi[2]?.songuoi || 0,
-        returnDate: formatDate(returnDate),
-      };
+        returnDate: formatDate(returnDate)
+      }
 
       const response = await fetch(
-        "https://wooordersystem.store/order-woo/api/getInfoFlights",
+        'https://wooordersystem.store/order-woo/api/getInfoFlights',
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(requestData),
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestData)
         }
-      );
-      const data = await response.json();
+      )
+      const data = await response.json()
 
       if (response.ok) {
-        setSearchData(data);
-        setreturnDate(returnDate);
-        window.location.reload();
+        setSearchData(data)
+        setreturnDate(returnDate)
+        window.location.reload()
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
   const handleSelectFlight1 = flight => {
     setSelectedFlight(flight)
     setflightdata(flight)
@@ -161,39 +155,39 @@ function SearchNoiDiaKHMB() {
     }
   }
   return (
-    <div className="search-layout">
-      <div className="content-wrapper">
-        <div className="main-content">
-        <FilterMB
+    <div className='search-layout'>
+      <div className='content-wrapper'>
+        <div className='main-content'>
+          <FilterMB
             filters={filters}
             onFiltersChange={handleFiltersChange}
             setFilters={setFilters}
           />
-          <div className="price-infomb">
+          <div className='price-infomb'>
             Ghi chú:
-            <span className="note">
-              <img src="./hanhly.png" alt="baggage" style={{ width: "18px" }} />
-              <img src="./suatan.jpg" alt="meal" style={{ width: "18px" }} />
+            <span className='note'>
+              <img src='./hanhly.png' alt='baggage' style={{ width: '18px' }} />
+              <img src='./suatan.jpg' alt='meal' style={{ width: '18px' }} />
               giá vé đã bao gồm hành lý và suất ăn
             </span>
           </div>
-          <div className="flight-list">
-            <div className="flight-go">
-              <div className="section-header orange">
+          <div className='flight-list'>
+            <div className='flight-go'>
+              <div className='section-header orange'>
                 <h3>
-                  {mafrom} <img src="./air-plane.png" alt="arrow" /> {mato}
+                  {mafrom} <img src='./air-plane.png' alt='arrow' /> {mato}
                 </h3>
               </div>
 
-              <div className="tabs">
+              <div className='tabs'>
                 {previousTwoDays.map((day, index) => {
                   const isPastDate =
-                    new Date(day) < new Date().setHours(0, 0, 0, 0);
+                    new Date(day) < new Date().setHours(0, 0, 0, 0)
 
                   return (
                     <div
                       key={index}
-                      className={`datemb ${isPastDate ? "disabled" : ""}`}
+                      className={`datemb ${isPastDate ? 'disabled' : ''}`}
                       onClick={
                         !isPastDate ? () => handleSearch(day) : undefined
                       }
@@ -201,9 +195,9 @@ function SearchNoiDiaKHMB() {
                       {CalendarFormatMB(day)}
                       <br />
                     </div>
-                  );
+                  )
                 })}
-                <div className={`datemb ${date ? "active" : ""}`}>
+                <div className={`datemb ${date ? 'active' : ''}`}>
                   {CalendarFormatMB(date)}
                 </div>
                 {nextTwoDays.map((day, index) => (
@@ -218,74 +212,78 @@ function SearchNoiDiaKHMB() {
                 ))}
               </div>
 
-              <div className="flight-table">
-                {Array.isArray(searchData.outBound.data.flights) &&
+              <div className='flight-table'>
+                {Array.isArray(searchData.outBound?.data?.flights) &&
+                searchData.outBound?.data?.flights.length > 0 ? (
                   flights1.map((flight, index) => (
                     <div
-                    key={index}
-                    className={`divflightrow ${
-                      selectedFlight === flight ? 'addflightrow' : ''
-                    }`}
-                    onClick={() => handleSelectFlight1(flight)}
-                  >
-                      <div className="flight-row-khuhoi" key={index}>
+                      key={index}
+                      className={`divflightrow ${
+                        selectedFlight === flight ? 'addflightrow' : ''
+                      }`}
+                      onClick={() => handleSelectFlight1(flight)}
+                    >
+                      <div className='flight-row-khuhoi' key={index}>
                         <span>
                           <img
                             src={getAirlineImage(
                               flight.airlineCode,
                               hangmaybay
                             )}
-                            alt=""
+                            alt=''
                             style={{
-                              width: "45px",
+                              width: '45px'
                             }}
                           />
                         </span>
 
-                        <span className="flight-timemb">
+                        <span className='flight-timemb'>
                           {flight?.departureTime}
                         </span>
-                        <span className="flight-pricemb">
+                        <span className='flight-pricemb'>
                           {phantrams.length > 0
                             ? (
-                                parseInt(flight.price.replace(/,/g, ""), 10) -
-                                (parseInt(flight.price.replace(/,/g, ""), 10) *
+                                parseInt(flight.price.replace(/,/g, ''), 10) -
+                                (parseInt(flight.price.replace(/,/g, ''), 10) *
                                   phantrams[0].phantram) /
                                   100
                               ).toLocaleString()
-                            : "Đang tải..."}
+                            : 'Đang tải...'}
                         </span>
                         <button
-                          className="select-flightmb"
+                          className='select-flightmb'
                           style={{
-                            backgroundColor: "#e67e00",
+                            backgroundColor: '#e67e00'
                           }}
                         >
-                          {flight.chooseText === "Hạng Thương Gia"
-                            ? "T.Gia"
-                            : "Chọn"}
+                          {flight.chooseText === 'Hạng Thương Gia'
+                            ? 'T.Gia'
+                            : 'Chọn'}
                         </button>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <div className='nodulieu'>không có dữ liệu</div>
+                )}
               </div>
             </div>
-            <div className="flight-back">
-              <div className="section-header blue">
+            <div className='flight-back'>
+              <div className='section-header blue'>
                 <h3>
-                  {mato} <img src="./air-plane.png" alt="arrow" /> {mafrom}
+                  {mato} <img src='./air-plane.png' alt='arrow' /> {mafrom}
                 </h3>
               </div>
 
-              <div className="tabs">
+              <div className='tabs'>
                 {previousTwoDays1.map((day, index) => {
                   const isPastDate =
-                    new Date(day) < new Date().setHours(0, 0, 0, 0);
+                    new Date(day) < new Date().setHours(0, 0, 0, 0)
 
                   return (
                     <div
                       key={index}
-                      className={`datemb ${isPastDate ? "disabled" : ""}`}
+                      className={`datemb ${isPastDate ? 'disabled' : ''}`}
                       onClick={
                         !isPastDate ? () => handleSearch1(day) : undefined
                       }
@@ -293,9 +291,9 @@ function SearchNoiDiaKHMB() {
                       {CalendarFormatMB(day)}
                       <br />
                     </div>
-                  );
+                  )
                 })}
-                <div className={`datemb ${returnDate ? "active" : ""}`}>
+                <div className={`datemb ${returnDate ? 'active' : ''}`}>
                   {CalendarFormatMB(returnDate)}
                   <br />
                 </div>
@@ -311,8 +309,9 @@ function SearchNoiDiaKHMB() {
                 ))}
               </div>
 
-              <div className="flight-table">
-                {Array.isArray(searchData.inBound.data.flights) &&
+              <div className='flight-table'>
+                {Array.isArray(searchData.inBound?.data?.flights) &&
+                searchData.inBound?.data?.flights.length > 0 ? (
                   flights2.map((flight, index) => (
                     <div
                       key={index}
@@ -321,53 +320,56 @@ function SearchNoiDiaKHMB() {
                       }`}
                       onClick={() => handleSelectFlight2(flight)}
                     >
-                      <div className="flight-row-khuhoi" key={index}>
+                      <div className='flight-row-khuhoi' key={index}>
                         <span>
                           <img
                             src={getAirlineImage(
                               flight.airlineCode,
                               hangmaybay
                             )}
-                            alt=""
+                            alt=''
                             style={{
-                              width: "45px",
+                              width: '45px'
                             }}
                           />
                         </span>
 
-                        <span className="flight-timemb">
+                        <span className='flight-timemb'>
                           {flight?.departureTime}
                         </span>
-                        <span className="flight-pricemb">
+                        <span className='flight-pricemb'>
                           {phantrams.length > 0
                             ? (
-                                parseInt(flight.price.replace(/,/g, ""), 10) -
-                                (parseInt(flight.price.replace(/,/g, ""), 10) *
+                                parseInt(flight.price.replace(/,/g, ''), 10) -
+                                (parseInt(flight.price.replace(/,/g, ''), 10) *
                                   phantrams[0].phantram) /
                                   100
                               ).toLocaleString()
-                            : "Đang tải..."}
+                            : 'Đang tải...'}
                         </span>
                         <button
-                          className="select-flightmb"
+                          className='select-flightmb'
                           style={{
-                            backgroundColor: "#e67e00",
+                            backgroundColor: '#e67e00'
                           }}
                         >
-                          {flight.chooseText === "Hạng Thương Gia"
-                            ? "T.Gia"
-                            : "Chọn"}
+                          {flight.chooseText === 'Hạng Thương Gia'
+                            ? 'T.Gia'
+                            : 'Chọn'}
                         </button>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <div className='nodulieu'>không có dữ liệu</div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default SearchNoiDiaKHMB;
+export default SearchNoiDiaKHMB

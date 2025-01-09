@@ -21,7 +21,6 @@ function SearchKHQTMB () {
     date,
     returnDate,
     setflightdata
-
   } = useToast()
   const [phantrams, setphantram] = useState([])
   const [filters, setFilters] = useState({
@@ -30,8 +29,6 @@ function SearchKHQTMB () {
   })
   const navigate = useNavigate()
   console.log(searchData)
-
-
 
   const fetchphantram = async () => {
     try {
@@ -49,7 +46,7 @@ function SearchKHQTMB () {
     fetchphantram()
   }, [])
 
-  const flights1 = applyFiltersQT(searchData.data, filters)
+  const flights1 = applyFiltersQT(searchData?.data, filters)
 
   return (
     <div className='search-layout'>
@@ -89,7 +86,8 @@ function SearchKHQTMB () {
             />
 
             <div className='flight-options-quocte'>
-              {Array.isArray(searchData.data) &&
+              {Array.isArray(searchData?.data) &&
+              searchData?.data.length > 0 ? (
                 flights1.map((flight, index) => (
                   <div
                     key={index}
@@ -195,7 +193,10 @@ function SearchKHQTMB () {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <div className='nodulieu'>không có dữ liệu</div>
+              )}
             </div>
           </div>
         </div>
