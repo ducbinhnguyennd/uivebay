@@ -32,7 +32,7 @@ function EditTheLoai ({ isOpen, onClose, fetchdata, tentheloai, idtheloai }) {
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:3013/puttheloaiblog/${idtheloai}`,
+          `https://demovemaybay.shop/puttheloaiblog/${idtheloai}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

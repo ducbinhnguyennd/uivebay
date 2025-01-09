@@ -88,7 +88,7 @@ function HangMayBayLayout () {
 
   const Delete = async () => {
     try {
-      const response = await fetch(`http://localhost:3013/deletehang`, {
+      const response = await fetch(`https://demovemaybay.shop/deletehang`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

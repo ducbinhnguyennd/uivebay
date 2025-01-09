@@ -91,13 +91,16 @@ function TheLoaiBlogLayout () {
 
   const Delete = async () => {
     try {
-      const response = await fetch(`http://localhost:3013/deletetheloaiblogs`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ ids: selectedIds })
-      })
+      const response = await fetch(
+        `https://demovemaybay.shop/deletetheloaiblogs`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ids: selectedIds })
+        }
+      )
       if (response.ok) {
         fetchTheLoai()
         setSelectedIds([])

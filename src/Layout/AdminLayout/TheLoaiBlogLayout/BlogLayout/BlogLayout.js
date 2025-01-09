@@ -29,7 +29,7 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
     if (idtheloai) {
       try {
         const response = await fetch(
-          `http://localhost:3013/getblogid/${idtheloai}`
+          `https://demovemaybay.shop/getblogid/${idtheloai}`
         )
         const data = await response.json()
         if (response.ok) {
@@ -82,7 +82,7 @@ function BlogLayout ({ isOpen, onClose, idtheloai }) {
 
   const Delete = async () => {
     try {
-      const response = await fetch(`http://localhost:3013/deleteblogs`, {
+      const response = await fetch(`https://demovemaybay.shop/deleteblogs`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

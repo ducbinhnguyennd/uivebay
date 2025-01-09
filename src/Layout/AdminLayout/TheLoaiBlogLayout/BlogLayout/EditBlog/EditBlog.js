@@ -63,7 +63,7 @@ function EditBlog ({
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:3013/putblog/${idblog}`,
+          `https://demovemaybay.shop/putblog/${idblog}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
