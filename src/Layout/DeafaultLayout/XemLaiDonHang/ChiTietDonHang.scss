@@ -1,11 +1,10 @@
 .chitiethoadon {
   font-family: Arial, sans-serif;
-  margin: 20px auto;
+  margin: 0px auto;
   max-width: 1200px;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+
 }
 
 .chitiethoadon h3 {
@@ -15,13 +14,16 @@
   font-size: 1.5em;
   font-weight: bold;
 }
-
+.table-cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+}
 .table-container {
   max-height: 400px;
   /* Giới hạn chiều cao */
   overflow-y: auto;
-  /* Bật cuộn dọc */
-  border: 1px solid #ddd;
   border-radius: 8px;
   position: relative;
 }
@@ -50,9 +52,6 @@
   border: 1px solid #ddd;
 }
 
-.chitiethoadon table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 
 .chitiethoadon table tbody tr:hover {
   background-color: #e6f7ff;
@@ -65,8 +64,21 @@
   color: #333;
   border: 1px solid #ddd;
 }
-
+@media (min-width: 768px) {
+  .mobile-view {
+    display: none; /* Ẩn giao diện mobile */
+  }
+  .desktop-view {
+    display: block; /* Hiển thị bảng */
+  }
+}
 @media (max-width: 768px) {
+  .desktop-view {
+    display: none; /* Ẩn giao diện bảng */
+  }
+  .mobile-view {
+    display: block; /* Hiển thị giao diện danh sách */
+  }
   .chitiethoadon h3 {
     font-size: 1.5rem;
   }
@@ -78,10 +90,8 @@
   .chitiethoadon table tbody tr {
     display: block;
     margin-bottom: 10px;
-    border: 1px solid #ecf0f1;
-    border-radius: 8px;
     padding: 12px;
-    background-color: #f9f9f9;
+    background-color: #fff;
   }
 
   .chitiethoadon table tbody td {
@@ -102,7 +112,16 @@
     text-align: left;
   }
   .table-container{
-max-height: 600px;
+max-height: unset;
+  }
+  .info-groupmb{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .info-group,.passenger{
+
+    margin-bottom: 10px;
   }
 }
 
