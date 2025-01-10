@@ -473,13 +473,13 @@ function SearchLayout () {
                                 </tr>
                               ))}
                               <tr class='total-b'>
-                                <td align='right' colspan='4' class='footer'>
+                                <td align='right' colSpan='4' class='footer'>
                                   <b>
                                     <t>Tổng giá</t> {totalPeople} người
                                   </b>
                                 </td>
                                 <td
-                                  colspan={1}
+                                  colSpan={1}
                                   align='center'
                                   class='footer pb-price'
                                 >

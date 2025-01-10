@@ -297,7 +297,7 @@ function SearchSidebar () {
                       <td colSpan='6'></td>
                     </tr>
                     <tr align='center'>
-                      <td colspan='7' align='center' class='input-submit'>
+                      <td colSpan='7' align='center' class='input-submit'>
                         <input
                           name='ctl00$cphSubColumn$ctl01$btnSearchFlight'
                           value='Tìm Chuyến Bay'

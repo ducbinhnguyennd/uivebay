@@ -549,7 +549,7 @@ function ThongTinDatKhuHoiQT () {
           </tr>
           <tr>
             <td
-              colspan='2'
+              colSpan='2'
               style={{ verticalAlign: 'top' }}
               className='ctr-passenger'
             >
@@ -748,7 +748,7 @@ function ThongTinDatKhuHoiQT () {
           </tr>
           <tr>
             <td
-              colspan='2'
+              colSpan='2'
               style={{ verticalAlign: 'top' }}
               className='ctr-contact'
             >
@@ -829,7 +829,7 @@ function ThongTinDatKhuHoiQT () {
                   </tr>
                   <tr>
                     <td
-                      colspan='2'
+                      colSpan='2'
                       className='invoice'
                       style={{ paddingTop: '10px' }}
                     >
@@ -847,7 +847,7 @@ function ThongTinDatKhuHoiQT () {
                   </tr>
                   {xuathoadon && (
                     <tr>
-                      <td colspan='2'>
+                      <td colSpan='2'>
                         <table>
                           <tbody>
                             <tr id='invoice_details' className='contact-input'>
@@ -861,7 +861,7 @@ function ThongTinDatKhuHoiQT () {
                                 >
                                   <tbody>
                                     <tr>
-                                      <td colspan='2'>
+                                      <td colSpan='2'>
                                         <label for=''>Mã số thuế</label>
                                         <br />
                                         <input
@@ -879,7 +879,7 @@ function ThongTinDatKhuHoiQT () {
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td colspan='2'>
+                                      <td colSpan='2'>
                                         <label for=''>Tên Công ty</label>
                                         <br />
                                         <input
@@ -896,7 +896,7 @@ function ThongTinDatKhuHoiQT () {
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td colspan='2'>
+                                      <td colSpan='2'>
                                         <label for=''>Địa chỉ</label>
                                         <br />
                                         <input
@@ -913,7 +913,7 @@ function ThongTinDatKhuHoiQT () {
                                       </td>
                                     </tr>
                                     <tr>
-                                      <td colspan='2'>
+                                      <td colSpan='2'>
                                         <p
                                           style={{
                                             color: '#D51317',
@@ -944,7 +944,7 @@ function ThongTinDatKhuHoiQT () {
                   )}
                   <tr>
                     <td
-                      colspan='2'
+                      colSpan='2'
                       className='remark'
                       style={{ paddingTop: '10px' }}
                     >
@@ -962,7 +962,7 @@ function ThongTinDatKhuHoiQT () {
                   </tr>
                   {isRemarkChecked && (
                     <tr>
-                      <td colspan='2'>
+                      <td colSpan='2'>
                         <table id='remark-details'>
                           <tbody>
                             <tr>
@@ -986,7 +986,7 @@ function ThongTinDatKhuHoiQT () {
                     </tr>
                   )}
                   <tr>
-                    <td colspan='2'>
+                    <td colSpan='2'>
                       <div className='tblotherflight'>
                         <div className='w30p inlineblock'>&nbsp;</div>
                         <table className='w70p tblcurrentflight'>
@@ -1029,10 +1029,10 @@ function ThongTinDatKhuHoiQT () {
                     </td>
                   </tr>
                   <tr style={{ display: 'none' }}>
-                    <td colspan='2'></td>
+                    <td colSpan='2'></td>
                   </tr>
                   <tr>
-                    <td colspan='2' style={{ padding: '10px 0 10px 2px' }}>
+                    <td colSpan='2' style={{ padding: '10px 0 10px 2px' }}>
                       <a
                         onClick={e => {
                           e.preventDefault()
@@ -1059,7 +1059,7 @@ function ThongTinDatKhuHoiQT () {
                     </td>
                   </tr>
                   <tr>
-                    <td colspan='2'>
+                    <td colSpan='2'>
                       <div
                         style={{
                           backgroundColor: 'lightyellow',
@@ -1085,13 +1085,13 @@ function ThongTinDatKhuHoiQT () {
                     </td>
                   </tr>
                   <tr>
-                    <td colspan='2'></td>
+                    <td colSpan='2'></td>
                   </tr>
                   <tr>
-                    <td colspan='2'></td>
+                    <td colSpan='2'></td>
                   </tr>
                   <tr>
-                    <td colspan='2'>
+                    <td colSpan='2'>
                       <div className='lydo'>
                         <h4>6 lý do đặt vé máy bay tại Abay:</h4>
                         <ul style={{ listStyle: 'inside' }}>
