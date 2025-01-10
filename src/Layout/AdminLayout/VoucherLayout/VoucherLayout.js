@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { publicRoutes } from '../../../router'
 import { AddVoucher } from './AddVoucher'
 import { EditVoucher } from './EditVoucher'
+import { MdDelete } from 'react-icons/md'
+import { ModalDelete } from '../../../components/ModalDelete'
 
 function VungLayout () {
   const [data, setData] = useState([])
@@ -15,6 +17,8 @@ function VungLayout () {
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [sotienselected, setsotienselected] = useState('')
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -74,6 +78,33 @@ function VungLayout () {
     }
   }
 
+  const Delete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3013/deletevouchers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idvouchers: selectedIds })
+      })
+      if (response.ok) {
+        fetchVung()
+        setSelectedIds([])
+        showToast('Xóa voucher thành công', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const Handeldelte = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDelete(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 voucher để xóa.', 'warning')
+    }
+  }
+
   return (
     <div className='vung-container'>
       <div className='vung-header'>
@@ -87,6 +118,10 @@ function VungLayout () {
         <div className='divvungitem' onClick={handleUpdate}>
           <MdEdit />
           Cập nhật voucher
+        </div>
+        <div className='divvungitem' onClick={Handeldelte}>
+          <MdDelete />
+          Xóa Voucher
         </div>
       </div>
       <table border='1'>
@@ -140,6 +175,12 @@ function VungLayout () {
         fetchdata={fetchVung}
         soTien={sotienselected}
         idvoucher={selectedIds[0]}
+      />
+      <ModalDelete
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        ten='voucher'
+        Delete={Delete}
       />
     </div>
   )

@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react'
-import { FaCity } from 'react-icons/fa'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { publicRoutes } from '../../../router'
 import { useNavigate } from 'react-router-dom'
 import { GiConfirmed } from 'react-icons/gi'
 import { ModalDuyet } from '../../../components/ModalDuyet'
+import { ChitiethoadonAdmin } from './ChiTietHoaDon'
+import { ModalDelete } from '../../../components/ModalDelete'
+import { MdDelete } from 'react-icons/md'
+import { CgDetailsMore } from 'react-icons/cg'
+
 
 function HoaDonLayout () {
   const [data, setData] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
   const [isOpenDuyet, setIsOpenDuyet] = useState(false)
+  const [isOpenchitiet, setIsOpenchitiet] = useState(false)
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
+
   const { showToast } = useToast()
   const navigate = useNavigate()
 
@@ -55,15 +62,6 @@ function HoaDonLayout () {
     }
   }
 
-  const handleHoaDon = () => {
-    if (selectedIds.length === 1) {
-    } else if (selectedIds.length > 1) {
-      showToast('Bạn chỉ được phép chọn 1 hóa đơn để xem chi tiết.', 'warning')
-    } else {
-      showToast('Vui lòng chọn 1 hóa đơn để xem chi tiết.', 'warning')
-    }
-  }
-
   const handleDuyet = async () => {
     try {
       const response = await fetch('http://localhost:3013/postthanhtoan', {
@@ -92,19 +90,63 @@ function HoaDonLayout () {
     }
   }
 
+  const handleChitiet = () => {
+    if (selectedIds.length === 1) {
+      setIsOpenchitiet(true)
+    } else if (selectedIds.length > 1) {
+      showToast('Bạn chỉ được phép chọn 1 hóa đơn để xem chi tiết.', 'warning')
+    } else {
+      showToast('Vui lòng chọn 1 hóa đơn để xem chi tiết.', 'warning')
+    }
+  }
+
+  const Delete = async () => {
+    try {
+      const response = await fetch(
+        `https://demovemaybay.shop/deletehoadon`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ idhoadons: selectedIds })
+        }
+      )
+      if (response.ok) {
+        fetchVung()
+        setSelectedIds([])
+        showToast('Xóa hóa đơn thành công', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const Handeldelte = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDelete(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 hóa đơn để xóa.', 'warning')
+    }
+  }
+
   return (
     <div className='vung-container'>
       <div className='vung-header'>
         <div className='divvungchonitem'>
           Hóa đơn đã chọn: <div>{selectedIds.length}</div>
         </div>
-        <div className='divvungitem' onClick={handleHoaDon}>
-          <FaCity />
+        <div className='divvungitem' onClick={handleChitiet}>
+          <CgDetailsMore />
           Chi tiết
         </div>
         <div className='divvungitem' onClick={Handelduyet}>
           <GiConfirmed />
           Duyệt thanh toán
+        </div>
+        <div className='divvungitem' onClick={Handeldelte}>
+          <MdDelete />
+          Xóa hóa đơn
         </div>
       </div>
       <table border='1'>
@@ -168,6 +210,17 @@ function HoaDonLayout () {
         onClose={() => setIsOpenDuyet(false)}
         ten={'hóa đơn'}
         Confirm={handleDuyet}
+      />
+      <ChitiethoadonAdmin
+        isOpen={isOpenchitiet}
+        onClose={() => setIsOpenchitiet(false)}
+        idhoadon={selectedIds[0]}
+      />
+      <ModalDelete
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        ten='hóa đơn'
+        Delete={Delete}
       />
     </div>
   )

@@ -57,6 +57,8 @@ var _phantram = _interopRequireDefault(require("../assets/images/phantram.png"))
 
 var _bank = _interopRequireDefault(require("../assets/images/bank.png"));
 
+var _voucher = _interopRequireDefault(require("../assets/images/voucher.png"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // icons svg images
@@ -83,7 +85,8 @@ var iconsImgs = {
   blog: _blog["default"],
   maybay: _maybay["default"],
   phantram: _phantram["default"],
-  bank: _bank["default"]
+  bank: _bank["default"],
+  voucher: _voucher["default"]
 };
 exports.iconsImgs = iconsImgs;
 var personsImgs = {

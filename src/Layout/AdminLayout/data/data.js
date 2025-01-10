@@ -1,6 +1,5 @@
 import { iconsImgs, personsImgs } from '../../../utils/images'
 
-
 export const navigationLinks = [
   { id: 1, title: 'Home', image: iconsImgs.home, link: '/' },
   {
@@ -12,8 +11,9 @@ export const navigationLinks = [
   { id: 3, title: 'Thành phố', image: iconsImgs.city, link: '/vung' },
   { id: 4, title: 'Phần trăm', image: iconsImgs.phantram, link: '/phantram' },
   { id: 5, title: 'Blog', image: iconsImgs.blog, link: '/theloaiblog' },
-  { id: 6, title: 'Ngân Hàng', image: iconsImgs.bank,link: '/nganhang'},
-  { id: 6, title: 'Hóa đơn', image: iconsImgs.report,link: '/hoadon'},
+  { id: 6, title: 'Ngân Hàng', image: iconsImgs.bank, link: '/nganhang' },
+  { id: 7, title: 'Hóa đơn', image: iconsImgs.report, link: '/hoadon' },
+  { id: 8, title: 'Voucher', image: iconsImgs.voucher, link: '/voucher' }
 ]
 
 export const transactions = [

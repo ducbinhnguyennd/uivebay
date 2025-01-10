@@ -38,10 +38,15 @@ var navigationLinks = [{
   image: _images.iconsImgs.bank,
   link: '/nganhang'
 }, {
-  id: 6,
+  id: 7,
   title: 'Hóa đơn',
   image: _images.iconsImgs.report,
   link: '/hoadon'
+}, {
+  id: 8,
+  title: 'Voucher',
+  image: _images.iconsImgs.voucher,
+  link: '/voucher'
 }];
 exports.navigationLinks = navigationLinks;
 var transactions = [{

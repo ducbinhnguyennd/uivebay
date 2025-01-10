@@ -25,8 +25,9 @@ import person_four from '../assets/images/person_four.jpg'
 import city from '../assets/images/city2.png'
 import blog from '../assets/images/blog.png'
 import maybay from '../assets/images/maybay2.png'
-import phantram  from '../assets/images/phantram.png'
+import phantram from '../assets/images/phantram.png'
 import bank from '../assets/images/bank.png'
+import voucher from '../assets/images/voucher.png'
 
 export const iconsImgs = {
   alert,
@@ -50,7 +51,8 @@ export const iconsImgs = {
   blog,
   maybay,
   phantram,
-  bank
+  bank,
+  voucher
 }
 
 export const personsImgs = {
