@@ -1,29 +1,29 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/style-prop-object */
-import { useState, useEffect } from 'react'
-import './SearchLayout.scss'
-import { useToast } from '../../components/useToast/ToastContext'
-import { useNavigate } from 'react-router-dom'
-import FilterComponent from '../../components/SideBar/Filter'
-import SearchSidebar from '../../components/SideBar/SearchSideBar'
+import { useState, useEffect } from "react";
+import "./SearchLayout.scss";
+import { useToast } from "../../components/useToast/ToastContext";
+import { useNavigate } from "react-router-dom";
+import FilterComponent from "../../components/SideBar/Filter";
+import SearchSidebar from "../../components/SideBar/SearchSideBar";
 import {
   LunarCalendarFormat,
   formatDate,
   getSurroundingDates,
-  CalendarFormat
-} from '../../components/LunarCalendarFormat/LunarCalendarFormat'
+  CalendarFormat,
+} from "../../components/LunarCalendarFormat/LunarCalendarFormat";
 import {
   applyFilters,
-  handleFiltersChange
-} from '../../components/FilterChuyenBay/FilterChuyenBay'
+  handleFiltersChange,
+} from "../../components/FilterChuyenBay/FilterChuyenBay";
 import {
   toggleDetails,
   getAirlineImage,
   getAirlineName,
   HandelTonggia,
-  calculateDuration
-} from './SearchLayoutFunction'
-function SearchLayout () {
+  calculateDuration,
+} from "./SearchLayoutFunction";
+function SearchLayout() {
   const {
     cityfrom,
     cityto,
@@ -34,50 +34,50 @@ function SearchLayout () {
     mangnguoi,
     setflightdata,
     setSearchData,
-    setdate
-  } = useToast()
-  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null)
-  const [hangmaybay, sethangmaybay] = useState([])
-  const [phantrams, setphantram] = useState([])
-  const [selectedFlight, setSelectedFlight] = useState(null)
+    setdate,
+  } = useToast();
+  const [visibleDetailIndex, setVisibleDetailIndex] = useState(null);
+  const [hangmaybay, sethangmaybay] = useState([]);
+  const [phantrams, setphantram] = useState([]);
+  const [selectedFlight, setSelectedFlight] = useState(null);
   const [filters, setFilters] = useState({
-    sortBy: 'abay-suggest',
-    airlines: []
-  })
-  const { previousTwoDays, nextTwoDays } = getSurroundingDates(date)
+    sortBy: "abay-suggest",
+    airlines: [],
+  });
+  const { previousTwoDays, nextTwoDays } = getSurroundingDates(date);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchhang = async () => {
     try {
-      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
-      const data = await response.json()
+      const response = await fetch("https://demovemaybay.shop/gethangmaybay");
+      const data = await response.json();
       if (response.ok) {
-        sethangmaybay(data)
+        sethangmaybay(data);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const fetchphantram = async () => {
     try {
-      const response = await fetch('https://demovemaybay.shop/getphantram')
-      const data = await response.json()
+      const response = await fetch("https://demovemaybay.shop/getphantram");
+      const data = await response.json();
       if (response.ok) {
-        setphantram(data)
+        setphantram(data);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchhang()
-    fetchphantram()
-  }, [])
+    fetchhang();
+    fetchphantram();
+  }, []);
 
-  const handleSearch = async date => {
+  const handleSearch = async (date) => {
     try {
       const requestData = {
         departure: mafrom,
@@ -85,31 +85,34 @@ function SearchLayout () {
         date: formatDate(date),
         adults: mangnguoi[0]?.songuoi,
         children: mangnguoi[1]?.songuoi || 0,
-        infants: mangnguoi[2]?.songuoi || 0
-      }
+        infants: mangnguoi[2]?.songuoi || 0,
+      };
 
       const response = await fetch(
-        'https://wooordersystem.store/order-woo/api/getInfoFlights',
+        "https://wooordersystem.store/order-woo/api/getInfoFlights",
         {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestData)
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestData),
         }
-      )
-      const data = await response.json()
+      );
+      const data = await response.json();
 
       if (response.ok) {
-        setSearchData(data)
-        setdate(date)
-        window.location.reload()
+        setSearchData(data);
+        setdate(date);
+        window.location.reload();
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
-  const flights1 = applyFilters(searchData.outBound?.data?.flights, filters)
-  const totalPeople = mangnguoi.reduce((total, item) => total + item.songuoi, 0)
+  const flights1 = applyFilters(searchData.outBound?.data?.flights, filters);
+  const totalPeople = mangnguoi.reduce(
+    (total, item) => total + item.songuoi,
+    0
+  );
 
   const totalPrice = mangnguoi.reduce((total, item) => {
     if (
@@ -118,71 +121,71 @@ function SearchLayout () {
       !phantrams ||
       phantrams.length === 0
     ) {
-      return total
+      return total;
     }
     const pricePerTicket =
-      parseInt(selectedFlight.price.replace(/,/g, ''), 10) -
-      (parseInt(selectedFlight.price.replace(/,/g, ''), 10) *
+      parseInt(selectedFlight.price.replace(/,/g, ""), 10) -
+      (parseInt(selectedFlight.price.replace(/,/g, ""), 10) *
         phantrams[0].phantram) /
-        100
-    const taxAndFee = (pricePerTicket * 30) / 100
-    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi
-  }, 0)
+        100;
+    const taxAndFee = (pricePerTicket * 30) / 100;
+    return total + pricePerTicket * item.songuoi + taxAndFee * item.songuoi;
+  }, 0);
 
   return (
-    <div className='search-layout'>
-      <div className='content-wrapper'>
-        <div className='main-content'>
-          <div className='flight-booking'>
-            <div className='booking-header'>
-              <div className='route-info'>
-                <span className='city'>{cityfrom}</span>&nbsp;
-                <img src='/plane1.png' alt='plane' style={{ width: '15px' }} />
+    <div className="search-layout">
+      <div className="content-wrapper">
+        <div className="main-content">
+          <div className="flight-booking">
+            <div className="booking-header">
+              <div className="route-info">
+                <span className="city">{cityfrom}</span>&nbsp;
+                <img src="/plane1.png" alt="plane" style={{ width: "15px" }} />
                 &nbsp;
-                <span className='city'>{cityto}</span>
+                <span className="city">{cityto}</span>
                 <br />
-                <div className='date-info'>
-                  <span className='selected-date'>
+                <div className="date-info">
+                  <span className="selected-date">
                     {LunarCalendarFormat(date)}
                   </span>
                 </div>
               </div>
-              <div className='price-info'>
+              <div className="price-info">
                 Giá vé chưa gồm thuế và phí
                 <br />
-                <span className='note'>
+                <span className="note">
                   <img
-                    src='./hanhly.png'
-                    alt='baggage'
-                    style={{ width: '18px' }}
+                    src="./hanhly.png"
+                    alt="baggage"
+                    style={{ width: "18px" }}
                   />
                   <img
-                    src='./suatan.jpg'
-                    alt='meal'
-                    style={{ width: '18px' }}
+                    src="./suatan.jpg"
+                    alt="meal"
+                    style={{ width: "18px" }}
                   />
                   giá vé đã bao gồm hành lý và suất ăn
                 </span>
               </div>
             </div>
 
-            <div className='date-selection'>
+            <div className="date-selection">
               {previousTwoDays.map((day, index) => {
                 const isPastDate =
-                  new Date(day) < new Date().setHours(0, 0, 0, 0)
+                  new Date(day) < new Date().setHours(0, 0, 0, 0);
 
                 return (
                   <div
                     key={index}
-                    className={`date ${isPastDate ? 'disabled' : ''}`}
+                    className={`date ${isPastDate ? "disabled" : ""}`}
                     onClick={!isPastDate ? () => handleSearch(day) : undefined}
                   >
                     {CalendarFormat(day)}
                     <br />
                   </div>
-                )
+                );
               })}
-              <div className={`date ${date ? 'active' : ''}`}>
+              <div className={`date ${date ? "active" : ""}`}>
                 {CalendarFormat(date)}
                 <br />
               </div>
@@ -198,53 +201,72 @@ function SearchLayout () {
               ))}
             </div>
 
-            <div className='flight-options'>
+            <div className="flight-options">
               {Array.isArray(searchData.outBound?.data?.flights) &&
               searchData.outBound?.data?.flights.length > 0 ? (
                 flights1.map((flight, index) => (
                   <div
                     key={index}
                     onClick={() => {
-                      setflightdata(flight)
-                      navigate('/datve')
+                      setflightdata(flight);
+                      navigate("/datve");
                     }}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                   >
-                    <div className='flight-row'>
-                      <div className='flight-info'>
+                    <div className="flight-row">
+                      <div className="flight-info">
                         <span>
                           <img
                             src={getAirlineImage(
                               flight.airlineCode,
                               hangmaybay
                             )}
-                            alt=''
+                            alt=""
                           />
                         </span>
                       </div>
-                      <div className='flight-info'>
-                        <span className='flight-code'>
+                      <div className="flight-info">
+                        <span className="flight-code">
                           {flight.flightNumber}
                         </span>
                       </div>
-                      <div className='flight-info'>
-                        <span className='flight-time'>
+                      <div className="flight-infotime">
+                        <span className="flight-time">
                           {flight.departureTime} - {flight.arrivalTime}
                         </span>
                       </div>
-                      <div className='flight-price'>
+                      <div className="flight-info1">
+                        <span className="flight-code">
+                          {flight.isHaveBaggage && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/hanhly.svg"
+                              alt="Baggage"
+                              className="icon-baggage"
+                            />
+                          )}
+                          {flight.isHaveFood && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/suatan.svg"
+                              alt="Food"
+                              className="icon-food"
+                            />
+                          )}
+                        </span>
+                      </div>
+
+                      <div className="flight-price">
                         {phantrams.length > 0
                           ? (
-                              parseInt(flight.price.replace(/,/g, ''), 10) -
-                              (parseInt(flight.price.replace(/,/g, ''), 10) *
+                              parseInt(flight.price.replace(/,/g, ""), 10) -
+                              (parseInt(flight.price.replace(/,/g, ""), 10) *
                                 phantrams[0].phantram) /
                                 100
                             ).toLocaleString()
-                          : 'Đang tải...'}
+                          : "Đang tải..."}
                       </div>
                       <div
-                        onClick={e => {
-                          e.stopPropagation()
+                        onClick={(e) => {
+                          e.stopPropagation();
                           toggleDetails(
                             index,
                             flight,
@@ -252,29 +274,29 @@ function SearchLayout () {
                             setSelectedFlight,
                             visibleDetailIndex,
                             setflightdata
-                          )
+                          );
                         }}
-                        style={{ display: 'flex' }}
+                        style={{ display: "flex" }}
                       >
                         <div
                           style={{
-                            color: '#143a83',
-                            fontSize: '13px',
-                            paddingRight: '5px'
+                            color: "#143a83",
+                            fontSize: "13px",
+                            paddingRight: "5px",
                           }}
                         >
                           Chi tiết
                         </div>
-                        <img src='./collaspe.png' />
+                        <img src="./collaspe.png" />
                       </div>
 
                       <button
-                        className='select-flight'
+                        className="select-flight"
                         style={{
                           backgroundColor:
-                            flight.chooseText === 'Hạng Thương Gia'
-                              ? '#e84e12  '
-                              : '#e67e00'
+                            flight.chooseText === "Hạng Thương Gia"
+                              ? "#e84e12  "
+                              : "#e67e00",
                         }}
                       >
                         {flight.chooseText}
@@ -282,19 +304,19 @@ function SearchLayout () {
                     </div>
                     {visibleDetailIndex === index && (
                       <div
-                        className='flight-detail-content'
-                        onClick={e => e.stopPropagation()}
+                        className="flight-detail-content"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <div>
-                          <table width='100%' cellSpacing='0' cellPadding='0'>
-                            <tbody className='view-detail-flight'>
+                          <table width="100%" cellSpacing="0" cellPadding="0">
+                            <tbody className="view-detail-flight">
                               <tr>
                                 <td
-                                  valign='top'
-                                  style={{ width: '25%', textAlign: 'right' }}
+                                  valign="top"
+                                  style={{ width: "25%", textAlign: "right" }}
                                 >
                                   <p>
-                                    <b style={{ fontSize: '14px' }}>
+                                    <b style={{ fontSize: "14px" }}>
                                       {`${cityfrom} (${mafrom})`}
                                     </b>
                                   </p>
@@ -305,14 +327,14 @@ function SearchLayout () {
                                   <p>{`${cityfrom}`}</p>
                                 </td>
                                 <td
-                                  className='duration-info-container'
+                                  className="duration-info-container"
                                   style={{
-                                    textAlign: 'center',
-                                    fontSize: '12px',
-                                    width: '20%'
+                                    textAlign: "center",
+                                    fontSize: "12px",
+                                    width: "20%",
                                   }}
                                 >
-                                  <p style={{ paddingRight: '25px' }}>
+                                  <p style={{ paddingRight: "25px" }}>
                                     {calculateDuration(
                                       selectedFlight.departureTime,
                                       selectedFlight.arrivalTime
@@ -320,22 +342,22 @@ function SearchLayout () {
                                   </p>
                                   <p>
                                     <img
-                                      src='/01-point.png'
-                                      alt='Flight Path'
+                                      src="/01-point.png"
+                                      alt="Flight Path"
                                     />
                                   </p>
                                   <p
                                     style={{
-                                      paddingRight: '25px',
-                                      marginTop: '-10px'
+                                      paddingRight: "25px",
+                                      marginTop: "-10px",
                                     }}
                                   >
                                     <b>Máy bay: Airbus A321</b>
                                   </p>
                                 </td>
-                                <td valign='top' style={{ width: '25%' }}>
+                                <td valign="top" style={{ width: "25%" }}>
                                   <p>
-                                    <b style={{ fontSize: '14px' }}>
+                                    <b style={{ fontSize: "14px" }}>
                                       {`${cityto} (${mato})`}
                                     </b>
                                   </p>
@@ -345,34 +367,34 @@ function SearchLayout () {
                                   </p>
                                   <p>{`${cityto}`}</p>
                                 </td>
-                                <td style={{ width: '30%' }}>
+                                <td style={{ width: "30%" }}>
                                   <table
-                                    width='100%'
-                                    cellPadding='0'
-                                    cellSpacing='0'
+                                    width="100%"
+                                    cellPadding="0"
+                                    cellSpacing="0"
                                   >
                                     <tbody>
                                       <tr>
-                                        <td style={{ textAlign: 'left' }}>
+                                        <td style={{ textAlign: "left" }}>
                                           <img
-                                            align='absmiddle'
+                                            align="absmiddle"
                                             src={getAirlineImage(
                                               selectedFlight.airlineCode,
                                               hangmaybay
                                             )}
-                                            alt='Airline Logo'
+                                            alt="Airline Logo"
                                           />
                                         </td>
                                         <td
                                           style={{
-                                            lineHeight: '18px',
-                                            padding: 0
+                                            lineHeight: "18px",
+                                            padding: 0,
                                           }}
                                         >
                                           {getAirlineName(
                                             selectedFlight.airlineCode,
                                             hangmaybay
-                                          )}{' '}
+                                          )}{" "}
                                           <br />
                                           Chuyến bay:
                                           <b>{selectedFlight.flightNumber}</b>
@@ -386,42 +408,42 @@ function SearchLayout () {
                             </tbody>
                           </table>
 
-                          <table width='100%' className='price-break'>
+                          <table width="100%" className="price-break">
                             <tbody>
-                              <tr className='title-b'>
-                                <td align='center' className='header'>
+                              <tr className="title-b">
+                                <td align="center" className="header">
                                   Loại hành khách
                                 </td>
-                                <td align='center' className='header'>
+                                <td align="center" className="header">
                                   Số lượng vé
                                 </td>
-                                <td align='center' className='header'>
+                                <td align="center" className="header">
                                   Giá mỗi vé
                                 </td>
-                                <td align='center' className='header'>
+                                <td align="center" className="header">
                                   Thuế & Phí
                                 </td>
-                                <td align='center' className='header'>
+                                <td align="center" className="header">
                                   Tổng giá
                                 </td>
                               </tr>
                               {mangnguoi.map((item, index) => (
                                 <tr key={index}>
-                                  <td align='center' className='pax'>
+                                  <td align="center" className="pax">
                                     {item.name}
                                   </td>
-                                  <td align='center' className='pax'>
+                                  <td align="center" className="pax">
                                     {item.songuoi}
                                   </td>
-                                  <td align='center' className='pax'>
+                                  <td align="center" className="pax">
                                     {(
                                       parseInt(
-                                        selectedFlight.price.replace(/,/g, ''),
+                                        selectedFlight.price.replace(/,/g, ""),
                                         10
                                       ) *
                                         item.songuoi -
                                       ((parseInt(
-                                        selectedFlight.price.replace(/,/g, ''),
+                                        selectedFlight.price.replace(/,/g, ""),
                                         10
                                       ) *
                                         phantrams[0].phantram) /
@@ -429,17 +451,17 @@ function SearchLayout () {
                                         item.songuoi
                                     ).toLocaleString()}
                                   </td>
-                                  <td align='center' className='pax'>
+                                  <td align="center" className="pax">
                                     {(
                                       ((parseInt(
-                                        selectedFlight.price.replace(/,/g, ''),
+                                        selectedFlight.price.replace(/,/g, ""),
                                         10
                                       ) *
                                         item.songuoi -
                                         ((parseInt(
                                           selectedFlight.price.replace(
                                             /,/g,
-                                            ''
+                                            ""
                                           ),
                                           10
                                         ) *
@@ -450,17 +472,17 @@ function SearchLayout () {
                                       100
                                     ).toLocaleString()}
                                   </td>
-                                  <td align='center' className='pax'>
+                                  <td align="center" className="pax">
                                     {HandelTonggia(
                                       parseInt(
-                                        selectedFlight.price.replace(/,/g, ''),
+                                        selectedFlight.price.replace(/,/g, ""),
                                         10
                                       ) *
                                         item.songuoi -
                                         ((parseInt(
                                           selectedFlight.price.replace(
                                             /,/g,
-                                            ''
+                                            ""
                                           ),
                                           10
                                         ) *
@@ -472,16 +494,16 @@ function SearchLayout () {
                                   </td>
                                 </tr>
                               ))}
-                              <tr class='total-b'>
-                                <td align='right' colSpan='4' class='footer'>
+                              <tr class="total-b">
+                                <td align="right" colSpan="4" class="footer">
                                   <b>
                                     <t>Tổng giá</t> {totalPeople} người
                                   </b>
                                 </td>
                                 <td
                                   colSpan={1}
-                                  align='center'
-                                  class='footer pb-price'
+                                  align="center"
+                                  class="footer pb-price"
                                 >
                                   {totalPrice.toLocaleString()} VNĐ
                                 </td>
@@ -491,24 +513,24 @@ function SearchLayout () {
                           <div></div>
 
                           <table
-                            cellPadding='0'
-                            cellSpacing='0'
-                            style={{ width: '45%' }}
+                            cellPadding="0"
+                            cellSpacing="0"
+                            style={{ width: "45%" }}
                           >
                             <tbody>
-                              <tr className='title'>
-                                <td colSpan='2' style={{ fontSize: '12px' }}>
+                              <tr className="title">
+                                <td colSpan="2" style={{ fontSize: "12px" }}>
                                   Điều Kiện Hành Lý
                                 </td>
                               </tr>
                               <tr>
-                                <td style={{ width: '120px' }}>
+                                <td style={{ width: "120px" }}>
                                   Hành Lý Xách Tay
                                 </td>
                                 <td>7kg</td>
                               </tr>
                               <tr>
-                                <td style={{ width: '120px' }}>
+                                <td style={{ width: "120px" }}>
                                   Hành Lý Ký Gửi
                                 </td>
                                 <td>Vui lòng chọn ở bước tiếp theo</td>
@@ -517,13 +539,13 @@ function SearchLayout () {
                           </table>
 
                           <table
-                            cellPadding='0'
-                            cellSpacing='0'
-                            style={{ width: '45%' }}
+                            cellPadding="0"
+                            cellSpacing="0"
+                            style={{ width: "45%" }}
                           >
                             <tbody>
-                              <tr className='title'>
-                                <td colSpan='2' style={{ fontSize: '12px' }}>
+                              <tr className="title">
+                                <td colSpan="2" style={{ fontSize: "12px" }}>
                                   Điều Kiện Về Vé
                                 </td>
                               </tr>
@@ -544,13 +566,13 @@ function SearchLayout () {
                   </div>
                 ))
               ) : (
-                <div className='nodulieu'>không có dữ liệu</div>
+                <div className="nodulieu">không có dữ liệu</div>
               )}
             </div>
           </div>
         </div>
 
-        <div className='filter-sidebar'>
+        <div className="filter-sidebar">
           <FilterComponent
             filters={filters}
             onFiltersChange={handleFiltersChange}
@@ -560,7 +582,7 @@ function SearchLayout () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SearchLayout
+export default SearchLayout;

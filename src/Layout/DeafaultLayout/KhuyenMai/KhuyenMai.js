@@ -9,7 +9,7 @@ const KhuyenMai = () => {
   const [blogs, setBlogs] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
-  const BLOGS_PER_PAGE = 1;
+  const BLOGS_PER_PAGE = 10;
 
   useEffect(() => {
     const fetchBlogs = async () => {

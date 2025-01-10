@@ -257,6 +257,24 @@ function SearchKhuHoi () {
                         <span className='flight-time'>
                           {flight?.departureTime}
                         </span>
+                       
+                        <span className="flight-code">
+                          {flight.isHaveBaggage && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/hanhly.svg"
+                              alt="Baggage"
+                              className="icon-baggage"
+                            />
+                          )}
+                          {flight.isHaveFood && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/suatan.svg"
+                              alt="Food"
+                              className="icon-food"
+                            />
+                          )}
+                        </span>
+                     
                         <span className='flight-price'>
                           {phantrams.length > 0
                             ? (
@@ -581,6 +599,22 @@ function SearchKhuHoi () {
                         </span>
                         <span className='flight-time'>
                           {flight?.departureTime}
+                        </span>
+                        <span className="flight-code">
+                          {flight.isHaveBaggage && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/hanhly.svg"
+                              alt="Baggage"
+                              className="icon-baggage"
+                            />
+                          )}
+                          {flight.isHaveFood && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/suatan.svg"
+                              alt="Food"
+                              className="icon-food"
+                            />
+                          )}
                         </span>
                         <span className='flight-price'>
                           {phantrams.length > 0

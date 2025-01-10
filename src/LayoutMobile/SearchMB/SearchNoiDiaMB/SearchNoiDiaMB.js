@@ -187,6 +187,22 @@ function SearchNoiDiaMB () {
                           {flight.departureTime} - {flight.arrivalTime}
                         </span>
                       </div>
+                      <span className="flight-codemb">
+                          {flight.isHaveBaggage && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/hanhly.svg"
+                              alt="Baggage"
+                              className="icon-baggage"
+                            />
+                          )}
+                          {flight.isHaveFood && (
+                            <img
+                              src="https://www.abay.vn/_Web/_File/Images/icons/suatan.svg"
+                              alt="Food"
+                              className="icon-food"
+                            />
+                          )}
+                        </span>
                       <div className='flight-price'>
                         {phantrams.length > 0
                           ? (
