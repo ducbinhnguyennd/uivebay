@@ -2,7 +2,7 @@ import Modal from '../Modal/Modal'
 import { GiConfirmed } from 'react-icons/gi'
 import { MdCancel } from 'react-icons/md'
 
-function ModalDelete ({ isOpen, onClose, ten, Confirm }) {
+function ModalDuyet ({ isOpen, onClose, ten, Confirm }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className='add-vung'>
@@ -26,4 +26,4 @@ function ModalDelete ({ isOpen, onClose, ten, Confirm }) {
   )
 }
 
-export default ModalDelete
+export default ModalDuyet

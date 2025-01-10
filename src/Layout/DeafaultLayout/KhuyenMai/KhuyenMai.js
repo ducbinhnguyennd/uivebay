@@ -1,29 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./KhuyenMai.scss";
 import SearchSideBar from "../../../components/SideBar/SearchSideBar";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
 const KhuyenMai = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 100;
+  const [blogs, setBlogs] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const BLOGS_PER_PAGE = 10;
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get(
+          `https://webmaybay.vercel.app/getblog/Tin khuyến mại`
+        );
+        const fetchedBlogs = response.data;
+
+        setBlogs(fetchedBlogs);
+        setTotalPages(Math.ceil(fetchedBlogs.length / BLOGS_PER_PAGE));
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  const paginatedBlogs = blogs.slice(
+    (currentPage - 1) * BLOGS_PER_PAGE,
+    currentPage * BLOGS_PER_PAGE
+  );
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
-  const newsItems = [
-    {
-      id: 1,
-      date: "31 Tháng 12 năm 2024",
-      title:
-        "“Mừng năm mới bay cao, chào 2025 rực rỡ” cùng Bamboo Airways – Book ưu đãi ngay thôi!",
-      description:
-        "Chỉ còn vài tiếng nữa, năm mới 2025 sẽ chính thức bắt đầu, mở ra biết bao háo hức và ước vọng. Thật tuyệt vời khi trong thời điểm thiêng liêng này, bạn có thể chạm tay tới những miền đất mới với nhiều trải nghiệm thú vị và đáng nhớ. Cùng ABAY cập nhật ngay ưu đãi hấp dẫn đang được Bamboo Airways triển khai bạn nhé.",
-      link: "/tin-tuc/mung-nam-moi-bay-cao-chao-2025-ruc-ro-cung-bamboo-airways-book-uu-dai-ngay-thoi.aspx",
-      imgSrc:
-        "https://static2.abay.vn/Images/2024/12/31/uu-dai-tet-bamboo-2025-compressed.jpg",
-      imgAlt:
-        "“Mừng năm mới bay cao, chào 2025 rực rỡ” cùng Bamboo Airways – Book ưu đãi ngay thôi!",
-    },
-  ];
 
   return (
     <div className="khuyenmai-container">
@@ -38,7 +51,7 @@ const KhuyenMai = () => {
             <div className="form-paging-bg-top">
               <div className="total-result">
                 <p>
-                  <b>1000 </b>
+                  <b>{blogs.length} </b>
                   <span>results</span>
                   <span>
                     (<span>page</span> {currentPage}/{totalPages})
@@ -59,40 +72,33 @@ const KhuyenMai = () => {
                 {[...Array(totalPages)]
                   .map((_, index) => index + 1)
                   .filter((page) => {
-                    // Chỉ hiển thị các trang liên quan
                     const isFirstOrLastPage = page === 1 || page === totalPages;
                     const isNearbyPage = Math.abs(page - currentPage) <= 1;
                     return isFirstOrLastPage || isNearbyPage;
                   })
                   .map((page, index, filteredPages) => (
-                    <>
-                      {/* Thêm dấu "..." nếu cần */}
-                      {index > 0 && page !== filteredPages[index - 1] + 1}
+                    <React.Fragment key={page}>
+                      {index > 0 &&
+                        page !== filteredPages[index - 1] + 1 && (
+                          <span>...</span>
+                        )}
                       <a
-                        key={page}
                         className={`pagingItem ${
                           page === currentPage ? "current-page" : ""
                         }`}
-                        data-value={page}
                         href="#"
                         onClick={() => handlePageChange(page)}
                       >
                         {page}
                       </a>
-                    </>
+                    </React.Fragment>
                   ))}
 
                 {currentPage < totalPages && (
                   <a
                     className="pagingItem"
                     href="#"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage + 1 <= totalPages
-                          ? currentPage + 1
-                          : currentPage
-                      )
-                    }
+                    onClick={() => handlePageChange(currentPage + 1)}
                   >
                     Next
                   </a>
@@ -119,25 +125,29 @@ const KhuyenMai = () => {
 
         <div id="listTintuc">
           <ul>
-            {newsItems.map((news) => (
-              <li key={news.id}>
-                <a href={news.link}>
+            {paginatedBlogs.map((news) => (
+              <li key={news._id}>
+                <Link to={`/getkhuyenmai/${news._id}`}>
+                
+               
                   <img
-                    src={news.imgSrc}
+                    src={"https://static2.abay.vn/Images/2024/12/31/uu-dai-tet-bamboo-2025-compressed.jpg"}
                     width="203"
                     height="124"
                     className="smallImg"
-                    alt={news.imgAlt}
+                    alt={news.tieude}
                   />
-                </a>
+                
                 <div className="wrapContentNews">
                   <span className="Newspost">{news.date}</span>
                   <h5 className="titleTintuc">
-                    <a href={news.link}>{news.title}</a>
+                    <a href={news.link || "#"}>{news.tieude}</a>
                   </h5>
-                  <p className="contentNews">{news.description}</p>
+                  <p className="contentNews">{news.descripton}</p>
                 </div>
                 <div className="clr"></div>
+                 
+                </Link>
               </li>
             ))}
           </ul>
@@ -153,7 +163,7 @@ const KhuyenMai = () => {
             <div className="form-paging-bg-top">
               <div className="total-result">
                 <p>
-                  <b>1000 </b>
+                  <b>{blogs.length} </b>
                   <span>results</span>
                   <span>
                     (<span>page</span> {currentPage}/{totalPages})
@@ -179,33 +189,28 @@ const KhuyenMai = () => {
                     return isFirstOrLastPage || isNearbyPage;
                   })
                   .map((page, index, filteredPages) => (
-                    <>
-                      {index > 0 && page !== filteredPages[index - 1] + 1 }
+                    <React.Fragment key={page}>
+                      {index > 0 &&
+                        page !== filteredPages[index - 1] + 1 && (
+                          <span>...</span>
+                        )}
                       <a
-                        key={page}
                         className={`pagingItem ${
                           page === currentPage ? "current-page" : ""
                         }`}
-                        data-value={page}
                         href="#"
                         onClick={() => handlePageChange(page)}
                       >
                         {page}
                       </a>
-                    </>
+                    </React.Fragment>
                   ))}
 
                 {currentPage < totalPages && (
                   <a
                     className="pagingItem"
                     href="#"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage + 1 <= totalPages
-                          ? currentPage + 1
-                          : currentPage
-                      )
-                    }
+                    onClick={() => handlePageChange(currentPage + 1)}
                   >
                     Next
                   </a>

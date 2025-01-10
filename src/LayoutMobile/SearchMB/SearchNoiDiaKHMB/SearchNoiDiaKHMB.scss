@@ -3,7 +3,13 @@
     color: red;
 }
 .datembndkh {
-    word-wrap: break-word; /* Tự động xuống dòng khi từ quá dài */
+    word-wrap: break-word; 
     overflow-wrap: break-word;
     max-width: 200px;
+  }
+  .flight-codemb{
+    width: 40px;
+    img{
+        width: 12px;
+    }
   }
