@@ -60,6 +60,10 @@
   vertical-align: top;
 }
 
+.baggage-container {
+  margin-top: 7px;
+}
+
 .divcitybay {
   margin-right: 40px;
 }
@@ -74,6 +78,14 @@
   span {
     flex: 1;
   }
+}
+
+.btnsearchvoucher {
+  background-color: #e84e0f;
+  color: white;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {
@@ -173,12 +185,14 @@
     padding: 0 !important;
   }
 
-.ctr-passenger1{
-  background: #fbfbfb !important;
-}
-.tremail {
-  display: table-row !important;
-}
+  .ctr-passenger1 {
+    background: #fbfbfb !important;
+  }
+
+  .tremail {
+    display: table-row !important;
+  }
+
 }
 
 .tremail {
@@ -225,6 +239,8 @@
   padding-left: 1%;
   margin-bottom: 5px;
   margin-right: 5px;
+  margin-top: 3px;
+
 }
 
 .tblotherflight {

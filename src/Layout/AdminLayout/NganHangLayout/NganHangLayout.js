@@ -167,7 +167,11 @@ function NganHangLayout () {
                 </td>
                 <td>{index + 1}</td>
                 <td>
-                  <img src={`${item.image}`} alt='' />
+                  <img
+                    src={`${item.image}`}
+                    alt=''
+                    style={{ width: '100px' }}
+                  />
                 </td>
                 <td>{item.tennganhang}</td>
                 <td>{item.tendaydu}</td>

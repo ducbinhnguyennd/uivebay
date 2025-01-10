@@ -5,9 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './DatVe.scss'
 import { useToast } from '../../components/useToast/ToastContext'
-import {
-  calculateDuration
-} from '../SearchLayout/SearchLayoutFunction'
+import { calculateDuration } from '../SearchLayout/SearchLayoutFunction'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 
 function ThongTinDatVeQT () {
@@ -24,7 +22,7 @@ function ThongTinDatVeQT () {
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [phantrams, setphantram] = useState([])
   const [makhuyenmai, setmakhuyenmai] = useState('')
-
+  const [voucher, setvoucher] = useState([])
 
   const navigate = useNavigate()
 
@@ -97,14 +95,39 @@ function ThongTinDatVeQT () {
     }
   }
 
-
-
   const fetchphantram = async () => {
     try {
       const response = await fetch('https://demovemaybay.shop/getphantram')
       const data = await response.json()
       if (response.ok) {
         setphantram(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleSearchVoucher = async () => {
+    if (!makhuyenmai) {
+      showToast('Vui lòng nhập mã khuyến mãi!', 'warning')
+      return
+    }
+    try {
+      const response = await fetch('http://localhost:3013/searchvoucher', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mavoucher: makhuyenmai
+        })
+      })
+      const data = await response.json()
+      if (data.message) {
+        showToast(data.message, 'error')
+      } else {
+        setvoucher(data)
+        showToast('Áp dụng khuyến mãi thành công')
       }
     } catch (error) {
       console.error(error)
@@ -182,7 +205,10 @@ function ThongTinDatVeQT () {
   }
   const handeltongtien = tienve => {
     const thue = (tienve * 30) / 100
-    const tongtien = tienve + thue + tongPriceKygui
+    let tongtien = tienve + thue + tongPriceKygui
+    if (voucher.sotien) {
+      tongtien -= voucher.sotien
+    }
     return tongtien
   }
 
@@ -385,6 +411,25 @@ function ThongTinDatVeQT () {
                                   </tr>
                                 </tbody>
                               </table>
+
+                              <table className='tbl-baggage'>
+                                <tbody>
+                                  <tr>
+                                    <td className='col-title'>Voucher</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
+                                    <td className='col-price'>
+                                      <span className='p-baggage'>
+                                        {voucher.mavoucher
+                                          ? voucher.sotien.toLocaleString()
+                                          : '0'}
+                                      </span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
@@ -902,6 +947,12 @@ function ThongTinDatVeQT () {
                         value={makhuyenmai}
                         onChange={e => setmakhuyenmai(e.target.value)}
                       />
+                      <button
+                        className='btnsearchvoucher'
+                        onClick={handleSearchVoucher}
+                      >
+                        Áp dụng khuyến mãi
+                      </button>
                     </td>
                   </tr>
 

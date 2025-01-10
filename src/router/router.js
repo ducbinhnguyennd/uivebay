@@ -12,6 +12,7 @@ import { PhanTramLayout } from '../Layout/AdminLayout/PhanTramLayout'
 import { Login } from '../Layout/AdminLayout/LoginLayout'
 import { HoaDonLayout } from '../Layout/AdminLayout/HoaDonLayout'
 import { NganHangLayout } from '../Layout/AdminLayout/NganHangLayout'
+import { VoucherLayout } from '../Layout/AdminLayout/VoucherLayout'
 import DatVeQT from '../Layout/DatVe/DatVeQT'
 import DatVe from '../Layout/DatVe/DatVe'
 import DatVeKhuHoiQT from '../Layout/DatVe/DateKhuHoiQT'
@@ -49,6 +50,7 @@ const publicRoutes = [
   { path: '/phantram', component: PhanTramLayout, layout: 'admin' },
   { path: '/hoadon', component: HoaDonLayout, layout: 'admin' },
   { path: '/nganhang', component: NganHangLayout, layout: 'admin' },
+  { path: '/voucher', component: VoucherLayout, layout: 'admin' },
   { path: '/getchitietblog/:idblog', component: BlogDetail },
   { path: '/getkhuyenmai/:idblog', component: BlogDetailKM },
   { path: '/chitietdonhang', component: ChiTietDonHang },

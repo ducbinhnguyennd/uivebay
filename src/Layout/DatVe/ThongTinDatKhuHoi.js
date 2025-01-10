@@ -27,6 +27,7 @@ function ThongTinDatKhuHoi () {
   const [phantrams, setphantram] = useState([])
   const [namelienhe, setnamelienhe] = useState('')
   const [makhuyenmai, setmakhuyenmai] = useState('')
+  const [voucher, setvoucher] = useState([])
 
   const navigate = useNavigate()
 
@@ -69,6 +70,32 @@ function ThongTinDatKhuHoi () {
       const data = await response.json()
       if (response.ok) {
         setphantram(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const handleSearchVoucher = async () => {
+    if (!makhuyenmai) {
+      showToast('Vui lòng nhập mã khuyến mãi!', 'warning')
+      return
+    }
+    try {
+      const response = await fetch('http://localhost:3013/searchvoucher', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mavoucher: makhuyenmai
+        })
+      })
+      const data = await response.json()
+      if (data.message) {
+        showToast(data.message, 'error')
+      } else {
+        setvoucher(data)
+        showToast('Áp dụng khuyến mãi thành công')
       }
     } catch (error) {
       console.error(error)
@@ -185,7 +212,11 @@ function ThongTinDatKhuHoi () {
       tongSoNguoi
 
     const thue = (tongtienvedi * 30) / 100 + (tongtienveve * 30) / 100
-    const tongtien = tongtienvedi + tongtienveve + thue + tongPriceKygui
+    let tongtien = tongtienvedi + tongtienveve + thue + tongPriceKygui
+
+    if (voucher.sotien) {
+      tongtien -= voucher.sotien
+    }
     return tongtien
   }
   const handlethue = () => {
@@ -293,7 +324,6 @@ function ThongTinDatKhuHoi () {
           tienveve,
           khachhangs,
           mavoucher: makhuyenmai
-
         })
       })
       if (response.ok) {
@@ -586,7 +616,6 @@ function ThongTinDatKhuHoi () {
                                   </tr>
                                 </tbody>
                               </table>
-
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr id='cphMainColumn_ctl00_usrPriceD_trAdt'>
@@ -603,7 +632,6 @@ function ThongTinDatKhuHoi () {
                                   </tr>
                                 </tbody>
                               </table>
-
                               <table className='tbl-baggage'>
                                 <tbody>
                                   <tr>
@@ -613,6 +641,24 @@ function ThongTinDatKhuHoi () {
                                     <td className='col-price'>
                                       <span className='p-baggage'>
                                         {tongPriceKygui.toLocaleString()}
+                                      </span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                              <table className='tbl-baggage'>
+                                <tbody>
+                                  <tr>
+                                    <td className='col-title'>Voucher</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
+                                    <td className='col-price'>
+                                      <span className='p-baggage'>
+                                        {voucher.mavoucher
+                                          ? voucher.sotien.toLocaleString()
+                                          : '0'}
                                       </span>{' '}
                                       <span className='currency'>đ</span>
                                     </td>
@@ -1172,6 +1218,12 @@ function ThongTinDatKhuHoi () {
                         value={makhuyenmai}
                         onChange={e => setmakhuyenmai(e.target.value)}
                       />
+                      <button
+                        className='btnsearchvoucher'
+                        onClick={handleSearchVoucher}
+                      >
+                        Áp dụng khuyến mãi
+                      </button>
                     </td>
                   </tr>
 

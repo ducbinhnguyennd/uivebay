@@ -22,6 +22,7 @@ function ThongTinDatKhuHoiQT () {
   const [phantrams, setphantram] = useState([])
   const [namelienhe, setnamelienhe] = useState('')
   const [makhuyenmai, setmakhuyenmai] = useState('')
+  const [voucher, setvoucher] = useState([])
 
   const navigate = useNavigate()
 
@@ -51,6 +52,32 @@ function ThongTinDatKhuHoiQT () {
       const data = await response.json()
       if (response.ok) {
         setphantram(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const handleSearchVoucher = async () => {
+    if (!makhuyenmai) {
+      showToast('Vui lòng nhập mã khuyến mãi!', 'warning')
+      return
+    }
+    try {
+      const response = await fetch('http://localhost:3013/searchvoucher', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mavoucher: makhuyenmai
+        })
+      })
+      const data = await response.json()
+      if (data.message) {
+        showToast(data.message, 'error')
+      } else {
+        setvoucher(data)
+        showToast('Áp dụng khuyến mãi thành công')
       }
     } catch (error) {
       console.error(error)
@@ -191,7 +218,10 @@ function ThongTinDatKhuHoiQT () {
       tongSoNguoi
 
     const thue = ((tongtienvedi * 30) / 100) * 2
-    const tongtien = tongtienvedi * 2 + thue + tongPriceKygui
+    let tongtien = tongtienvedi * 2 + thue + tongPriceKygui
+    if (voucher.sotien) {
+      tongtien -= voucher.sotien
+    }
     return tongtien
   }
   const handlethue = () => {
@@ -455,6 +485,24 @@ function ThongTinDatKhuHoiQT () {
                                   </tr>
                                 </tbody>
                               </table>
+                              <table className='tbl-baggage'>
+                                <tbody>
+                                  <tr>
+                                    <td className='col-title'>Voucher</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
+                                    <td className='col-price'>
+                                      <span className='p-baggage'>
+                                        {voucher.mavoucher
+                                          ? voucher.sotien.toLocaleString()
+                                          : '0'}
+                                      </span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
@@ -986,6 +1034,12 @@ function ThongTinDatKhuHoiQT () {
                         value={makhuyenmai}
                         onChange={e => setmakhuyenmai(e.target.value)}
                       />
+                      <button
+                        className='btnsearchvoucher'
+                        onClick={handleSearchVoucher}
+                      >
+                        Áp dụng khuyến mãi
+                      </button>
                     </td>
                   </tr>
 

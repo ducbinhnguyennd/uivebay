@@ -9,6 +9,7 @@ import { ModalDuyet } from '../../../components/ModalDuyet'
 function HoaDonLayout () {
   const [data, setData] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
+  const [isOpenDuyet, setIsOpenDuyet] = useState(false)
   const { showToast } = useToast()
   const navigate = useNavigate()
 
@@ -63,6 +64,34 @@ function HoaDonLayout () {
     }
   }
 
+  const handleDuyet = async () => {
+    try {
+      const response = await fetch('http://localhost:3013/postthanhtoan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idhoadonList: selectedIds })
+      })
+      if (response.ok) {
+        fetchVung()
+        setSelectedIds([])
+        setIsOpenDuyet(false)
+        showToast('Duyệt thanh toán thành công', 'success')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const Handelduyet = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDuyet(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 hóa đơn để duyệt.', 'warning')
+    }
+  }
+
   return (
     <div className='vung-container'>
       <div className='vung-header'>
@@ -73,7 +102,7 @@ function HoaDonLayout () {
           <FaCity />
           Chi tiết
         </div>
-        <div className='divvungitem' onClick={handleHoaDon}>
+        <div className='divvungitem' onClick={Handelduyet}>
           <GiConfirmed />
           Duyệt thanh toán
         </div>
@@ -134,6 +163,12 @@ function HoaDonLayout () {
           )}
         </tbody>
       </table>
+      <ModalDuyet
+        isOpen={isOpenDuyet}
+        onClose={() => setIsOpenDuyet(false)}
+        ten={'hóa đơn'}
+        Confirm={handleDuyet}
+      />
     </div>
   )
 }

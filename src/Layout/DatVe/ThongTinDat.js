@@ -26,6 +26,7 @@ function ThongTinDat () {
   const [ghichu, setghichu] = useState('')
   const [makhuyenmai, setmakhuyenmai] = useState('')
   const [valuethemkhach, setvaluethemkhach] = useState('')
+  const [voucher, setvoucher] = useState([])
   const [phantrams, setphantram] = useState([])
 
   const navigate = useNavigate()
@@ -123,6 +124,33 @@ function ThongTinDat () {
     }
   }
 
+  const handleSearchVoucher = async () => {
+    if (!makhuyenmai) {
+      showToast('Vui lòng nhập mã khuyến mãi!', 'warning')
+      return
+    }
+    try {
+      const response = await fetch('http://localhost:3013/searchvoucher', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mavoucher: makhuyenmai
+        })
+      })
+      const data = await response.json()
+      if (data.message) {
+        showToast(data.message, 'error')
+      } else {
+        setvoucher(data)
+        showToast('Áp dụng khuyến mãi thành công')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     fetchhang()
     fetchphantram()
@@ -153,7 +181,10 @@ function ThongTinDat () {
 
   const handeltongtien = tienve => {
     const thue = (tienve * 30) / 100
-    const tongtien = tienve + thue + tongPriceKygui
+    let tongtien = tienve + thue + tongPriceKygui
+    if (voucher.sotien) {
+      tongtien -= voucher.sotien
+    }
     return tongtien
   }
 
@@ -436,6 +467,24 @@ function ThongTinDat () {
                                   </tr>
                                 </tbody>
                               </table>
+                              <table className='tbl-baggage'>
+                                <tbody>
+                                  <tr>
+                                    <td className='col-title'>Voucher</td>
+                                    <td></td>
+                                    <td className='col-calculator'>=</td>
+                                    <td className='col-price'>
+                                      <span className='p-baggage'>
+                                        {voucher.mavoucher
+                                          ? voucher.sotien.toLocaleString()
+                                          : '0'}
+                                      </span>{' '}
+                                      <span className='currency'>đ</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
                               <table className='tbl-price'>
                                 <tbody>
                                   <tr>
@@ -974,6 +1023,12 @@ function ThongTinDat () {
                         value={makhuyenmai}
                         onChange={e => setmakhuyenmai(e.target.value)}
                       />
+                      <button
+                        className='btnsearchvoucher'
+                        onClick={handleSearchVoucher}
+                      >
+                        Áp dụng khuyến mãi
+                      </button>
                     </td>
                   </tr>
 
