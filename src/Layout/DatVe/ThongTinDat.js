@@ -24,6 +24,7 @@ function ThongTinDat () {
   const [tencongty, settencongty] = useState('')
   const [diachi, setdiachi] = useState('')
   const [ghichu, setghichu] = useState('')
+  const [makhuyenmai, setmakhuyenmai] = useState('')
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [phantrams, setphantram] = useState([])
 
@@ -228,11 +229,14 @@ function ThongTinDat () {
           diachi,
           ghichu,
           tienve,
-          khachhangs
+          khachhangs,
+          mavoucher: makhuyenmai
         })
       })
-      if (response.ok) {
-        const data = await response.json()
+      const data = await response.json()
+      if (data.message) {
+        showToast(data.message, 'error')
+      } else {
         sethoadon(data)
         navigate('/thanhtoan')
       }
@@ -955,6 +959,24 @@ function ThongTinDat () {
                       </td>
                     </tr>
                   )}
+                  <tr>
+                    <td
+                      colspan='2'
+                      className='remark'
+                      style={{ paddingTop: '10px' }}
+                    >
+                      <label htmlFor=''>Mã khuyến mãi {`(nếu có)`}</label>
+                      <input
+                        id='cphMainColumn_ctl00_usrContactInfoD_chkRemarkAll'
+                        type='text'
+                        name='ctl00$cphMainColumn$ctl00$usrContactInfoD$chkRemarkAll'
+                        placeholder='Nhập mã khuyến mãi'
+                        value={makhuyenmai}
+                        onChange={e => setmakhuyenmai(e.target.value)}
+                      />
+                    </td>
+                  </tr>
+
                   <tr>
                     <td colspan='2'>
                       <div className='tblotherflight'>

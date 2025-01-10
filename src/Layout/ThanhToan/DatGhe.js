@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import './DatGhe.scss'
 import { RiSofaLine } from 'react-icons/ri'
 
@@ -9,7 +10,12 @@ const DatGhe = ({
   settiendatghe,
   name,
   datghe,
-  setdatghe
+  setdatghe,
+  idhoadon,
+  hoadondatghe,
+  hoadonghe,
+  sethoadon,
+  hoadon
 }) => {
   const rows = 12
   const cols = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -35,11 +41,73 @@ const DatGhe = ({
     '3F'
   ])
 
+  useEffect(() => {
+    if (hoadondatghe && hoadonghe) {
+      setSelectedSeat(hoadonghe)
+      setdatghe(true)
+    }
+  }, [hoadondatghe, hoadonghe, setSelectedSeat, settiendatghe, setdatghe])
+
   const handleSeatClick = seat => {
+    if (hoadondatghe) {
+      return
+    }
+
     if (!occupiedSeats.includes(seat)) {
       setSelectedSeat(seat)
-      settiendatghe(43000)
+      settiendatghe(20000)
       setdatghe(true)
+    }
+  }
+
+  const handledatghe = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3013/postchonghe/${idhoadon}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            datghe,
+            ghe: selectedSeat,
+            tiendatghe
+          })
+        }
+      )
+      const data = await response.json()
+      if (response.ok) {
+        alert('Đặt ghế thành công!')
+        settiendatghe(0)
+        sethoadon(data)
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handlehuydatghe = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3013/huychonghe/${idhoadon}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      )
+      const data = await response.json()
+      if (response.ok) {
+        alert('Hủy đặt ghế thành công!')
+        sethoadon(data)
+        settiendatghe(0)
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -52,21 +120,29 @@ const DatGhe = ({
             <span>Anh: {name}</span>
             <div className='seat-info'>
               <div className='seat'>{selectedSeat}</div>
-              <span
-                className='remove'
-                onClick={() => {
-                  setSelectedSeat('')
-                  settiendatghe(0)
-                  setdatghe(false)
-                }}
-              >
-                Xóa
-              </span>
+              {!hoadondatghe && (
+                <span
+                  className='remove'
+                  onClick={() => {
+                    setSelectedSeat('')
+                    settiendatghe(0)
+                    setdatghe(false)
+                  }}
+                >
+                  Xóa
+                </span>
+              )}
             </div>
           </div>
-          <button className='confirm-btn'>
-            Xác nhận chọn ghế (Phí: {tiendatghe.toLocaleString()})
-          </button>
+          {!hoadondatghe ? (
+            <button className='confirm-btn' onClick={handledatghe}>
+              Xác nhận chọn ghế (Phí: {tiendatghe.toLocaleString()})
+            </button>
+          ) : (
+            <button className='confirm-btn' onClick={handlehuydatghe}>
+              Hủy đặt ghế
+            </button>
+          )}
         </div>
       )}
       <div className='column-header'>

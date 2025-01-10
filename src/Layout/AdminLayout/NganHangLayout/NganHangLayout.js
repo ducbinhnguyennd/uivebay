@@ -4,12 +4,14 @@ import { MdEdit } from 'react-icons/md'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { AddNganHang } from './AddNganHang'
 import { EditNganHang } from './EditNganHang'
+import { ModalDelete } from '../../../components/ModalDelete'
+import { MdDelete } from 'react-icons/md'
 
 function NganHangLayout () {
   const [data, setData] = useState([])
   const [isOpenAdd, setIsOpenAdd] = useState(false)
   const [isOpenEdit, setIsOpenEdit] = useState(false)
-  //   const [isOpenThanhPho, setIsOpenThanhPho] = useState(false)
+  const [isOpenDelete, setIsOpenDelete] = useState(false)
   const [selectedIds, setSelectedIds] = useState([])
   const { showToast } = useToast()
   const [tennganhang, settennganhang] = useState('')
@@ -73,7 +75,6 @@ function NganHangLayout () {
         item => item._id === selectedIds[0]
       )?.chinhanh
 
-
       settennganhang(selectedTennganhang)
       settendaydu(selectedTendaydu)
       settentaikhoan(selectedTentaikhoan)
@@ -85,6 +86,33 @@ function NganHangLayout () {
       showToast('Bạn chỉ được phép chọn 1 ngân hàng để cập nhật.', 'warning')
     } else {
       showToast('Vui lòng chọn 1 ngân hàng để cập nhật.', 'warning')
+    }
+  }
+
+  const Delete = async () => {
+    try {
+      const response = await fetch(`https://demovemaybay.shop/deletenganhang`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ids: selectedIds })
+      })
+      if (response.ok) {
+        fetchVung()
+        setSelectedIds([])
+        showToast('Xóa ngân hàng thành công', 'success')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const Handeldelte = () => {
+    if (selectedIds.length > 0) {
+      setIsOpenDelete(true)
+    } else {
+      showToast('Vui lòng chọn ít nhất 1 ngân hàng để xóa.', 'warning')
     }
   }
 
@@ -101,6 +129,10 @@ function NganHangLayout () {
         <div className='divvungitem' onClick={handleUpdate}>
           <MdEdit />
           Cập nhật ngân hàng
+        </div>
+        <div className='divvungitem' onClick={Handeldelte}>
+          <MdDelete />
+          Xóa ngân hàng
         </div>
       </div>
       <table border='1'>
@@ -166,6 +198,12 @@ function NganHangLayout () {
         sotk={sotaikhoan}
         chiNh={chinhanh}
         idnganhang={selectedIds[0]}
+      />
+      <ModalDelete
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        ten='ngân hàng'
+        Delete={Delete}
       />
     </div>
   )

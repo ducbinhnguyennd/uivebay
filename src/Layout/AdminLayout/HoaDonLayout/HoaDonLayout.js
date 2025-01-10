@@ -3,6 +3,7 @@ import { FaCity } from 'react-icons/fa'
 import { useToast } from '../../../components/useToast/ToastContext'
 import { publicRoutes } from '../../../router'
 import { useNavigate } from 'react-router-dom'
+import { GiConfirmed } from 'react-icons/gi'
 
 function HoaDonLayout () {
   const [data, setData] = useState([])
@@ -19,7 +20,7 @@ function HoaDonLayout () {
 
   const fetchVung = async () => {
     try {
-      const response = await fetch('https://demovemaybay.shop/gethoadon')
+      const response = await fetch('http://localhost:3013/gethoadon')
       const data = await response.json()
       if (response.ok) {
         setData(data)
@@ -70,6 +71,10 @@ function HoaDonLayout () {
         <div className='divvungitem' onClick={handleHoaDon}>
           <FaCity />
           Chi tiết
+        </div>
+        <div className='divvungitem' onClick={handleHoaDon}>
+          <GiConfirmed />
+          Duyệt thanh toán
         </div>
       </div>
       <table border='1'>

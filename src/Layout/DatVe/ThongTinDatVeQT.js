@@ -6,14 +6,12 @@ import { useNavigate } from 'react-router-dom'
 import './DatVe.scss'
 import { useToast } from '../../components/useToast/ToastContext'
 import {
-  getAirlineName,
   calculateDuration
 } from '../SearchLayout/SearchLayoutFunction'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
 
 function ThongTinDatVeQT () {
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
-  const [hangmaybay, sethangmaybay] = useState([])
   const [namelienhe, setnamelienhe] = useState('')
   const [phone, setphone] = useState('')
   const [email, setemail] = useState('')
@@ -25,6 +23,8 @@ function ThongTinDatVeQT () {
   const [ghichu, setghichu] = useState('')
   const [valuethemkhach, setvaluethemkhach] = useState('')
   const [phantrams, setphantram] = useState([])
+  const [makhuyenmai, setmakhuyenmai] = useState('')
+
 
   const navigate = useNavigate()
 
@@ -97,17 +97,7 @@ function ThongTinDatVeQT () {
     }
   }
 
-  const fetchhang = async () => {
-    try {
-      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
-      const data = await response.json()
-      if (response.ok) {
-        sethangmaybay(data)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+
 
   const fetchphantram = async () => {
     try {
@@ -122,7 +112,6 @@ function ThongTinDatVeQT () {
   }
 
   useEffect(() => {
-    fetchhang()
     fetchphantram()
   }, [])
 
@@ -222,7 +211,8 @@ function ThongTinDatVeQT () {
           diachi,
           ghichu,
           tienve,
-          khachhangs
+          khachhangs,
+          mavoucher: makhuyenmai
         })
       })
       if (response.ok) {
@@ -897,6 +887,24 @@ function ThongTinDatVeQT () {
                       </td>
                     </tr>
                   )}
+                  <tr>
+                    <td
+                      colspan='2'
+                      className='remark'
+                      style={{ paddingTop: '10px' }}
+                    >
+                      <label htmlFor=''>Mã khuyến mãi {`(nếu có)`}</label>
+                      <input
+                        id='cphMainColumn_ctl00_usrContactInfoD_chkRemarkAll'
+                        type='text'
+                        name='ctl00$cphMainColumn$ctl00$usrContactInfoD$chkRemarkAll'
+                        placeholder='Nhập mã khuyến mãi'
+                        value={makhuyenmai}
+                        onChange={e => setmakhuyenmai(e.target.value)}
+                      />
+                    </td>
+                  </tr>
+
                   <tr>
                     <td colspan='2'>
                       <div className='tblotherflight'>

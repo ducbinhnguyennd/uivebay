@@ -11,7 +11,6 @@ import './ThongTinDatKhuHoi.scss'
 
 function ThongTinDatKhuHoiQT () {
   const [isRemarkChecked, setIsRemarkChecked] = useState(false)
-  const [hangmaybay, sethangmaybay] = useState([])
   const [phone, setphone] = useState('')
   const [email, setemail] = useState('')
   const [xuathoadon, setxuathoadon] = useState(false)
@@ -19,11 +18,10 @@ function ThongTinDatKhuHoiQT () {
   const [tencongty, settencongty] = useState('')
   const [diachi, setdiachi] = useState('')
   const [ghichu, setghichu] = useState('')
-  const [themkhach, setthemkhach] = useState(false)
   const [valuethemkhach, setvaluethemkhach] = useState('')
-  const [sokhachthem, setsokhachthem] = useState(0)
   const [phantrams, setphantram] = useState([])
   const [namelienhe, setnamelienhe] = useState('')
+  const [makhuyenmai, setmakhuyenmai] = useState('')
 
   const navigate = useNavigate()
 
@@ -47,18 +45,6 @@ function ThongTinDatKhuHoiQT () {
     setmangnguoi
   } = useToast()
 
-  const fetchhang = async () => {
-    try {
-      const response = await fetch('https://demovemaybay.shop/gethangmaybay')
-      const data = await response.json()
-      if (response.ok) {
-        sethangmaybay(data)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   const fetchphantram = async () => {
     try {
       const response = await fetch('https://demovemaybay.shop/getphantram')
@@ -72,7 +58,6 @@ function ThongTinDatKhuHoiQT () {
   }
 
   useEffect(() => {
-    fetchhang()
     fetchphantram()
   }, [])
 
@@ -248,7 +233,8 @@ function ThongTinDatKhuHoiQT () {
           hourvefrom: flightdata.inbound.departureTime,
           hourveto: flightdata.inbound.arrivalTime,
           tienveve,
-          khachhangs
+          khachhangs,
+          mavoucher: makhuyenmai
         })
       })
       if (response.ok) {
@@ -966,7 +952,7 @@ function ThongTinDatKhuHoiQT () {
                         <table id='remark-details'>
                           <tbody>
                             <tr>
-                              <td style={{width:'1000px'}}>
+                              <td style={{ width: '1000px' }}>
                                 <textarea
                                   name='ctl00$cphMainColumn$ctl00$usrContactInfoD$txtRemark'
                                   rows='5'
@@ -976,7 +962,7 @@ function ThongTinDatKhuHoiQT () {
                                   placeholder='Ghi chú về đơn hàng'
                                   value={ghichu}
                                   onChange={e => setghichu(e.target.value)}
-                                  style={{width:'100%'}}
+                                  style={{ width: '100%' }}
                                 ></textarea>
                               </td>
                             </tr>
@@ -985,6 +971,24 @@ function ThongTinDatKhuHoiQT () {
                       </td>
                     </tr>
                   )}
+                  <tr>
+                    <td
+                      colspan='2'
+                      className='remark'
+                      style={{ paddingTop: '10px' }}
+                    >
+                      <label htmlFor=''>Mã khuyến mãi {`(nếu có)`}</label>
+                      <input
+                        id='cphMainColumn_ctl00_usrContactInfoD_chkRemarkAll'
+                        type='text'
+                        name='ctl00$cphMainColumn$ctl00$usrContactInfoD$chkRemarkAll'
+                        placeholder='Nhập mã khuyến mãi'
+                        value={makhuyenmai}
+                        onChange={e => setmakhuyenmai(e.target.value)}
+                      />
+                    </td>
+                  </tr>
+
                   <tr>
                     <td colspan='2'>
                       <div className='tblotherflight'>

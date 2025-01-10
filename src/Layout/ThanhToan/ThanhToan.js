@@ -1,78 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useToast } from '../../components/useToast/ToastContext'
 import { CalendarFormat } from '../../components/LunarCalendarFormat/LunarCalendarFormat'
-import { ModalSuccess } from '../../components/ModalSuccess'
 import DatGhe from './DatGhe'
 
 import './ThanhToan.scss'
 const ThanhToan = () => {
-  const { hoadon } = useToast()
-  const [datagiaodich, setdatagiaodich] = useState({})
-  const [isOpen, setisOpen] = useState(false)
+  const { hoadon,sethoadon } = useToast()
   const [selectedSeat, setSelectedSeat] = useState('')
   const [tiendatghe, settiendatghe] = useState(0)
   const [datghe, setdatghe] = useState(false)
-
-  const fetchdonhang = async () => {
-    try {
-      const response = await fetch(
-        'https://script.google.com/macros/s/AKfycby1vSXFZ-76JgB0LSAjH-cN91P3yX47zRJVA2M0vUP0IB-ZdPfVBfamllzmHn6TbLhLvQ/exec'
-      )
-      const data = await response.json()
-      if (response.ok) {
-        setdatagiaodich(data)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const checkTransaction = async () => {
-    const description = `${hoadon.mahoadon} ${hoadon.tongtien}`
-    const isMatched = datagiaodich.data?.some(transaction =>
-      transaction['Mô tả'].includes(description)
-    )
-    if (isMatched) {
-      try {
-        const response = await fetch(
-          `https://demovemaybay.shop/postthanhtoan/${hoadon.mahoadon}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-              tiendatghe,
-              datghe,
-              ghe:selectedSeat
-             })
-          }
-        )
-        if (response.ok) {
-          setisOpen(true)
-          localStorage.clear()
-        }
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchdonhang()
-
-    const interval = setInterval(() => {
-      fetchdonhang()
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    checkTransaction()
-  }, [datagiaodich, hoadon])
 
   return (
     <div className='divthanhtoantong'>
@@ -178,10 +116,14 @@ const ThanhToan = () => {
             name={hoadon.namelienhe}
             datghe={datghe}
             setdatghe={setdatghe}
+            idhoadon={hoadon._id}
+            hoadondatghe={hoadon.datghe}
+            hoadonghe={hoadon.ghe}
+            sethoadon={sethoadon}
+            hoadon={hoadon}
           />
         </div>
       </div>
-      <ModalSuccess isOpen={isOpen} onClose={() => setisOpen(false)} />
     </div>
   )
 }
