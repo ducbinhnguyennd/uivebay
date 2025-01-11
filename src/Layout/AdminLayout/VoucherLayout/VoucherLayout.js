@@ -30,7 +30,7 @@ function VungLayout () {
 
   const fetchVung = async () => {
     try {
-      const response = await fetch('http://localhost:3013/getvoucher')
+      const response = await fetch('https://demovemaybay.shop/getvoucher')
       const data = await response.json()
       if (response.ok) {
         setData(data)
@@ -80,7 +80,7 @@ function VungLayout () {
 
   const Delete = async () => {
     try {
-      const response = await fetch(`http://localhost:3013/deletevouchers`, {
+      const response = await fetch(`https://demovemaybay.shop/deletevouchers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

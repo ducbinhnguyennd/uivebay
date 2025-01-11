@@ -32,7 +32,7 @@ function EditVung ({ isOpen, onClose, fetchdata, soTien, idvoucher }) {
     if (validateinput()) {
       try {
         const response = await fetch(
-          `http://localhost:3013/putvoucher/${idvoucher}`,
+          `https://demovemaybay.shop/putvoucher/${idvoucher}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

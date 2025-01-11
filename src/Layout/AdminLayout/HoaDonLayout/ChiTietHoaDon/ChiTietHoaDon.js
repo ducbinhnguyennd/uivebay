@@ -9,7 +9,7 @@ function ChitiethoadonAdmin ({ isOpen, onClose, idhoadon }) {
   const fetchHoadon = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3013/getchitiethoadon/${idhoadon}`
+        `https://demovemaybay.shop/getchitiethoadon/${idhoadon}`
       )
       const result = await response.json()
       if (response.ok) {
@@ -29,7 +29,6 @@ function ChitiethoadonAdmin ({ isOpen, onClose, idhoadon }) {
   }, [idhoadon])
 
   if (!isOpen) return null
-
 
   return (
     <ModalBig isOpen={isOpen} onClose={onClose}>
@@ -133,8 +132,7 @@ function ChitiethoadonAdmin ({ isOpen, onClose, idhoadon }) {
               {data.datghe && (
                 <>
                   <p>
-                    <strong>Ghế đặt:</strong>{' '}
-                    {data.ghe.toLocaleString('vi-VN')}
+                    <strong>Ghế đặt:</strong> {data.ghe.toLocaleString('vi-VN')}
                   </p>
 
                   <p>

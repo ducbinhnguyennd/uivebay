@@ -9,7 +9,6 @@ import { ModalDelete } from '../../../components/ModalDelete'
 import { MdDelete } from 'react-icons/md'
 import { CgDetailsMore } from 'react-icons/cg'
 
-
 function HoaDonLayout () {
   const [data, setData] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
@@ -29,7 +28,7 @@ function HoaDonLayout () {
 
   const fetchVung = async () => {
     try {
-      const response = await fetch('http://localhost:3013/gethoadon')
+      const response = await fetch('https://demovemaybay.shop/gethoadon')
       const data = await response.json()
       if (response.ok) {
         setData(data)
@@ -64,7 +63,7 @@ function HoaDonLayout () {
 
   const handleDuyet = async () => {
     try {
-      const response = await fetch('http://localhost:3013/postthanhtoan', {
+      const response = await fetch('https://demovemaybay.shop/postthanhtoan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -102,16 +101,13 @@ function HoaDonLayout () {
 
   const Delete = async () => {
     try {
-      const response = await fetch(
-        `https://demovemaybay.shop/deletehoadon`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ idhoadons: selectedIds })
-        }
-      )
+      const response = await fetch(`https://demovemaybay.shop/deletehoadon`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idhoadons: selectedIds })
+      })
       if (response.ok) {
         fetchVung()
         setSelectedIds([])

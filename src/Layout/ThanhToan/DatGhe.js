@@ -63,7 +63,7 @@ const DatGhe = ({
   const handledatghe = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3013/postchonghe/${idhoadon}`,
+        `https://demovemaybay.shop/postchonghe/${idhoadon}`,
         {
           method: 'POST',
           headers: {
@@ -91,7 +91,7 @@ const DatGhe = ({
   const handlehuydatghe = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3013/huychonghe/${idhoadon}`,
+        `https://demovemaybay.shop/huychonghe/${idhoadon}`,
         {
           method: 'POST',
           headers: {

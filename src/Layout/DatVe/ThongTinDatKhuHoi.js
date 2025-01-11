@@ -81,7 +81,7 @@ function ThongTinDatKhuHoi () {
       return
     }
     try {
-      const response = await fetch('http://localhost:3013/searchvoucher', {
+      const response = await fetch('https://demovemaybay.shop/searchvoucher', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -25,7 +25,7 @@ function AddVoucher ({ isOpen, onClose, fetchdata }) {
   const handleadd = async () => {
     if (validateinput()) {
       try {
-        const response = await fetch('http://localhost:3013/postvoucher', {
+        const response = await fetch('https://demovemaybay.shop/postvoucher', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sotien: sotien })
