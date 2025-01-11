@@ -1000,7 +1000,7 @@ function ThongTinDatVeQT () {
                         ĐẶT VÉ
                       </a>
                       <a
-                        href='/search'
+                        href='/searchquocte'
                         className='btn-submit'
                         style={{
                           float: 'left',

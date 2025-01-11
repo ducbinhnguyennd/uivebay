@@ -1320,7 +1320,7 @@ function ThongTinDatKhuHoi () {
                         ĐẶT VÉ
                       </a>
                       <a
-                        href='/search'
+                        href='/searchkhuhoi'
                         className='btn-submit'
                         style={{
                           float: 'left',
