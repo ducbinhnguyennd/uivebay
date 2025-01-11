@@ -33,7 +33,7 @@ const HeaderMB = () => {
             </a>
           </li>
           <li>
-            <a href="/huong-dan-thanh-toan">Hướng dẫn thanh toán</a>
+            <a href="/thongtinchuyenkhoan">Hướng dẫn thanh toán</a>
           </li>
           {/* <li>
             <a href="/gioi-thieu">Giới thiệu Abay</a>
